@@ -1,23 +1,39 @@
 import "../assets/stylesheets/style.css"
 import "../assets/stylesheets/bulma.css"
+import "../assets/stylesheets/ngpopover.css"
+import "../assets/stylesheets/videogular.css"
 
 import angular from "angular"
 import "angular-ui-router"
+import "videogular"
+import "videogular-controls"
+import "videogular-ima-ads"
+import "videogular-poster"
+import "videogular-buffering"
 
 // Import our app config files
 import constants  from "./config/app.constants"
 import appConfig  from "./config/app.config"
 import appRun     from "./config/app.run"
 
+// Import commons
+import "./common/popover"
+
 // Import app component
 import "./universes/home"
+import "./universes/user"
 import "./universes/article"
 
 // Create and bootstrap application
 const requires = [
   "ui.router",
+  "com.2fdevs.videogular",
+  "com.2fdevs.videogular.plugins.controls",
+  "com.2fdevs.videogular.plugins.poster",
   "app.home",
+  "app.user",
   "app.article",
+  "ngPopover",
 ]
 
 // Mount on window for testing

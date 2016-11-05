@@ -9,7 +9,6 @@ const postcssCssnext = require("postcss-cssnext")
 const isProduction = process.env.NODE_ENV === "production"
 const host = process.env.APP_HOST || "localhost"
 const entryPath = path.resolve(__dirname, "src/app/", "app.js")
-const assetPath = path.resolve(__dirname, "src/assets/")
 const buildPath = path.resolve(__dirname, "dist")
 
 const config = {
@@ -60,6 +59,10 @@ const config = {
       {
         test: /\.html$/,
         loader: "html",
+      },
+      {
+        test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        loader : "file",
       },
       {
         test: /\.(ico|jpe?g|png|gif)$/,

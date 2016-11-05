@@ -6,4 +6,10 @@ export default function ArticleConfig($stateProvider) {
       controller: "ArticleListCtrl",
       title: "Article",
     })
+    .state("videoCreation", {
+      url: "/video/create",
+      template: require("./video/create.html"),
+      controller: "VideoCreationCtrl",
+      title: "Article",
+    })
 }

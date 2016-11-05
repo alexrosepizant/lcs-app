@@ -9,7 +9,6 @@ const proxy = httpProxy.createProxyServer()
 const isProduction = process.env.NODE_ENV === "production"
 const host = process.env.APP_HOST || "localhost"
 const port = isProduction ? 80 : 3000
-const db = mongoose.connection
 
 const publicPath = path.join(__dirname, "../src/public/")
 const routesPath = __dirname + "/routes"
@@ -59,17 +58,13 @@ app.get("/*", function(req, res) {
   res.sendFile(path.join(publicPath, "index.html"))
 })
 
-// mongoose.connect("mongodb://localhost/mean-dev", {server:{auto_reconnect:true}}, function(err) {
-//   if (err) {
-//     console.error("\x1b[31m", "Could not connect to MongoDB!")
-//     console.log(err)
-//   }  else {
-//     app.listen(port, function() {
-//       console.log("Express app started on port " + port)
-//     })
-//   }
-// })
-
-app.listen(port, function() {
-  console.log("Express app started on port " + port)
+mongoose.connect("mongodb://localhost/lcs", {server:{auto_reconnect:true}}, function(err) {
+  if (err) {
+    console.error("\x1b[31m", "Could not connect to MongoDB!")
+    console.log(err)
+  }  else {
+    app.listen(port, function() {
+      console.log("Express app started on port " + port)
+    })
+  }
 })
