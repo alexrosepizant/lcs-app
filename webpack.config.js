@@ -38,17 +38,20 @@ const config = {
   },
   module: {
     loaders: [
+      // Js
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: ["babel?compact=false", "eslint"],
       },
+      // Json
       {
         test: /\.json$/,
         loaders: [
           "json",
         ],
       },
+      // Css
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
@@ -56,14 +59,19 @@ const config = {
           "css",
           "postcss?from=src/assets/stylesheets/*.css"),
       },
+      // Html
       {
         test: /\.html$/,
-        loader: "html",
+        loader: "html?" + JSON.stringify({
+          attrs: ["img:src", "img:ng-src"],
+        }),
       },
+      // Fonts
       {
         test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
         loader : "file",
       },
+      // Images
       {
         test: /\.(ico|jpe?g|png|gif)$/,
         loader: "file",

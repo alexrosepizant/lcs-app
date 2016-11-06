@@ -4,23 +4,26 @@
      <div class="columns">
        <div class="column is-2">
          <div class="image is-128x128 avatar">
-           <img src="https://placehold.it/256x256">
+           <img ng-src="{{ user.avatar && user.avatar + '?dim=300' || 'https://placehold.it/256x256'}}">
+           <div class="spacer"></div>
+           <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
+             Changer la photo
+           </div>
          </div>
        </div>
        <div class="column is-4 name">
          <p>
            <span class="title is-bold">John Smith</span>
-           <span class="button is-primary is-outlined follow">Envoyer un message</span>
          </p>
          <p class="tagline">The users profile bio would go here, of course. It could be two lines</p>
        </div>
        <div class="column is-2 followers has-text-centered">
          <p class="stat-val">129k</p>
-         <p class="stat-key">followers</p>
+         <p class="stat-key">Articles postés</p>
        </div>
        <div class="column is-2 following has-text-centered">
          <p class="stat-val">2k</p>
-         <p class="stat-key">following</p>
+         <p class="stat-key">Commentaires</p>
        </div>
        <div class="column is-2 likes has-text-centered">
          <p class="stat-val">29</p>
@@ -44,30 +47,12 @@
      <nav class="level">
        <!-- Left side -->
        <div class="level-left">
-         <div class="level-item">
-           <p class="subtitle is-5">
-             <strong>123</strong> posts
-           </p>
-         </div>
-         <div class="level-item">
-           <p class="control has-addons">
-             <input class="input" type="text" placeholder="Find a post">
-             <button class="button">
-               Search
-             </button>
-           </p>
-         </div>
-       </div>
-
-       <!-- Right side -->
-       <div class="level-right">
          <p class="level-item"><strong>All</strong></p>
          <p class="level-item"><a>Published</a></p>
          <p class="level-item"><a>Drafts</a></p>
          <p class="level-item"><a>Deleted</a></p>
          <p class="level-item"><a class="button is-success">New</a></p>
        </div>
-     </nav>
    </div>
 
    <div class="spacer"></div>
@@ -87,9 +72,8 @@
            </div>
          </div>
          <footer class="card-footer">
-           <a class="card-footer-item">Save</a>
-           <a class="card-footer-item">Edit</a>
-           <a class="card-footer-item">Delete</a>
+           <a class="card-footer-item">Modifier</a>
+           <a class="card-footer-item">Supprimer</a>
          </footer>
        </div>
        <br>

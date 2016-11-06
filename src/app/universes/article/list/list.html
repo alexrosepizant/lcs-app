@@ -1,9 +1,35 @@
 <div class="container">
   <div class="columns">
     <div class="column is-8">
-      <div class="notification is-danger">
-        <button class="delete" onclick="((this).parentNode.remove())"></button>
-        This template is not yet finished, it may change. Please check the readme for more information.
+      <div class="nav menu">
+        <div class="container">
+          <div class="nav-left">
+            <a class="nav-item is-tab is-active"><span class="icon-btn"><i class="fa fa-plus"></i></span></a>
+            <a class="nav-item is-tab">
+              <span class="icon-btn">
+                <i class="fa fa-print"></i>
+              </span>
+            </a>
+            <a class="nav-item is-tab">
+              <span class="icon-btn thin">
+                <i class="fa fa-lock"></i>
+              </span>
+            </a>
+            <a class="nav-item is-tab">
+              <span class="icon-btn">
+                <i class="fa fa-trash"></i>
+              </span>
+            </a>
+            <div class="nav-item is-tab">
+              <strong>2 items selected</strong>
+            </div>
+          </div>
+          <div class="nav-right is-hidden-mobile">
+            <a class="nav-item" ui-sref="standardCreation">
+              <span class=" button is-success">Ajouter</span>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="box">
         <article class="media">
@@ -155,12 +181,12 @@
     <div class="column is-4">
       <div class="box trending">
         <p class="trend-title"><span class="title is-5">Les tags</span></p>
-        <span class="tag is-dark">Dark</span>
+        <span class="tag is-primary">Dark</span>
         <span class="tag is-primary">Primary</span>
-        <span class="tag is-info">Info</span>
-        <span class="tag is-success">Success</span>
-        <span class="tag is-warning">Warning</span>
-        <span class="tag is-danger">Danger</span>
+        <span class="tag is-primary">Info</span>
+        <span class="tag is-primary">Success</span>
+        <span class="tag is-primary">Warning</span>
+        <span class="tag is-primary">Danger</span>
       </div>
       <div class="box">
         <p><span class="title is-5">Ceux qui postent le plus</span> · <a href="#">Voir tous</a></p>

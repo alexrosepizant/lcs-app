@@ -13,7 +13,7 @@ module.exports = function(app, passport) {
   app.get("/users/:userId", users.findOne)
 
 	// Setting up the users api
-	app.post( "/users", users.create );
+  app.post("/users", users.create)
   app.put("/users/:userId", users.update)
 
 	// Setting up the userId param

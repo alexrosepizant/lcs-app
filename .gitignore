@@ -2,7 +2,7 @@
 .idea
 npm-debug.log
 
-server/public/img/users/
+server/public/img/users
 server/public/.cache
 node_modules
 dist

@@ -11,6 +11,14 @@ body {
   height: 100%;
 }
 
+.top-menu-container {
+  background-color: #fff;
+}
+
+.top-menu-container nav {
+  border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+}
+
 .button.is-success {
   background-color: var(--MainColor);
 }
@@ -135,18 +143,19 @@ a.file:not(.button) {
 
 .profile-heading .name {
   border-right: 1px solid #f1f1f1;
-  margin:-30px 0;
-  padding: 40px 30px 0 30px;
+  margin: -30px 0;
+  padding: 40px 30px 0;
 }
 
-.profile-heading .followers, .profile-heading .following {
+.profile-heading .followers,
+.profile-heading .following {
   border-right: 1px solid #f1f1f1;
-  margin:-30px 0;
+  margin: -30px 0;
   padding: 70px 30px;
 }
 
 .profile-heading .likes {
-  margin:-30px 0;
+  margin: -30px 0;
   padding: 70px 30px;
 }
 
@@ -162,21 +171,21 @@ a.file:not(.button) {
 
 .profile-options {
   background-color: #f1f1f1;
-  margin:-20px 0 20px 0;
+  margin: -20px 0 20px 0;
 }
 
 .profile-options .link a {
-  padding:18px;
+  padding: 18px;
   font-size: 18px;
 }
 
 .profile-options .link .icon {
   font-size: 16px;
-  padding-top:2px;
+  padding-top: 2px;
 }
 
 .tagline {
-  padding:20px 0;
+  padding: 20px 0;
   font-size: 16px;
   line-height: 1.4;
 }
@@ -198,6 +207,6 @@ p.title.is-bold {
 }
 
 .card .timestamp {
-  float:right;
-  color:#bbb;
+  float: right;
+  color: #bbb;
 }

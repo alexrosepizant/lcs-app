@@ -1,11 +1,13 @@
 "use strict"
 
+const path= require("path")
 const moment = require("moment")
 const passport = require("passport")
 const mongoose = require("mongoose")
 const  _ = require("lodash")
 
-const  User = mongoose.model("User")
+const publicPath = path.join(__dirname, "../../src/public/")
+const User = mongoose.model("User")
 
 /**
  * Auth callback
@@ -18,17 +20,15 @@ exports.authCallback = function(req, res) {
  * Show login form
  */
 exports.signin = function(req, res) {
-  res.render("users/signin", {
-    title: "Signin",
-    message: req.flash("error"),
-  })
+  console.warn("signin")
+  res.sendFile(path.join(publicPath, "login.html"))
 }
 
 /**
  * Show sign up form
  */
 exports.signup = function(req, res) {
-  res.render("users/signup", {
+  res.sendFile(path.join(publicPath, "login.html"),{
     title: "Sign up",
     user: new User(),
   })
@@ -47,6 +47,7 @@ exports.signout = function(req, res) {
  */
 exports.session = function(req, res) {
 	// Update the last connection date of user when creating session
+  console.log("la la la")
   User.update({
     _id: req.user._id,
   }, {
@@ -57,7 +58,7 @@ exports.session = function(req, res) {
   }, {
     upsert: false,
   }, function() {
-    res.redirect("/")
+    res.sendFile(path.join(publicPath, "index.html"))
   })
 }
 

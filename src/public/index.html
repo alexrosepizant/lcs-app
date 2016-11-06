@@ -1,102 +1,109 @@
 <!doctype html>
 <html>
-<head>
-  <title>App Title</title>
-  <meta charset="utf-8"/>
-  <meta name="fragment" content="!"/>
-  <meta http-equiv="X-UA-Compatible">
-  <meta name="description" content="">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/dist/style.css">
-</head>
-<body>
-  <base href="/">
-  <nav class="nav has-shadow" id="top">
-    <div class="container">
-      <div class="nav-left">
-        <a class="nav-item is-tab">
-          <img src="https://placehold.it/64x64" class="avatar-photo">
-        </a>
-        <p class="control has-addons searchbox">
-          <input class="input" type="text" placeholder="Rechercher un truc...">
-          <a class="button">
-            &nbsp; <i class="fa fa-search"></i> &nbsp;
+  <head>
+    <title>App Title</title>
+    <meta charset="utf-8"/>
+    <meta name="fragment" content="!"/>
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/dist/style.css">
+  </head>
+  <body>
+    <base href="/">
+    <div class="top-menu-container" ng-controller="GlobalCtrl">
+      <div class="container">
+        <nav class="nav">
+          <div class="nav-left">
+            <a class="nav-item is-tab">
+              <h1 class="title">
+                Les coqs soccer
+              </h1>
+            </a>
+            <p class="control has-addons searchbox">
+              <input class="input" type="text" placeholder="Rechercher un truc...">
+              <a class="button">
+                &nbsp; <i class="fa fa-search"></i> &nbsp;
+              </a>
+            </p>
+          </div>
+          <div class="nav-right nav-menu">
+            <a class="nav-item is-tab">
+              <i class="fa fa-bell-o"></i>
+            </a>
+            <ng-popover
+            trigger="popover-trigger"
+            direction="left"
+            popover-class="custom-popover"
+            on-open="openCallback()"
+            on-close="closeCallback()">
+            <nav class="panel user-popover">
+              <p class="panel-heading">
+                Mes infos
+              </p>
+              <a class="panel-block is-active" ui-sref="profile">
+                <span class="panel-icon">
+                  <i class="fa fa-user-circle"></i>
+                </span>
+                Profile
+              </a>
+              <a class="panel-block" href="#">
+                <span class="panel-icon">
+                  <i class="fa fa-wrench"></i>
+                </span>
+                Paramètres
+              </a>
+              <a class="panel-block" href="#">
+                <span class="panel-icon">
+                  <i class="fa fa-sign-out"></i>
+                </span>
+                Déconnexion
+              </a>
+            </nav>
+          </ng-popover>
+          <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
+            <img src="https://placehold.it/64x64" class="avatar-photo">
+            <span class="icon icon-chevron">
+              <i class="fa fa-chevron-down"></i>
+            </span>
           </a>
-        </p>
-      </div>
-      <div class="nav-right nav-menu">
-        <a class="nav-item is-tab">
-          <i class="fa fa-bell-o"></i>
-        </a>
-        <ng-popover
-        trigger="popover-trigger"
-        direction="left"
-        popover-class="custom-popover"
-        on-open="openCallback()"
-        on-close="closeCallback()">
-        <nav class="panel user-popover">
-          <p class="panel-heading">
-            Mes infos
+        </div>
+      </nav>
+      <nav class="nav">
+        <div class="container">
+          <div class="nav-left">
+            <a class="nav-item is-tab is-active" ui-sref="home">Accueil</a>
+            <a class="nav-item is-tab" ui-sref="article">Blog</a>
+            <a class="nav-item is-tab" ui-sref="agenda">Agenda</a>
+            <a class="nav-item is-tab" ui-sref="videoCreation">La boite à idées</a>
+            <a class="nav-item is-tab" ui-sref="votes">Votes</a>
+            <a class="nav-item is-tab" ui-sref="votes">Partage de fichiers</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    </div>
+    <div class="spacer"></div>
+
+    <!-- Angular views -->
+    <ui-view></ui-view>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="has-text-centered">
+          <p>
+            <strong>Les coqs soccer</strong> par <a href="#">Alexandre ROSE-PIZANT</a>.
+            The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
           </p>
-          <a class="panel-block is-active" ui-sref="profile">
-            <span class="panel-icon">
-              <i class="fa fa-user-circle"></i>
-            </span>
-            Profile
-          </a>
-          <a class="panel-block" href="#">
-            <span class="panel-icon">
-              <i class="fa fa-wrench"></i>
-            </span>
-            Paramètres
-          </a>
-          <a class="panel-block" href="#">
-            <span class="panel-icon">
-              <i class="fa fa-sign-out"></i>
-            </span>
-            Déconnexion
-          </a>
-        </nav>
-      </ng-popover>
-      <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
-        <img src="https://placehold.it/64x64" class="avatar-photo">
-        <span class="icon icon-chevron">
-          <i class="fa fa-chevron-down"></i>
-        </span>
-      </a>
-    </div>
-  </div>
-</nav>
-<nav class="nav has-shadow">
-  <div class="container">
-    <div class="nav-left">
-      <a class="nav-item is-tab is-active" ui-sref="home">Accueil</a>
-      <a class="nav-item is-tab" ui-sref="article">Blog</a>
-      <a class="nav-item is-tab" ui-sref="agenda">Agenda</a>
-      <a class="nav-item is-tab" ui-sref="videoCreation">La boite à idées</a>
-      <a class="nav-item is-tab" ui-sref="votes">Votes</a>
-      <a class="nav-item is-tab" ui-sref="votes">Partage de fichiers</a>
-    </div>
-  </div>
-</nav>
-<div class="spacer"></div>
-<ui-view></ui-view>
-<footer class="footer">
-  <div class="container">
-    <div class="has-text-centered">
-      <p>
-        <strong>Les coqs soccer</strong> par <a href="#">Alexandre ROSE-PIZANT</a>. The source code is licensed
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
-      </p>
-      <p>
-        <a class="icon" href="#">
-          <i class="fa fa-github"></i>
-        </a>
-      </p>
-    </div>
-  </div>
-</footer>
-<script src="/dist/script.js"></script>
-</body>
+          <p>
+            <a class="icon" href="#">
+              <i class="fa fa-github"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script src="/dist/script.js"></script>
+  </body>
 </html>

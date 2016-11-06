@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <title>App Title</title>
+  <meta charset="utf-8"/>
+  <meta name="fragment" content="!"/>
+  <meta http-equiv="X-UA-Compatible">
+  <meta name="description" content="">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/dist/style.css">
+</head>
+<body>
+  <section class="hero is-fullheight is-dark is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column is-4 is-offset-4">
+            <h1 class="title">
+              Connexion
+            </h1>
+            <div class="box">
+              <form action="/users/session" method="post">
+                <label class="label">Email</label>
+                <p class="control">
+                  <input class="input" type="text" name="email" placeholder="Adresse mail">
+                </p>
+                <label class="label">Mot de passe</label>
+                <p class="control">
+                  <input class="input" type="password" name="password" placeholder="●●●●●●●">
+                </p>
+                <hr>
+                <p class="control">
+                  <button class="button is-primary" type="submit">Connexion</button>
+                  <button class="button is-default">Annuler</button>
+                </p>
+              </div>
+              <p class="has-text-centered">
+                <a href="/signup">Créer un compte</a>
+                |
+                <a href="#">Mot de passe oublié</a>
+                |
+                <a href="#">Besoin d'aide?</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

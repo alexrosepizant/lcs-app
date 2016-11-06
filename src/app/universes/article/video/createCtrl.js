@@ -1,8 +1,43 @@
-export default function VideoCreationCtrl($scope, $sce, ArticleFactory) {
+export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload, $timeout) {
 
   $scope.showError = false
   $scope.API = null
   $scope.url = ""
+
+  $scope.$watch("files", function() {
+    $scope.upload($scope.files)
+  })
+  $scope.$watch("file", function() {
+    if ($scope.file !== null) {
+      $scope.files = [$scope.file]
+    }
+  })
+  $scope.log = ""
+
+  $scope.upload = function(files) {
+    if (files && files.length) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+        if (!file.$error) {
+          Upload.upload({
+            url: "/upload",
+            data: {
+              username: $scope.username,
+              file: file,
+            },
+          }).then(function(resp) {
+            $timeout(function() {
+              $scope.log = "file: " + resp.config.data.file.name +
+               ", Response: " + JSON.stringify(resp.data) + "\n" + $scope.log
+            })
+          }, null, function(evt) {
+            const progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+            console.warn(progressPercentage)
+          })
+        }
+      }
+    }
+  }
 
   $scope.onPlayerReady = function(API) {
     $scope.API = API

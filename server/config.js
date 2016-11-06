@@ -3,13 +3,13 @@
 const path = require("path")
 
 module.exports = {
-  db: "mongodb://localhost/app-dev",
+  db: "mongodb://localhost/mean-dev",
   app: {
-    name: "appName",
+    name: "lcs-app",
   },
   root: path.normalize(__dirname + "/../"),
   port: process.env.PORT || 80,
-  sessionSecret: "APP",
+  sessionSecret: "MEAN",
   sessionCollection: "sessions",
   uploadDirectory: "public/img/users/",
   cacheDirectoryX300: "public/.cache/crop/300/img/users/",

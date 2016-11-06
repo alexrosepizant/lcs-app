@@ -1,4 +1,3 @@
-const path = require("path")
 const fs = require("fs")
 const express = require("express")
 const httpProxy = require("http-proxy")
@@ -10,7 +9,6 @@ const isProduction = process.env.NODE_ENV === "production"
 const host = process.env.APP_HOST || "localhost"
 const port = isProduction ? 80 : 3000
 
-const publicPath = path.join(__dirname, "../src/public/")
 const routesPath = __dirname + "/routes"
 const modelsPath = __dirname + "/models"
 
@@ -53,10 +51,6 @@ if (!isProduction) {
     console.log("Could not connect to proxy, please try again...")
   })
 }
-
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(publicPath, "index.html"))
-})
 
 mongoose.connect("mongodb://localhost/lcs", {server:{auto_reconnect:true}}, function(err) {
   if (err) {

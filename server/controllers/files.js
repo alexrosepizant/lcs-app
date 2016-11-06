@@ -56,7 +56,10 @@ exports.uploadPhoto = function(req, res) {
 function handlePhotoUpload(params, callbacks) {
   console.log("inside handlePhotoUpload") // <-- never reached using IE9
 
-  if (params.file && params.file.type !== "image/png" && params.file.type !== "image/jpeg" && params.file.type !== "image/gif") {
+  if (params.file
+    && params.file.mimetype !== "image/png"
+    && params.file.mimetype !== "image/jpeg"
+    && params.file.mimetype !== "image/gif") {
     callbacks.uploadFailure("Wrong file type")
     return
   }
@@ -67,41 +70,44 @@ function handlePhotoUpload(params, callbacks) {
   const newName = photoId + "." + oldImage.path.split(".").pop()
   const newPath = path.resolve(config.root + "/server/" + config.uploadDirectory + newName)
 
+  console.warn(oldImage.path)
+
   gm(oldImage.path)
-		.autoOrient()
-		.write(newPath, function(err) {
-
-  if (err) {
-
-    console.log("Error when trying to move new image " + err)
-    callbacks.uploadFailure(err)
-
-  } else {
-
-    const image = gm(newPath)
-    image.resize(300, "^")
-    image.gravity("Center")
-    image.quality(0.7)
-    image.autoOrient()
-    image.write(path.resolve(config.root + "/server/" + config.cacheDirectoryX300 + newName), function(err) {
+    .autoOrient()
+    .write(newPath, function(err) {
 
       if (err) {
-        console.log("Error when trying to resize img in 300 format" + err)
+
+        console.log("Error when trying to move new image " + err)
+        callbacks.uploadFailure(err)
+
+      } else {
+
+        console.log("inside")
+        const image = gm(newPath)
+        image.resize(300, "^")
+        image.gravity("Center")
+        image.quality(0.7)
+        image.autoOrient()
+        image.write(path.resolve(config.root + "/server/" + config.cacheDirectoryX300 + newName), function(err) {
+
+          if (err) {
+            console.log("Error when trying to resize img in 300 format" + err)
+          }
+
+          // Remove origin file in all case
+          fs.unlink(oldImage.path, function(err) {
+
+            if (err) {
+              console.log("Erorr when trying to delete image " + err)
+              callbacks.uploadFailure(err)
+            } else {
+              console.log("Successfully deleted : " + oldImage.path)
+              callbacks.uploadSuccess(newName, oldName)
+            }
+
+          })
+        })
       }
-
-					// Remove origin file in all case
-      fs.unlink(oldImage.path, function(err) {
-
-        if (err) {
-          console.log("Erorr when trying to delete image " + err)
-          callbacks.uploadFailure(err)
-        } else {
-          console.log("Successfully deleted : " + oldImage.path)
-          callbacks.uploadSuccess(newName, oldName)
-        }
-
-      })
     })
-  }
-})
 }
