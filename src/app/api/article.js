@@ -1,40 +1,33 @@
 export default function ArticleFactory($http) {
-
-  function getArticles($scope) {
-    $http.get("/articles").success((articles) => {
-      $scope.articles = articles
-    })
-  }
-
-  function getArticle($scope, articleId) {
-    $http.get(`/articles/${articleId}`).success((article) => {
-      $scope.article = article
-    })
-  }
-
-  function createArticle($scope, article) {
-    $http.post("/articles", article).success((article) => {
-      $scope.article = article
-    })
-  }
-
-  function updateArticle($scope, article) {
-    $http.put(`/articles/${article._id}`, article).success(() => {
-      getTasks($scope)
-    })
-  }
-
-  function deleteArticle($scope, article) {
-    $http.delete(`/articles/${article._id}`).success(() => {
-      console.log("Article succefully deleted")
-    })
-  }
-
   return {
-    getArticles,
-    getArticle,
-    createArticle,
-    updateArticle,
-    deleteArticle,
+    loadArticles($scope) {
+      $http.get("/articles").then((articles) => {
+        $scope.articles = articles.data
+      })
+    },
+
+    findArticle($scope, articleId) {
+      $http.get(`/articles/${articleId}`).then((article) => {
+        $scope.article = article
+      })
+    },
+
+    createArticle($scope, article) {
+      $http.post("/articles", article).then((article) => {
+        $scope.article = article
+      })
+    },
+
+    updateArticle($scope, article) {
+      $http.put(`/articles/${article._id}`, article).then(() => {
+        console.log("Article succefully updated")
+      })
+    },
+
+    deleteArticle($scope, article) {
+      $http.delete(`/articles/${article._id}`).then(() => {
+        console.log("Article succefully deleted")
+      })
+    },
   }
 }

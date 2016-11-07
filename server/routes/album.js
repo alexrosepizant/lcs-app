@@ -4,17 +4,9 @@
 const albums = require("../controllers/albums")
 const authorization = require("./middlewares/authorization")
 
-// Albums authorization helpers
-const hasAuthorization = function(req, res, next) {
-  if (req.album.user.id !== req.user.id) {
-    return res.send(401, "User is not authorized")
-  }
-  next()
-}
-
 module.exports = function(app) {
 
-	/** Album C.R.U.D. **/
+	// CRUD endPoints
   app.post("/albums", albums.addAlbum)
   app.get("/albums", albums.findAllAlbums)
   app.get("/albums/:id", albums.findAlbumById)

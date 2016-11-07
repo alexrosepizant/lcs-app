@@ -4,7 +4,7 @@
      <div class="columns">
        <div class="column is-2">
          <div class="image is-128x128 avatar">
-           <img ng-src="{{ user.avatar && user.avatar + '?dim=300' || 'https://placehold.it/256x256'}}">
+           <img ng-src="{{ user.avatar && user.avatar + '?dim=300x300' || 'https://placehold.it/256x256'}}">
            <div class="spacer"></div>
            <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
              Changer la photo
@@ -34,11 +34,31 @@
    <div class="profile-options">
      <div class="tabs is-fullwidth">
        <ul>
-         <li class="link is-active"><a><span class="icon"><i class="fa fa-list"></i></span> <span>My Lists</span></a></li>
-         <li class="link"><a><span class="icon"><i class="fa fa-heart"></i></span> <span>My Likes</span></a></li>
-         <li class="link"><a><span class="icon"><i class="fa fa-th"></i></span> <span>My Posts</span></a></li>
-         <li class="link"><a><span class="icon"><i class="fa fa-bookmark"></i></span> <span>My Bookmarks</span></a></li>
-       </ul>
+         <li class="link is-active">
+           <a>
+             <span class="icon"><i class="fa fa-vcard"></i></span>
+             <span>Mes infos</span>
+           </a>
+         </li>
+         <li class="link">
+           <a>
+             <span class="icon"><i class="fa fa-th"></i></span>
+             <span>Mes publications</span>
+           </a>
+         </li>
+         <li class="link">
+           <a>
+             <span class="icon"><i class="fa fa-bookmark"></i></span>
+             <span>Mes favoris</span>
+           </a>
+         </li>
+         <li class="link">
+           <a>
+             <span class="icon"><i class="fa fa-check-square"></i></span>
+             <span>Mes actions</span>
+           </a>
+         </li>
+        </ul>
      </div>
    </div>
 

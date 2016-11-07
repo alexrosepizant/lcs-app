@@ -73,7 +73,7 @@
           }
 
           default: {
-            left = getTriggerOffset().left +"px"
+            left = getTriggerOffset().left + "px"
             top = getTriggerOffset().top + triggerHeight + 10 + "px"
           }
           }

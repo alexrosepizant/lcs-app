@@ -13,14 +13,23 @@ body {
 
 .top-menu-container {
   background-color: #fff;
+  margin-bottom: 20px;
 }
 
 .top-menu-container nav {
   border-bottom: 1px solid rgba(10, 10, 10, 0.1);
 }
 
-.button.is-success {
-  background-color: var(--MainColor);
+.searchbox {
+  margin-top: 10px;
+}
+
+.searchbox input {
+  width: 300px !important;
+}
+
+.footer {
+  margin-top: 20px;
 }
 
 .content {
@@ -62,42 +71,14 @@ body {
   color: var(--MainColor);
 }
 
-.files {
-  padding: 50px 0;
+.mainTitle {
+  font-weight: 500 !important;
+  padding-top: 10px;
+  text-transform: uppercase;
 }
 
-.file {
-  display: block;
-  padding: 20px;
-}
-
-a.file:not(.button) {
-  border-bottom: none;
-  border-radius: 4px;
-}
-
-.file:hover,
-.file.active,
-.file:active {
-  background-color: #e4e9eb;
-}
-
-.file .image img {
-  padding-bottom: 10px;
-}
-
-.file .name {
-  font-weight: bold;
-  word-wrap: break-word;
-  word-break: break-all;
-  font-size: 16px;
-  color: #69707a;
-}
-
-.file .timestamp {
-  font-weight: bold;
-  font-size: 14px;
-  color: #b9c2c4;
+.button.is-success {
+  background-color: var(--MainColor);
 }
 
 .spacer {
@@ -110,6 +91,10 @@ a.file:not(.button) {
 
 .avatar-photo {
   border-radius: 50px;
+}
+
+.font-medium {
+  font-size: medium !important;
 }
 
 .title {
@@ -127,8 +112,7 @@ a.file:not(.button) {
 .ng-popover-wrapper {
   position: relative;
   z-index: 2;
-  min-width: 150px;
-  text-align: left;
+  min-width: 200px;
 }
 
 .user-popover {
@@ -138,7 +122,7 @@ a.file:not(.button) {
 
 .profile-heading {
   margin: 20px 0;
-  padding-bottom: 30px;
+  padding-bottom: 40px;
 }
 
 .profile-heading .name {
@@ -192,6 +176,7 @@ a.file:not(.button) {
 
 .avatar {
   float: right;
+  margin-top: -10px;
 }
 
 .follow {

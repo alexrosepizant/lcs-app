@@ -6,6 +6,7 @@ const authorization = require("./middlewares/authorization")
 
 module.exports = function(app) {
 
+  // CRUD endPoints
   app.get("/articles/:articleId", articles.show)
   app.get("/articles", articles.all)
   app.post("/articles", authorization.requiresLogin, articles.create)

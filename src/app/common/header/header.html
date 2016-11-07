@@ -1,0 +1,73 @@
+<div class="container">
+  <nav class="nav">
+    <div class="nav-left">
+      <a class="nav-item" ui-sref="home">
+        <h1 class="title">
+          Les coqs soccer
+        </h1>
+      </a>
+      <p class="control has-addons searchbox">
+        <input type="text"
+               ng-model="searchWord"
+               class="input"
+               placeholder="Rechercher un truc..." />
+        <a class="button" ng-click="search()">
+          &nbsp; <i class="fa fa-search"></i> &nbsp;
+        </a>
+      </p>
+    </div>
+    <div class="nav-right nav-menu">
+      <a class="nav-item is-tab">
+        <i class="fa fa-bell-o"></i>
+      </a>
+      <ng-popover
+      trigger="popover-trigger"
+      direction="left"
+      popover-class="custom-popover"
+      on-open="openCallback()"
+      on-close="closeCallback()">
+      <nav class="panel user-popover">
+        <p class="panel-heading">
+          Connecté en tant que {{currentUser.username}}
+        </p>
+        <a class="panel-block is-active" ui-sref="profile">
+          <span class="panel-icon">
+            <i class="fa fa-user-circle"></i>
+          </span>
+          Profile
+        </a>
+        <a class="panel-block" href="#">
+          <span class="panel-icon">
+            <i class="fa fa-wrench"></i>
+          </span>
+          Paramètres
+        </a>
+        <a class="panel-block" ng-click="logout()">
+          <span class="panel-icon">
+            <i class="fa fa-sign-out"></i>
+          </span>
+          Déconnexion
+        </a>
+      </nav>
+    </ng-popover>
+    <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
+      <img src="https://placehold.it/64x64" class="avatar-photo">
+      <span class="icon icon-chevron">
+        <i class="fa fa-chevron-down"></i>
+      </span>
+    </a>
+  </div>
+</nav>
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-left">
+        <a ng-repeat="item in menu"
+           ui-sref="{{item.link}}"
+           class="nav-item is-tab"
+           ng-class="{'is-active' : isCurrentPath(item)}">
+          {{item.name}}
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>

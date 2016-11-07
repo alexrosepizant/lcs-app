@@ -4,16 +4,9 @@
 const votes = require("../controllers/votes")
 const authorization = require("./middlewares/authorization")
 
-// Article authorization helpers
-const hasAuthorization = function(req, res, next) {
-  if (req.suggestion.user.id !== req.user.id) {
-    return res.send(401, "User is not authorized")
-  }
-  next()
-}
-
 module.exports = function(app) {
 
+  // CRUD endPoints
   app.get("/votes", votes.all)
   app.post("/votes", authorization.requiresLogin, votes.create)
   app.get("/votes/:suggestionId", votes.show)

@@ -6,8 +6,9 @@ const authorization = require("./middlewares/authorization")
 
 module.exports = function(app) {
 
+  // CRUD endPoints
   app.get("/conversation", conversations.all)
-  app.post("/conversation", conversations.create)
+  app.post("/conversation", authorization.requiresLogin, conversations.create)
   app.get("/conversation/:conversationId", conversations.show)
   app.put("/conversation/:conversationId", conversations.update)
 

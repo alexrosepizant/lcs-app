@@ -1,0 +1,64 @@
+<section class="hero is-fullheight is-dark is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-4 is-offset-4">
+          <h1 class="title">
+            Connexion
+          </h1>
+          <div class="box">
+            <form name="form" ng-submit="login(form)" novalidate>
+              <label class="label">Email</label>
+              <div class="control" ng-class="{'has-error': form.email.$error.mongoose}">
+                <p class="control has-icon has-icon-right">
+                  <input type="text"
+                         name="email"
+                         class="input"
+                         ng-model="user.email"
+                         required
+                         autofocus
+                         mongoose-error
+                         ng-class="{'is-danger' : errors.email && !form.email.$focused}"
+                         placeholder="Adresse mail">
+                   <i class="fa fa-warning" ng-show="errors.email && !form.email.$focused"></i>
+                   <span class="help is-danger" ng-show="errors.email && !form.email.$focused">
+                     Nom d'utilisateur inconnu
+                   </span>
+                 </p>
+              </div>
+              <label class="label">Mot de passe</label>
+              <div class="control">
+                <p class="control has-icon has-icon-right">
+                  <input type="password"
+                         name="password"
+                         class="input"
+                         ng-class="{'is-danger' : errors.password && !form.password.$focused}"
+                         ng-model="user.password"
+                         placeholder="●●●●●●●"
+                         required
+                         mongoose-error/>
+                   <i class="fa fa-warning" ng-show="errors.password && !form.password.$focused"></i>
+                   <span class="help is-danger" ng-show="errors.password && !form.password.$focused">
+                     Mot de passe incorrect
+                   </span>
+                 </p>
+              </div>
+              <hr>
+              <p class="control">
+                <button class="button is-primary" type="submit">Connexion</button>
+                <button class="button is-default">Annuler</button>
+              </p>
+            </div>
+            <p class="has-text-centered">
+              <a ui-sref="signup">Créer un compte</a>
+              |
+              <a href="#">Mot de passe oublié</a>
+              |
+              <a href="#">Besoin d'aide?</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

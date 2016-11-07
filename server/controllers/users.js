@@ -1,124 +1,65 @@
 "use strict"
 
-const path= require("path")
 const moment = require("moment")
-const passport = require("passport")
 const mongoose = require("mongoose")
 const  _ = require("lodash")
 
-const publicPath = path.join(__dirname, "../../src/public/")
 const User = mongoose.model("User")
 
 /**
- * Auth callback
+ * Request param
  */
-exports.authCallback = function(req, res) {
-  res.redirect("/")
-}
-
-/**
- * Show login form
- */
-exports.signin = function(req, res) {
-  console.warn("signin")
-  res.sendFile(path.join(publicPath, "login.html"))
-}
-
-/**
- * Show sign up form
- */
-exports.signup = function(req, res) {
-  res.sendFile(path.join(publicPath, "login.html"),{
-    title: "Sign up",
-    user: new User(),
+exports.user = function(req, res, next, id) {
+  User.findOne({
+    _id: id,
+  }).exec(function(err, user) {
+    if (err) return next(err)
+    if (!user) return next(new Error("Failed to load User " + id))
+    req.profile = user
+    next()
   })
 }
 
 /**
- * Logout
+ * Check if user exist
  */
-exports.signout = function(req, res) {
-  req.logout()
-  res.redirect("/")
-}
-
-/**
- * Session
- */
-exports.session = function(req, res) {
-	// Update the last connection date of user when creating session
-  console.log("la la la")
-  User.update({
-    _id: req.user._id,
-  }, {
-    $set: {
-      lastConnectionDate: new Date(),
-      previousConnectionDate: req.user.lastConnectionDate,
-    },
-  }, {
-    upsert: false,
-  }, function() {
-    res.sendFile(path.join(publicPath, "index.html"))
-  })
-}
-
-/**
- * Before call session
- */
-exports.isFutureSessionValid = function(req, res) {
-  passport.authenticate("local", function(err, user, info) {
+exports.exists = function(req, res, next) {
+  const username = req.params.username
+  User.findOne({username : username}, function(err, user) {
     if (err) {
-      return res.jsonp({
-        authenticate: false,
-        error: err,
-        info: info,
-      })
+      return next(new Error("Failed to load User " + username))
     }
-    if (!user) {
-      return res.jsonp({
-        authenticate: false,
-        error: 101,
-        info: info,
-      })
+
+    if (user) {
+      res.json({exists: true})
+    } else {
+      res.json({exists: false})
     }
-    return res.jsonp({
-      authenticate: true,
-      error: null,
-    })
-  })(req, res)
+  })
 }
 
 /**
  * Create user
  */
 exports.create = function(req, res, next) {
-  const user = new User(req.body)
-  let message = null
+  const newUser = new User(req.body)
+  newUser.provider = "local"
 
-  user.provider = "local"
-  user.save(function(err) {
+  newUser.save(function(err) {
     if (err) {
-      switch (err.code) {
-      case 11000:
-      case 11001:
-        message = "Pseudo déjà utilisé"
-        break
-      default:
-        message = "Veuillez renseigner l'ensemble des champs"
-      }
-
-      return res.render("users/signup", {
-        message: message,
-        user: user,
-      })
+      return res.status(400).json(err)
     }
-    req.logIn(user, function(err) {
+
+    req.logIn(newUser, function(err) {
       if (err) return next(err)
-      return res.redirect("/")
+      return res.json(newUser.user_info)
     })
   })
 }
 
+/**
+ * Update user
+ */
 exports.update = function(req, res) {
   const user = _.extend(req.user, req.body)
   user.save(function(err) {
@@ -141,21 +82,29 @@ exports.me = function(req, res) {
 }
 
 /**
- * Find user by id
+ * Return current user
  */
-exports.user = function(req, res, next, id) {
-  User.findOne({
-    _id: id,
-  }).exec(function(err, user) {
-    if (err) return next(err)
-    if (!user) return next(new Error("Failed to load User " + id))
-    req.profile = user
-    next()
-  })
-}
-
 exports.findOne = function(req, res) {
   res.jsonp(req.profile)
+}
+
+/**
+ *  Show profile
+ *  returns {username, profile}
+ */
+exports.show = function(req, res, next) {
+  const userId = req.params.userId
+
+  User.findById(ObjectId(userId), function(err, user) {
+    if (err) {
+      return next(new Error("Failed to load User"))
+    }
+    if (user) {
+      res.send({username: user.username, profile: user.profile})
+    } else {
+      res.send(404, "USER_NOT_FOUND")
+    }
+  })
 }
 
 /**
@@ -201,7 +150,6 @@ exports.calculatePopularity = function() {
   if (err) {
     console.warn("err: " + err)
   } else {
-
     _.each(users, function(user) {
       const newVal = "30"
       user.popularity = newVal

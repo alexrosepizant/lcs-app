@@ -36,12 +36,18 @@ module.exports = function(passport) {
       }
       if (!user) {
         return done(null, false, {
-          message: "Unknown user",
+          errors: [{
+            message: "Unknown user",
+            path: "email",
+          }],
         })
       }
       if (!user.authenticate(password)) {
         return done(null, false, {
-          message: "Invalid password",
+          errors: [{
+            message: "Invalid password",
+            path: "password",
+          }],
         })
       }
       return done(null, user)

@@ -3,7 +3,6 @@ const session = require("express-session")
 const favicon = require("serve-favicon")
 const methodOverride = require("method-override")
 const bodyParser = require("body-parser")
-const flash = require("connect-flash")
 const multer = require("multer")
 const logger = require("morgan")
 const cookieParser = require("cookie-parser")
@@ -34,7 +33,6 @@ module.exports = function(app, passport) {
   app.use(bodyParser.urlencoded({extended: true}))
   app.use(multer())
   app.use(methodOverride())
-  app.use(flash)
 
   // Assets rendering
   app.use(serveStatic(assetDirectory))

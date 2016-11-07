@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
   },
-  hashed_password: String,
+  hashedPassword: String,
   provider: String,
   salt: String,
   avatar: {
@@ -84,13 +84,26 @@ const UserSchema = new Schema({
 /**
  * Virtuals
  */
-UserSchema.virtual("password").set(function(password) {
-  this._password = password
-  this.salt = this.makeSalt()
-  this.hashed_password = this.encryptPassword(password)
-}).get(function() {
-  return this._password
-})
+UserSchema
+  .virtual("password")
+  .set(function(password) {
+    this._password = password
+    this.salt = this.makeSalt()
+    this.hashedPassword = this.encryptPassword(password)
+  }).get(function() {
+    return this._password
+  })
+
+UserSchema
+  .virtual("user_info")
+  .get(function() {
+    return {
+      "_id": this._id,
+      "username": this.username,
+      "email": this.email,
+      "avatar": this.avatar,
+    }
+  })
 
 /**
  * Validations
@@ -99,41 +112,40 @@ const validatePresenceOf = function(value) {
   return value && value.length
 }
 
-// the below 4 validations only apply if you are signing up traditionally
-UserSchema.path("name").validate(function(name) {
-	// if you are authenticating by any of the oauth strategies, don"t validate
-  if (!this.provider) return true
-  return (typeof name === "string" && name.length > 0)
-}, "Name cannot be blank")
-
 UserSchema.path("email").validate(function(email) {
-	// if you are authenticating by any of the oauth strategies, don"t validate
-  if (!this.provider) return true
-  return (typeof email === "string" && email.length > 0)
-}, "Email cannot be blank")
+  const emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
+  return emailRegex.test(email)
+}, "The specified email is invalid.")
 
-UserSchema.path("username").validate(function(username) {
-	// if you are authenticating by any of the oauth strategies, don"t validate
-  if (!this.provider) return true
-  return (typeof username === "string" && username.length > 0)
-}, "Username cannot be blank")
+UserSchema.path("email").validate(function(value, respond) {
+  mongoose.models["User"].findOne({email: value}, function(err, user) {
+    if (err) throw err
+    if (user) return respond(false)
+    respond(true)
+  })
+}, "The specified email address is already in use.")
 
-UserSchema.path("hashed_password").validate(function(hashed_password) {
-	// if you are authenticating by any of the oauth strategies, don"t validate
-  if (!this.provider) return true
-  return (typeof hashed_password === "string" && hashed_password.length > 0)
-}, "Password cannot be blank")
+UserSchema.path("username").validate(function(value, respond) {
+  mongoose.models["User"].findOne({username: value}, function(err, user) {
+    if (err) throw err
+    if (user) return respond(false)
+    respond(true)
+  })
+}, "The specified username is already in use.")
 
 /**
  * Pre-save hook
  */
 UserSchema.pre("save", function(next) {
-  if (!this.isNew) return next()
+  if (!this.isNew) {
+    return next()
+  }
 
-  if (!validatePresenceOf(this.password) && !this.provider)
+  if (!validatePresenceOf(this.password) && !this.provider) {
     next(new Error("Invalid password"))
-  else
-		next()
+  } else {
+    next()
+  }
 })
 
 /**
@@ -148,7 +160,7 @@ UserSchema.methods = {
 	 * @api public
 	 */
   authenticate(plainText) {
-    return this.encryptPassword(plainText) === this.hashed_password
+    return this.encryptPassword(plainText) === this.hashedPassword
   },
 
 	/**

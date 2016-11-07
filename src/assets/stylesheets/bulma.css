@@ -5336,10 +5336,6 @@ a.panel-block:hover {
   margin-top: -10px;
 }
 
-.columns:last-child {
-  margin-bottom: -10px;
-}
-
 .columns:not(:last-child) {
   margin-bottom: 10px;
 }

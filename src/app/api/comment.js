@@ -1,40 +1,33 @@
 export default function CommentFactory($http) {
-
-  function getComments($scope) {
-    $http.get("/comments").success((comments) => {
-      $scope.comments = comments
-    })
-  }
-
-  function getComment($scope, commentId) {
-    $http.get(`/comments/${commentId}`).success((comment) => {
-      $scope.comment = comment
-    })
-  }
-
-  function createComment($scope, comment) {
-    $http.post("/comments", comment).success((comment) => {
-      $scope.comment = comment
-    })
-  }
-
-  function updateComment($scope, comment) {
-    $http.put(`/comments/${comment._id}`, comment).success(() => {
-      console.warn("Comment updated")
-    })
-  }
-
-  function getCommentCount($scope) {
-    $http.get("/commentsCount/").success((commentsCount) => {
-      $scope.commentsCount = commentsCount
-    })
-  }
-
   return {
-    getComments,
-    getComment,
-    createComment,
-    updateComment,
-    getCommentCount,
+    loadComments($scope) {
+      $http.get("/comments").then((comments) => {
+        $scope.comments = comments
+      })
+    },
+
+    findComment($scope, commentId) {
+      $http.get(`/comments/${commentId}`).then((comment) => {
+        $scope.comment = comment
+      })
+    },
+
+    createComment($scope, comment) {
+      $http.post("/comments", comment).then((comment) => {
+        $scope.comment = comment
+      })
+    },
+
+    updateComment($scope, comment) {
+      $http.put(`/comments/${comment._id}`, comment).then(() => {
+        console.warn("Comment updated")
+      })
+    },
+
+    getCommentCount($scope) {
+      $http.get("/commentsCount/").then((commentsCount) => {
+        $scope.commentsCount = commentsCount
+      })
+    },
   }
 }

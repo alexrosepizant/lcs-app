@@ -1,0 +1,83 @@
+<section class="hero is-fullheight is-dark is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-4 is-offset-4">
+          <h1 class="title">
+            Créer un compte
+          </h1>
+          <div class="box">
+            <form name="form" ng-submit="register(form)" novalidate>
+              <label class="label">Nom d'utilisateur</label>
+              <div class="control">
+                <p class="control has-icon has-icon-right">
+                  <input type="text"
+                         name="username"
+                         class="input"
+                         placeholder="jsmith"
+                         name="username"
+                         ng-model="user.username"
+                         required
+                         unique-username
+                         ng-class="{'is-danger' : errors.username && !form.username.$focused}"
+                         mongoose-error />
+                   <i class="fa fa-warning" ng-show="errors.username && !form.username.$focused"></i>
+                   <span class="help is-danger" ng-show="errors.username && !form.username.$focused">
+                     Le nom d'utilisateur est déjà utilisé
+                   </span>
+                </p>
+              </div>
+              <label class="label">Email</label>
+              <div class="control">
+                <p class="control has-icon has-icon-right">
+                  <input type="email"
+                         name="email"
+                         ng-model="user.email"
+                         required
+                         autofocus
+                         on-focus
+                         class="input"
+                         ng-class="{'is-danger' : errors.email && !form.email.$focused}"
+                         placeholder="jsmith@example.org" />
+                   <i class="fa fa-warning" ng-show="errors.email && !form.email.$focused"></i>
+                   <span class="help is-danger" ng-show="errors.email && !form.email.$focused">
+                     L'email est déjà utilisé
+                   </span>
+                 </p>
+              </div>
+              <hr>
+              <label class="label">Mot de passe</label>
+              <div class="control">
+                <input type="password"
+                       name="password"
+                       class="input"
+                       ng-model="user.password"
+                       ng-class="{'is-danger' : errors.password && !form.password.$focused}"
+                       placeholder="●●●●●●●"
+                       required
+                       mongoose-error>
+                <span class="help is-danger" ng-show="errors.password && !form.password.$focused">
+                  Le mot de passe n'est pas valide
+                </span>
+              </div>
+              <hr>
+              <p class="control">
+                <button type="submit"
+                        ng-disabled="form.$invalid"
+                        class="button is-primary">
+                        Créer
+                </button>
+                <button class="button is-default">Annuler</button>
+              </p>
+            </div>
+            <p class="has-text-centered">
+              <a ui-sref="login">Se connecter</a>
+              |
+              <a href="#">Besoin d'aide?</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

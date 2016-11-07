@@ -1,8 +1,10 @@
+const path= require("path")
 const fs = require("fs")
 const express = require("express")
 const httpProxy = require("http-proxy")
 const passport = require("passport")
 const mongoose = require("mongoose")
+const config = require("./config")
 
 const proxy = httpProxy.createProxyServer()
 const isProduction = process.env.NODE_ENV === "production"
@@ -11,6 +13,7 @@ const port = isProduction ? 80 : 3000
 
 const routesPath = __dirname + "/routes"
 const modelsPath = __dirname + "/models"
+const publicPath = path.join(__dirname, "/../src/")
 
 const walk = function(path, app, withPasseport) {
   fs.readdirSync(path).forEach(function(file) {
@@ -52,7 +55,15 @@ if (!isProduction) {
   })
 }
 
-mongoose.connect("mongodb://localhost/lcs", {server:{auto_reconnect:true}}, function(err) {
+app.get("/*", function(req, res) {
+  if (req.user) {
+    res.cookie("user", JSON.stringify(req.user.user_info))
+  }
+
+  res.sendFile(path.join(publicPath, "index.html"))
+})
+
+mongoose.connect(config.db, {server:{auto_reconnect:true}}, function(err) {
   if (err) {
     console.error("\x1b[31m", "Could not connect to MongoDB!")
     console.log(err)

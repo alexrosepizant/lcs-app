@@ -7,24 +7,29 @@ import "../assets/stylesheets/videogular.css"
 // Import our angular libs
 import angular from "angular"
 import "angular-ui-router"
+import "angular-cookies"
+import "angular-http-auth"
+import "angular-resource"
+import "angular-sanitize"
+import "ng-file-upload"
 import "videogular"
 import "videogular-controls"
 import "videogular-ima-ads"
 import "videogular-poster"
 import "videogular-buffering"
-import "ng-file-upload"
 
 // Import our app config files
 import constants  from "./config/app.constants"
 import appConfig  from "./config/app.config"
 import appRun     from "./config/app.run"
 import GlobalFactory from "./api/global"
-import GlobalCtrl from "./common/global"
+import HeaderCtrl from "./common/header/headerCtrl"
 
 // Import commons
 import "./common/popover"
 
 // Import app component
+import "./universes/auth"
 import "./universes/home"
 import "./universes/user"
 import "./universes/article"
@@ -32,14 +37,19 @@ import "./universes/article"
 // Create and bootstrap application
 const requires = [
   "ui.router",
+  "http-auth-interceptor",
+  "ngCookies",
+  "ngResource",
+  "ngSanitize",
+  "ngFileUpload",
+  "ngPopover",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
   "com.2fdevs.videogular.plugins.poster",
-  "ngFileUpload",
+  "app.auth",
   "app.home",
   "app.user",
   "app.article",
-  "ngPopover",
 ]
 
 // Mount on window for testing
@@ -52,6 +62,6 @@ angular.module("app").config(appConfig)
 angular.module("app").run(appRun)
 
 angular.module("app").factory("GlobalFactory", GlobalFactory)
-angular.module("app").controller("GlobalCtrl", GlobalCtrl)
+angular.module("app").controller("HeaderCtrl", HeaderCtrl)
 
 angular.bootstrap(document, ["app"])

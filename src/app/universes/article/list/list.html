@@ -4,25 +4,29 @@
       <div class="nav menu">
         <div class="container">
           <div class="nav-left">
-            <a class="nav-item is-tab is-active"><span class="icon-btn"><i class="fa fa-plus"></i></span></a>
+            <div class="nav-item is-tab">
+              <strong>Filtrer par</strong>
+            </div>
+            <a class="nav-item is-tab is-active">
+              <span class="icon-btn">
+                <i class="fa fa-th-large"></i>
+              </span>
+            </a>
             <a class="nav-item is-tab">
               <span class="icon-btn">
-                <i class="fa fa-print"></i>
+                <i class="fa fa-align-left"></i>
               </span>
             </a>
             <a class="nav-item is-tab">
               <span class="icon-btn thin">
-                <i class="fa fa-lock"></i>
+                <i class="fa fa-play-circle"></i>
               </span>
             </a>
             <a class="nav-item is-tab">
               <span class="icon-btn">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-camera"></i>
               </span>
             </a>
-            <div class="nav-item is-tab">
-              <strong>2 items selected</strong>
-            </div>
           </div>
           <div class="nav-right is-hidden-mobile">
             <a class="nav-item" ui-sref="standardCreation">
@@ -31,19 +35,19 @@
           </div>
         </div>
       </div>
-      <div class="box">
+      <div ng-repeat="article in articles" class="box">
         <article class="media">
           <div class="media-left">
             <figure class="image is-64x64">
-              <img src="http://placehold.it/128x128" alt="Image">
+              <img ng-src="{{ article.user.avatar }}?dim=40x40" alt="Image">
             </figure>
           </div>
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                <strong>{{article.user.username}}</strong> <small>@johnsmith</small> <small>{{ getDateFrom(article) }}</small>
                 <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                {{article.content}}
               </p>
             </div>
             <nav class="level">
@@ -59,121 +63,6 @@
                 </a>
               </div>
             </nav>
-          </div>
-        </article>
-      </div>
-      <div class="box">
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="http://placehold.it/128x128">
-            </p>
-          </figure>
-          <div class="media-content">
-            <p class="control">
-              <textarea class="textarea" placeholder="Add a comment..."></textarea>
-            </p>
-            <nav class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <a class="button">Post comment</a>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </article>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="http://placehold.it/128x128">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                <br>
-                <small><a>Like</a> · <a>Reply</a></small>
-              </p>
-            </div>
-          </div>
-        </article>
-        <div class="spacer"></div>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="http://placehold.it/128x128">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                <br>
-                <small><a>Like</a> · <a>Reply</a></small>
-              </p>
-            </div>
-          </div>
-        </article>
-        <div class="spacer"></div>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="http://placehold.it/128x128">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                <br>
-                <small><a>Like</a> · <a>Reply</a></small>
-              </p>
-            </div>
-          </div>
-        </article>
-        <div class="spacer"></div>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="http://placehold.it/128x128">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                <br>
-                <small><a>Like</a> · <a>Reply</a></small>
-              </p>
-            </div>
-          </div>
-        </article>
-        <div class="spacer"></div>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="http://placehold.it/128x128">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                <br>
-                <small><a>Like</a> · <a>Reply</a></small>
-              </p>
-            </div>
           </div>
         </article>
       </div>

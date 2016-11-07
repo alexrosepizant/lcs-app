@@ -1,40 +1,33 @@
 export default function UserEventFactory($http) {
-
-  function getUserEvents($scope) {
-    $http.get("/userEvents").success((userEvents) => {
-      $scope.userEvents = userEvents
-    })
-  }
-
-  function getUserEvent($scope, userEventId) {
-    $http.get(`/userEvents/${userEventId}`).success((userEvent) => {
-      $scope.userEvent = userEvent
-    })
-  }
-
-  function createUserEvent($scope, userEvent) {
-    $http.post("/userEvents", userEvent).success((userEvent) => {
-      $scope.userEvent = userEvent
-    })
-  }
-
-  function updateUserEvent($scope, userEvent) {
-    $http.put(`/userEvents/${userEvent._id}`, userEvent).success(() => {
-      getTasks($scope)
-    })
-  }
-
-  function deleteUserEvent($scope, userEvent) {
-    $http.delete(`/userEvents/${userEvent._id}`).success(() => {
-      console.log("UserEvent succefully deleted")
-    })
-  }
-
   return {
-    getUserEvents,
-    getUserEvent,
-    createUserEvent,
-    updateUserEvent,
-    deleteUserEvent,
+    getUserEvents($scope) {
+      $http.get("/userEvents").then((userEvents) => {
+        $scope.userEvents = userEvents
+      })
+    },
+
+    getUserEvent($scope, userEventId) {
+      $http.get(`/userEvents/${userEventId}`).then((userEvent) => {
+        $scope.userEvent = userEvent
+      })
+    },
+
+    createUserEvent($scope, userEvent) {
+      $http.post("/userEvents", userEvent).then((userEvent) => {
+        $scope.userEvent = userEvent
+      })
+    },
+
+    updateUserEvent($scope, userEvent) {
+      $http.put(`/userEvents/${userEvent._id}`, userEvent).then(() => {
+        console.warn("UserEvent succefully updated")
+      })
+    },
+
+    deleteUserEvent($scope, userEvent) {
+      $http.delete(`/userEvents/${userEvent._id}`).then(() => {
+        console.log("UserEvent succefully deleted")
+      })
+    },
   }
 }

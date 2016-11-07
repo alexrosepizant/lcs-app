@@ -2,30 +2,27 @@
 
 // User routes use users controller
 const users = require("../controllers/users")
+const session = require("../controllers/session")
+const authorization = require("./middlewares/authorization")
 
-module.exports = function(app, passport) {
+module.exports = function(app) {
 
-  app.get("/signin", users.signin)
-  app.get("/signout", users.signout)
+  // Signup
+  app.post("/auth/users", users.create)
+  app.get("/auth/users/:userId", users.show)
 
+  // Login
+  app.get("/auth/check_username/:username", users.exists)
+  app.get("/auth/session", authorization.requiresLogin, session.session)
+  app.post("/auth/session", session.login)
+  app.delete("/auth/session", session.logout)
+
+  // CRUD endPoints
   app.get("/users", users.team)
   app.get("/users/me", users.me)
-  app.get("/users/:userId", users.findOne)
-
-	// Setting up the users api
-  app.post("/users", users.create)
   app.put("/users/:userId", users.update)
+  app.get("/users/:userId", users.findOne)
 
 	// Setting up the userId param
   app.param("userId", users.user)
-
-	// Setting the local strategy route
-  app.post("/users/session", passport.authenticate("local", {
-    failureRedirect: "/signin",
-    failureFlash: true,
-  }), users.session)
-
-	// To know if user is authenticate
-  app.post("/users/isFutureSessionValid", users.isFutureSessionValid)
-
 }

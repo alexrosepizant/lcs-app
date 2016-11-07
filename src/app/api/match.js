@@ -1,40 +1,33 @@
 export default function MatchFactory($http) {
-
-  function getMatchs($scope) {
-    $http.get("/matchs").success((match) => {
-      $scope.match = match
-    })
-  }
-
-  function getMatch($scope, matchId) {
-    $http.get(`/matchs/${matchId}`).success((match) => {
-      $scope.match = match
-    })
-  }
-
-  function createMatch($scope, match) {
-    $http.post("/matchs", match).success((match) => {
-      $scope.match = match
-    })
-  }
-
-  function updateMatch($scope, match) {
-    $http.put(`/matchs/${match._id}`, match).success(() => {
-      getTasks($scope)
-    })
-  }
-
-  function deleteMatch($scope, match) {
-    $http.delete(`/matchs/${match._id}`).success(() => {
-      console.log("Match succefully deleted")
-    })
-  }
-
   return {
-    getMatchs,
-    getMatch,
-    createMatch,
-    updateMatch,
-    deleteMatch,
+    getMatchs($scope) {
+      $http.get("/matchs").then((match) => {
+        $scope.match = match
+      })
+    },
+
+    getMatch($scope, matchId) {
+      $http.get(`/matchs/${matchId}`).then((match) => {
+        $scope.match = match
+      })
+    },
+
+    createMatch($scope, match) {
+      $http.post("/matchs", match).then((match) => {
+        $scope.match = match
+      })
+    },
+
+    updateMatch($scope, match) {
+      $http.put(`/matchs/${match._id}`, match).then(() => {
+        getTasks($scope)
+      })
+    },
+
+    deleteMatch($scope, match) {
+      $http.delete(`/matchs/${match._id}`).then(() => {
+        console.log("Match succefully deleted")
+      })
+    },
   }
 }

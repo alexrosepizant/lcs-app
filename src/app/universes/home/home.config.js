@@ -7,9 +7,5 @@ export default function HomeConfig($stateProvider) {
       template: require("./home.html"),
       controller: "HomeCtrl",
       title: "Accueil",
-      resolve: {
-        datas() {
-        },
-      },
     })
 }
