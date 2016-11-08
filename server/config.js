@@ -12,6 +12,7 @@ module.exports = {
   sessionSecret: "MEAN",
   sessionCollection: "sessions",
   uploadDirectory: "public/img/users/",
+  uploadVideoDirectory: "public/video/",
   cacheDirectoryX300: "public/.cache/crop/300/img/users/",
   cacheDirectoryX100: "public/.cache/crop/100x100/img/users/",
 }

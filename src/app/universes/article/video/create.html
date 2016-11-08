@@ -7,6 +7,12 @@
 				<i class="fa fa-warning ng-hide" ng-show="showError"></i>
 				<span class="help is-danger ng-hide" ng-show="showError">Ca marche pas</span>
 			</p>
+			<div>
+				ou
+			</div>
+			<div class="button" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="video/*,">
+				Upload une vidéo
+			</div>
 			<hr/>
 			<label class="label">Titre</label>
 			<p class="control">
@@ -23,20 +29,6 @@
 			</p>
 		</div>
 		<div class="column is-6">
-
-			on file change multiple:
-			<div class="button" ngf-select="upload($files)" ngf-multiple="true">Select File</div>
-			Drop File:
-			<div ngf-drop ngf-select ng-model="files" class="drop-box"
-					ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-					accept="image/*,application/pdf"
-					ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload</div>
-			<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-			Files:
-			<ul>
-					<li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
-			</ul>
-
 			<videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)" vg-theme="config.theme">
 				<vg-media vg-src="config.sources" vg-tracks="config.tracks">
 				</vg-media>

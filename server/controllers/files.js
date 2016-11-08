@@ -30,9 +30,9 @@ exports.uploadPhoto = function(req, res) {
 
       res.end(JSON.stringify({
         err: null,
-        path: config.uploadDirectory + newName,
+        path: newName,
         name: oldName,
-        location: config.uploadDirectory + newName,
+        location: newName,
       }))
     },
     uploadFailure() {
@@ -103,11 +103,42 @@ function handlePhotoUpload(params, callbacks) {
               callbacks.uploadFailure(err)
             } else {
               console.log("Successfully deleted : " + oldImage.path)
-              callbacks.uploadSuccess(newName, oldName)
+              callbacks.uploadSuccess(config.uploadDirectory + newName, oldName)
             }
 
           })
         })
       }
     })
+}
+
+exports.uploadVideo = function(req, res) {
+  console.log(req.files.file)
+  if (!req.files || !req.files.file) {
+    res.end(JSON.stringify({
+      err: 100, // Mettre en place des messages d"erreur
+      path: null,
+    }))
+  }
+
+  const oldPath = req.files.file.path
+  const name = req.files.file.name
+  // const ext = eq.files.file.ext
+
+  const newPath = path.resolve(config.root + "/server/" + config.uploadVideoDirectory + name)
+
+  fs.rename(oldPath, newPath, function(err) {
+
+    console.warn("end")
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+    })
+
+    res.end(JSON.stringify({
+      err: null,
+      path: newPath,
+      name: name,
+      location: config.uploadVideoDirectory + name,
+    }))
+  })
 }

@@ -28,6 +28,10 @@ body {
   width: 300px !important;
 }
 
+.small-margin-top {
+  margin-top: 5px;
+}
+
 .footer {
   margin-top: 20px;
 }
