@@ -17,6 +17,8 @@ import "videogular-controls"
 import "videogular-ima-ads"
 import "videogular-poster"
 import "videogular-buffering"
+// import "angular-route"
+// import "angular-translate-loader-static-files"
 
 // Import our app config files
 import constants  from "./config/app.constants"
@@ -37,12 +39,14 @@ import "./universes/article"
 // Create and bootstrap application
 const requires = [
   "ui.router",
+  // "angular-route", // for pascalprecht translator
   "http-auth-interceptor",
   "ngCookies",
   "ngResource",
   "ngSanitize",
   "ngFileUpload",
   "ngPopover",
+  // "pascalprecht.translate",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
   "com.2fdevs.videogular.plugins.poster",

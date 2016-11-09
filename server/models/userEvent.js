@@ -1,8 +1,5 @@
 "use strict"
 
-/**
- * Module dependencies.
- */
 const mongoose = require("mongoose")
 
 const	Schema = mongoose.Schema
@@ -114,9 +111,9 @@ const UserEventSchema = new Schema({
 /**
  * Validations
  */
-// UserEventSchema.path("content").validate(function(title) {
-//     return title.length;
-// }, "Content cannot be blank");
+UserEventSchema.path("title").validate(function(title) {
+  return title.length
+}, "Content cannot be blank")
 
 /**
  * Statics
@@ -127,4 +124,4 @@ UserEventSchema.statics.load = function(id, cb) {
   }).populate("userEvent", "name username avatar").exec(cb)
 }
 
-module.exports = mongoose.model("UserEvent", UserEventSchema)
+mongoose.model("UserEvent", UserEventSchema)

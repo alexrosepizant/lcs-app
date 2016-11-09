@@ -1,10 +1,9 @@
 "use strict"
-/**
- * Module dependencies.
- */
+
 const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
+
 /**
  * Article Schema
  */
@@ -134,12 +133,14 @@ const ArticleSchema = new Schema({
     })],
   })],
 })
+
 /**
  * Validations
  */
 ArticleSchema.path("title").validate(function(title) {
   return title.length
 }, "Title cannot be blank")
+
 /**
  * Statics
  */

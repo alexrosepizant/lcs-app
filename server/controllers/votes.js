@@ -9,80 +9,80 @@ const Article = mongoose.model("Article")
 
 
 /**
- * Find suggestion by id
+ * Find vote by id
  */
-exports.suggestion = function(req, res, next, id) {
-  Vote.load(id, function(err, suggestion) {
+exports.vote = function(req, res, next, id) {
+  Vote.load(id, function(err, vote) {
     if (err) return next(err)
-    if (!suggestion) return next(new Error("Failed to load suggestion " + id))
-    req.suggestion = suggestion
+    if (!vote) return next(new Error("Failed to load vote " + id))
+    req.vote = vote
     next()
   })
 }
 
 /**
- * Create a suggestion
+ * Create a vote
  */
 exports.create = function(req, res) {
-  const suggestion = new Vote(req.body)
-  suggestion.user = req.user
-  suggestion.save(function(err) {
+  const vote = new Vote(req.body)
+  vote.user = req.user
+  vote.save(function(err) {
     console.log(err)
     if (err) {
       return res.send("users/signup", {
         errors: err.errors,
-        suggestion: suggestion,
+        vote: vote,
       })
     } else {
-      res.jsonp(suggestion)
+      res.jsonp(vote)
     }
   })
 }
 
 /**
- * Update a suggestion
+ * Update a vote
  */
 exports.update = function(req, res) {
-  let suggestion = req.suggestion
-  suggestion = _.extend(suggestion, req.body)
-  suggestion.save(function(err) {
+  let vote = req.vote
+  vote = _.extend(vote, req.body)
+  vote.save(function(err) {
     if (err) {
       return res.send("users/signup", {
         errors: err.errors,
-        suggestion: suggestion,
+        vote: vote,
       })
     } else {
-      res.jsonp(suggestion)
+      res.jsonp(vote)
     }
   })
 }
 
 /**
- * Delete an suggestion
+ * Delete an vote
  */
 exports.destroy = function(req, res) {
-  const suggestion = req.suggestion
-  suggestion.remove(function(err) {
+  const vote = req.vote
+  vote.remove(function(err) {
     if (err) {
       return res.send("users/signup", {
         errors: err.errors,
-        suggestion: suggestion,
+        vote: vote,
       })
     } else {
-      res.jsonp(suggestion)
+      res.jsonp(vote)
     }
   })
 }
 
 /**
- * Show a suggestion
+ * Show a vote
  */
 exports.show = function(req, res) {
-  res.jsonp(req.suggestion)
+  res.jsonp(req.vote)
 }
 
 /**
- * List of suggestions
+ * List of votes
  */
 exports.all = function(req, res) {
 
@@ -94,19 +94,19 @@ exports.all = function(req, res) {
 		.limit(perPage)
 		.skip(perPage * page)
 		.populate("user", "_id name username avatar")
-		.exec(function(err, suggestions) {
+		.exec(function(err, votes) {
   if (err) {
     res.render("error", {
       status: 500,
     })
   } else {
-    res.jsonp(suggestions)
+    res.jsonp(votes)
   }
 })
 }
 
 /**
- * Create article from ended suggestion to see results
+ * Create article from ended vote to see results
  **/
 exports.closeVotes = function() {
 
@@ -118,12 +118,12 @@ exports.closeVotes = function() {
     },
   })
 		.sort("-created")
-		.exec(function(err, suggestions) {
+		.exec(function(err, votes) {
 
   if (err) {
-    console.warn("Error when to fetch suggestions " + err)
+    console.warn("Error when to fetch votes " + err)
   } else {
-    _.each(suggestions, function(suggestion) {
+    _.each(votes, function(vote) {
 
       const yes = []
       const no = []
@@ -131,28 +131,28 @@ exports.closeVotes = function() {
 
       const article = new Article({
         title: "Vote",
-        user: suggestion.user,
-        content: suggestion.content,
+        user: vote.user,
+        content: vote.content,
         type: "vote",
         comments: [],
-        created: suggestion.created,
+        created: vote.created,
       })
 
-      _.each(suggestion.yes, function(userId) {
+      _.each(vote.yes, function(userId) {
         yes.push({
           user: userId,
         })
       })
       article.yes = yes
 
-      _.each(suggestion.blank, function(userId) {
+      _.each(vote.blank, function(userId) {
         blank.push({
           user: userId,
         })
       })
       article.blank = blank
 
-      _.each(suggestion.no, function(userId) {
+      _.each(vote.no, function(userId) {
         no.push({
           user: userId,
         })
@@ -165,9 +165,9 @@ exports.closeVotes = function() {
           console.warn("Error when trying to save new article " + err)
         } else {
 
-          suggestion.remove(function(err) {
+          vote.remove(function(err) {
             if (err) {
-              console.warn("Error when trying to remove suggestion " + err)
+              console.warn("Error when trying to remove vote " + err)
             } else {
               console.warn("Vote removed with success")
             }
@@ -176,5 +176,4 @@ exports.closeVotes = function() {
       })
     })
   }
-})
-}
+})}

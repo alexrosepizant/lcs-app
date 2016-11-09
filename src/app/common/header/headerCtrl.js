@@ -23,8 +23,8 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location) {
     notificationNumber: 0,
   }, {
     name: "Boite à idées",
-    id: "videoCreation",
-    link: "videoCreation",
+    id: "idea",
+    link: "idea",
     notificationNumber: 0,
   }, {
     name: "Archives",

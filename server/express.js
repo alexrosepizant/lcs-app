@@ -27,14 +27,14 @@ module.exports = function(app, passport) {
   app.set("view engine", "ejs")
   app.engine(".html", require("ejs").renderFile)
 
-  // Express utilities
+  // Express utilities: cookies, bodyParser, uploadDirectory
   app.use(cookieParser())
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: true}))
-  app.use(multer())
+  app.use(multer({dest: config.uploadDirectory}))
   app.use(methodOverride())
 
-  // Assets rendering
+  // Assets rendering: server/app/favicon
   app.use(serveStatic(assetDirectory))
   app.use("/public", qt.static(serverPublicDir))
   app.use(favicon(faviconPath))

@@ -9,10 +9,10 @@ module.exports = function(app) {
   // CRUD endPoints
   app.get("/votes", votes.all)
   app.post("/votes", authorization.requiresLogin, votes.create)
-  app.get("/votes/:suggestionId", votes.show)
-  app.put("/votes/:suggestionId", authorization.requiresLogin, votes.update)
-  app.delete("/votes/:suggestionId", authorization.requiresLogin, votes.destroy)
+  app.get("/votes/:voteId", votes.show)
+  app.put("/votes/:voteId", authorization.requiresLogin, votes.update)
+  app.delete("/votes/:voteId", authorization.requiresLogin, votes.destroy)
 
-	// Finish with setting up the suggestionId param
-  app.param("suggestionId", votes.suggestion)
+	// Finish with setting up the voteId param
+  app.param("voteId", votes.vote)
 }

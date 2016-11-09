@@ -1,4 +1,5 @@
-// imports
+"use strict"
+
 const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
@@ -21,5 +22,4 @@ const commentSchema = new Schema({
   },
 })
 
-// Export comment model
-module.exports = mongoose.model("Comment", commentSchema)
+mongoose.model("Comment", commentSchema)

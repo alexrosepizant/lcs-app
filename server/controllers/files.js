@@ -68,7 +68,7 @@ function handlePhotoUpload(params, callbacks) {
   const oldName = oldImage.name || oldImage.name
   const photoId = guid()
   const newName = photoId + "." + oldImage.path.split(".").pop()
-  const newPath = path.resolve(config.root + "/server/" + config.uploadDirectory + newName)
+  const newPath = path.resolve(config.root + "/server/" + config.userImgDirectory + newName)
 
   console.warn(oldImage.path)
 
@@ -103,7 +103,7 @@ function handlePhotoUpload(params, callbacks) {
               callbacks.uploadFailure(err)
             } else {
               console.log("Successfully deleted : " + oldImage.path)
-              callbacks.uploadSuccess(config.uploadDirectory + newName, oldName)
+              callbacks.uploadSuccess(config.userImgDirectory + newName, oldName)
             }
 
           })
@@ -113,7 +113,6 @@ function handlePhotoUpload(params, callbacks) {
 }
 
 exports.uploadVideo = function(req, res) {
-  console.log(req.files.file)
   if (!req.files || !req.files.file) {
     res.end(JSON.stringify({
       err: 100, // Mettre en place des messages d"erreur
@@ -125,20 +124,25 @@ exports.uploadVideo = function(req, res) {
   const name = req.files.file.name
   // const ext = eq.files.file.ext
 
-  const newPath = path.resolve(config.root + "/server/" + config.uploadVideoDirectory + name)
+  const newPath = path.resolve(config.userVideoDirectory + name)
 
   fs.rename(oldPath, newPath, function(err) {
+    if (err) {
+      res.end(JSON.stringify({
+        err: 100, // Mettre en place des messages d"erreur
+        path: null,
+      }))
+    } else {
+      res.writeHead(200, {
+        "Content-Type": "application/json",
+      })
 
-    console.warn("end")
-    res.writeHead(200, {
-      "Content-Type": "application/json",
-    })
-
-    res.end(JSON.stringify({
-      err: null,
-      path: newPath,
-      name: name,
-      location: config.uploadVideoDirectory + name,
-    }))
+      res.end(JSON.stringify({
+        err: null,
+        path: newPath,
+        name: name,
+        location: config.userVideoDirectory + name,
+      }))
+    }
   })
 }

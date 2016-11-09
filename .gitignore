@@ -2,8 +2,16 @@
 .idea
 npm-debug.log
 
-server/public/img/users
-server/public/.cache
+server/public/video/*
+server/public/img/users/*
+server/public/.cache/crop/300/img/users/*
+server/public/.tmp/*
 node_modules
 dist
 stats.json
+
+# exception to the rule
+!server/public/video/.gitkeep
+!server/public/img/users/.gitkeep
+!server/public/.cache/crop/300/img/users/.gitkeep
+!server/public/.tmp/.gitkeep

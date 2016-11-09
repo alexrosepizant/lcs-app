@@ -32,6 +32,10 @@ body {
   margin-top: 5px;
 }
 
+.margin-top-10 {
+  margin-top: 10px;
+}
+
 .footer {
   margin-top: 20px;
 }
@@ -198,4 +202,17 @@ p.title.is-bold {
 .card .timestamp {
   float: right;
   color: #bbb;
+}
+
+.blog {
+  margin-top: 20px;
+}
+
+.blog-add {
+  margin: 20px;
+}
+
+.user-title > a > strong,
+.user-link {
+  color: #3273dc;
 }

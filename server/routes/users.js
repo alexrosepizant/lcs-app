@@ -7,14 +7,11 @@ const authorization = require("./middlewares/authorization")
 
 module.exports = function(app) {
 
-  // Signup
-  app.post("/auth/users", users.create)
-  app.get("/auth/users/:userId", users.show)
-
-  // Login
+  // Login and signup
   app.get("/auth/check_username/:username", users.exists)
   app.get("/auth/session", authorization.requiresLogin, session.session)
   app.post("/auth/session", session.login)
+  app.post("/auth/users", users.create)
   app.delete("/auth/session", session.logout)
 
   // CRUD endPoints
