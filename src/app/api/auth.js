@@ -4,7 +4,6 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location) 
   $cookieStore.remove("user")
 
   return {
-
     login(provider, user) {
       return $http.post("/auth/session", {
         provider: provider,
@@ -16,14 +15,13 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location) 
 
     logout() {
       return $http.delete("/auth/session")
-        .then(() => {
-          $rootScope.currentUser = null
-          $location.path("/login")
-        })
-        .catch(() => {
-          $rootScope.currentUser = null
-          $location.path("/login")
-        })
+        .then(() => this.redirectToLogin())
+        .catch(() => this.redirectToLogin())
+    },
+
+    redirectToLogin() {
+      $rootScope.currentUser = null
+      $location.path("/login")
     },
 
     createUser(userinfo) {
@@ -31,9 +29,8 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location) 
     },
 
     currentUser() {
-      return $http.get("/auth/session").then((user) => {
-        $rootScope.currentUser = user
-      })
+      return $http.get("/auth/session")
+        .then((user) => $rootScope.currentUser = user)
     },
   }
 }

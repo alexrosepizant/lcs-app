@@ -26,6 +26,7 @@
     "errorhandler": "*",
     "express": "^4.13.0",
     "express-session": "*",
+    "ffmpeg": "0.0.4",
     "forever": "~0.10.11",
     "gm": "latest",
     "lodash": "~2.4.1",

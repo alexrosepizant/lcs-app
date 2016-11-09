@@ -32,17 +32,21 @@ const walk = function(path, app, withPasseport) {
   })
 }
 
+// Bootstrap models
 walk(modelsPath)
 
 // Bootstrap passport config
 require("./passport")(passport)
 
+// Create express instance
 const app = express()
 
 require("./express")(app, passport)
 
+// Bootstrap routes
 walk(routesPath, app, true)
 
+// Webpack dev server
 if (!isProduction) {
   app.all(["/dist/*", "*.hot-update.json"], function(req, res) {
     proxy.web(req, res, {
@@ -55,6 +59,7 @@ if (!isProduction) {
   })
 }
 
+// Define route for app
 app.get("/*", function(req, res) {
   if (req.user) {
     res.cookie("user", JSON.stringify(req.user.user_info))
@@ -63,13 +68,22 @@ app.get("/*", function(req, res) {
   res.sendFile(path.join(publicPath, "index.html"))
 })
 
-mongoose.connect(config.db, {server:{auto_reconnect:true}}, function(err) {
+// Connect to MongoDB and start server
+mongoose.connect(config.db, {
+  server:{
+    auto_reconnect:true,
+  },
+}, function(err) {
   if (err) {
-    console.error("\x1b[31m", "Could not connect to MongoDB!")
-    console.log(err)
+    console.error("Could not connect to MongoDB! " + err)
   }  else {
     app.listen(port, function() {
       console.log("Express app started on port " + port)
     })
   }
 })
+
+// Start cron: need to import after mongoose models
+const cronjob = require("../scripts/cron.js") // eslint-disable-line
+
+cronjob.startCron()

@@ -111,8 +111,10 @@ exports.show = function(req, res, next) {
  * Return all users
  */
 exports.team = function(req, res) {
-  User.find({}, "-password -salt -hashed_password -__v -provider").sort("-euroPoints")
+  User
+    .find({}, "-password -salt -hashed_password -__v -provider")
 		.exec(function(err, users) {
+
   if (err) {
     res.render("error", {
       status: 500,
@@ -160,9 +162,9 @@ exports.calculatePopularity = function() {
 
 
 /**
- * Calculate popularity of users (call by cron)
+ * Get users who have their birthday today
  ***/
-exports.getBirthdays = function() {
+exports.getUsersWithBirthday = function() {
   User.find().exec(function(err, users) {
     if (err) {
       console.warn("err: " + err)

@@ -1,9 +1,5 @@
 "use strict"
 
-/**
- * Module dependencies.
- */
-
 const crypto = require("crypto")
 const mongoose = require("mongoose")
 
@@ -32,7 +28,7 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
   },
-  hashedPassword: String,
+  hashed_password: String,
   provider: String,
   salt: String,
   avatar: {
@@ -89,7 +85,7 @@ UserSchema
   .set(function(password) {
     this._password = password
     this.salt = this.makeSalt()
-    this.hashedPassword = this.encryptPassword(password)
+    this.hashed_password = this.encryptPassword(password)
   }).get(function() {
     return this._password
   })
@@ -160,7 +156,7 @@ UserSchema.methods = {
 	 * @api public
 	 */
   authenticate(plainText) {
-    return this.encryptPassword(plainText) === this.hashedPassword
+    return this.encryptPassword(plainText) === this.hashed_password
   },
 
 	/**

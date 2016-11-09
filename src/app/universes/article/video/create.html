@@ -1,19 +1,51 @@
 <div class="container">
+	<div class="tabs is-toggle">
+    <ul>
+      <li>
+        <a ui-sref="standardCreation">
+          <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
+          <span>Article</span>
+        </a>
+      </li>
+      <li class="is-active">
+        <a>
+          <span class="icon is-small"><i class="fa fa-film"></i></span>
+          <span>Vidéo</span>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span class="icon is-small"><i class="fa fa-image"></i></span>
+          <span>Photos</span>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span class="icon is-small"><i class="fa fa-music"></i></span>
+          <span>Musique</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 	<div class="columns">
 		<div class="column is-6">
+
 			<label class="label">URL de la vidéo</label>
 			<p class="control has-icon has-icon-right">
 				<input class="input is-success" type="text" placeholder="Url" ng-model="url">
 				<i class="fa fa-warning ng-hide" ng-show="showError"></i>
-				<span class="help is-danger ng-hide" ng-show="showError">Ca marche pas</span>
+				<span class="help is-danger ng-hide" ng-show="showError">
+					Ca marche pas
+				</span>
 			</p>
 			<div>
 				ou
 			</div>
-			<div class="button" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="video/*,">
-				Upload une vidéo
+			<div class="button margin-top-10" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="video/*,">
+				Uploader une vidéo
 			</div>
 			<hr/>
+
 			<label class="label">Titre</label>
 			<p class="control">
 				<input class="input" type="text" placeholder="Titre">
@@ -23,11 +55,18 @@
 				<textarea class="textarea" placeholder="Description"></textarea>
 			</p>
 			<p class="control">
-				<button class="button is-primary" ng-disabled="!canCreate">Créer</button>
-				<button class="button" ng-click="testVideo()">Tester la vidéo</button>
-				<button class="button is-link">Annuler</button>
+				<button class="button is-primary" ng-disabled="!canCreate">
+					Créer
+				</button>
+				<button class="button" ng-click="testVideo()" ng-disabled="url.length === 0">
+					Tester la vidéo
+				</button>
+				<button class="button is-link">
+					Annuler
+				</button>
 			</p>
 		</div>
+
 		<div class="column is-6">
 			<videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)" vg-theme="config.theme">
 				<vg-media vg-src="config.sources" vg-tracks="config.tracks">

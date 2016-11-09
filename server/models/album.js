@@ -1,10 +1,13 @@
-// imports
+"use strict"
+
 const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
 
-// Album Schema
-const albumSchema = new Schema({
+/**
+ * Album Schema
+ */
+const AlbumSchema = new Schema({
   created: {
     type: Date,
     default: Date.now,
@@ -64,5 +67,4 @@ const albumSchema = new Schema({
   })],
 })
 
-// Export album model
-module.exports = mongoose.model("Album", albumSchema)
+mongoose.model("Album", AlbumSchema)

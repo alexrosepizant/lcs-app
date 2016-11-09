@@ -11,8 +11,9 @@ module.exports = {
   port: process.env.PORT || 80,
   sessionSecret: "MEAN",
   sessionCollection: "sessions",
-  uploadDirectory: "public/img/users/",
-  uploadVideoDirectory: "public/video/",
+  uploadDirectory: __dirname + "/public/.tmp/",
+  userImgDirectory: "public/img/users/",
+  userVideoDirectory: "public/video/",
   cacheDirectoryX300: "public/.cache/crop/300/img/users/",
   cacheDirectoryX100: "public/.cache/crop/100x100/img/users/",
 }
