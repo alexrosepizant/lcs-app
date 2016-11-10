@@ -11,6 +11,9 @@ import "angular-cookies"
 import "angular-http-auth"
 import "angular-resource"
 import "angular-sanitize"
+import "angular-animate"
+import "angular-translate"
+import "angular-translate-loader-static-files"
 import "ng-file-upload"
 import "videogular"
 import "videogular-controls"
@@ -33,6 +36,10 @@ import "./universes/auth"
 import "./universes/home"
 import "./universes/user"
 import "./universes/article"
+import "./universes/agenda"
+import "./universes/vote"
+import "./universes/idea"
+import "./universes/archive"
 
 // Create and bootstrap application
 const requires = [
@@ -41,6 +48,8 @@ const requires = [
   "ngCookies",
   "ngResource",
   "ngSanitize",
+  "ngAnimate",
+  "pascalprecht.translate",
   "ngFileUpload",
   "ngPopover",
   "com.2fdevs.videogular",
@@ -50,6 +59,10 @@ const requires = [
   "app.home",
   "app.user",
   "app.article",
+  "app.agenda",
+  "app.vote",
+  "app.idea",
+  "app.archive",
 ]
 
 // Mount on window for testing

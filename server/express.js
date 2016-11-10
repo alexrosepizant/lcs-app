@@ -13,6 +13,7 @@ const	config = require("./config")
 const router = express.Router()
 const serverPublicDir = __dirname + "/public"
 const assetDirectory = __dirname + "/../src/assets/"
+const localesDirectory = __dirname + "/../src/locales/"
 const faviconPath = assetDirectory + "/images/favicon.ico"
 
 module.exports = function(app, passport) {
@@ -34,8 +35,9 @@ module.exports = function(app, passport) {
   app.use(multer({dest: config.uploadDirectory}))
   app.use(methodOverride())
 
-  // Assets rendering: server/app/favicon
+  // Assets rendering: assets/locales/users_ressources/favicon
   app.use(serveStatic(assetDirectory))
+  app.use(serveStatic(localesDirectory))
   app.use("/public", qt.static(serverPublicDir))
   app.use(favicon(faviconPath))
 

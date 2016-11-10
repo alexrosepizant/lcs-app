@@ -35,7 +35,6 @@
           <div class="nav-right nav-menu">
             <ng-popover
             trigger="popover-trigger-plus"
-            direction="left"
             popover-class="custom-popover"
             on-open="openCallback()"
             on-close="closeCallback()">
@@ -71,7 +70,6 @@
             </a>
             <ng-popover
             trigger="popover-trigger"
-            direction="left"
             popover-class="custom-popover"
             on-open="openCallback()"
             on-close="closeCallback()">
@@ -123,9 +121,11 @@
     </div>
 
     <!-- Angular views -->
-    <ui-view></ui-view>
+    <div class="ui-view-container">
+      <div ui-view></div>
+    </div>
 
-    <footer class="footer" ng-if="currentUser">
+    <!-- <footer class="footer" ng-if="currentUser">
       <div class="container">
         <div class="has-text-centered">
           <p>
@@ -140,7 +140,7 @@
           </p>
         </div>
       </div>
-    </footer>
+    </footer> -->
     <script src="/dist/script.js"></script>
   </body>
 </html>

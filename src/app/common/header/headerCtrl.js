@@ -31,11 +31,6 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location) {
     id: "archive",
     link: "archive",
     notificationNumber: 0,
-  }, {
-    name: "Bugs",
-    id: "issue",
-    link: "issue",
-    notificationNumber: 0,
   }]
 
   $scope.isCurrentPath = function(item) {

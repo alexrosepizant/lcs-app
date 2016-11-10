@@ -4,6 +4,7 @@ function AppRun(AppConstants, $rootScope, $location, AuthFactory) {
   $rootScope.$watch("currentUser", function(currentUser) {
       // if no currentUser and on a page that requires authorization then try to update it
       // will trigger 401s if user does not have a valid session
+    console.warn(currentUser)
     if (!currentUser && (["/", "/login", "/logout", "/signup"].indexOf($location.path()) === -1)) {
       AuthFactory.currentUser()
     }

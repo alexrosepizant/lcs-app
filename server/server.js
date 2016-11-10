@@ -60,7 +60,7 @@ if (!isProduction) {
 }
 
 // Define route for app
-app.get("/*", function(req, res) {
+app.get("/", function(req, res) {
   if (req.user) {
     res.cookie("user", JSON.stringify(req.user.user_info))
   }
@@ -69,6 +69,7 @@ app.get("/*", function(req, res) {
 })
 
 // Connect to MongoDB and start server
+mongoose.Promise = global.Promise
 mongoose.connect(config.db, {
   server:{
     auto_reconnect:true,
