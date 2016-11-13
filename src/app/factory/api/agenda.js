@@ -1,35 +1,35 @@
-export default function UserEventFactory($http) {
+export default function AgendaFactory($http) {
   return {
-    getUserEvents($scope) {
-      $http.get("/userEvents")
+    loadUserEvents($scope) {
+      $http.get("/userEvent")
         .then((userEvents) => {
           $scope.userEvents = userEvents
         })
     },
 
     getUserEvent($scope, userEventId) {
-      $http.get(`/userEvents/${userEventId}`)
+      $http.get(`/userEvent/${userEventId}`)
         .then((userEvent) => {
           $scope.userEvent = userEvent
         })
     },
 
     createUserEvent($scope, userEvent) {
-      $http.post("/userEvents", userEvent)
+      $http.post("/userEvent", userEvent)
         .then((userEvent) => {
           $scope.userEvent = userEvent
         })
     },
 
     updateUserEvent($scope, userEvent) {
-      $http.put(`/userEvents/${userEvent._id}`, userEvent)
+      $http.put(`/userEvent/${userEvent._id}`, userEvent)
         .then(() => {
           console.warn("UserEvent succefully updated")
         })
     },
 
     deleteUserEvent($scope, userEvent) {
-      $http.delete(`/userEvents/${userEvent._id}`)
+      $http.delete(`/userEvent/${userEvent._id}`)
         .then(() => {
           console.log("UserEvent succefully deleted")
         })

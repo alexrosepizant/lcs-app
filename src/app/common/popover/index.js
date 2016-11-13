@@ -32,50 +32,63 @@
         $scope.popoverClass = attrs.popoverClass
         $scope.dropDirection = attrs.direction || "bottom"
 
-        let left
-        let top
-
         const trigger = document.querySelector("#"+$scope.trigger)
         const target = document.querySelector(".ng-popover[trigger=\""+$scope.trigger+"\"]")
 
+        const getMaxWidth = function() {
+          return document.querySelector("body .container").offsetWidth
+        }
+
         const getTriggerOffset = function() {
+
+          const maxWidth = getMaxWidth()
           const triggerRect = trigger.getBoundingClientRect()
+          const left = (triggerRect.left + document.body.scrollLeft > maxWidth) ?
+            maxWidth : triggerRect.left + document.body.scrollLeft
+
           return {
             top: triggerRect.top + document.body.scrollTop,
-            left: triggerRect.left + document.body.scrollLeft,
+            left: left,
           }
         }
 
         const calcPopoverPosition = function(trigger, target) {
+          let left
+          let top
+
+          const maxWidth = getMaxWidth()
+
           target.classList.toggle("hide")
           const targetWidth = target.offsetWidth
           const targetHeight = target.offsetHeight
+
           target.classList.toggle("hide")
           const triggerWidth = trigger.offsetWidth
           const triggerHeight = trigger.offsetHeight
+
           switch ($scope.dropDirection) {
-          case "left": {
+          case "left":
             left = getTriggerOffset().left - targetWidth - 10 + "px"
             top = getTriggerOffset().top + "px"
             break
-          }
 
-          case "right": {
+          case "right":
             left = getTriggerOffset().left + triggerWidth + 10 + "px"
             top = getTriggerOffset().top + "px"
             break
-          }
 
-          case "top": {
+          case "top":
             left = getTriggerOffset().left + "px"
             top = getTriggerOffset().top - targetHeight - 10 + "px"
             break
-          }
 
-          default: {
-            left = getTriggerOffset().left + "px"
+          default:
+            left = getTriggerOffset().left
+            if (left < maxWidth) {
+              left = Math.min(left + triggerWidth, maxWidth)
+            }
+            left = left - targetWidth + "px"
             top = getTriggerOffset().top + triggerHeight + 10 + "px"
-          }
           }
           target.style.position = "absolute"
           target.style.left = left

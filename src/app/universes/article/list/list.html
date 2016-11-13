@@ -4,37 +4,30 @@
       <div class="nav menu">
         <div class="container">
           <div class="nav-left">
-            <div class="nav-item is-tab">
-              <strong>Filtrer par</strong>
-            </div>
-            <a class="nav-item is-tab is-active">
-              <span class="icon-btn">
-                <i class="fa fa-th-large"></i>
+            <a class="nav-item is-tab button is-primary blog-add" ui-sref="article.create">
+              <span class="icon is-small">
+                <i class="fa fa-plus"></i>
               </span>
-            </a>
-            <a class="nav-item is-tab">
-              <span class="icon-btn">
-                <i class="fa fa-align-left"></i>
-              </span>
-            </a>
-            <a class="nav-item is-tab">
-              <span class="icon-btn thin">
-                <i class="fa fa-play-circle"></i>
-              </span>
-            </a>
-            <a class="nav-item is-tab">
-              <span class="icon-btn">
-                <i class="fa fa-camera"></i>
+              <span>
+                Ajouter
               </span>
             </a>
           </div>
           <div class="nav-right is-hidden-mobile">
-            <a class="nav-item is-tab button is-primary blog-add" ui-sref="standardCreation">
-              <span class="icon is-small">
-                <i class="fa fa-plus"></i>
-              </span>
-              <span>Ajouter</span>
-            </a>
+            <nav class="level">
+              <!-- Left side -->
+              <div class="nav-item is-tab">
+                <p class="is-light">
+                  Filtrer par:
+                </p>
+              </div>
+              <div class="level-right">
+                <p class="level-item"><strong>Tous</strong></p>
+                <p class="level-item"><a>Articles</a></p>
+                <p class="level-item"><a>Vidéos</a></p>
+                <p class="level-item"><a>Photos</a></p>
+              </div>
+           </nav>
           </div>
         </div>
       </div>
@@ -48,7 +41,7 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{article.user.username}}</strong> <small>{{ getDateFrom(article) }}</small>
+                <strong>{{article.user.username}}</strong> <small>{{ article.getDateFrom() }}</small>
                 <br>
                 {{article.content}}
               </p>

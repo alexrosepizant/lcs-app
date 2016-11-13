@@ -1,9 +1,11 @@
-export default function ArticleFactory($http) {
+export default function ArticleFactory($http, Article) {
   return {
     loadArticles($scope) {
       $http.get("/articles")
         .then((articles) => {
-          $scope.articles = articles.data
+          $scope.articles = articles.data.map((article) => {
+            return new Article(article)
+          })
         })
     },
 

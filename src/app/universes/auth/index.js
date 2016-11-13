@@ -1,6 +1,4 @@
-import angular from "angular"
-
-import AuthFactory from "../../api/auth"
+import AuthFactory from "../../factory/api/auth"
 import AuthConfig from "./auth.config"
 import LoginCtrl from "./login/loginCtrl"
 import SignupCtrl from "./signup/signupCtrl"

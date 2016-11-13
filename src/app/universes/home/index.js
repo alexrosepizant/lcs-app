@@ -1,4 +1,3 @@
-import angular from "angular"
 import HomeConfig from "./home.config"
 import HomeCtrl from "./homeController"
 

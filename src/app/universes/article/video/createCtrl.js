@@ -4,14 +4,16 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) 
   $scope.API = null
   $scope.url = ""
 
-  $scope.$watch("file", function() {
+  /**
+  Video upload
+  **/
+  $scope.$watch("file", () => {
     if ($scope.file !== null) {
       $scope.files = [$scope.file]
     }
   })
-  $scope.log = ""
 
-  $scope.upload = function(files) {
+  $scope.upload = (files) => {
     if (files && files.length) {
       const file = files[0]
       if (!file.$error) {
@@ -21,10 +23,10 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) 
             username: $scope.username,
             file: file,
           },
-        }).then(function(resp) {
+        }).then((resp) => {
           $scope.url = resp.data.location
           $scope.testVideo()
-        }, null, function(evt) {
+        }, null, (evt) => {
           const progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
           console.warn(progressPercentage)
         })
@@ -32,40 +34,22 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) 
     }
   }
 
-  $scope.onPlayerReady = function(API) {
+  /**
+  Video player
+  **/
+  $scope.onPlayerReady = (API) => {
     $scope.API = API
   }
 
   $scope.config = {
-    sources: [
-      {
-        src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.mp4"),
-        type: "video/mp4",
-      },
-      {
-        src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"),
-        type: "video/webm",
-      },
-      {
-        src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.ogg"),
-        type: "video/ogg",
-      },
-    ],
-    tracks: [
-      {
-        src: "http://www.videogular.com/assets/subs/pale-blue-dot.vtt",
-        kind: "subtitles",
-        srclang: "en",
-        label: "English",
-        default: "",
-      },
-    ],
+    sources: [],
+    tracks: [],
     plugins: {
       poster: "http://www.videogular.com/assets/images/videogular.png",
     },
   }
 
-  $scope.testVideo = function() {
+  $scope.testVideo = () => {
     $scope.API.stop()
     $scope.config.sources = [{
       src: $sce.trustAsResourceUrl($scope.url),
@@ -74,12 +58,20 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) 
     $scope.API.play()
   }
 
-  $scope.onError = function(evt) {
+  $scope.onError = (evt) => {
     console.warn(evt)
     $scope.showError = true
   }
 
-  $scope.create = function() {
+  /**
+  Save / Cancel actions
+  **/
+  $scope.dismiss = () => {
+    $scope.$dismiss()
+  }
+
+  $scope.create = () => {
     ArticleFactory.create($scope.article)
+    $scope.$close(true)
   }
 }

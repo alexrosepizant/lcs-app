@@ -1,7 +1,7 @@
-function AppRun(AppConstants, $rootScope, $location, AuthFactory) {
+function AppRun(AppConstants, $rootScope, $location, AuthFactory, $uibModalStack) {
 
   // watching the value of the currentUser variable.
-  $rootScope.$watch("currentUser", function(currentUser) {
+  $rootScope.$watch("currentUser", (currentUser) => {
       // if no currentUser and on a page that requires authorization then try to update it
       // will trigger 401s if user does not have a valid session
     if (!currentUser && (["/", "/login", "/logout", "/signup"].indexOf($location.path()) === -1)) {
@@ -9,26 +9,16 @@ function AppRun(AppConstants, $rootScope, $location, AuthFactory) {
     }
   })
 
-    // On catching 401 errors, redirect to the login page.
-  $rootScope.$on("event:auth-loginRequired", function() {
+  // On catching 401 errors, redirect to the login page.
+  $rootScope.$on("event:auth-loginRequired", () => {
     $location.path("/login")
     return false
   })
 
-  // change page title based on state
-  $rootScope.$on("$stateChangeSuccess", (event, toState) => {
-    $rootScope.setPageTitle(toState.title)
+  // close all modal on change page
+  $rootScope.$on("$stateChangeSuccess", () => {
+    $uibModalStack.dismissAll()
   })
-
-  // Helper method for setting the page's title
-  $rootScope.setPageTitle = (title) => {
-    $rootScope.pageTitle = ""
-    if (title) {
-      $rootScope.pageTitle += title
-      $rootScope.pageTitle += " \u2014 "
-    }
-    $rootScope.pageTitle += AppConstants.appName
-  }
 }
 
 export default AppRun

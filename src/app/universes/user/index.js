@@ -1,6 +1,4 @@
-import angular from "angular"
-
-import UserFactory from "../../api/user"
+import UserFactory from "../../factory/api/user"
 import UserConfig from "./user.config"
 import ProfileCtrl from "./profile/profileCtrl"
 

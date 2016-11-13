@@ -1,106 +1,112 @@
-<div class="container">
-	<div class="nav-left">
-    <a class="nav-item is-brand" href="#">
-      <h2>Creation</h2>
-    </a>
-  </div>
-	<div class="tabs is-toggle is-centered">
-    <ul>
-      <li>
-        <a ui-sref="standardCreation">
-          <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
-          <span>Article</span>
-        </a>
-      </li>
-      <li class="is-active">
-        <a>
-          <span class="icon is-small"><i class="fa fa-film"></i></span>
-          <span>Vidéo</span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon is-small"><i class="fa fa-image"></i></span>
-          <span>Photos</span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon is-small"><i class="fa fa-music"></i></span>
-          <span>Musique</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-	<div class="columns">
-		<div class="column is-6">
+<div class="modal-card">
+  <header class="modal-card-head">
+    <div class="tabs is-toggle">
+      <ul>
+        <li>
+          <a ui-sref="article.create">
+            <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
+            <span>Article</span>
+          </a>
+        </li>
+        <li class="is-active">
+          <a>
+            <span class="icon is-small"><i class="fa fa-film"></i></span>
+            <span>Vidéo</span>
+          </a>
+        </li>
+        <li>
+          <a ui-sref="article.createAlbum">
+            <span class="icon is-small"><i class="fa fa-image"></i></span>
+            <span>Photos</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="icon is-small"><i class="fa fa-music"></i></span>
+            <span>Musique</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <button class="delete close" ng-click="dismiss()"></button>
+  </header>
+  <section class="modal-card-body">
+		<div class="columns">
+			<div class="column is-6">
 
-			<label class="label">URL de la vidéo</label>
-			<p class="control has-icon has-icon-right">
-				<input class="input is-success" type="text" placeholder="Url" ng-model="url">
-				<i class="fa fa-warning ng-hide" ng-show="showError"></i>
-				<span class="help is-danger ng-hide" ng-show="showError">
-					Ca marche pas
-				</span>
-			</p>
-			<div>
-				ou
+				<label class="label">URL de la vidéo</label>
+				<p class="control has-icon has-icon-right">
+					<input class="input is-success" type="text" placeholder="Url" ng-model="article.url">
+					<i class="fa fa-warning ng-hide" ng-show="showError"></i>
+					<span class="help is-danger ng-hide" ng-show="showError">
+						Ca marche pas
+					</span>
+				</p>
+				<div>
+					ou
+				</div>
+				<div class="button margin-top-10" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="video/*,">
+					Uploader une vidéo
+				</div>
+				<hr/>
+
+				<label class="label">Titre</label>
+				<p class="control">
+					<input type="text"
+                 ng-model="article.title"
+                 class="input"
+                 placeholder="Titre">
+				</p>
+				<label class="label">Description</label>
+				<p class="control">
+					<textarea ng-model="article.description"
+                    class="textarea"
+                    placeholder="Description">
+          </textarea>
+				</p>
 			</div>
-			<div class="button margin-top-10" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="video/*,">
-				Uploader une vidéo
+
+			<div class="column is-6">
+				<videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)" vg-theme="config.theme">
+					<vg-media vg-src="config.sources" vg-tracks="config.tracks">
+					</vg-media>
+					<vg-controls>
+						<vg-play-pause-button></vg-play-pause-button>
+						<vg-time-display>
+							{{ currentTime | date:'mm:ss' }}
+						</vg-time-display>
+						<vg-scrub-bar>
+							<vg-scrub-bar-current-time>
+              </vg-scrub-bar-current-time>
+						</vg-scrub-bar>
+						<vg-time-display>
+							{{ timeLeft | date:'mm:ss' }}
+						</vg-time-display>
+						<vg-volume>
+							<vg-mute-button>
+							</vg-mute-button>
+							<vg-volume-bar>
+							</vg-volume-bar>
+						</vg-volume>
+						<vg-fullscreen-button>
+						</vg-fullscreen-button>
+					</vg-controls>
+					<vg-overlay-play></vg-overlay-play>
+					<vg-poster vg-url="config.plugins.poster"></vg-poster>
+				</videogular>
 			</div>
-			<hr/>
-
-			<label class="label">Titre</label>
-			<p class="control">
-				<input class="input" type="text" placeholder="Titre">
-			</p>
-			<label class="label">Description</label>
-			<p class="control">
-				<textarea class="textarea" placeholder="Description"></textarea>
-			</p>
-			<p class="control">
-				<button class="button is-primary" ng-disabled="!canCreate">
-					Créer
-				</button>
-				<button class="button" ng-click="testVideo()" ng-disabled="url.length === 0">
-					Tester la vidéo
-				</button>
-				<button class="button is-link">
-					Annuler
-				</button>
-			</p>
 		</div>
+  </section>
 
-		<div class="column is-6">
-			<videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)" vg-theme="config.theme">
-				<vg-media vg-src="config.sources" vg-tracks="config.tracks">
-				</vg-media>
-
-				<vg-controls>
-					<vg-play-pause-button></vg-play-pause-button>
-					<vg-time-display>
-						{{ currentTime | date:'mm:ss' }}
-					</vg-time-display>
-					<vg-scrub-bar>
-						<vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-					</vg-scrub-bar>
-					<vg-time-display>
-						{{ timeLeft | date:'mm:ss' }}
-					</vg-time-display>
-					<vg-volume>
-						<vg-mute-button>
-						</vg-mute-button>
-						<vg-volume-bar>
-						</vg-volume-bar>
-					</vg-volume>
-					<vg-fullscreen-button>
-					</vg-fullscreen-button>
-				</vg-controls>
-
-				<vg-overlay-play></vg-overlay-play>
-				<vg-poster vg-url="config.plugins.poster"></vg-poster>
-			</videogular>
-		</div>
-	</div>
+  <footer class="modal-card-foot">
+    <a class="button is-primary" ng-disabled="!canCreate">
+			Sauvegarder
+		</a>
+		<button class="button" ng-click="testVideo()" ng-disabled="url.length === 0">
+			Tester la vidéo
+		</button>
+		<a class="button is-link" ng-click="dismiss()">
+			Annuler
+		</a>
+  </footer>
 </div>

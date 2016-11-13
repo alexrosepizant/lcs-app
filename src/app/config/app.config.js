@@ -1,14 +1,17 @@
 import moment from "moment"
 
-function AppConfig($stateProvider, $locationProvider, $urlRouterProvider) {
+function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
   $urlRouterProvider.otherwise("/")
 
-  // $translateProvider.useStaticFilesLoader({
-  //   prefix: "../../locales/translation_",
-  //   suffix: ".json",
-  // })
+  // Configure translate provider
+  $translateProvider.useSanitizeValueStrategy("sanitize")
+  $translateProvider.useStaticFilesLoader({
+    prefix: "locales/translation_",
+    suffix: ".json",
+  })
+  $translateProvider.use("fr")
 
-  // $translateProvider.preferredLanguage("fr")
+  // Configure moment
   moment.locale("fr", {
     months : "janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),
     monthsShort : "janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_"),
@@ -54,11 +57,11 @@ function AppConfig($stateProvider, $locationProvider, $urlRouterProvider) {
     isPM(input) {
       return input.charAt(0) === "M"
     },
-      // in case the meridiem units are not separated around 12, then implement
-      // this function (look at locale/id.js for an example)
-      // meridiemHour : function (hour, meridiem) {
-      //     return /* 0-23 hour, given meridiem token and hour 1-12 */
-      // },
+    // in case the meridiem units are not separated around 12, then implement
+    // this function (look at locale/id.js for an example)
+    // meridiemHour : function (hour, meridiem) {
+    //     return /* 0-23 hour, given meridiem token and hour 1-12 */
+    // },
     meridiem(hours) {
       return hours < 12 ? "PD" : "MD"
     },

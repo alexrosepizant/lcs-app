@@ -5,8 +5,8 @@
  */
 @font-face {
   font-family: 'videogular';
-  src: url("/fonts/videogular/videogular.eot");
-  src: url("/fonts/videogular/videogular.eot?#iefix") format("embedded-opentype"), url("/fonts/videogular/videogular.woff") format("woff"), url("/fonts/videogular/videogular.ttf") format("truetype"), url("/fonts/videogular/videogular.svg#videogular") format("svg");
+  src: url("/assets/fonts/videogular/videogular.eot");
+  src: url("/assets/fonts/videogular/videogular.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/videogular/videogular.woff") format("woff"), url("/assets/fonts/videogular/videogular.ttf") format("truetype"), url("/assets/fonts/videogular/videogular.svg#videogular") format("svg");
   font-weight: normal;
   font-style: normal; }
 videogular, [videogular] {

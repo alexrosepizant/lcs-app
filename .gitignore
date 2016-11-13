@@ -4,7 +4,7 @@ npm-debug.log
 
 server/public/video/*
 server/public/img/users/*
-server/public/.cache/crop/300/img/users/*
+server/public/.cache/crop/
 server/public/.tmp/*
 node_modules
 dist

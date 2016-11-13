@@ -1,0 +1,58 @@
+<div class="modal-card">
+  <header class="modal-card-head">
+    <div class="tabs is-toggle">
+      <ul>
+        <li>
+          <a ui-sref="article.create">
+            <span class="icon is-small">
+              <i class="fa fa-file-text-o"></i>
+            </span>
+            <span>
+              Article
+            </span>
+          </a>
+        </li>
+        <li>
+          <a ui-sref="article.createVideo">
+            <span class="icon is-small">
+              <i class="fa fa-play-circle"></i>
+            </span>
+            <span>
+              Vidéo
+            </span>
+          </a>
+        </li>
+        <li class="is-active">
+          <a>
+            <span class="icon is-small">
+              <i class="fa fa-image"></i>
+            </span>
+            <span>
+              Photos
+            </span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="icon is-small"><i class="fa fa-music"></i></span>
+            <span>
+              Musique
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <button class="delete close" ng-click="dismiss()"></button>
+  </header>
+  <section class="modal-card-body">
+    <!-- Content ... -->
+  </section>
+  <footer class="modal-card-foot">
+    <a class="button is-primary" ng-click="create()">
+      Sauvegarder
+    </a>
+    <a class="button is-link" ng-click="dismiss()">
+      Annuler
+    </a>
+  </footer>
+</div>
