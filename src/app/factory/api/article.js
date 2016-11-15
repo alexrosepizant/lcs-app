@@ -1,12 +1,27 @@
 export default function ArticleFactory($http, Article) {
   return {
     loadArticles($scope) {
-      $http.get("/articles")
-        .then((articles) => {
-          $scope.articles = articles.data.map((article) => {
-            return new Article(article)
-          })
+      $http.get("/articles", {
+        params: {
+          "type": $scope.filter,
+        },
+      }).then((articles) => {
+        $scope.articles = articles.data.map((article) => {
+          return new Article(article)
         })
+      })
+    },
+
+    getArticlesByUser($scope) {
+      $http.get("/articles", {
+        params: {
+          "userId": $scope.user._id,
+        },
+      }).then((articles) => {
+        $scope.articles = articles.data.map((article) => {
+          return new Article(article)
+        })
+      })
     },
 
     findArticle($scope, articleId) {

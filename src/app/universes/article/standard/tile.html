@@ -1,0 +1,30 @@
+<article class="media">
+  <div class="media-left">
+    <figure class="image is-64x64">
+      <img ng-src="{{ article.user.avatar }}?dim=40x40" alt="Image">
+    </figure>
+  </div>
+  <div class="media-content">
+    <h2>Standard</h2>
+    <div class="content">
+      <p>
+        <strong>{{article.user.username}}</strong> <small>{{ article.getDateFrom() }}</small>
+        <br>
+        {{article.content}}
+      </p>
+    </div>
+    <nav class="level">
+      <div class="level-left">
+        <a class="level-item">
+          <span class="icon is-small"><i class="fa fa-reply"></i></span>
+        </a>
+        <a class="level-item">
+          <span class="icon is-small"><i class="fa fa-retweet"></i></span>
+        </a>
+        <a class="level-item">
+          <span class="icon is-small"><i class="fa fa-heart"></i></span>
+        </a>
+      </div>
+    </nav>
+  </div>
+</article>

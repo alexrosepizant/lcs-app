@@ -30,7 +30,12 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location) 
 
     currentUser() {
       return $http.get("/auth/session")
-        .then((user) => $rootScope.currentUser = user)
+        .then((result) => $rootScope.currentUser = result.data)
+    },
+
+    authenticateUser() {
+      this.currentUser()
+        .then(() => $location.path("/home"))
     },
   }
 }

@@ -1,7 +1,7 @@
 import moment from "moment"
 
 function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
-  $urlRouterProvider.otherwise("/")
+  $urlRouterProvider.otherwise("/home")
 
   // Configure translate provider
   $translateProvider.useSanitizeValueStrategy("sanitize")

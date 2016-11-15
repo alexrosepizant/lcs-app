@@ -1,4 +1,4 @@
-export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location) {
+export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, ngPopoverFactory) {
 
   // Main menu
   $scope.menu = [{
@@ -33,19 +33,24 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location) {
     notificationNumber: 0,
   }]
 
-  $scope.isCurrentPath = function(item) {
+  $scope.isCurrentPath = (item) => {
     return $location.path().indexOf(item.id) !== -1 || ($location.path() === "/" && item.id === "home")
   }
 
   // Search
-  $scope.search = function() {
+  $scope.search = () => {
     console.warn($scope.searchWord)
   }
 
   // User menu
   $scope.currentUser = $rootScope.currentUser
-  $scope.logout = function() {
-    AuthFactory.logout(function(err) {
+
+  $scope.closeMenu = (triggerId) => {
+    ngPopoverFactory.closePopover(triggerId)
+  }
+
+  $scope.logout = () => {
+    AuthFactory.logout((err) => {
       if (!err) {
         $location.path("/login")
       }

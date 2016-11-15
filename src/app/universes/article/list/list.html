@@ -1,6 +1,6 @@
 <div class="container">
   <div class="columns">
-    <div class="column is-8">
+    <div class="column is-9">
       <div class="nav menu">
         <div class="container">
           <div class="nav-left">
@@ -22,48 +22,36 @@
                 </p>
               </div>
               <div class="level-right">
-                <p class="level-item"><strong>Tous</strong></p>
-                <p class="level-item"><a>Articles</a></p>
-                <p class="level-item"><a>Vidéos</a></p>
-                <p class="level-item"><a>Photos</a></p>
+                <p class="level-item">
+                  <a ui-sref="article({ filter: 'all' })" ng-class="{'is-current': filter === 'all'}">
+                    Tous
+                  </a>
+                </p>
+                <p class="level-item">
+                  <a ui-sref="article({ filter: 'standard' })" ng-class="{'is-current': filter === 'standard'}">
+                    Articles
+                  </a>
+                </p>
+                <p class="level-item">
+                  <a ui-sref="article({ filter: 'video' })" ng-class="{'is-current': filter === 'video'}">
+                    Vidéos
+                  </a>
+                </p>
+                <p class="level-item">
+                  <a ui-sref="article({ filter: 'album' })" ng-class="{'is-current': filter === 'album'}">
+                    Photos
+                  </a>
+                </p>
               </div>
            </nav>
           </div>
         </div>
       </div>
-      <div ng-repeat="article in articles" class="box blog">
-        <article class="media">
-          <div class="media-left">
-            <figure class="image is-64x64">
-              <img ng-src="{{ article.user.avatar }}?dim=40x40" alt="Image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>{{article.user.username}}</strong> <small>{{ article.getDateFrom() }}</small>
-                <br>
-                {{article.content}}
-              </p>
-            </div>
-            <nav class="level">
-              <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-reply"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-retweet"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-heart"></i></span>
-                </a>
-              </div>
-            </nav>
-          </div>
-        </article>
-      </div>
+      <lcs-blog-post ng-repeat="article in articles" class="box blog" type="{{ article.type || 'standard' }}">
+      </lcs-blog-post>
     </div>
-    <div class="column is-4">
+
+    <div class="column is-3">
       <div class="box trending">
         <p class="trend-title"><span class="title is-5">Les tags</span></p>
         <span class="tag is-dark">Dark</span>

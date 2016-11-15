@@ -4,6 +4,7 @@ import "../assets/stylesheets/bulma.css"
 import "../assets/stylesheets/ngpopover.css"
 import "../assets/stylesheets/videogular.css"
 import "../assets/stylesheets/ui-bootstrap-custom-1.3.3-csp.css"
+import "../assets/stylesheets/medium-editor.css"
 
 // Import our angular libs
 import angular from "angular"
@@ -33,6 +34,7 @@ import HeaderCtrl from "./common/header/headerCtrl"
 import "./common/popover"
 import "./common/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
 import "./common/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
+import "./common/medium-editor/angular-medium-editor"
 
 // Import app component
 import "./universes/auth"
@@ -56,6 +58,7 @@ const requires = [
   "ngFileUpload",
   "ngPopover",
   "ui.bootstrap",
+  "angular-medium-editor",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
   "com.2fdevs.videogular.plugins.poster",

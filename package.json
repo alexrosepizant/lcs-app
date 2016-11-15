@@ -33,6 +33,7 @@
     "forever": "~0.10.11",
     "gm": "latest",
     "lodash": "~2.4.1",
+    "medium-editor": "^5.22.1",
     "method-override": "*",
     "moment": "2.12.0",
     "mongoose": "4.6.4",

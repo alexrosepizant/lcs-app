@@ -45,7 +45,15 @@
     <button class="delete close" ng-click="dismiss()"></button>
   </header>
   <section class="modal-card-body">
-    <!-- Content ... -->
+    <h1 ng-model="title" medium-editor bind-options="{disableReturn: true, disableExtraSpaces: true, toolbar: false}" data-placeholder="Enter a title"></h1>
+    <label class="label">Contenu</label>
+    <form name="demo">
+      <div name="text" ng-model="article.content" medium-editor bind-options="{'toolbar': {'buttons': ['bold', 'italic', 'underline', 'header1', 'header2', 'quote', 'orderedlist', 'unorderedlist']}}">
+        <div medium-insert insert-addons="insertAddons"></div>
+      </div>
+    </form>
+    <h4>Model:</h4>
+    <pre>{{text}}</pre>
   </section>
   <footer class="modal-card-foot">
     <a class="button is-primary">

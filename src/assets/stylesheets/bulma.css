@@ -4170,7 +4170,7 @@ a.nav-item.is-tab.is-active {
   color: #363636;
   font-size: 18px;
   font-weight: 300;
-  padding: 10px;
+  padding: 5px 15px;
 }
 
 .panel-list a {
@@ -4211,7 +4211,7 @@ a.nav-item.is-tab.is-active {
   color: #363636;
   display: block;
   line-height: 16px;
-  padding: 10px;
+  padding: 10px 15px;
 }
 
 .panel-block:not(:last-child) {

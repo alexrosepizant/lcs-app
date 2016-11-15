@@ -1,22 +1,23 @@
 export default function ArticleConfig($stateProvider) {
   $stateProvider
   .state("article", {
-    url: "/article",
+    url: "/article?filter",
     template: require("./list/list.html"),
     controller: "ArticleListCtrl",
     title: "Article",
+    resolve: {
+      filter: ($stateParams) => {
+        return ($stateParams.filter) ? $stateParams.filter : "all"
+      },
+    },
   })
   .state("article.create", {
     url: "/article/create",
     onEnter: ["$stateParams", "$state", "$uibModal", function($stateParams, $state, $uibModal) {
       $uibModal.open({
         templateUrl: "app/universes/article/standard/create.html",
-        resolve: {
-          item() {
-            return {}
-          },
-        },
         controller: "StandardCreationCtrl",
+        backdrop: "static",
       }).result.finally(function() {
         $state.go("^")
       })
@@ -27,12 +28,8 @@ export default function ArticleConfig($stateProvider) {
     onEnter: ["$stateParams", "$state", "$uibModal", function($stateParams, $state, $uibModal) {
       $uibModal.open({
         templateUrl: "app/universes/article/video/create.html",
-        resolve: {
-          item() {
-            return {}
-          },
-        },
         controller: "VideoCreationCtrl",
+        backdrop: "static",
       }).result.finally(function() {
         $state.go("^")
       })
@@ -43,12 +40,8 @@ export default function ArticleConfig($stateProvider) {
     onEnter: ["$stateParams", "$state", "$uibModal", function($stateParams, $state, $uibModal) {
       $uibModal.open({
         templateUrl: "app/universes/article/album/create.html",
-        resolve: {
-          item() {
-            return {}
-          },
-        },
         controller: "AlbumCreationCtrl",
+        backdrop: "static",
       }).result.finally(function() {
         $state.go("^")
       })

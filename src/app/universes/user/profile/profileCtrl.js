@@ -1,8 +1,10 @@
-export default function ProfileCtrl($scope, GlobalFactory, UserFactory, Upload) {
+export default function ProfileCtrl($scope, GlobalFactory, UserFactory, ArticleFactory, Upload, $translate) {
 
   $scope.user = GlobalFactory.user || {
     avatar: "public/img/users/896b4bf8-a73a-5606-b3e5-1dc3362b472c.JPG",
   }
+
+  ArticleFactory.getArticlesByUser($scope)
 
   /** ***
   Upload config
@@ -28,6 +30,38 @@ export default function ProfileCtrl($scope, GlobalFactory, UserFactory, Upload) 
         })
       }
     }
+  }
+
+  /** *
+    SKILLS
+  ***/
+  $scope.initSkill = function() {
+    $scope.skill = {
+      name: "",
+      value: "",
+    }
+  }
+
+  $scope.addSkill = function() {
+
+    if (!$scope.user.skills) {
+      $scope.user.skills = []
+    }
+
+    const currentSkill = angular.extend({}, $scope.skill)
+    $scope.user.skills.push(currentSkill)
+    $scope.initSkill()
+  }
+
+  $scope.removeSkill = function(skill) {
+    $scope.user.skills.splice($scope.user.skills.indexOf(skill), 1)
+  }
+
+  /** *
+    SETTINGS
+  ***/
+  $scope.changeLanguage = function(key) {
+    $translate.use(key)
   }
 
   $scope.update = function() {
