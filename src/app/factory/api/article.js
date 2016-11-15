@@ -1,7 +1,7 @@
 export default function ArticleFactory($http, Article) {
   return {
     loadArticles($scope) {
-      $http.get("/articles", {
+      return $http.get("/articles", {
         params: {
           "type": $scope.filter,
         },
@@ -13,7 +13,7 @@ export default function ArticleFactory($http, Article) {
     },
 
     getArticlesByUser($scope) {
-      $http.get("/articles", {
+      return $http.get("/articles", {
         params: {
           "userId": $scope.user._id,
         },
@@ -25,31 +25,22 @@ export default function ArticleFactory($http, Article) {
     },
 
     findArticle($scope, articleId) {
-      $http.get(`/articles/${articleId}`)
+      return $http.get(`/articles/${articleId}`)
         .then((article) => {
           $scope.article = article
         })
     },
 
-    createArticle($scope, article) {
-      $http.post("/articles", article)
-        .then((article) => {
-          $scope.article = article
-        })
+    createArticle($scope) {
+      return $http.post("/articles", $scope.article)
     },
 
     updateArticle($scope, article) {
-      $http.put(`/articles/${article._id}`, article)
-        .then(() => {
-          console.log("Article succefully updated")
-        })
+      return $http.put(`/articles/${article._id}`, article)
     },
 
     deleteArticle($scope, article) {
-      $http.delete(`/articles/${article._id}`)
-        .then(() => {
-          console.log("Article succefully deleted")
-        })
+      return $http.delete(`/articles/${article._id}`)
     },
   }
 }

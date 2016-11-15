@@ -35,10 +35,7 @@ exports.create = function(req, res) {
   article.user = req.user
   article.save(function(err) {
     if (err) {
-      return res.send("users/signup", {
-        errors: err.errors,
-        article: article,
-      })
+      res.status(400).json(err)
     } else {
       res.jsonp(article)
     }

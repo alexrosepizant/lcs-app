@@ -32,35 +32,44 @@
             </span>
           </a>
         </li>
-        <li>
-          <a>
-            <span class="icon is-small"><i class="fa fa-music"></i></span>
-            <span>
-              Musique
-            </span>
-          </a>
-        </li>
       </ul>
     </div>
     <button class="delete close" ng-click="dismiss()"></button>
   </header>
-  <section class="modal-card-body">
-    <h1 ng-model="title" medium-editor bind-options="{disableReturn: true, disableExtraSpaces: true, toolbar: false}" data-placeholder="Enter a title"></h1>
-    <label class="label">Contenu</label>
-    <form name="demo">
-      <div name="text" ng-model="article.content" medium-editor bind-options="{'toolbar': {'buttons': ['bold', 'italic', 'underline', 'header1', 'header2', 'quote', 'orderedlist', 'unorderedlist']}}">
-        <div medium-insert insert-addons="insertAddons"></div>
+
+  <section class="modal-card-body content">
+    <h1 ng-model="article.title"
+        medium-editor
+        class="meditor-title"
+        data-placeholder="Titre de l'article">
+    </h1>
+    <form name="demo" class="medium-editor-content">
+      <div class="button fa fa-picture-o meditor-add" ngf-select='upload(files)'
+           ng-model='file'
+           ngf-multiple='false'
+           accept='image/*,'>
+      </div>
+      <div id="mediumEditor"
+      name="content"
+      ng-model="article.content"
+      medium-editor
+      class="meditor-content"
+      data-placeholder="...laisse parler l'inspi">
       </div>
     </form>
-    <h4>Model:</h4>
-    <pre>{{text}}</pre>
   </section>
+
   <footer class="modal-card-foot">
-    <a class="button is-primary">
+    <a class="button is-primary" ng-click="create()">
       Sauvegarder
     </a>
     <a class="button is-link" ng-click="dismiss()">
       Annuler
     </a>
+    <article class="message is-primary">
+      <div class="message-body">
+        <strong>Tips:</strong> Tu peux mettre en forme le texte en le sélectionnant
+      </div>
+    </article>
   </footer>
 </div>

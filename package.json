@@ -19,6 +19,7 @@
     "angular-sanitize": "^1.5.8",
     "angular-translate": "^2.13.0",
     "angular-translate-loader-static-files": "^2.13.0",
+    "angular-ui-notification": "^0.2.0",
     "angular-ui-router": "^0.2.17",
     "archiver": "latest",
     "body-parser": "1.8",
@@ -49,8 +50,6 @@
     "videogular": "1.4.4",
     "videogular-buffering": "^1.4.4",
     "videogular-controls": "^1.4.4",
-    "videogular-ima-ads": "^1.4.4",
-    "videogular-poster": "^1.4.4"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",

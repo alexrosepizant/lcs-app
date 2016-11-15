@@ -1,14 +1,39 @@
 import MediumEditor from "medium-editor"
 
-angular.module("angular-medium-editor", [])
+angular.module("angular-medium-editor", []).directive("mediumEditor", () => {
 
-.directive("mediumEditor", function() {
-
+  // Util function
   function toInnerText(value) {
     const tempEl = document.createElement("div")
     tempEl.innerHTML = value
     const text = tempEl.textContent || ""
     return text.trim()
+  }
+
+  // New buttons added
+  function Fullscreen() {
+  }
+
+  function fullscreenClick() {
+    const elt = document.getElementsByClassName("modal-dialog")[0]
+
+    // go full-screen
+    if (elt.requestFullscreen) {
+      elt.requestFullscreen()
+    } else if (elt.webkitRequestFullscreen) {
+      elt.webkitRequestFullscreen()
+    } else if (elt.mozRequestFullScreen) {
+      elt.mozRequestFullScreen()
+    } else if (elt.msRequestFullscreen) {
+      elt.msRequestFullscreen()
+    }
+  }
+
+  Fullscreen.prototype.getButton = () => {
+    const button = document.createElement("button")
+    button.innerHTML = "<i class='fa fa-expand'></i>"
+    button.addEventListener("click", fullscreenClick)
+    return button
   }
 
   return {
@@ -21,26 +46,42 @@ angular.module("angular-medium-editor", [])
 
       // Global MediumEditor
       ngModel.editor = new MediumEditor(iElement, {
+        buttonLabels: "fontawesome",
         toolbar: {
-          /* These are the default options for the toolbar,
-          if nothing is passed this is what is used */
-          allowMultiParagraphSelection: true,
-          buttons: ["bold", "italic", "underline", "anchor", "h2", "h3", "quote"],
+          buttons: [
+            "bold",
+            "italic",
+            "underline",
+            "justifyLeft",
+            "justifyCenter",
+            "justifyRight",
+            "h1",
+            "h2",
+            "h3",
+            "quote",
+            "fullscreen",
+          ],
           diffLeft: 0,
           diffTop: -10,
-          firstButtonClass: "medium-editor-button-first",
-          lastButtonClass: "medium-editor-button-last",
-          relativeContainer: null,
-          standardizeSelectionStart: false,
-          static: false,
-          /* options which only apply when static is true */
-          align: "center",
-          sticky: false,
-          updateOnEmptySelection: false,
+        },
+        anchor: {
+          placeholderText: "Type a link",
+          customClassOption: "btn",
+          customClassOptionText: "Create Button",
+        },
+        paste: {
+          forcePlainText: true,
+          cleanPastedHTML: false,
+          cleanReplacements: [],
+          cleanAttrs: ["class", "style", "dir"],
+          cleanTags: ["meta"],
+        },
+        extensions: {
+          fullscreen: new Fullscreen(),
         },
       })
 
-      ngModel.$render = function() {
+      ngModel.$render = () => {
         iElement.html(ngModel.$viewValue || "")
         const placeholder = ngModel.editor.getExtensionByName("placeholder")
         if (placeholder) {
@@ -48,7 +89,7 @@ angular.module("angular-medium-editor", [])
         }
       }
 
-      ngModel.$isEmpty = function(value) {
+      ngModel.$isEmpty = (value) => {
         if (/[<>]/.test(value)) {
           return toInnerText(value).length === 0
         } else if (value) {
@@ -58,15 +99,15 @@ angular.module("angular-medium-editor", [])
         }
       }
 
-      ngModel.editor.subscribe("editableInput", function(event, editable) {
+      ngModel.editor.subscribe("editableInput", (event, editable) => {
         ngModel.$setViewValue(editable.innerHTML.trim())
       })
 
-      scope.$watch("bindOptions", function(bindOptions) {
+      scope.$watch("bindOptions", (bindOptions) => {
         ngModel.editor.init(iElement, bindOptions)
       })
 
-      scope.$on("$destroy", function() {
+      scope.$on("$destroy", () => {
         ngModel.editor.destroy()
       })
     },

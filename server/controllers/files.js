@@ -116,33 +116,13 @@ exports.uploadVideo = function(req, res) {
   if (!req.files || !req.files.file) {
     res.end(JSON.stringify({
       err: 100, // Mettre en place des messages d"erreur
-      path: null,
+      messages: "Pas de fichier",
     }))
   }
 
-  const oldPath = req.files.file.path
-  const name = req.files.file.name
-  // const ext = eq.files.file.ext
-
-  const newPath = path.resolve(config.userVideoDirectory + name)
-
-  fs.rename(oldPath, newPath, function(err) {
-    if (err) {
-      res.end(JSON.stringify({
-        err: 100, // Mettre en place des messages d"erreur
-        path: null,
-      }))
-    } else {
-      res.writeHead(200, {
-        "Content-Type": "application/json",
-      })
-
-      res.end(JSON.stringify({
-        err: null,
-        path: newPath,
-        name: name,
-        location: config.userVideoDirectory + name,
-      }))
-    }
-  })
+  res.end(JSON.stringify({
+    err: null,
+    path: req.files.file.path,
+    location: req.files.file.path,
+  }))
 }

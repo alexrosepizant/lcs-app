@@ -20,12 +20,6 @@
             <span>Photos</span>
           </a>
         </li>
-        <li>
-          <a>
-            <span class="icon is-small"><i class="fa fa-music"></i></span>
-            <span>Musique</span>
-          </a>
-        </li>
       </ul>
     </div>
     <button class="delete close" ng-click="dismiss()"></button>
@@ -67,7 +61,7 @@
 			</div>
 
 			<div class="column is-6">
-				<videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)" vg-theme="config.theme">
+				<videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)">
 					<vg-media vg-src="config.sources" vg-tracks="config.tracks">
 					</vg-media>
 					<vg-controls>
@@ -92,7 +86,6 @@
 						</vg-fullscreen-button>
 					</vg-controls>
 					<vg-overlay-play></vg-overlay-play>
-					<vg-poster vg-url="config.plugins.poster"></vg-poster>
 				</videogular>
 			</div>
 		</div>

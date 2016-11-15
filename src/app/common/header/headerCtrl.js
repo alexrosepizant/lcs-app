@@ -1,4 +1,4 @@
-export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, ngPopoverFactory) {
+export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, ngPopoverFactory, Notification) {
 
   // Main menu
   $scope.menu = [{
@@ -39,7 +39,10 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, n
 
   // Search
   $scope.search = () => {
-    console.warn($scope.searchWord)
+    Notification.info({
+      title: "Info",
+      message: "C'est pour bientôt!",
+    })
   }
 
   // User menu

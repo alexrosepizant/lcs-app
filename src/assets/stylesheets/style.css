@@ -51,6 +51,10 @@ body {
   transform: translate3d(100px, 0, 0);
 }
 
+.angular-medium-editor {
+  outline: none;
+}
+
 .top-menu-container {
   background-color: #fff;
   margin-bottom: 20px;
@@ -75,6 +79,11 @@ body {
 
 .margin-top-10 {
   margin-top: 10px;
+}
+
+.medium-editor-content {
+  margin-top: 20px;
+  min-height: 150px;
 }
 
 .footer {
@@ -313,4 +322,94 @@ p.title.is-bold {
 a.is-current {
   color: black;
   font-weight: bold;
+}
+
+.medium-editor-action .fa {
+  font-size: 18px;
+}
+
+.meditor-title {
+  padding-left: 60px;
+}
+
+.meditor-content {
+  padding-left: 60px;
+  padding-top: 10px;
+}
+
+.meditor-add {
+  position: absolute !important;
+  border-radius: 50% !important;
+  padding: 22px;
+}
+
+.ui-notification {
+  position: fixed;
+  z-index: 9999;
+  width: 300px;
+  -webkit-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+  color: #fff;
+  background: #337ab7;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.ui-notification.clickable {
+  cursor: pointer;
+}
+
+.ui-notification.clickable:hover {
+  opacity: 0.7;
+}
+
+.ui-notification.killed {
+  -webkit-transition: opacity ease 1s;
+  -o-transition: opacity ease 1s;
+  transition: opacity ease 1s;
+  opacity: 0;
+}
+
+.ui-notification > h3 {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin: 10px 10px 0;
+  padding: 0 0 5px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.ui-notification a {
+  color: #fff;
+}
+
+.ui-notification a:hover {
+  text-decoration: underline;
+}
+
+.ui-notification > .message {
+  margin: 10px;
+  background: none !important;
+}
+
+.ui-notification.warning {
+  color: black;
+  background: #ffdd57;
+}
+
+.ui-notification.error {
+  color: #fff;
+  background: #ff3860;
+}
+
+.ui-notification.success {
+  color: #fff;
+  background: #23d160;
+}
+
+.ui-notification.info {
+  color: #fff;
+  background: #3273dc;
 }

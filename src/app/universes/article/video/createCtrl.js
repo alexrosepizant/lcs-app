@@ -1,8 +1,11 @@
-export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) {
+export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload, Notification) {
 
   $scope.showError = false
   $scope.API = null
-  $scope.url = ""
+  $scope.article = {
+    type: "video",
+    url: "",
+  }
 
   /**
   Video upload
@@ -24,11 +27,18 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) 
             file: file,
           },
         }).then((resp) => {
-          $scope.url = resp.data.location
-          $scope.testVideo()
+          if (resp.data.err) {
+            $scope.showError = true
+          } else {
+            $scope.showError = false
+            $scope.article.url = resp.data.location
+            $scope.testVideo()
+          }
         }, null, (evt) => {
           const progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
           console.warn(progressPercentage)
+        }).catch(() => {
+          $scope.showError = true
         })
       }
     }
@@ -37,30 +47,22 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) 
   /**
   Video player
   **/
-  $scope.onPlayerReady = (API) => {
-    $scope.API = API
-  }
-
   $scope.config = {
     sources: [],
     tracks: [],
-    plugins: {
-      poster: "http://www.videogular.com/assets/images/videogular.png",
-    },
+  }
+
+  $scope.onPlayerReady = (API) => {
+    $scope.API = API
   }
 
   $scope.testVideo = () => {
     $scope.API.stop()
     $scope.config.sources = [{
-      src: $sce.trustAsResourceUrl($scope.url),
+      src: $sce.trustAsResourceUrl($scope.article.url),
       type: "video/mp4",
     }]
     $scope.API.play()
-  }
-
-  $scope.onError = (evt) => {
-    console.warn(evt)
-    $scope.showError = true
   }
 
   /**
@@ -71,7 +73,26 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload) 
   }
 
   $scope.create = () => {
-    ArticleFactory.create($scope.article)
-    $scope.$close(true)
+    if (!$scope.article.title) {
+      return Notification.warning({
+        title: "Info",
+        message: "Mets au moins un titre",
+      })
+    }
+
+    ArticleFactory.createArticle($scope)
+      .then(() => {
+        $scope.$close(true)
+        Notification.success({
+          title: "Success",
+          message: "Article créé avec succés",
+        })
+      })
+      .catch(() => {
+        Notification.error({
+          title: "Error",
+          message: "Erreur lors de la création de l'article",
+        })
+      })
   }
 }

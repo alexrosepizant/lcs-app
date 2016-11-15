@@ -16,11 +16,10 @@ import "angular-sanitize"
 import "angular-animate"
 import "angular-translate"
 import "angular-translate-loader-static-files"
+import "angular-ui-notification"
 import "ng-file-upload"
 import "videogular"
 import "videogular-controls"
-import "videogular-ima-ads"
-import "videogular-poster"
 import "videogular-buffering"
 
 // Import our app config files
@@ -58,10 +57,10 @@ const requires = [
   "ngFileUpload",
   "ngPopover",
   "ui.bootstrap",
+  "ui-notification",
   "angular-medium-editor",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
-  "com.2fdevs.videogular.plugins.poster",
   "app.auth",
   "app.home",
   "app.user",
@@ -76,11 +75,8 @@ const requires = [
 window.app = angular.module("app", requires)
 
 angular.module("app").constant("AppConstants", constants)
-
 angular.module("app").config(appConfig)
-
 angular.module("app").run(appRun)
-
 angular.module("app").factory("GlobalFactory", GlobalFactory)
 angular.module("app").controller("HeaderCtrl", HeaderCtrl)
 
