@@ -8,6 +8,7 @@ const logger = require("morgan")
 const cookieParser = require("cookie-parser")
 const serveStatic = require("serve-static")
 const	qt = require("quickthumb")
+const MongoStore = require("connect-mongo")(session)
 const	config = require("./config")
 
 const router = express.Router()
@@ -30,9 +31,14 @@ module.exports = function(app, passport) {
 
   // Express utilities: cookies, bodyParser, uploadDirectory
   app.use(cookieParser())
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({extended: true}))
-  app.use(multer({dest: config.uploadDirectory}))
+  app.use(bodyParser.json({limit: "5mb"}))
+  app.use(bodyParser.urlencoded({
+    extended: true,
+    limit: "5mb",
+  }))
+  app.use(multer({
+    dest: config.uploadDirectory,
+  }))
   app.use(methodOverride())
 
   // Assets rendering: app/users_ressources/favicon
@@ -42,9 +48,13 @@ module.exports = function(app, passport) {
 
 	// Express/Mongo session storage
   app.use(session({
+    secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true,
-    secret: config.sessionSecret,
+    store: new MongoStore({
+      url: config.db,
+      collection: "sessions",
+    }),
   }))
 
 	// Use passport session

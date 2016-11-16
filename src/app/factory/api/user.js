@@ -1,38 +1,27 @@
 export default function UserFactory($http) {
   return {
-    getUsers($scope) {
-      $http.get("/users")
-        .then((article) => {
-          $scope.article = article
-        })
+    getUsers() {
+      return $http.get("/users")
     },
 
-    getCurrentUser($scope) {
-      $http.get("/users/me")
-        .then((user) => {
-          $scope.user = user
-        })
+    getCurrentUser() {
+      return $http.get("/users/me")
     },
 
     getUser($scope, userId) {
-      $http.get(`/users/${userId}`)
-        .then((user) => {
-          $scope.user = user
-        })
+      return $http.get(`/users/${userId}`)
     },
 
     updateUser($scope, user) {
-      $http.put(`/users/${user._id}`, user)
-        .then(() => {
-          console.log("User succefully updated")
-        })
+      return $http.put(`/users/${user._id}`, user)
     },
 
     deleteUser($scope, user) {
-      $http.delete(`/users/${user._id}`)
-        .then(() => {
-          console.log("User succefully deleted")
-        })
+      return $http.delete(`/users/${user._id}`)
+    },
+
+    addReadArticle(articleId) {
+      console.warn(articleId)
     },
   }
 }

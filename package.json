@@ -23,7 +23,7 @@
     "angular-ui-router": "^0.2.17",
     "archiver": "latest",
     "body-parser": "1.8",
-    "connect-mongostore": "^0.1.4",
+    "connect-mongo": "^1.3.2",
     "cookie-parser": "^1.4.3",
     "cron": "latest",
     "crypto": "0.0.3",
@@ -49,7 +49,7 @@
     "serve-static": "^1.11.1",
     "videogular": "1.4.4",
     "videogular-buffering": "^1.4.4",
-    "videogular-controls": "^1.4.4",
+    "videogular-controls": "^1.4.4"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",

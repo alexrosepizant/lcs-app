@@ -62,7 +62,6 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload, 
       src: $sce.trustAsResourceUrl($scope.article.url),
       type: "video/mp4",
     }]
-    $scope.API.play()
   }
 
   /**

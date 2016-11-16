@@ -47,6 +47,7 @@
           </div>
         </div>
       </div>
+
       <lcs-blog-post ng-repeat="article in articles" class="box blog" type="{{ article.type || 'standard' }}">
       </lcs-blog-post>
     </div>
@@ -62,7 +63,10 @@
         <span class="tag is-danger">Danger</span>
       </div>
       <div class="box">
-        <p><span class="title is-5">Ceux qui postent le plus</span> · <a href="#" class="user-link">Voir tous</a></p>
+        <p>
+          <span class="title is-5">Ceux qui postent le plus</span>
+           · <a href="#" class="user-link">Voir tous</a>
+        </p>
         <hr>
         <div class="columns">
           <div class="column is-3 is-marginless">

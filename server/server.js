@@ -60,7 +60,7 @@ if (!isProduction) {
 }
 
 // Define route for app
-app.get("/", function(req, res) {
+app.get("/*", function(req, res) {
   if (req.user) {
     res.cookie("user", JSON.stringify(req.user.user_info))
   }

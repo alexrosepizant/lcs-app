@@ -28,13 +28,19 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location) 
       return $http.post("/auth/users", userinfo)
     },
 
-    currentUser() {
+    getCurrentUser() {
+      return $rootScope.currentUser
+    },
+
+    updateCurrentUser() {
       return $http.get("/auth/session")
-        .then((result) => $rootScope.currentUser = result.data)
+        .then((result) => {
+          return $rootScope.currentUser = result.data
+        })
     },
 
     authenticateUser() {
-      this.currentUser()
+      this.updateCurrentUser()
         .then(() => $location.path("/home"))
     },
   }

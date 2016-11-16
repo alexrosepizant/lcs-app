@@ -1,9 +1,9 @@
-export default function ProfileCtrl($scope, GlobalFactory, UserFactory, ArticleFactory, Upload, $translate) {
+export default function ProfileCtrl($scope, UserFactory, AuthFactory, ArticleFactory, Upload, $translate) {
 
-  $scope.user = GlobalFactory.user || {
-    avatar: "public/img/users/896b4bf8-a73a-5606-b3e5-1dc3362b472c.JPG",
-  }
+  // get current user
+  $scope.user = AuthFactory.getCurrentUser()
 
+  // load user contents
   ArticleFactory.getArticlesByUser($scope)
 
   /** ***

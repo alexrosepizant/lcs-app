@@ -1,4 +1,4 @@
-export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, ngPopoverFactory, Notification) {
+export default function GlobalCtrl($scope, AuthFactory, $location, ngPopoverFactory, Notification) {
 
   // Main menu
   $scope.menu = [{
@@ -46,7 +46,7 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, n
   }
 
   // User menu
-  $scope.currentUser = $rootScope.currentUser
+  $scope.currentUser = AuthFactory.getCurrentUser()
 
   $scope.closeMenu = (triggerId) => {
     ngPopoverFactory.closePopover(triggerId)

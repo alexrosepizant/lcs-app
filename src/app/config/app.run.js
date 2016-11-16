@@ -5,7 +5,7 @@ function AppRun(AppConstants, $rootScope, $location, AuthFactory, $uibModalStack
       // if no currentUser and on a page that requires authorization then try to update it
       // will trigger 401s if user does not have a valid session
     if (!currentUser && (["/login", "/logout", "/signup"].indexOf($location.path()) === -1)) {
-      AuthFactory.currentUser()
+      AuthFactory.updateCurrentUser()
     }
   })
 

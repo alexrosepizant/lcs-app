@@ -5,6 +5,7 @@ import "../assets/stylesheets/ngpopover.css"
 import "../assets/stylesheets/videogular.css"
 import "../assets/stylesheets/ui-bootstrap-custom-1.3.3-csp.css"
 import "../assets/stylesheets/medium-editor.css"
+import "../assets/stylesheets/angular-lightbox.css"
 
 // Import our angular libs
 import angular from "angular"
@@ -21,12 +22,13 @@ import "ng-file-upload"
 import "videogular"
 import "videogular-controls"
 import "videogular-buffering"
+import "./common/videogular-youtube/index"
+import "./common/lightbox/angular-lightbox"
 
 // Import our app config files
 import constants  from "./config/app.constants"
 import appConfig  from "./config/app.config"
 import appRun     from "./config/app.run"
-import GlobalFactory from "./factory/api/global"
 import HeaderCtrl from "./common/header/headerCtrl"
 
 // Import commons
@@ -59,8 +61,10 @@ const requires = [
   "ui.bootstrap",
   "ui-notification",
   "angular-medium-editor",
+  "angular-lightbox",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
+  "info.vietnamcode.nampnq.videogular.plugins.youtube",
   "app.auth",
   "app.home",
   "app.user",
@@ -77,7 +81,6 @@ window.app = angular.module("app", requires)
 angular.module("app").constant("AppConstants", constants)
 angular.module("app").config(appConfig)
 angular.module("app").run(appRun)
-angular.module("app").factory("GlobalFactory", GlobalFactory)
 angular.module("app").controller("HeaderCtrl", HeaderCtrl)
 
 angular.bootstrap(document, ["app"])
