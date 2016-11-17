@@ -1,30 +1,30 @@
 import moment from "moment"
 
-export default function Article($sce, UserFactory) {
+export default function Article($sce, UserFactory, User) {
   return (data) => {
     return angular.extend({
       title: "",
       description: "",
 
+      getTitle() {
+        return angular.element("<div>" + this.title + "</div>").html()
+      },
+
+      getContent() {
+        return angular.element("<div>" + this.content + "</div>").html()
+      },
+
+      getImage() {
+        const img = angular.element("<div>" + this.content + "</div>").find("img").first()
+        return (img.length) ? img.attr("src") : ""
+      },
+
       getDateFrom() {
         return moment(this.created).fromNow()
       },
 
-      getImage(html) {
-        const img = angular.element("<div>" + html + "</div>").find("img").first()
-        return (img.length) ? img.attr("src") : ""
-      },
-
-      getFormattedContent(html) {
-        return $sce.trustAsHtml(html)
-      },
-
-      trustSrc(src) {
-        return $sce.trustAsResourceUrl(src)
-      },
-
-      isSpotify(link) {
-        return link.indexOf("spotify") !== -1
+      trustSrc() {
+        return $sce.trustAsResourceUrl(this.src)
       },
 
       getSuggestionAnswerLength(suggestion, option) {
@@ -47,6 +47,6 @@ export default function Article($sce, UserFactory) {
           $scope.article.categories.splice($scope.article.categories.indexOf(category), 1)
         }
       },
-    }, data)
+    }, data, {user: new User(data.user)})
   }
 }

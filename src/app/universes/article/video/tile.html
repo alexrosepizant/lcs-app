@@ -1,51 +1,10 @@
 <div class="video-meta">
-  <div class="video-title ellipsis">{{article.title}}</div>
+  <div class="blog-title ellipsis">{{article.title}}</div>
   <br>
   <article class="media">
     <div class="media-content">
       <div class="content">
         <div class="columns">
-          <div class="column is-6">
-            <div class="media-left">
-              <img class="image is-32x32 inline-block" src="http://placehold.it/64x64" alt="Image">
-              <strong class="videoBlogPostUser">{{article.user.username}}</strong>
-            </div>
-            <div class="trending">
-    					<span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
-    						{{ category.value }}
-    					</span>
-    					<span ng-if="article.categories.length === 0" class="tag">
-    						Aucune catégorie associée
-    					</span>
-    				</div>
-            <nav class="nav">
-              <div class="container">
-                <div class="nav-left">
-                  <a class="nav-item is-tab is-active">
-                    <span class="title is-4">124 304 vues</span>
-                  </a>
-                </div>
-              </div>
-            </nav>
-            <nav class="level margin-top-20">
-              <p class="level-item has-text-left">
-                <a class="button is-default">
-                  <i class="fa fa-thumbs-up"></i>
-                  5254
-                </a>
-                <a class="button is-default">
-                  <i class="fa fa-thumbs-down"></i>
-                  1
-                </a>
-                <a class="button is-default">
-                  <span class="icon"><i class="fa fa-plus"></i></span> <span>Add to</span>
-                </a>
-                <a class="button is-default">
-                  <span class="icon"><i class="fa fa-ellipsis-h"></i></span> <span>More</span>
-                </a>
-              </p>
-            </nav>
-          </div>
           <div class="column is-6">
             <videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)">
     					<vg-media vg-src="config.sources" vg-tracks="config.tracks" vg-youtube="rel=1;showinfo=1">
@@ -73,6 +32,43 @@
     					</vg-controls>
     					<vg-overlay-play></vg-overlay-play>
     				</videogular>
+          </div>
+          <div class="column is-6">
+            <nav class="nav">
+              <div class="container">
+                <div class="nav-left">
+                  <a class="nav-item is-tab is-active">
+                    <span class="title is-4">124 304 vues</span>
+                  </a>
+                </div>
+              </div>
+            </nav>
+            <div class="trending margin-top-20">
+    					<span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
+    						{{ category.value }}
+    					</span>
+    					<span ng-if="article.categories.length === 0" class="tag">
+    						Aucune catégorie associée
+    					</span>
+    				</div>
+            <nav class="level margin-top-20">
+              <p class="level-item has-text-left">
+                <a class="button is-default">
+                  <i class="fa fa-thumbs-up"></i>
+                  5254
+                </a>
+                <a class="button is-default">
+                  <i class="fa fa-thumbs-down"></i>
+                  1
+                </a>
+                <a class="button is-default">
+                  <span class="icon"><i class="fa fa-plus"></i></span> <span>Add to</span>
+                </a>
+                <a class="button is-default">
+                  <span class="icon"><i class="fa fa-ellipsis-h"></i></span> <span>More</span>
+                </a>
+              </p>
+            </nav>
           </div>
         </div>
       </div>

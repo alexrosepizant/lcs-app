@@ -1,30 +1,12 @@
 <article class="media">
-  <div class="media-left">
-    <figure class="image is-64x64">
-      <img ng-src="{{ article.user.avatar }}?dim=40x40" alt="Image">
-    </figure>
-  </div>
   <div class="media-content">
-    <h2>Standard</h2>
     <div class="content">
       <p>
-        <strong>{{article.user.username}}</strong> <small>{{ article.getDateFrom() }}</small>
+        <small class="pull-right">{{ article.getDateFrom() }}</small>
+        <div ng-bind-html="article.getTitle()"></div>
         <br>
-        {{article.content}}
+        <div ng-bind-html="article.getContent()"></div>
       </p>
     </div>
-    <nav class="level">
-      <div class="level-left">
-        <a class="level-item">
-          <span class="icon is-small"><i class="fa fa-reply"></i></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fa fa-retweet"></i></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fa fa-heart"></i></span>
-        </a>
-      </div>
-    </nav>
   </div>
 </article>

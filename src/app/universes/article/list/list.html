@@ -48,8 +48,15 @@
         </div>
       </div>
 
-      <lcs-blog-post ng-repeat="article in articles" class="box blog" type="{{ article.type || 'standard' }}">
-      </lcs-blog-post>
+      <div ng-repeat="article in articles">
+        <div class="user-blog pull-left">
+          <figure class="image is-64x64">
+            <img ng-src="{{ article.user.getAvatar(40,40) }}" alt="Image">
+          </figure>
+        </div>
+        <lcs-blog-post class="pull-left box blog" type="{{ article.type || 'standard' }}">
+        </lcs-blog-post>
+      </div>
     </div>
 
     <div class="column is-3">
@@ -62,83 +69,24 @@
         <span class="tag is-warning">Warning</span>
         <span class="tag is-danger">Danger</span>
       </div>
+
       <div class="box">
         <p>
           <span class="title is-5">Ceux qui postent le plus</span>
-           · <a href="#" class="user-link">Voir tous</a>
+          <br/>
+          <a href="#" class="user-link">Voir tous le monde</a>
         </p>
         <hr>
-        <div class="columns">
-          <div class="column is-3 is-marginless">
-            <div class="image">
-              <img src="https://placehold.it/200x200">
+        <div ng-repeat="user in users | limitTo: 5 " class="columns">
+          <div class="column is-marginless">
+            <div class="image is-64x64">
+              <img ng-src="{{ user.getAvatar(80, 80) }}">
             </div>
           </div>
           <div class="column is-9">
             <p class="user-title">
               <a href="#">
-                <strong>John Smith</strong>
-              </a>
-            </p>
-            <p>
-              <a class="is-small">
-                <span class="subtitle is-6">
-                  125 publications
-                </span>
-              </a>
-            </p>
-            <p class="small-margin-top">
-              <a class="button is-light is-small">
-                <span class="icon is-small">
-                  <i class="fa fa-vcard"></i>
-                </span>
-                <span>
-                  Voir le profile
-                </span>
-              </a>
-            </p>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-3 is-marginless">
-            <div class="image">
-              <img src="https://placehold.it/200x200">
-            </div>
-          </div>
-          <div class="column is-9">
-            <p class="user-title">
-              <a href="#">
-                <strong>John Smith</strong>
-              </a>
-            </p>
-            <p>
-              <a class="is-small">
-                <span class="subtitle is-6">
-                  125 publications
-                </span>
-              </a>
-            </p>
-            <p class="small-margin-top">
-              <a class="button is-light is-small">
-                <span class="icon is-small">
-                  <i class="fa fa-vcard"></i>
-                </span>
-                <span>
-                  Voir le profile
-                </span>
-              </a>
-            </p>
-          </div>
-        </div><div class="columns">
-          <div class="column is-3 is-marginless">
-            <div class="image">
-              <img src="https://placehold.it/200x200">
-            </div>
-          </div>
-          <div class="column is-9">
-            <p class="user-title">
-              <a href="#">
-                <strong>John Smith</strong>
+                <strong>{{ user.username }}</strong>
               </a>
             </p>
             <p>

@@ -195,11 +195,6 @@ body {
   margin-top: -10px;
 }
 
-.video-title {
-  font-size: 1.5em;
-  font-weight: 500;
-}
-
 .trending .trend-title {
   padding-bottom: 10px;
 }
@@ -340,11 +335,34 @@ p.title.is-bold {
 }
 
 .blog {
+  display: inline-block !important;
+  width: calc(100% - 104px);
+  padding: 0 20px 20px !important;
   margin-top: 20px;
 }
 
 .blog-add {
   margin: 20px;
+}
+
+.blog-title {
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.user-title {
+  margin: -5px 0 0;
+}
+
+.user-chat {
+  margin: 5px;
+}
+
+.user-blog {
+  display: inline-block;
+  margin: 20px 20px 0;
 }
 
 .user-title > a > strong,
@@ -470,6 +488,17 @@ a.is-current {
   background: #3273dc;
 }
 
+.chat-counter i::before {
+  color: #ff3860;
+}
+
+.chat-counter i {
+  font-style: inherit;
+  font-size: large;
+  font-weight: 500;
+  color: #ff3860;
+}
+
 .masonry {
   column-count: 3;
   column-gap: 0;
@@ -503,7 +532,7 @@ a.is-current {
   width: 100%;
 }
 
-.card-content {
+.home-user.card-content {
   padding: 0 20px !important;
 }
 
@@ -584,4 +613,16 @@ ul.card-stats-list {
   overflow: hidden;
   text-transform: uppercase;
   transition: color 0.15s ease-in-out 0s;
+}
+
+textarea {
+  box-shadow: none !important;
+}
+
+.textareaChat {
+  min-height: 50px !important;
+}
+
+.is-mention p {
+  color: #ff3860;
 }

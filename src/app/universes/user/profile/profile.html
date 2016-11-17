@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-2">
         <div class="image is-128x128 avatar">
-          <img ng-src="{{ user.avatar && user.avatar + '?dim=300x300' || 'https://placehold.it/256x256'}}">
+          <img ng-src="{{ user.getAvatar(300,300) }}" alt="Image"/>
           <div class="spacer"></div>
           <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
             Changer la photo
@@ -107,10 +107,10 @@
   </div>
 
   <div class="spacer"></div>
-  
+
   <div class="columns">
     <div class="column is-12">
-      <div class="card" ng-repeat="article in articles">
+      <div ng-repeat="article in articles" class="card user-profile">
         <div class="card-image">
           <figure class="image is-4by3">
             <img src="http://placehold.it/300x225" alt="">
@@ -126,7 +126,6 @@
           <a class="card-footer-item">Modifier</a>
           <a class="card-footer-item">Supprimer</a>
         </footer>
-      </div>
       </div>
     </div>
   </div>

@@ -6,6 +6,13 @@ export default function ArticleConfig($stateProvider) {
     controller: "ArticleListCtrl",
     title: "Article",
     resolve: {
+      articles: ($stateParams, ArticleFactory) => {
+        const filter = ($stateParams.filter) ? $stateParams.filter : "all"
+        return ArticleFactory.loadArticles(filter)
+      },
+      users: (UserFactory) => {
+        return UserFactory.getUsers()
+      },
       filter: ($stateParams) => {
         return ($stateParams.filter) ? $stateParams.filter : "all"
       },
@@ -13,11 +20,12 @@ export default function ArticleConfig($stateProvider) {
   })
   .state("article.create", {
     url: "/article/create",
-    onEnter: ["$stateParams", "$state", "$uibModal", function($stateParams, $state, $uibModal) {
+    onEnter: ["$state", "$uibModal", function($state, $uibModal) {
       $uibModal.open({
         templateUrl: "app/universes/article/standard/create.html",
         controller: "StandardCreationCtrl",
         backdrop: "static",
+        animation: false,
       }).result.finally(function() {
         $state.go("^")
       })
@@ -25,11 +33,12 @@ export default function ArticleConfig($stateProvider) {
   })
   .state("article.createVideo", {
     url: "/article/create/video",
-    onEnter: ["$stateParams", "$state", "$uibModal", function($stateParams, $state, $uibModal) {
+    onEnter: ["$state", "$uibModal", function($state, $uibModal) {
       $uibModal.open({
         templateUrl: "app/universes/article/video/create.html",
         controller: "VideoCreationCtrl",
         backdrop: "static",
+        animation: false,
       }).result.finally(function() {
         $state.go("^")
       })
@@ -37,11 +46,12 @@ export default function ArticleConfig($stateProvider) {
   })
   .state("article.createAlbum", {
     url: "/article/create/album",
-    onEnter: ["$stateParams", "$state", "$uibModal", function($stateParams, $state, $uibModal) {
+    onEnter: ["$state", "$uibModal", function($state, $uibModal) {
       $uibModal.open({
         templateUrl: "app/universes/article/album/create.html",
         controller: "AlbumCreationCtrl",
         backdrop: "static",
+        animation: false,
       }).result.finally(function() {
         $state.go("^")
       })

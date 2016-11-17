@@ -1,4 +1,6 @@
-export default function ArticleListCtrl($scope, ArticleFactory, filter) {
+export default function ArticleListCtrl($scope, articles, users, filter) {
+  // Retrieve params
+  $scope.articles = articles
+  $scope.users = users
   $scope.filter = filter
-  ArticleFactory.loadArticles($scope)
 }

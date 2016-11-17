@@ -1,23 +1,22 @@
 <div class="video-meta">
-  <div class="video-title ellipsis">{{article.title}}</div>
+  <div class="blog-title ellipsis">{{article.title}}</div>
   <br>
   <article class="media">
     <div class="media-content">
       <div class="content">
         <div class="columns">
+          <div class="column is-6 masonry">
+    					<div class="masonry-child" ng-repeat="photo in article.photoList | limitTo:6">
+    						<a ng-href="{{ photo.filepath }}"
+                   class="lightbox-trigger"
+                   title="{{ photo.name }}"
+                   lightbox
+                   index="{{$index}}">
+    							<img ng-src="{{ photo.filepath }}?dim=300"/>
+    						</a>
+    					</div>
+          </div>
           <div class="column is-6">
-            <div class="media-left">
-              <img class="image is-32x32 inline-block" src="http://placehold.it/64x64" alt="Image">
-              <strong class="videoBlogPostUser">{{article.user.username}}</strong>
-            </div>
-            <div class="trending">
-    					<span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
-    						{{ category.value }}
-    					</span>
-    					<span ng-if="article.categories.length === 0" class="tag articleTag">
-    						Aucune catégorie associée
-    					</span>
-    				</div>
             <nav class="nav">
               <div class="container">
                 <div class="nav-left">
@@ -27,6 +26,14 @@
                 </div>
               </div>
             </nav>
+            <div class="trending margin-top-20">
+    					<span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
+    						{{ category.value }}
+    					</span>
+    					<span ng-if="article.categories.length === 0" class="tag">
+    						Aucune catégorie associée
+    					</span>
+    				</div>
             <nav class="level margin-top-20">
               <p class="level-item has-text-left">
                 <a class="button is-default">
@@ -45,17 +52,6 @@
                 </a>
               </p>
             </nav>
-          </div>
-          <div class="column is-6 masonry">
-    					<div class="masonry-child" ng-repeat="photo in article.photoList | limitTo:6">
-    						<a ng-href="{{ photo.filepath }}"
-                   class="lightbox-trigger"
-                   title="{{ photo.name }}"
-                   lightbox
-                   index="{{$index}}">
-    							<img ng-src="{{ photo.filepath }}?dim=300"/>
-    						</a>
-    					</div>
           </div>
         </div>
       </div>

@@ -1,12 +1,12 @@
 export default function ArticleFactory($http, Article) {
   return {
-    loadArticles($scope) {
+    loadArticles(filter) {
       return $http.get("/articles", {
         params: {
-          "type": $scope.filter,
+          "type": filter,
         },
       }).then((articles) => {
-        $scope.articles = articles.data.map((article) => {
+        return articles.data.map((article) => {
           return new Article(article)
         })
       })

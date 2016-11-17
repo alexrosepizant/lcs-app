@@ -1,80 +1,62 @@
-export default function HomeCtrl($scope, AuthFactory, ConversationFactory, UserFactory) {
+export default function HomeCtrl($rootScope, $scope, User, Message, socket, users, messages) {
 
-  $scope.conversations = {}
-  $scope.conversation = null
+  // Retrieve currentUser
+  $scope.currentUser = $rootScope.currentUser
+
+  // Retrieve others params
+  $scope.users = users
+  $scope.messages = messages
   $scope.message = {
     content: "",
   }
 
-  // get current user
-  $scope.currentUser = AuthFactory.getCurrentUser()
+  /**
+  Socket events
+  **/
+  socket.on("init", (data) => {
+    $scope.connectedUsers = data.connectedUsers
+  })
 
-  // load conversations
-  $scope.initializeConversations = () => {
+  socket.on("send:message", (message) => {
+    $scope.messages.unshift(new Message(message))
+  })
 
-    UserFactory.getUsers()
-      .then((users) => {
-        return $scope.team = users
-      }).then(() => {
-        return ConversationFactory.loadConversations()
-      }).then(() => {
+  socket.on("user:join", (data) => {
+    $scope.messages.unshift(new Message({
+      user: "chatroom",
+      content: data.user + " vient de rentrer.",
+    }))
+    // TODO : active user in list
+  })
 
-        // Add global conversation
-        $scope.conversations["all"] = {
-          conversation: ConversationFactory.getConversation("all"),
-          username: "Tout le monde",
-          avatar: "img/coq.png",
-          userId: "all",
-          unReadMessageCount: 0,
-        }
+  // add a message to the conversation when a user disconnects or leaves the room
+  socket.on("user:left", (data) => {
+    $scope.messages.unshift(new Message({
+      user: "chatroom",
+      content: data.user + " est partie.",
+    }))
+  })
 
-        _.each($scope.team, function(user) {
-          if ($scope.currentUser._id !== user._id) {
-            $scope.conversations[user._id] = {
-              conversation: ConversationFactory.getConversation($scope.currentUser._id, user._id),
-              username: user.username,
-              avatar: user.avatar,
-              userId: user._id,
-              exclude: user.exclude,
-            }
-          }
-        })
-
-        $scope.selectUser(null, "all")
-      })
-  }
-
-  $scope.selectUser = (evt, userId) => {
-    if (evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
+  $scope.mention = (name) => {
+    if ($scope.message.content.length > 0) {
+      $scope.message.content += " "
     }
-
-    $scope.conversation = $scope.conversations[userId].conversation
-    $scope.conversations[userId].unReadMessageCount = 0
-    ConversationFactory.updateConversation($scope, $scope.conversation)
+    $scope.message.content += "@" + name + " "
   }
 
   $scope.sendMessage = () => {
-    if ($scope.message.content !== "") {
+    socket.emit("send:message", {
+      userId: $scope.currentUser._id,
+      content: $scope.message.content,
+    })
 
-      $scope.conversation.messages.push({
-        user: $scope.currentUser._id,
-        content: $scope.message.content,
-      })
+    // add the message to our model locally
+    $scope.messages.unshift(new Message({
+      user: $scope.currentUser,
+      content: $scope.message.content,
+    }))
 
-      ConversationFactory.addOrUpdate($scope, $scope.conversation)
-        .then((conversation) => $scope.conversation._id = conversation._id)
-    }
-  }
-
-  if (!$scope.currentUser) {
-    AuthFactory.updateCurrentUser()
-      .then(() => {
-        $scope.currentUser = AuthFactory.getCurrentUser()
-        $scope.initializeConversations()
-      })
-  } else {
-    $scope.initializeConversations()
+    // clear message box
+    $scope.message.content = ""
   }
 }

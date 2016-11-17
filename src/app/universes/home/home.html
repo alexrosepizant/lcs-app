@@ -1,20 +1,22 @@
 <div class="container">
   <div class="columns">
+
     <div class="column is-3">
       <div class="card is-fullwidth">
         <header class="card-header">
         </header>
-        <div class="card-content">
+        <div class="home-user card-content">
           <a class="card-avatar">
-            <img ng-src="{{ currentUser.avatar && currentUser.avatar + '?dim=30x30' || 'https://placehold.it/256x256'}}" class="card-avatar-img">
+            <img ng-src="{{ currentUser.getAvatar(80, 80)}}"
+                 class="card-avatar-img" />
           </a>
-
           <div class="card-user">
             <div class="card-user-name">
-              <a href="#">{{ currentUser.username }}</a>
+              <a href="#">
+                {{ currentUser.username }}
+              </a>
             </div>
           </div>
-
           <div class="card-stats">
             <ul class="card-stats-list">
               <li class="card-stats-item">
@@ -40,59 +42,57 @@
         </div>
       </div>
     </div>
+
     <div class="column is-6">
       <div class="box">
         <article class="media">
           <div class="media-content">
             <p class="control">
-              <textarea class="textarea" placeholder="Ecrire une connerie aux copaings"></textarea>
+              <textarea ng-model="message.content"
+                        class="textarea textareaChat"
+                        placeholder="Ecrire une connerie aux copaings">
+              </textarea>
             </p>
             <p class="control">
-              <button class="button">Poster</button>
+              <button class="button" ng-click="sendMessage()">Poster</button>
             </p>
           </div>
         </article>
-        <article class="media" ng-repeat="item in conversation.messages | orderBy:'created'">
+        <article ng-repeat="message in messages"
+                 class="media"
+                 ng-class="{'is-mention' : message.user.getMention(message.content)}">
           <div class="media-left">
-            <figure class="image is-64x64">
-              <img src="http://placehold.it/128x128" alt="Image">
+            <figure class="image is-32x32">
+              <img ng-src="{{ message.user.getAvatar(30, 30)}}" alt="Image">
             </figure>
           </div>
           <div class="media-content">
             <div class="content">
+              <strong>{{ message.user.username }}</strong>
+              <small class="pull-right">{{ message.getDateFrom() }}</small>
+              <br>
               <p>
-                <strong>{{ item.user.username || global.user.username }}</strong> <small style="float:right;">31m</small>
-                <br>
-                {{ item.content }}
+                {{ message.content }}
               </p>
             </div>
           </div>
         </article>
       </div>
     </div>
+
     <div class="column is-3">
       <div class="box">
-        <div ng-repeat="conversation in conversations"
+        <div ng-repeat="user in users"
              class="columns">
-          <div class="column is-3 is-marginless">
-            <div class="image">
-              <img src="https://placehold.it/200x200">
+          <div class="user-chat is-3 is-marginless">
+            <div class="image is-32x32">
+              <img ng-src="{{ user.getAvatar(30,30)}}" alt="Image">
             </div>
           </div>
           <div class="column is-9">
-            <p class="user-title">
+            <p class="user-title" ng-click="mention(user.username)">
               <a href="#">
-                <strong>{{ conversation.username }}</strong>
-              </a>
-            </p>
-            <p class="small-margin-top">
-              <a class="button is-light is-small">
-                <span class="icon is-small">
-                  <i class="fa fa-comment"></i>
-                </span>
-                <span>
-                  Envoyer un message
-                </span>
+                <strong>{{ user.username }}</strong>
               </a>
             </p>
           </div>

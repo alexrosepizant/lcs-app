@@ -1,5 +1,6 @@
 const path= require("path")
 const fs = require("fs")
+const http = require("http")
 const express = require("express")
 const httpProxy = require("http-proxy")
 const passport = require("passport")
@@ -19,7 +20,7 @@ const walk = function(path, app, withPasseport) {
   fs.readdirSync(path).forEach(function(file) {
     const newPath = path + "/" + file
     const stat = fs.statSync(newPath)
-    if (stat.isFile()) {
+    if (stat.isFile() && file !== "socket.js") {
       if (/(.*)\.(js$)/.test(file) && withPasseport) {
         require(newPath)(app, passport)
       }
@@ -59,6 +60,14 @@ if (!isProduction) {
   })
 }
 
+// start socket server
+const socket = require("./routes/socket.js")
+
+const server = http.Server(app)
+io = require("socket.io")(server)
+
+io.sockets.on("connection", socket)
+
 // Define route for app
 app.get("/*", function(req, res) {
   if (req.user) {
@@ -78,7 +87,8 @@ mongoose.connect(config.db, {
   if (err) {
     console.error("Could not connect to MongoDB! " + err)
   }  else {
-    app.listen(port, function() {
+    // Start server
+    server.listen(port, function() {
       console.log("Express app started on port " + port)
     })
   }

@@ -1,7 +1,6 @@
-export default function AuthFactory($http, $rootScope, $cookieStore, $location) {
+export default function AuthFactory($http, $rootScope, $cookieStore, $location, User) {
 
-  $rootScope.currentUser = $cookieStore.get("user") || null
-  $cookieStore.remove("user")
+  $rootScope.currentUser = new User($cookieStore.get("user")) || null
 
   return {
     login(provider, user) {
@@ -21,6 +20,7 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location) 
 
     redirectToLogin() {
       $rootScope.currentUser = null
+      $cookieStore.remove("user")
       $location.path("/login")
     },
 
@@ -28,14 +28,10 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location) 
       return $http.post("/auth/users", userinfo)
     },
 
-    getCurrentUser() {
-      return $rootScope.currentUser
-    },
-
     updateCurrentUser() {
       return $http.get("/auth/session")
         .then((result) => {
-          return $rootScope.currentUser = result.data
+          return $rootScope.currentUser = new User(result.data)
         })
     },
 

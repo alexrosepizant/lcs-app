@@ -1,7 +1,7 @@
-export default function ProfileCtrl($scope, UserFactory, AuthFactory, ArticleFactory, Upload, $translate) {
+export default function ProfileCtrl($rootScope, $scope, $translate, Upload, UserFactory, ArticleFactory) {
 
   // get current user
-  $scope.user = AuthFactory.getCurrentUser()
+  $scope.user = $rootScope.currentUser
 
   // load user contents
   ArticleFactory.getArticlesByUser($scope)
@@ -9,13 +9,13 @@ export default function ProfileCtrl($scope, UserFactory, AuthFactory, ArticleFac
   /** ***
   Upload config
   *** ***/
-  $scope.$watch("file", function() {
+  $scope.$watch("file", () => {
     if ($scope.file !== null) {
       $scope.files = [$scope.file]
     }
   })
 
-  $scope.upload = function(files) {
+  $scope.upload = (files) => {
     if (files && files.length) {
       const file = files[0]
       if (!file.$error) {
@@ -25,7 +25,7 @@ export default function ProfileCtrl($scope, UserFactory, AuthFactory, ArticleFac
             username: $scope.username,
             file: file,
           },
-        }).then(function(resp) {
+        }).then((resp) => {
           $scope.user.avatar = resp.data.path
         })
       }
@@ -35,14 +35,14 @@ export default function ProfileCtrl($scope, UserFactory, AuthFactory, ArticleFac
   /** *
     SKILLS
   ***/
-  $scope.initSkill = function() {
+  $scope.initSkill = () => {
     $scope.skill = {
       name: "",
       value: "",
     }
   }
 
-  $scope.addSkill = function() {
+  $scope.addSkill = () => {
 
     if (!$scope.user.skills) {
       $scope.user.skills = []
@@ -53,20 +53,20 @@ export default function ProfileCtrl($scope, UserFactory, AuthFactory, ArticleFac
     $scope.initSkill()
   }
 
-  $scope.removeSkill = function(skill) {
+  $scope.removeSkill = (skill) => {
     $scope.user.skills.splice($scope.user.skills.indexOf(skill), 1)
   }
 
   /** *
     SETTINGS
   ***/
-  $scope.changeLanguage = function(key) {
+  $scope.changeLanguage = (key) => {
     $translate.use(key)
   }
 
-  $scope.update = function() {
-    UserFactory.update($scope.user).then(function(user) {
-      $scope.global.user = user
+  $scope.update = () => {
+    UserFactory.update($scope.user).then((user) => {
+      $scope.user = user
     })
   }
 }

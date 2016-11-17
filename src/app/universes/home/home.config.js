@@ -6,5 +6,13 @@ export default function HomeConfig($stateProvider) {
       template: require("./home.html"),
       controller: "HomeCtrl",
       title: "Accueil",
+      resolve: {
+        messages: (ChatFactory) => {
+          return ChatFactory.getMessages()
+        },
+        users: (UserFactory) => {
+          return UserFactory.getUsers()
+        },
+      },
     })
 }

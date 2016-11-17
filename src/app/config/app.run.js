@@ -1,4 +1,4 @@
-function AppRun(AppConstants, $rootScope, $location, AuthFactory, $uibModalStack) {
+function AppRun($rootScope, $location, AuthFactory, $uibModalStack) {
 
   // watching the value of the currentUser variable.
   $rootScope.$watch("currentUser", (currentUser) => {

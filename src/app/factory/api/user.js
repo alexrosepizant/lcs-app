@@ -1,11 +1,12 @@
-export default function UserFactory($http) {
+export default function UserFactory($http, User) {
   return {
     getUsers() {
       return $http.get("/users")
-    },
-
-    getCurrentUser() {
-      return $http.get("/users/me")
+      .then((users) => {
+        return users.data.map((user) => {
+          return new User(user)
+        })
+      })
     },
 
     getUser($scope, userId) {

@@ -1,4 +1,6 @@
-export default function GlobalCtrl($scope, AuthFactory, $location, ngPopoverFactory, Notification) {
+export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, ngPopoverFactory, Notification) {
+
+  $scope.currentUser = $rootScope.currentUser
 
   // Main menu
   $scope.menu = [{
@@ -34,7 +36,8 @@ export default function GlobalCtrl($scope, AuthFactory, $location, ngPopoverFact
   }]
 
   $scope.isCurrentPath = (item) => {
-    return $location.path().indexOf(item.id) !== -1 || ($location.path() === "/" && item.id === "home")
+    return ($location.path() === "/" && item.id === "home") ||
+            $location.path().indexOf(item.id) !== -1
   }
 
   // Search
@@ -45,13 +48,12 @@ export default function GlobalCtrl($scope, AuthFactory, $location, ngPopoverFact
     })
   }
 
-  // User menu
-  $scope.currentUser = AuthFactory.getCurrentUser()
-
+  // Close user menu
   $scope.closeMenu = (triggerId) => {
     ngPopoverFactory.closePopover(triggerId)
   }
 
+  // Logout action
   $scope.logout = () => {
     AuthFactory.logout((err) => {
       if (!err) {

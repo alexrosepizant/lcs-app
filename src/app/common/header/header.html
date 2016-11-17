@@ -1,4 +1,6 @@
-<div class="top-menu-container" ng-controller="HeaderCtrl" ng-if="currentUser">
+<div class="top-menu-container"
+     ng-controller="HeaderCtrl"
+     ng-if="currentUser">
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
@@ -20,76 +22,55 @@
         </p>
       </div>
       <div class="nav-right nav-menu">
+        <a class="nav-item chat-counter" ui-sref="home">
+          <i class="fa fa-comment"></i>
+          <span class="icon icon-chevron">
+            <i>1</i>
+          </span>
+        </a>
         <ng-popover
-        trigger="popover-trigger-plus"
+        trigger="popover-trigger"
         popover-class="custom-popover">
         <nav class="panel user-popover">
+          <p class="panel-heading">
+            Connecté en tant que
+            <strong>{{currentUser.username}}</strong>
+          </p>
           <a class="panel-block is-active"
-             ui-sref="article.create"
-             ng-click="closeMenu('popover-trigger-plus')">
-            Un article
+             ui-sref="profile"
+             ng-click="closeMenu('popover-trigger')">
+            Profile
           </a>
           <a class="panel-block"
-             ui-sref="article.createVideo"
-             ng-click="closeMenu('popover-trigger-plus')">
-            Une vidéo
+             ui-sref="settings"
+             ng-click="closeMenu('popover-trigger')">
+            Paramètres
           </a>
           <a class="panel-block"
-             ui-sref="article.createAlbum"
-             ng-click="closeMenu('popover-trigger-plus')">
-            Des photos
+             ng-click="logout()">
+            Déconnexion
           </a>
         </nav>
       </ng-popover>
-      <a id="popover-trigger-plus" class="ng-popover-trigger nav-item is-tab">
-        <i class="fa fa-plus"></i>
+      <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
+        <img ng-src="{{ currentUser.getAvatar(30,30) }}" class="avatar-photo-square">
         <span class="icon icon-chevron">
           <i class="fa fa-chevron-down font-small"></i>
         </span>
       </a>
-      <ng-popover
-      trigger="popover-trigger"
-      popover-class="custom-popover">
-      <nav class="panel user-popover">
-        <p class="panel-heading">
-          Connecté en tant que
-          <strong>{{currentUser.username}}</strong>
-        </p>
-        <a class="panel-block is-active"
-           ui-sref="profile"
-           ng-click="closeMenu('popover-trigger')">
-          Profile
+    </div>
+  </nav>
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-left">
+        <a ng-repeat="item in menu"
+        ui-sref="{{item.link}}"
+        class="nav-item is-tab"
+        ng-class="{'is-active' : isCurrentPath(item)}">
+          {{item.name}}
         </a>
-        <a class="panel-block"
-           ui-sref="settings"
-           ng-click="closeMenu('popover-trigger')">
-          Paramètres
-        </a>
-        <a class="panel-block"
-           ng-click="logout()">
-          Déconnexion
-        </a>
-      </nav>
-    </ng-popover>
-    <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
-      <img ng-src="{{ currentUser.avatar && currentUser.avatar + '?dim=30x30' || 'https://placehold.it/256x256'}}" class="avatar-photo-square">
-      <span class="icon icon-chevron">
-        <i class="fa fa-chevron-down font-small"></i>
-      </span>
-    </a>
-  </div>
-</nav>
-<nav class="nav">
-  <div class="container">
-    <div class="nav-left">
-      <a ng-repeat="item in menu"
-      ui-sref="{{item.link}}"
-      class="nav-item is-tab"
-      ng-class="{'is-active' : isCurrentPath(item)}">
-      {{item.name}}
-    </a>
-  </div>
-</div>
-</nav>
+      </div>
+    </div>
+  </nav>
 </div>
 </div>
