@@ -1,5 +1,6 @@
-export default function VoteListCtrl($scope, VoteFactory) {
-
-  // Load data
-  VoteFactory.loadVotes($scope)
+export default function VoteListCtrl($scope, votes, users, filter) {
+  // Retrieve params
+  $scope.votes = votes
+  $scope.users = users
+  $scope.filter = filter
 }

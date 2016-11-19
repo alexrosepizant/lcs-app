@@ -1,3 +1,51 @@
 <div class="container">
-  Vote section
+  <div class="columns">
+    <div class="column is-12">
+      <div class="nav menu">
+        <div class="container">
+          <div class="nav-left">
+            <a class="nav-item is-tab button is-primary blog-add" ui-sref="vote.create">
+              <span class="icon is-small">
+                <i class="fa fa-plus"></i>
+              </span>
+              <span>
+                Ajouter
+              </span>
+            </a>
+          </div>
+          <div class="nav-right is-hidden-mobile">
+            <nav class="level">
+              <!-- Left side -->
+              <div class="nav-item is-tab">
+                <p class="is-light">
+                  Filtrer par:
+                </p>
+              </div>
+              <div class="level-right">
+                <p class="level-item">
+                  <a ui-sref="vote({ filter: 'all' })" ng-class="{'is-current': filter === 'all'}">
+                    Tous
+                  </a>
+                </p>
+                <p class="level-item">
+                  <a ui-sref="vote({ filter: 'waiting' })" ng-class="{'is-current': filter === 'waiting'}">
+                    Tu dois voter
+                  </a>
+                </p>
+                <p class="level-item">
+                  <a ui-sref="vote({ filter: 'done' })" ng-class="{'is-current': filter === 'done'}">
+                    En attente
+                  </a>
+                </p>
+              </div>
+           </nav>
+          </div>
+        </div>
+      </div>
+
+      <div ng-repeat="vote in votes">
+        {{vote.content}}
+      </div>
+    </div>
+  </div>
 </div>

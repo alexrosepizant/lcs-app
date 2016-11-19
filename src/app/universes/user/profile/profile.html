@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-2">
         <div class="image is-128x128 avatar">
-          <img ng-src="{{ user.getAvatar(300,300) }}" alt="Image"/>
+          <img ng-src="{{ currentUser.getAvatar(300,300) }}" alt="Image"/>
           <div class="spacer"></div>
           <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
             Changer la photo
@@ -12,9 +12,9 @@
       </div>
       <div class="column is-4 name">
         <p>
-          <span class="title is-bold">John Smith</span>
+          <span class="title is-bold">{{ currentUser.username }}</span>
         </p>
-        <p class="tagline">The users profile bio would go here, of course. It could be two lines</p>
+        <p class="tagline">{{ currentUser.description || "Rentre un petit mot de présentation pour les copaings" }}</p>
       </div>
       <div class="column is-2 followers has-text-centered">
         <p class="stat-val">129k</p>
@@ -35,14 +35,14 @@
       <ul>
         <li class="link is-active">
           <a>
-            <span class="icon"><i class="fa fa-vcard"></i></span>
-            <span>Mes infos</span>
+            <span class="icon"><i class="fa fa-check-square"></i></span>
+            <span>Résumé</span>
           </a>
         </li>
         <li class="link">
           <a>
-            <span class="icon"><i class="fa fa-th"></i></span>
-            <span>Mes publications</span>
+            <span class="icon"><i class="fa fa-vcard"></i></span>
+            <span>Mes infos</span>
           </a>
         </li>
         <li class="link">
@@ -51,28 +51,12 @@
             <span>Mes favoris</span>
           </a>
         </li>
-        <li class="link">
-          <a>
-            <span class="icon"><i class="fa fa-check-square"></i></span>
-            <span>Mes actions</span>
-          </a>
-        </li>
       </ul>
     </div>
   </div>
 
   <div class="nav menu">
     <div class="nav-left">
-      <a class="nav-item is-tab button is-primary blog-add" ui-sref="article.create">
-        <span class="icon is-small">
-          <i class="fa fa-plus"></i>
-        </span>
-        <span>
-          Ajouter
-        </span>
-      </a>
-    </div>
-    <div class="nav-right is-hidden-mobile">
       <nav class="level">
         <!-- Left side -->
         <div class="nav-item is-tab">
@@ -120,6 +104,7 @@
           <div class="content">
             <span class="tag is-dark">#webdev</span>
             <strong class="timestamp">2 d</strong>
+            <p>{{article.title}}</p>
           </div>
         </div>
         <footer class="card-footer">

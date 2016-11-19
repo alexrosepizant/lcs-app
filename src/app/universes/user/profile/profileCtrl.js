@@ -1,10 +1,9 @@
-export default function ProfileCtrl($rootScope, $scope, $translate, Upload, UserFactory, ArticleFactory) {
+export default function ProfileCtrl($rootScope, $scope, $translate, Upload, UserFactory, articles) {
 
-  // get current user
-  $scope.user = $rootScope.currentUser
-
-  // load user contents
-  ArticleFactory.getArticlesByUser($scope)
+  // Retrieve params
+  $scope.currentUser = $rootScope.currentUser
+  $scope.articles = articles
+  $scope.filter = "all"
 
   /** ***
   Upload config
@@ -22,11 +21,11 @@ export default function ProfileCtrl($rootScope, $scope, $translate, Upload, User
         Upload.upload({
           url: "/upload/photo",
           data: {
-            username: $scope.username,
+            currentUsername: $scope.currentUsername,
             file: file,
           },
         }).then((resp) => {
-          $scope.user.avatar = resp.data.path
+          $scope.currentUser.avatar = resp.data.path
         })
       }
     }
@@ -44,17 +43,17 @@ export default function ProfileCtrl($rootScope, $scope, $translate, Upload, User
 
   $scope.addSkill = () => {
 
-    if (!$scope.user.skills) {
-      $scope.user.skills = []
+    if (!$scope.currentUser.skills) {
+      $scope.currentUser.skills = []
     }
 
     const currentSkill = angular.extend({}, $scope.skill)
-    $scope.user.skills.push(currentSkill)
+    $scope.currentUser.skills.push(currentSkill)
     $scope.initSkill()
   }
 
   $scope.removeSkill = (skill) => {
-    $scope.user.skills.splice($scope.user.skills.indexOf(skill), 1)
+    $scope.currentUser.skills.splice($scope.currentUser.skills.indexOf(skill), 1)
   }
 
   /** *
@@ -64,9 +63,12 @@ export default function ProfileCtrl($rootScope, $scope, $translate, Upload, User
     $translate.use(key)
   }
 
+  /** *
+    Update
+  ***/
   $scope.update = () => {
-    UserFactory.update($scope.user).then((user) => {
-      $scope.user = user
+    UserFactory.update($scope.currentUser).then((user) => {
+      $scope.currentUser = user
     })
   }
 }

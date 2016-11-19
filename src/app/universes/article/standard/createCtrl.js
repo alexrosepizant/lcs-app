@@ -1,4 +1,4 @@
-export default function StandardCreationCtrl($scope, ArticleFactory, Upload, Notification) {
+export default function StandardCreationCtrl($scope, $location, ArticleFactory, Upload, Notification) {
 
   $scope.showError = false
   $scope.article = {

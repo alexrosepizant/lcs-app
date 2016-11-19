@@ -1,38 +1,34 @@
-export default function VoteFactory($http) {
+export default function VoteFactory($http, Vote) {
   return {
-    loadVotes($scope) {
-      $http.get("/votes")
-        .then((votes) => {
-          $scope.votes = votes
+    loadVotes(filter) {
+      return $http.get("/votes", {
+        params: {
+          "type": filter,
+        },
+      }).then((votes) => {
+        return votes.data.map((vote) => {
+          return new Vote(vote)
         })
+      })
     },
 
-    getVote($scope, voteId) {
-      $http.get(`/votes/${voteId}`)
+    getVote(voteId) {
+      return $http.get(`/votes/${voteId}`)
         .then((vote) => {
-          $scope.vote = vote
+          return new Vote(vote)
         })
     },
 
-    createVote($scope, vote) {
-      $http.post("/votes", vote)
-        .then((vote) => {
-          $scope.vote = vote
-        })
+    createVote($scope) {
+      return $http.post("/votes", $scope.vote)
     },
 
-    updateVote($scope, vote) {
-      $http.put(`/votes/${vote._id}`, vote)
-        .then(() => {
-          console.log("Vote succefully updated")
-        })
+    updateVote(vote) {
+      return $http.put(`/votes/${vote._id}`, vote)
     },
 
-    deleteVote($scope, vote) {
-      $http.delete(`/votes/${vote._id}`)
-        .then(() => {
-          console.log("Vote succefully deleted")
-        })
+    deleteVote(vote) {
+      return $http.delete(`/votes/${vote._id}`)
     },
   }
 }

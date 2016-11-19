@@ -12,13 +12,13 @@ export default function ArticleFactory($http, Article) {
       })
     },
 
-    getArticlesByUser($scope) {
+    getArticlesByUser(userId) {
       return $http.get("/articles", {
         params: {
-          "userId": $scope.user._id,
+          "userId": userId,
         },
       }).then((articles) => {
-        $scope.articles = articles.data.map((article) => {
+        return articles.data.map((article) => {
           return new Article(article)
         })
       })

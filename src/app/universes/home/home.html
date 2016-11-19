@@ -59,19 +59,15 @@
           </div>
         </article>
         <article ng-repeat="message in messages"
-                 class="media"
                  ng-class="{'is-mention' : message.user.getMention(message.content)}">
-          <div class="media-left">
-            <figure class="image is-32x32">
-              <img ng-src="{{ message.user.getAvatar(30, 30)}}" alt="Image">
-            </figure>
-          </div>
           <div class="media-content">
-            <div class="content">
-              <strong>{{ message.user.username }}</strong>
+            <div style="width: 100%;">
               <small class="pull-right">{{ message.getDateFrom() }}</small>
-              <br>
+            </div>
+            <br/>
+            <div class="content">
               <p>
+                <strong>{{ message.user.username }}: </strong>
                 {{ message.content }}
               </p>
             </div>

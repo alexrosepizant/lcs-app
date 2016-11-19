@@ -45,6 +45,10 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
   }
 
   $scope.sendMessage = () => {
+    if ($scope.message.content.length === 0) {
+      return
+    }
+
     socket.emit("send:message", {
       userId: $scope.currentUser._id,
       content: $scope.message.content,
