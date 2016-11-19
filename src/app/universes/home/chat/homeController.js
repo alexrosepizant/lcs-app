@@ -15,16 +15,30 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
   **/
   socket.on("init", (data) => {
     $scope.connectedUsers = data.connectedUsers
+
+    socket.emit("user:entry", {
+      userId: $scope.currentUser._id,
+      username: $scope.currentUser.username,
+    })
   })
 
   socket.on("send:message", (message) => {
-    $scope.messages.unshift(new Message(message))
+    $scope.messages.unshift(new Message({
+      user: {
+        username: message.username,
+        _id: message.userId,
+      },
+      content: message.content,
+    }))
   })
 
-  socket.on("user:join", (data) => {
+  socket.on("user:join", (message) => {
     $scope.messages.unshift(new Message({
-      user: "chatroom",
-      content: data.user + " vient de rentrer.",
+      user: {
+        _id: message.userId,
+        username: message.username,
+      },
+      content: message.username + " vient de rentrer.",
     }))
     // TODO : active user in list
   })
@@ -32,7 +46,9 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
   // add a message to the conversation when a user disconnects or leaves the room
   socket.on("user:left", (data) => {
     $scope.messages.unshift(new Message({
-      user: "chatroom",
+      user: {
+        username: data.username,
+      },
       content: data.user + " est partie.",
     }))
   })
@@ -44,6 +60,13 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
     $scope.message.content += "@" + name + " "
   }
 
+  $scope.displayNewMessage = (user, content) => {
+    $scope.messages.unshift(new Message({
+      user: user,
+      content: content,
+    }))
+  }
+
   $scope.sendMessage = () => {
     if ($scope.message.content.length === 0) {
       return
@@ -51,6 +74,7 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
 
     socket.emit("send:message", {
       userId: $scope.currentUser._id,
+      username: $scope.currentUser.username,
       content: $scope.message.content,
     })
 

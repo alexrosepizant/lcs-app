@@ -54,20 +54,6 @@ $ APP_HOST=appdomain.com npm start
 
 Application has two separate directory `frontend` and `backend`. The entry point for frontend is `frontend/app.es6.js` file and for backend it is `backend/server.js`.
 
-### production
-
-Build assets for the application:
-
-```bash
-$ NODE_ENV=production webpack -p
-```
-
-Then run the app:
-
-```bash
-$ NODE_ENV=production npm start
-```
-
 Do not forget to specify your app domain in `server.js` for production mode!
 
 ### Have fun!

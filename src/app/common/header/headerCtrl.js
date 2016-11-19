@@ -1,6 +1,7 @@
 export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, ngPopoverFactory, Notification) {
 
-  $scope.currentUser = $rootScope.currentUser
+  AuthFactory.updateCurrentUser()
+    .then(() => $scope.currentUser = $rootScope.currentUser)
 
   // Main menu
   $scope.menu = [{
