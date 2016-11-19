@@ -31,6 +31,7 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location, 
     updateCurrentUser() {
       return $http.get("/auth/session")
         .then((result) => {
+          $cookieStore.put("user", result.data)
           return $rootScope.currentUser = new User(result.data)
         })
     },

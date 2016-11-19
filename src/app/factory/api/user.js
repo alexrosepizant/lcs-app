@@ -1,4 +1,4 @@
-export default function UserFactory($http, User) {
+export default function UserFactory($http, $rootScope, $cookieStore, User) {
   return {
     getUsers() {
       return $http.get("/users")
@@ -14,6 +14,8 @@ export default function UserFactory($http, User) {
     },
 
     updateUser($scope, user) {
+      $rootScope.currentUser = user
+      $cookieStore.put("user", user)
       return $http.put(`/users/${user._id}`, user)
     },
 

@@ -32,23 +32,18 @@ module.exports = function(socket) {
   // broadcast a user's message to other users
   socket.on("send:message", function(data) {
     const newMsg = new Chat({
-      userId: data.userId,
       username: data.username,
       content: data.content,
       created: new Date(),
     })
-
-    newMsg.save(function(err, msg) {
-      socket.broadcast.emit("send:message", msg)
+    newMsg.save(function() {
+      socket.broadcast.emit("send:message", data)
     })
   })
 
   // notify other clients that a new user has joined
   socket.on("user:entry", function(data) {
-    socket.broadcast.emit("user:join", {
-      username: data.username,
-      userId: data.userId,
-    })
+    socket.broadcast.emit("user:join", data)
 
     name = data.username
     userNames.add(data)

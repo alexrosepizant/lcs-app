@@ -1,14 +1,23 @@
 import moment from "moment"
 
-export default function Message(User) {
+export default function Message() {
   return (data) => {
     return angular.extend({
       content: "",
       created: Date.now(),
+      username: "",
       room: "",
 
       getDateFrom() {
         return moment(this.created).fromNow()
+      },
+
+      getUsername() {
+        if (this.username) {
+          return this.username + ": "
+        } else {
+          return ""
+        }
       },
 
       getMention(message) {
@@ -23,6 +32,6 @@ export default function Message(User) {
 
         return false
       },
-    }, data, {user: new User(data.user)})
+    }, data)
   }
 }
