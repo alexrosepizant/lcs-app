@@ -3,11 +3,14 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser
 
-  // Retrieve others params
+  // Retrieve others params and init
   $scope.users = users
   $scope.messages = messages
+
+  $scope.connectedUsers = []
   $scope.message = {
     content: "",
+    username: $scope.currentUser.username,
   }
 
   /**
@@ -15,30 +18,29 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
   **/
   socket.on("init", (data) => {
     $scope.connectedUsers = data.connectedUsers
-
     socket.emit("user:entry", {
       username: $scope.currentUser.username,
     })
   })
 
   socket.on("send:message", (message) => {
-    $scope.messages.unshift(new Message(message))
+    $scope.addMessage(message)
   })
 
-  socket.on("user:join", (message) => {
-    $scope.messages.unshift(new Message({
+  socket.on("user:join", (data) => {
+    $scope.connectedUsers = data.connectedUsers
+    $scope.addMessage({
       username: "",
-      content: message.username + " vient de rentrer.",
-    }))
-    // TODO : active user in list
+      content: data.username + " vient de rentrer.",
+    })
   })
 
-  // add a message to the conversation when a user disconnects or leaves the room
   socket.on("user:left", (data) => {
-    $scope.messages.unshift(new Message({
+    $scope.connectedUsers = data.connectedUsers
+    $scope.addMessage({
       username: "",
       content: data.username + " est partie.",
-    }))
+    })
   })
 
   $scope.mention = (name) => {
@@ -48,23 +50,20 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
     $scope.message.content += "@" + name + " "
   }
 
+  /**
+  Add and save actions
+  **/
+  $scope.addMessage = (message) => {
+    $scope.messages.unshift(new Message(message))
+  }
+
   $scope.sendMessage = () => {
-    if ($scope.message.content.length === 0) {
-      return
+    if ($scope.message.content.length > 0) {
+      $scope.addMessage($scope.message)
+      socket.emit("send:message", $scope.message)
+
+      // Reset content value
+      $scope.message.content = ""
     }
-
-    socket.emit("send:message", {
-      username: $scope.currentUser.username,
-      content: $scope.message.content,
-    })
-
-    // add the message to our model locally
-    $scope.messages.unshift(new Message({
-      username: $scope.currentUser.username,
-      content: $scope.message.content,
-    }))
-
-    // clear message box
-    $scope.message.content = ""
   }
 }

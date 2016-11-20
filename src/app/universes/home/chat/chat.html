@@ -59,7 +59,7 @@
           </div>
         </article>
         <article ng-repeat="message in messages"
-                 ng-class="{'is-mention' : message.user.getMention(message.content)}">
+                 ng-class="{'is-mention' : message.getMention(currentUser.username)}">
           <div class="media-content">
             <div style="width: 100%;">
               <small class="pull-right">{{ message.getDateFrom() }}</small>
@@ -78,8 +78,9 @@
 
     <div class="column is-3">
       <div class="box">
-        <div ng-repeat="user in users"
-             class="columns">
+        <div ng-repeat="user in users | filterConnectedUser:this"
+             class="columns"
+             ng-class="">
           <div class="user-chat is-3 is-marginless">
             <div class="image is-32x32">
               <img ng-src="{{ user.getAvatar(30,30)}}" alt="Image">

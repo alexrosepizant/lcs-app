@@ -6,15 +6,20 @@ const Chat = mongoose.model("Chat")
 const userNames = (() => {
   return {
     names : [],
-    add(user) {
-      this.names.push(user)
+    add(username) {
+      this.names.push(username)
+    },
+    remove(username) {
+      const index = this.names.indexOf(username)
+      if (index > -1) {
+        this.names.splice(index, 1)
+      }
     },
     get() {
       const res = []
       this.names.forEach((user) => {
         res.push(user)
       })
-
       return res
     },
   }
@@ -22,7 +27,7 @@ const userNames = (() => {
 
 // export function for listening to the socket
 module.exports = (socket) => {
-  let name
+  let username
 
   // send the new user their name and a list of users
   socket.emit("init", {
@@ -36,6 +41,7 @@ module.exports = (socket) => {
       content: data.content,
       created: new Date(),
     })
+
     newMsg.save(() => {
       socket.broadcast.emit("send:message", data)
     })
@@ -43,16 +49,22 @@ module.exports = (socket) => {
 
   // notify other clients that a new user has joined
   socket.on("user:entry", (data) => {
-    socket.broadcast.emit("user:join", data)
+    username = data.username
+    userNames.add(username)
 
-    name = data.username
-    userNames.add(data)
+    socket.broadcast.emit("user:join", {
+      username: username,
+      connectedUsers: userNames.get(),
+    })
   })
 
   // clean up when a user leaves, and broadcast it to other users
   socket.on("disconnect", () => {
+    userNames.remove(username)
+
     socket.broadcast.emit("user:left", {
-      username: name,
+      username: username,
+      connectedUsers: userNames.get(),
     })
   })
 }

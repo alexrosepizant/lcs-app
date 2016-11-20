@@ -15,19 +15,6 @@ export default function User(AppConstants) {
           return (height) ? _avatar + "x" + height : _avatar
         }
       },
-
-      getMention(message) {
-        const content = message
-        const pattern = /\B\@([\w\-]+)/gim
-        let mention = content.match(pattern)
-
-        if (mention) {
-          mention = String(mention).split("@")[1]
-          if (mention === this.username) return mention
-        }
-
-        return false
-      },
     }, data)
   }
 }

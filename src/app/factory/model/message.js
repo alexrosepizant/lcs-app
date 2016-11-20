@@ -13,23 +13,19 @@ export default function Message() {
       },
 
       getUsername() {
-        if (this.username) {
-          return this.username + ": "
-        } else {
-          return ""
-        }
+        return (this.username) ? this.username + ": " : ""
       },
 
-      getMention(message) {
-        const content = message
+      getMention(username) {
+        const content = this.content
         const pattern = /\B\@([\w\-]+)/gim
         let mention = content.match(pattern)
 
         if (mention) {
           mention = String(mention).split("@")[1]
-          if (mention === this.user.username) return mention
+          username = username.split(" ")[0]
+          if (mention === username) return mention
         }
-
         return false
       },
     }, data)
