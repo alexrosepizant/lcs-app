@@ -1,6 +1,6 @@
 export default function VoteFactory($http, Vote) {
   return {
-    loadVotes(filter) {
+    findVotes(filter) {
       return $http.get("/votes", {
         params: {
           "type": filter,

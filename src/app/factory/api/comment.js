@@ -1,38 +1,29 @@
 export default function CommentFactory($http) {
   return {
-    loadComments($scope) {
-      $http.get("/comments")
+    findComments() {
+      return $http.get("/comments")
         .then((comments) => {
-          $scope.comments = comments
+          return comments
         })
     },
 
-    findComment($scope, commentId) {
-      $http.get(`/comments/${commentId}`)
+    getComment(commentId) {
+      return $http.get(`/comments/${commentId}`)
         .then((comment) => {
-          $scope.comment = comment
+          return comment
         })
     },
 
-    createComment($scope, comment) {
-      $http.post("/comments", comment)
-        .then((comment) => {
-          $scope.comment = comment
-        })
+    createComment(comment) {
+      return $http.post("/comments", comment)
     },
 
-    updateComment($scope, comment) {
-      $http.put(`/comments/${comment._id}`, comment)
-        .then(() => {
-          console.warn("Comment updated")
-        })
+    updateComment(comment) {
+      return $http.put(`/comments/${comment._id}`, comment)
     },
 
-    getCommentCount($scope) {
-      $http.get("/commentsCount/")
-        .then((commentsCount) => {
-          $scope.commentsCount = commentsCount
-        })
+    getCommentCount() {
+      return $http.get("/commentsCount/")
     },
   }
 }

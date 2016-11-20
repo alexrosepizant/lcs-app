@@ -8,8 +8,10 @@ exports.startCron = function() {
   const job = new CronJob("00 30 00 * * *", function() {
     votes.closeVotes()
   }, function() {
-    console.log("Cron job executed") // This function is executed when the job stops
-  }, false) // Start the job right now
+    console.log("Cron job executed")
+  }, false) // Start right now
 
+  // Start job
   job.start()
+  console.log("Cronjob started")
 }

@@ -6,7 +6,7 @@ const mongoose = require("mongoose")
 const UserEvent = mongoose.model("UserEvent")
 
 
-exports.userEvent = function(req, res, next) {
+exports.userEvent = (req, res, next) => {
   UserEvent.findOne({
     "_id": req.params.userEventId,
   })
@@ -15,7 +15,7 @@ exports.userEvent = function(req, res, next) {
 		.populate("guestUnavailable", "_id name username avatar")
 		.populate("comments.user", "_id name username avatar")
 		.populate("comments.replies.user", "_id name username avatar")
-		.exec(function(err, userEvent) {
+		.exec((err, userEvent) => {
   if (err) return next(err)
   req.userEvent = userEvent
   next()
@@ -25,7 +25,7 @@ exports.userEvent = function(req, res, next) {
 /**
  * Find event by id
  */
-exports.show = function(req, res) {
+exports.show = (req, res) => {
   UserEvent.findOne({
     "_id": req.params.userEventId,
   })
@@ -34,7 +34,7 @@ exports.show = function(req, res) {
 		.populate("guestUnavailable", "_id name username avatar")
 		.populate("comments.user", "_id name username avatar")
 		.populate("comments.replies.user", "_id name username avatar")
-		.exec(function(err, userEvent) {
+		.exec((err, userEvent) => {
   if (err) return next(err)
   res.jsonp(userEvent)
 })
@@ -43,10 +43,10 @@ exports.show = function(req, res) {
 /**
  * Create a userEvent
  */
-exports.create = function(req, res) {
+exports.create = (req, res) => {
   const userEvent = new UserEvent(req.body)
   userEvent.user = req.user
-  userEvent.save(function(err) {
+  userEvent.save((err) => {
     if (err) {
       return res.send("agenda", {
         errors: err.errors,
@@ -61,10 +61,10 @@ exports.create = function(req, res) {
 /**
  * Update a userEvent
  */
-exports.update = function(req, res) {
+exports.update = (req, res) => {
   let userEvent = req.userEvent
   userEvent = _.extend(userEvent, req.body)
-  userEvent.save(function(err) {
+  userEvent.save((err) => {
     if (err) {
       return res.send("users/signup", {
         errors: err.errors,
@@ -80,9 +80,9 @@ exports.update = function(req, res) {
 /**
  * Delete an userEvent
  */
-exports.destroy = function(req, res) {
+exports.destroy = (req, res) => {
   const userEvent = new UserEvent(req.userEvent)
-  userEvent.remove(function(err) {
+  userEvent.remove((err) => {
     if (err) {
       return res.send("users/signup", {
         errors: err.errors,
@@ -97,7 +97,7 @@ exports.destroy = function(req, res) {
 /**
  * List of userEvent
  */
-exports.all = function(req, res) {
+exports.all = (req, res) => {
   UserEvent.find({
     startsAt: {
       "$gte": new Date(),
@@ -108,7 +108,7 @@ exports.all = function(req, res) {
 		.populate("user", "name username avatar")
 		.populate("guest", "name username avatar")
 		.populate("guestUnavailable", "name username avatar")
-		.exec(function(err, userEvent) {
+		.exec((err, userEvent) => {
   if (err) {
     res.render("error", {
       status: 500,

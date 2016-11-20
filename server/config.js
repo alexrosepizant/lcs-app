@@ -3,10 +3,10 @@
 const path = require("path")
 
 module.exports = {
-  db: "mongodb://localhost/mean-dev",
   app: {
     name: "lcs-app",
   },
+  db: "mongodb://localhost/mean-dev",
   root: path.normalize(__dirname + "/../"),
   port: process.env.PORT || 80,
   sessionSecret: "MEAN",

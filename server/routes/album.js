@@ -4,7 +4,7 @@
 const albums = require("../controllers/albums")
 const authorization = require("./middlewares/authorization")
 
-module.exports = function(app) {
+module.exports = (app) => {
 
 	// CRUD endPoints
   app.post("/albums", albums.addAlbum)

@@ -9,10 +9,10 @@ const User = mongoose.model("User")
 /**
  * Request param
  */
-exports.user = function(req, res, next, id) {
+exports.user = (req, res, next, id) => {
   User.findOne({
     _id: id,
-  }).exec(function(err, user) {
+  }).exec((err, user) => {
     if (err) return next(err)
     if (!user) return next(new Error("Failed to load User " + id))
     req.profile = user
@@ -23,9 +23,9 @@ exports.user = function(req, res, next, id) {
 /**
  * Check if user exist
  */
-exports.exists = function(req, res, next) {
+exports.exists = (req, res, next) => {
   const username = req.params.username
-  User.findOne({username : username}, function(err, user) {
+  User.findOne({username : username}, (err, user) => {
     if (err) {
       return next(new Error("Failed to load User " + username))
     }
@@ -41,16 +41,16 @@ exports.exists = function(req, res, next) {
 /**
  * Create user
  */
-exports.create = function(req, res, next) {
+exports.create = (req, res, next) => {
   const newUser = new User(req.body)
   newUser.provider = "local"
 
-  newUser.save(function(err) {
+  newUser.save((err) => {
     if (err) {
       return res.status(400).json(err)
     }
 
-    req.logIn(newUser, function(err) {
+    req.logIn(newUser, (err) => {
       if (err) return next(err)
       return res.json(newUser.user_info)
     })
@@ -60,14 +60,11 @@ exports.create = function(req, res, next) {
 /**
  * Update user
  */
-exports.update = function(req, res) {
+exports.update = (req, res) => {
   const user = _.extend(req.user, req.body)
-  user.save(function(err) {
+  user.save((err) => {
     if (err) {
-      return res.send("users/signup", {
-        errors: err.errors,
-        user: user,
-      })
+      return res.status(400).json(err)
     } else {
       res.jsonp(user)
     }
@@ -77,14 +74,14 @@ exports.update = function(req, res) {
 /**
  * Send User
  */
-exports.me = function(req, res) {
+exports.me = (req, res) => {
   res.jsonp(req.user || null)
 }
 
 /**
  * Return current user
  */
-exports.findOne = function(req, res) {
+exports.findOne = (req, res) => {
   res.jsonp(req.profile)
 }
 
@@ -92,10 +89,10 @@ exports.findOne = function(req, res) {
  *  Show profile
  *  returns {username, profile}
  */
-exports.show = function(req, res, next) {
+exports.show = (req, res, next) => {
   const userId = req.params.userId
 
-  User.findById(ObjectId(userId), function(err, user) {
+  User.findById(ObjectId(userId), (err, user) => {
     if (err) {
       return next(new Error("Failed to load User"))
     }
@@ -110,10 +107,10 @@ exports.show = function(req, res, next) {
 /**
  * Return all users
  */
-exports.team = function(req, res) {
+exports.team = (req, res) => {
   User
     .find({}, "-password -salt -hashed_password -__v -provider")
-		.exec(function(err, users) {
+		.exec((err, users) => {
 
   if (err) {
     res.render("error", {
@@ -128,12 +125,12 @@ exports.team = function(req, res) {
 /**
  * Increment coins of all users (call by cron)
  ***/
-exports.incrementUsersPoints = function() {
+exports.incrementUsersPoints = () => {
   User.update({}, {
     $inc: {
       coins: 10,
     },
-  }, function(err, affectedRows) {
+  }, (err, affectedRows) => {
     if (err) {
       console.warn("err: " + err)
     } else {
@@ -146,13 +143,13 @@ exports.incrementUsersPoints = function() {
 /**
  * Calculate popularity of users (call by cron)
  ***/
-exports.calculatePopularity = function() {
+exports.calculatePopularity = () => {
   User.find()
-		.exec(function(err, users) {
+		.exec((err, users) => {
   if (err) {
     console.warn("err: " + err)
   } else {
-    _.each(users, function(user) {
+    _.each(users, (user) => {
       const newVal = "30"
       user.popularity = newVal
     })
@@ -164,13 +161,13 @@ exports.calculatePopularity = function() {
 /**
  * Get users who have their birthday today
  ***/
-exports.getUsersWithBirthday = function() {
-  User.find().exec(function(err, users) {
+exports.getUsersWithBirthday = () => {
+  User.find().exec((err, users) => {
     if (err) {
       console.warn("err: " + err)
     } else {
       const today = moment()
-      _.each(users, function(user) {
+      _.each(users, (user) => {
         if (user.birthday && today.diff(user.birthday, "days") === 0) {
           users.push(user)
         }

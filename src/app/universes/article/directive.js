@@ -3,7 +3,7 @@ export default function lcsBlogPostDirective() {
     restrict: "E",
     replace: true,
     link(scope, element, attrs) {
-      scope.contentUrl = "app/universes/article/" + attrs.type + "/tile.html"
+      scope.contentUrl = "app/universes/article/list/tile/" + attrs.type + ".html"
     },
     template: "<div ng-include='contentUrl'></div>",
   }

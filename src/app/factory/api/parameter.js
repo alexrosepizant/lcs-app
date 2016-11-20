@@ -1,17 +1,11 @@
 export default function ParameterFactory($http) {
   return {
-    getParameters($scope) {
+    getParameters() {
       $http.get("/parameters")
-        .then((parameters) => {
-          $scope.parameters = parameters
-        })
     },
 
-    updateParameters($scope, parameters) {
+    updateParameters(parameters) {
       $http.put("/parameters", parameters)
-        .then(() => {
-          console.warn("Parameters successfully updated")
-        })
     },
   }
 }

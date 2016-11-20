@@ -1,61 +1,25 @@
 const path= require("path")
-const fs = require("fs")
 const http = require("http")
-const express = require("express")
 const httpProxy = require("http-proxy")
-const passport = require("passport")
 const mongoose = require("mongoose")
+const app = require("./bootstrap").bootstrapApp()
 const config = require("./config")
 
 const proxy = httpProxy.createProxyServer()
 const isProduction = process.env.NODE_ENV === "production"
 const host = process.env.APP_HOST || "localhost"
 const port = isProduction ? 80 : 3000
-
-const routesPath = __dirname + "/routes"
-const modelsPath = __dirname + "/models"
 const publicPath = path.join(__dirname, "/../src/")
-
-const walk = function(path, app, withPasseport) {
-  fs.readdirSync(path).forEach(function(file) {
-    const newPath = path + "/" + file
-    const stat = fs.statSync(newPath)
-    if (stat.isFile() && file !== "socket.js") {
-      if (/(.*)\.(js$)/.test(file) && withPasseport) {
-        require(newPath)(app, passport)
-      }
-      if (/(.*)\.(js$)/.test(file)) {
-        require(newPath)
-      }
-    } else if (stat.isDirectory() && file !== "middlewares") {
-      walk(newPath)
-    }
-  })
-}
-
-// Bootstrap models
-walk(modelsPath)
-
-// Bootstrap passport config
-require("./passport")(passport)
-
-// Create express instance
-const app = express()
-
-require("./express")(app, passport)
-
-// Bootstrap routes
-walk(routesPath, app, true)
 
 // Webpack dev server
 if (!isProduction) {
-  app.all(["/dist/*", "*.hot-update.json"], function(req, res) {
+  app.all(["/dist/*", "*.hot-update.json"], (req, res) => {
     proxy.web(req, res, {
       target: "http://" + host + ":3001",
     })
   })
 
-  proxy.on("error", function() {
+  proxy.on("error", () => {
     console.log("Could not connect to proxy, please try again...")
   })
 }
@@ -69,7 +33,7 @@ io = require("socket.io")(server)
 io.sockets.on("connection", socket)
 
 // Define route for app
-app.get("/*", function(req, res) {
+app.get("/*", (req, res) => {
   if (req.user) {
     res.cookie("user", JSON.stringify(req.user.user_info))
   }
@@ -83,12 +47,12 @@ mongoose.connect(config.db, {
   server:{
     auto_reconnect:true,
   },
-}, function(err) {
+}, (err) => {
   if (err) {
     console.error("Could not connect to MongoDB! " + err)
   }  else {
     // Start server
-    server.listen(port, function() {
+    server.listen(port, () => {
       console.log("Express app started on port " + port)
     })
   }

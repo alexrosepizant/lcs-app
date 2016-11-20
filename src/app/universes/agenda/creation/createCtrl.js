@@ -1,8 +1,4 @@
 export default function CreateEventCtrl($scope, AgendaFactory, Notification) {
-  // Retrieve params
-  $scope.userEvent = {
-  }
-
   /**
   Flatpick config
   **/

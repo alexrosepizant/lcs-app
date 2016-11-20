@@ -4,7 +4,7 @@
 const userEvents = require("../controllers/userEvent")
 const authorization = require("./middlewares/authorization")
 
-module.exports = function(app) {
+module.exports = (app) => {
 
   // CRUD endPoints
   app.get("/userEvent/:userEventId", userEvents.show)

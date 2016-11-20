@@ -4,7 +4,7 @@
 const matchs = require("../controllers/match")
 const authorization = require("./middlewares/authorization")
 
-module.exports = function(app) {
+module.exports = (app) => {
   app.post("/matchs", matchs.addMatch)
   app.get("/matchs/:id", matchs.findMatchById)
   app.get("/matchs", matchs.findAllMatchs)

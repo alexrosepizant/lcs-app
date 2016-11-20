@@ -4,7 +4,7 @@
 const votes = require("../controllers/votes")
 const authorization = require("./middlewares/authorization")
 
-module.exports = function(app) {
+module.exports = (app) => {
 
   // CRUD endPoints
   app.get("/votes", votes.all)

@@ -6,7 +6,7 @@ const passport = require("passport")
  * Session
  * returns info on authenticated user
  */
-exports.session = function(req, res) {
+exports.session = (req, res) => {
   res.json(req.user.user_info)
 }
 
@@ -14,7 +14,7 @@ exports.session = function(req, res) {
  * Logout
  * returns nothing
  */
-exports.logout = function(req, res) {
+exports.logout = (req, res) => {
   if (req.user) {
     req.logout()
     res.sendStatus(200)
@@ -27,13 +27,13 @@ exports.logout = function(req, res) {
  *  Login
  *  requires: {email, password}
  */
-exports.login = function(req, res, next) {
-  passport.authenticate("local", function(err, user, info) {
+exports.login = (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
     const error = err || info
     if (error) {
       return res.status(400).json(error)
     }
-    req.logIn(user, function(err) {
+    req.logIn(user, (err) => {
       if (err) {
         return res.send(err)
       }

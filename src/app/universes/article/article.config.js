@@ -8,10 +8,10 @@ export default function ArticleConfig($stateProvider) {
     resolve: {
       articles: ($stateParams, ArticleFactory) => {
         const filter = ($stateParams.filter) ? $stateParams.filter : "all"
-        return ArticleFactory.loadArticles(filter)
+        return ArticleFactory.findArticles(filter)
       },
       users: (UserFactory) => {
-        return UserFactory.getUsers()
+        return UserFactory.findUsers()
       },
       filter: ($stateParams) => {
         return ($stateParams.filter) ? $stateParams.filter : "all"
@@ -22,7 +22,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/article/create",
     onEnter: ["$state", "$uibModal", function($state, $uibModal) {
       $uibModal.open({
-        templateUrl: "app/universes/article/standard/create.html",
+        templateUrl: "app/universes/article/creation/standard/create.html",
         controller: "StandardCreationCtrl",
         backdrop: "static",
         animation: false,
@@ -35,7 +35,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/article/create/video",
     onEnter: ["$state", "$uibModal", function($state, $uibModal) {
       $uibModal.open({
-        templateUrl: "app/universes/article/video/create.html",
+        templateUrl: "app/universes/article/creation/video/create.html",
         controller: "VideoCreationCtrl",
         backdrop: "static",
         animation: false,
@@ -48,7 +48,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/article/create/album",
     onEnter: ["$state", "$uibModal", function($state, $uibModal) {
       $uibModal.open({
-        templateUrl: "app/universes/article/album/create.html",
+        templateUrl: "app/universes/article/creation/album/create.html",
         controller: "AlbumCreationCtrl",
         backdrop: "static",
         animation: false,

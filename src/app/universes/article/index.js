@@ -3,9 +3,9 @@ import ArticleFactory from "../../factory/api/article"
 import lcsBlogPostDirective from "./directive"
 import ArticleConfig from "./article.config"
 import ArticleListCtrl from "./list/listCtrl"
-import VideoCreationCtrl from "./video/createCtrl"
-import StandardCreationCtrl from "./standard/createCtrl"
-import AlbumCreationCtrl from "./album/createCtrl"
+import VideoCreationCtrl from "./creation/video/createCtrl"
+import StandardCreationCtrl from "./creation/standard/createCtrl"
+import AlbumCreationCtrl from "./creation/album/createCtrl"
 
 // Create the module where our functionality can attach to
 const articleModule = angular.module("app.article", [])

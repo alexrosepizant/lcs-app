@@ -1,38 +1,29 @@
 export default function IdeaFactory($http) {
   return {
     loadIdeas($scope) {
-      $http.get("/idea")
+      return $http.get("/idea")
         .then((ideas) => {
-          $scope.ideas = ideas
+          return $scope.ideas = ideas
         })
     },
 
-    getIdea($scope, ideaId) {
-      $http.get(`/idea/${ideaId}`)
+    getIdea(ideaId) {
+      return $http.get(`/idea/${ideaId}`)
         .then((idea) => {
-          $scope.idea = idea
+          return idea
         })
     },
 
-    createIdea($scope, idea) {
-      $http.post("/idea", idea)
-        .then((idea) => {
-          $scope.idea = idea
-        })
+    createIdea(idea) {
+      return $http.post("/idea", idea)
     },
 
-    updateIdea($scope, idea) {
-      $http.put(`/idea/${idea._id}`, idea)
-        .then(() => {
-          console.log("Idea succefully updated")
-        })
+    updateIdea(idea) {
+      return $http.put(`/idea/${idea._id}`, idea)
     },
 
-    deleteIdea($scope, idea) {
-      $http.delete(`/idea/${idea._id}`)
-        .then(() => {
-          console.log("Idea succefully deleted")
-        })
+    deleteIdea(ideaId) {
+      return $http.delete(`/idea/${ideaId}`)
     },
   }
 }

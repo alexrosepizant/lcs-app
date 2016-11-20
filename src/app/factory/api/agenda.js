@@ -1,6 +1,6 @@
 export default function AgendaFactory($http, UserEvent) {
   return {
-    loadUserEvents() {
+    findUserEvents() {
       return $http.get("/userEvent")
         .then((userEvents) => {
           return userEvents.data.map((userEvent) => {
@@ -9,10 +9,10 @@ export default function AgendaFactory($http, UserEvent) {
         })
     },
 
-    getUserEvent($scope, userEventId) {
+    getUserEvent(userEventId) {
       return $http.get(`/userEvent/${userEventId}`)
         .then((userEvent) => {
-          $scope.userEvent = userEvent
+          return new UserEvent(userEvent)
         })
     },
 
@@ -20,12 +20,12 @@ export default function AgendaFactory($http, UserEvent) {
       return $http.post("/userEvent", userEvent)
     },
 
-    updateUserEvent($scope, userEvent) {
+    updateUserEvent(userEvent) {
       return $http.put(`/userEvent/${userEvent._id}`, userEvent)
     },
 
-    deleteUserEvent($scope, userEvent) {
-      return $http.delete(`/userEvent/${userEvent._id}`)
+    deleteUserEvent(userEventId) {
+      return $http.delete(`/userEvent/${userEventId}`)
     },
   }
 }

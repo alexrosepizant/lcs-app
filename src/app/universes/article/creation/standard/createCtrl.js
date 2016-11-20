@@ -50,10 +50,10 @@ export default function StandardCreationCtrl($scope, $location, ArticleFactory, 
           message: "Article créé avec succés",
         })
       })
-      .catch(() => {
+      .catch((err) => {
         Notification.error({
           title: "Error",
-          message: "Erreur lors de la création de l'article",
+          message: err,
         })
       })
   }

@@ -1,26 +1,29 @@
 export default function UserFactory($http, $rootScope, $cookieStore, User) {
   return {
-    getUsers() {
+    findUsers() {
       return $http.get("/users")
-      .then((users) => {
-        return users.data.map((user) => {
+        .then((users) => {
+          return users.data.map((user) => {
+            return new User(user)
+          })
+        })
+    },
+
+    getUser(userId) {
+      return $http.get(`/users/${userId}`)
+        .then((user) => {
           return new User(user)
         })
-      })
     },
 
-    getUser($scope, userId) {
-      return $http.get(`/users/${userId}`)
-    },
-
-    updateUser($scope, user) {
+    updateUser(user) {
       $rootScope.currentUser = user
       $cookieStore.put("user", user)
       return $http.put(`/users/${user._id}`, user)
     },
 
-    deleteUser($scope, user) {
-      return $http.delete(`/users/${user._id}`)
+    deleteUser(userId) {
+      return $http.delete(`/users/${userId}`)
     },
 
     addReadArticle(articleId) {

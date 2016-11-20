@@ -25,35 +25,10 @@ export default function ProfileCtrl($rootScope, $scope, $translate, Upload, User
             file: file,
           },
         }).then((resp) => {
-          $scope.currentUser.avatar = resp.data.path
+          $scope.currentUser.avatar = resp.data.location
         })
       }
     }
-  }
-
-  /** *
-    SKILLS
-  ***/
-  $scope.initSkill = () => {
-    $scope.skill = {
-      name: "",
-      value: "",
-    }
-  }
-
-  $scope.addSkill = () => {
-
-    if (!$scope.currentUser.skills) {
-      $scope.currentUser.skills = []
-    }
-
-    const currentSkill = angular.extend({}, $scope.skill)
-    $scope.currentUser.skills.push(currentSkill)
-    $scope.initSkill()
-  }
-
-  $scope.removeSkill = (skill) => {
-    $scope.currentUser.skills.splice($scope.currentUser.skills.indexOf(skill), 1)
   }
 
   /** *
@@ -67,8 +42,6 @@ export default function ProfileCtrl($rootScope, $scope, $translate, Upload, User
     Update
   ***/
   $scope.update = () => {
-    UserFactory.update($scope.currentUser).then((user) => {
-      $scope.currentUser = user
-    })
+    UserFactory.updateUser($scope.currentUser)
   }
 }

@@ -17,7 +17,7 @@ const appDirectory = __dirname + "/../src/"
 const assetDirectory = appDirectory + "assets/"
 const faviconPath = assetDirectory + "/images/favicon.ico"
 
-module.exports = function(app, passport) {
+module.exports = (app, passport) => {
   app.set("showStackError", true)
 
 	// Only use logger for development environment
@@ -62,7 +62,7 @@ module.exports = function(app, passport) {
   app.use(passport.session())
 
 	// 500 error page
-  router.use(function(err, req, res, next) {
+  router.use((err, req, res, next) => {
     if (~err.message.indexOf("not found")) return next()
     console.error(err.stack)
     res.status(500).render("500", {
@@ -71,7 +71,7 @@ module.exports = function(app, passport) {
   })
 
 	// Assume 404 since no middleware responded
-  router.use(function(req, res) {
+  router.use((req, res) => {
     res.status(404).render("404", {
       url: req.originalUrl,
       error: "Not found",

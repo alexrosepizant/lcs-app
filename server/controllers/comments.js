@@ -5,68 +5,85 @@ const _ = require("lodash")
 
 const Comment = mongoose.model("Comment")
 
-exports.comment = function(req, res, next) {
-  Comment.findOne({
+exports.comment = (req, res, next) => {
+  return Comment.findOne({
     _id: req.params.id,
   })
-		.populate("user").exec(function(err, comment) {
-  if (err) return next(err)
-  req.comment = comment
-  next()
-})
+	.populate("user")
+  .then((comment, err) => {
+    if (err) return next(err)
+    req.comment = comment
+    next()
+  })
 }
 
-exports.findAllComments = function(req, res) {
+exports.findAllComments = (req, res) => {
   const query = (req.query.userId) ? {
     user: req.query.userId,
   } : {}
-  Comment.find(query).exec(function(err, comments) {
-    res.send(comments)
-  })
+
+  return Comment.find(query)
+    .then((comments, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.jsonp(comments)
+      }
+    })
 }
 
-exports.findCommentById = function(req, res) {
-  Comment.findOne({
+exports.findCommentById = (req, res) => {
+  return Comment.findOne({
     _id: req.params.id,
   })
-		.populate("user").exec(function(err, comment) {
-  if (err) console.log("error finding comment: " + err)
-  res.send(comment)
-})
+  .populate("user")
+  .then((comment, err) => {
+    if (err) {
+      res.status(400).json(err)
+    } else {
+      res.jsonp(comment)
+    }
+  })
 }
 
-exports.addComment = function(req, res) {
+exports.addComment = (req, res) => {
   const newComment = req.body
   newComment.user = req.user
-  Comment.create(newComment, function(err, comment) {
-    if (err) console.log("error: " + err)
-    res.send(comment)
-  })
+
+  return Comment.create(newComment)
+    .then((comment, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.jsonp(comment)
+      }
+    })
 }
 
-exports.updateComment = function(req, res) {
+exports.updateComment = (req, res) => {
   let comment = req.comment
   comment = _.extend(comment, req.body)
-  comment.save(function(err, comment, numAffected) {
-    if (err) console.log("Error saving comment: " + err)
-    console.log(numAffected + " documents updated.")
-    res.send(comment)
-  })
+
+  return comment.save()
+    .then((comment, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.jsonp(article)
+      }
+    })
 }
 
 /**
  * Count of comments
  */
-exports.getItemsCount = function(req, res) {
-  Comment.count({}).exec(function(err, count) {
-    if (err) {
-      res.render("error", {
-        status: 500,
-      })
-    } else {
-      res.jsonp({
-        count: count,
-      })
-    }
-  })
+exports.getItemsCount = (req, res) => {
+  return Comment.count({})
+    .then((count, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.jsonp(count)
+      }
+    })
 }

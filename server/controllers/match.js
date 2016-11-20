@@ -5,23 +5,29 @@ const _ = require("lodash")
 
 const Match = mongoose.model("Match")
 const User = mongoose.model("User")
+const UserEvent = mongoose.model("UserEvent")
+const EuroData = require("../ressources/euro.json")
+// const EuroDataR16 = require("../server/ressources/euro_qf.json")
+// const EuroDataQF = require("../server/ressources/euro_qf_2.json")
+// const EuroDatasSF = require("../server/ressources/euro_SF.json")
+// const EuroDatasFi = require("../server/ressources/euro_Fi.json")
 
-exports.match = function(req, res, next) {
+exports.match = (req, res, next) => {
   Match.findOne({
     _id: req.params.id,
   })
-		.populate("bets.user", "_id name username avatar")
-		.populate("comments.user", "_id name username avatar")
-		.populate("comments.replies.user", "_id name username avatar")
-		.populate("user", "_id name username avatar")
-		.exec(function(err, match) {
-  if (err) return next(err)
-  req.match = match
-  next()
-})
+  .populate("bets.user", "_id name username avatar")
+  .populate("comments.user", "_id name username avatar")
+  .populate("comments.replies.user", "_id name username avatar")
+  .populate("user", "_id name username avatar")
+  .exec((err, match) => {
+    if (err) return next(err)
+    req.match = match
+    next()
+  })
 }
 
-exports.findAllMatchs = function(req, res) {
+exports.findAllMatchs = (req, res) => {
 
   const query = (req.query.endedMatch === "true") ? {
     startsAt: {
@@ -30,39 +36,39 @@ exports.findAllMatchs = function(req, res) {
   } : {}
 
   Match.find(query)
-		.sort("startsAt")
-		.populate("bets.user", "_id name username avatar")
-		.populate("user", "_id name username avatar")
-		.exec(function(err, matchs) {
-  res.send(matchs)
-})
+  .sort("startsAt")
+  .populate("bets.user", "_id name username avatar")
+  .populate("user", "_id name username avatar")
+  .exec((err, matchs) => {
+    res.send(matchs)
+  })
 }
 
-exports.findMatchById = function(req, res) {
+exports.findMatchById = (req, res) => {
   Match.findOne({
     _id: req.params.id,
   })
-		.populate("bets.user", "_id name username avatar")
-		.populate("comments.user", "_id name username avatar")
-		.populate("comments.replies.user", "_id name username avatar")
-		.populate("user", "_id name username avatar")
-		.exec(function(err, match) {
-  if (err) console.log("error finding match: " + err)
-  res.send(match)
-})
+  .populate("bets.user", "_id name username avatar")
+  .populate("comments.user", "_id name username avatar")
+  .populate("comments.replies.user", "_id name username avatar")
+  .populate("user", "_id name username avatar")
+  .exec((err, match) => {
+    if (err) console.log("error finding match: " + err)
+    res.send(match)
+  })
 }
 
-exports.addMatch = function(req, res) {
+exports.addMatch = (req, res) => {
   const newMatch = req.body
   newMatch.user = req.user
-  Match.create(newMatch, function(err, match) {
+  Match.create(newMatch, (err, match) => {
     if (err) console.log("error: " + err)
     res.send(match)
   })
 }
 
-exports.deleteMatch = function(req, res) {
-  Match.findById(req.params.id, function(err) {
+exports.deleteMatch = (req, res) => {
+  Match.findById(req.params.id, (err) => {
     if (!err) {
       res.send(req.body)
     } else {
@@ -71,17 +77,17 @@ exports.deleteMatch = function(req, res) {
   })
 }
 
-const getPointsFromMatch = function(match, user) {
+const getPointsFromMatch = (match, user) => {
 
   const GOOD_SCORE = 5
   const GOOD_WINNER = 2
   const ACCEPTED_GOAL_DIFFERENCE = 1
 
-	/* Winner code:
-	 1 for home team
-	 2 for away team
-	 -1 for nul score
-	*/
+  /* Winner code:
+  1 for home team
+  2 for away team
+  -1 for nul score
+  */
 
   let points = 0
   const scoreHome = match.scoreHome
@@ -89,7 +95,7 @@ const getPointsFromMatch = function(match, user) {
   const winner = (scoreHome > scoreAway) ? 1 : ((scoreHome < scoreAway) ? 2 : -1)
   const goalDifference = scoreHome - scoreAway
 
-  const _userbets = _.filter(match.bets, function(bet) {
+  const _userbets = _.filter(match.bets, (bet) => {
     return bet.user.toString() === user._id.toString()
   })
   const userBet = (_userbets.length > 0) ? _userbets[_userbets.length - 1] : null
@@ -131,19 +137,19 @@ const getPointsFromMatch = function(match, user) {
   return points
 }
 
-const updateUserScores = function() {
+const updateUserScores = () => {
   let _users = []
   let canUpdateUsers = true
 
-  User.find({}).exec().then(function(users, err) {
+  User.find({}).exec().then((users, err) => {
     if (err) {
       console.warn("Error when trying to fetch users: " + err)
     } else {
 
-			// keep users in array to updates
+      // keep users in array to updates
       _users = users
 
-			// fetch matchs
+      // fetch matchs
       return Match.find({
         startsAt: {
           "$lt": new Date(),
@@ -152,20 +158,21 @@ const updateUserScores = function() {
           $exists: false,
         },
       })
-				.sort("-created")
-				.exec()
+      .sort("-created")
+      .exec()
 
     }
-  }).then(function(matchs, err) {
+  }).then((matchs, err) =>{
+
     if (err) {
       console.warn("Error when trying to fetch matchs: " + err)
     } else {
-      _.each(matchs, function(match) {
+      _.each(matchs, (match) => {
 
         if (match.scoreHome !== undefined && match.scoreAway !== undefined) {
 
           console.warn("Match to update")
-          _.each(_users, function(user) {
+          _.each(_users, (user) => {
             if (!user.euroPoints) {
               user.euroPoints = 0
             }
@@ -175,7 +182,7 @@ const updateUserScores = function() {
           })
 
           match.scoresUpdated = true
-          match.save(function() {
+          match.save(() => {
             if (err) {
               console.warn("Error when trying to update match... " + match.home + " - " + match.away)
               canUpdateUsers = false
@@ -190,8 +197,8 @@ const updateUserScores = function() {
       })
 
       if (canUpdateUsers) {
-        _.each(_users, function(user) {
-          user.save(function(err) {
+        _.each(_users, (user) => {
+          user.save((err) => {
             if (err) {
               console.warn("Error when trying to update user scores : " + err)
             } else {
@@ -204,10 +211,109 @@ const updateUserScores = function() {
   })
 }
 
-exports.updateMatch = function(req, res) {
+const getNameOfCountryCode = function(teams, code) {
+  let name = ""
+  _.each(teams, function(team) {
+    if (team.code === code) {
+      name = team.name
+    }
+  })
+
+  return name
+}
+
+exports.addMatchs = () => {
+  const matchs = EuroData.matchs
+  const teams = EuroData.teams
+  let currentMatch
+  const promises = []
+
+  _.each(matchs, (match) => {
+    currentMatch = new Match(match)
+    promises.push(currentMatch.save()
+      .then((_matchObject, err) => {
+        if (err) {
+          console.warn("Error when adding match: " + err)
+        } else {
+          console.warn("Successfuly add match")
+          const homeName = getNameOfCountryCode(teams, match.home)
+          const awayName = getNameOfCountryCode(teams, match.away)
+          const userEvent = new UserEvent({
+            title: homeName + " - " + awayName,
+            type: "inverse",
+            eventType: "other",
+            content: "Match de l'euro 2016 du groupe " + match.type,
+            startsAt: match.startsAt,
+            endsAt: match.startsAt,
+            editable: false,
+            deletable: false,
+            incrementsBadgeTotal: true,
+            guest: [],
+            subType: "euroMatch",
+            matchId: _matchObject._id,
+
+          })
+
+          return userEvent.save()
+            .then((err) => {
+              if (err) {
+                console.warn("Error when adding userEvent: " + err)
+              } else {
+                console.warn("Successfuly add userEvent")
+              }
+            })
+        }
+      }))
+  })
+
+  return Promise.all(promises)
+}
+
+
+exports.reInitEuroPoints = () => {
+  User.find({}).exec((err, users) => {
+    if (err) {
+      res.render("error", {
+        status: 500,
+      })
+    } else {
+      _.each(users, (user) => {
+        user.euroPoints = 0
+        user.save((err) => {
+          if (err) {
+            console.warn("error when trying to save user")
+          } else {
+            console.warn("user saved")
+          }
+        })
+      })
+    }
+  })
+
+  Match.find({}).exec((err, matchs) => {
+    if (err) {
+      res.render("error", {
+        status: 500,
+      })
+    } else {
+      _.each(matchs, (match) => {
+        match.scoresUpdated = undefined
+        match.save((err) => {
+          if (err) {
+            console.warn("error when trying to save match")
+          } else {
+            console.warn("match saved")
+          }
+        })
+      })
+    }
+  })
+}
+
+exports.updateMatch = (req, res) => {
   let match = req.match
   match = _.extend(match, req.body)
-  match.save(function(err) {
+  match.save((err) => {
     console.warn(err)
     if (err) {
       console.log("Error when trying to save match: " + err)

@@ -5,19 +5,19 @@ const LocalStrategy = require("passport-local").Strategy
 
 const User = mongoose.model("User")
 
-module.exports = function(passport) {
+module.exports = (passport) => {
 
   // Serialize the user id to push into the session
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user.id)
   })
 
   // Deserialize the user object based on a pre-serialized token
   // which is the user id
-  passport.deserializeUser(function(id, done) {
+  passport.deserializeUser((id, done) => {
     User.findOne({
       _id: id,
-    }, "-salt -hashed_password", function(err, user) {
+    }, "-salt -hashed_password", (err, user) => {
       done(err, user)
     })
   })
@@ -27,10 +27,10 @@ module.exports = function(passport) {
     usernameField: "email",
     passwordField: "password",
   },
-  function(email, password, done) {
+  (email, password, done) => {
     User.findOne({
       email: email,
-    }, function(err, user) {
+    }, (err, user) => {
       if (err) {
         return done(err)
       }

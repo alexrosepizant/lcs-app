@@ -11,8 +11,8 @@ const Article = mongoose.model("Article")
 /**
  * Find vote by id
  */
-exports.vote = function(req, res, next, id) {
-  Vote.load(id, function(err, vote) {
+exports.vote = (req, res, next, id) => {
+  Vote.load(id, (err, vote) => {
     if (err) return next(err)
     if (!vote) return next(new Error("Failed to load vote " + id))
     req.vote = vote
@@ -23,10 +23,10 @@ exports.vote = function(req, res, next, id) {
 /**
  * Create a vote
  */
-exports.create = function(req, res) {
+exports.create = (req, res) => {
   const vote = new Vote(req.body)
   vote.user = req.user
-  vote.save(function(err) {
+  vote.save((err) => {
     console.log(err)
     if (err) {
       return res.send("users/signup", {
@@ -42,10 +42,10 @@ exports.create = function(req, res) {
 /**
  * Update a vote
  */
-exports.update = function(req, res) {
+exports.update = (req, res) => {
   let vote = req.vote
   vote = _.extend(vote, req.body)
-  vote.save(function(err) {
+  vote.save((err) => {
     if (err) {
       return res.send("users/signup", {
         errors: err.errors,
@@ -60,9 +60,9 @@ exports.update = function(req, res) {
 /**
  * Delete an vote
  */
-exports.destroy = function(req, res) {
+exports.destroy = (req, res) => {
   const vote = req.vote
-  vote.remove(function(err) {
+  vote.remove((err) => {
     if (err) {
       return res.send("users/signup", {
         errors: err.errors,
@@ -77,14 +77,14 @@ exports.destroy = function(req, res) {
 /**
  * Show a vote
  */
-exports.show = function(req, res) {
+exports.show = (req, res) => {
   res.jsonp(req.vote)
 }
 
 /**
  * List of votes
  */
-exports.all = function(req, res) {
+exports.all = (req, res) => {
 
   const perPage = req.query.perPage
   const page = req.query.page
@@ -94,7 +94,7 @@ exports.all = function(req, res) {
 		.limit(perPage)
 		.skip(perPage * page)
 		.populate("user", "_id name username avatar")
-		.exec(function(err, votes) {
+		.exec((err, votes) => {
   if (err) {
     res.render("error", {
       status: 500,
@@ -108,7 +108,7 @@ exports.all = function(req, res) {
 /**
  * Create article from ended vote to see results
  **/
-exports.closeVotes = function() {
+exports.closeVotes = () => {
 
   const date = moment().subtract(1, "months").toISOString()
 
@@ -118,12 +118,12 @@ exports.closeVotes = function() {
     },
   })
 		.sort("-created")
-		.exec(function(err, votes) {
+		.exec((err, votes) => {
 
   if (err) {
     console.warn("Error when to fetch votes " + err)
   } else {
-    _.each(votes, function(vote) {
+    _.each(votes, (vote) => {
 
       const yes = []
       const no = []
@@ -138,34 +138,34 @@ exports.closeVotes = function() {
         created: vote.created,
       })
 
-      _.each(vote.yes, function(userId) {
+      _.each(vote.yes, (userId) => {
         yes.push({
           user: userId,
         })
       })
       article.yes = yes
 
-      _.each(vote.blank, function(userId) {
+      _.each(vote.blank, (userId) => {
         blank.push({
           user: userId,
         })
       })
       article.blank = blank
 
-      _.each(vote.no, function(userId) {
+      _.each(vote.no, (userId) => {
         no.push({
           user: userId,
         })
       })
       article.no = no
 
-      article.save(function(err) {
+      article.save((err) => {
 
         if (err) {
           console.warn("Error when trying to save new article " + err)
         } else {
 
-          vote.remove(function(err) {
+          vote.remove((err) => {
             if (err) {
               console.warn("Error when trying to remove vote " + err)
             } else {
@@ -177,3 +177,20 @@ exports.closeVotes = function() {
     })
   }
 })}
+
+exports.changeQuoteToVote = () => {
+  Article.find({
+    type: "quote",
+  }).exec((err, articles) => {
+    _.each(articles, (article) => {
+      article.type = "vote"
+      article.save((err) => {
+        if (err) {
+          console.warn("error when trying to save user")
+        } else {
+          console.warn("article updated")
+        }
+      })
+    })
+  })
+}

@@ -5,7 +5,7 @@ const users = require("../controllers/users")
 const session = require("../controllers/session")
 const authorization = require("./middlewares/authorization")
 
-module.exports = function(app) {
+module.exports = (app) => {
 
   // Login and signup
   app.get("/auth/check_username/:username", users.exists)

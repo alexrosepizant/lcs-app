@@ -8,14 +8,14 @@ const archiver = require("archiver")
 const config = require("../config")
 
 const Album = mongoose.model("Album")
+const Article = mongoose.model("Article")
 
-exports.album = function(req, res, next) {
-
+exports.album = (req, res, next) => {
   Album.findOne({_id: req.params.id})
 		.populate("comments.user", "_id name username avatar")
 		.populate("comments.replies.user", "_id name username avatar")
 		.populate("user")
-    .exec(function(err, album) {
+    .exec((err, album) => {
       if (err) {
         return next(err)
       }
@@ -25,8 +25,7 @@ exports.album = function(req, res, next) {
     })
 }
 
-exports.findAllAlbums = function(req, res) {
-
+exports.findAllAlbums = (req, res) => {
   const perPage = req.query.perPage
   const page = req.query.page
   const query = (req.query.userId) ? {
@@ -38,29 +37,29 @@ exports.findAllAlbums = function(req, res) {
 		.populate("user", "_id name username avatar")
 		.limit(perPage)
 		.skip(perPage * page)
-    .exec(function(err, albums) {
+    .exec((err, albums) => {
       res.send(albums)
     })
 }
 
-exports.findAlbumById = function(req, res) {
+exports.findAlbumById = (req, res) => {
 
   Album.findOne({_id: req.params.id})
 		.populate("comments.user", "_id name username avatar")
 		.populate("comments.replies.user", "_id name username avatar")
 		.populate("user")
-    .exec(function(err, album) {
+    .exec((err, album) => {
       if (err) console.log("error finding album: " + err)
       res.send(album)
     })
 }
 
-exports.addAlbum = function(req, res) {
+exports.addAlbum = (req, res) => {
 
   const newAlbum = req.body
   newAlbum.user = req.user
 
-  Album.create(newAlbum, function(err, album) {
+  Album.create(newAlbum, (err, album) => {
     if (err) {
       console.log("error: " + err)
     }
@@ -68,27 +67,27 @@ exports.addAlbum = function(req, res) {
   })
 }
 
-exports.updateAlbum = function(req, res) {
+exports.updateAlbum = (req, res) => {
   let album = req.album
   album = _.extend(album, req.body)
-  album.save(function(err, album, numAffected) {
+  album.save((err, album, numAffected) => {
     if (err) console.log("Error saving album: " + err)
     console.log(numAffected + " documents updated.")
     res.send(album)
   })
 }
 
-exports.deleteAlbum = function(req, res) {
-  Album.findById(req.params.id, function(err, doc) {
+exports.deleteAlbum = (req, res) => {
+  Album.findById(req.params.id, (err, doc) => {
     if (!err) {
 
       const files = _.extend({}, doc.photoList)
-      doc.remove(function() {
+      doc.remove(() => {
 
         res.send(req.body)
 
 				// remove files on filesystem
-        _.each(files, function(file) {
+        _.each(files, (file) => {
           if (file.filepath) {
 
             const filename = file.filepath.split(config.uploadDirectory).pop()
@@ -105,7 +104,7 @@ exports.deleteAlbum = function(req, res) {
   })
 }
 
-exports.download = function(req, res) {
+exports.download = (req, res) => {
 
   const src = []
   const id = req.params.id
@@ -114,13 +113,13 @@ exports.download = function(req, res) {
 
   Album.findOne({
     _id: id,
-  }).exec(function(err, album) {
+  }).exec((err, album) => {
     if (err) console.log("error: " + err)
 
     archive.pipe(output)
 
 		// add each photo of the album to the archive
-    _.each(album.photoList, function(entry) {
+    _.each(album.photoList, (entry) => {
       src.push(entry.filepath.split("public/img/users/").pop())
     })
 
@@ -131,7 +130,7 @@ exports.download = function(req, res) {
       expand: true,
     }])
 
-    archive.on("end", function() {
+    archive.on("end", () => {
       return res.json({
         success: true,
       })
@@ -141,7 +140,7 @@ exports.download = function(req, res) {
   })
 }
 
-exports.getZipFile = function(req, res) {
+exports.getZipFile = (req, res) => {
 
   let error = false // Set a flag to check for errors in downloading the file
   const filePath = path.resolve(config.root + "/server/public/temp_files/" + req.params.id + ".zip")
@@ -151,13 +150,49 @@ exports.getZipFile = function(req, res) {
   })
 
   stream.pipe(res)
-  stream.on("error", function() {
+  stream.on("error", () => {
     error = true
   })
 
-  stream.on("close", function() {
+  stream.on("close", () => {
     if (!error)	{
       fs.unlink(filePath) // Delete the archive
     }
   })
+}
+
+exports.migrateAlbums = () => {
+  const promises = []
+
+  return Album.find({})
+    .then((albums, err) => {
+      if (err) {
+        return Promise.reject("Error when to fetch album " + err)
+      } else {
+
+        console.log(albums.length + " albums to migrate: ")
+        _.each(albums, (album) => {
+          const article = new Article({
+            title: album.name,
+            user: album.user,
+            content: album.description,
+            type: "album",
+            comments: [],
+            created: album.created,
+            photoList: album.photoList,
+            coverPicPath: album.coverPicPath,
+          })
+
+          promises.push(article.save((err) => {
+            if (err) {
+              console.log("Error when trying to save new article " + err)
+            } else {
+              console.log("Save new article: " + article.title)
+            }
+          }))
+        })
+
+        return Promise.all(promises)
+      }
+    })
 }

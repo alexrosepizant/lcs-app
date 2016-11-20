@@ -4,11 +4,11 @@
 const comments = require("../controllers/comments")
 const authorization = require("./middlewares/authorization")
 
-module.exports = function(app) {
+module.exports = (app) => {
 
   // CRUD enPoints
-  app.get("/comments/:id", comments.findCommentById)
   app.get("/comments", comments.findAllComments)
+  app.get("/comments/:id", comments.findCommentById)
   app.post("/comments", authorization.requiresLogin, comments.addComment)
   app.put("/comments/:id", comments.updateComment)
 

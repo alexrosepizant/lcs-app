@@ -8,10 +8,10 @@ export default function HomeConfig($stateProvider) {
       title: "Accueil",
       resolve: {
         messages: (ChatFactory) => {
-          return ChatFactory.getMessages()
+          return ChatFactory.findMessages()
         },
         users: (UserFactory) => {
-          return UserFactory.getUsers()
+          return UserFactory.findUsers()
         },
       },
     })

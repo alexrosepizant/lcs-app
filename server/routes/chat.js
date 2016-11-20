@@ -2,19 +2,15 @@ const mongoose = require("mongoose")
 
 const Chat = mongoose.model("Chat")
 
-module.exports = function(app) {
-  app.get("/chat", function(req, res) {
+module.exports = (app) => {
+  app.get("/chat", (req, res) => {
     Chat.find()
     .sort("-created")
     .populate("user", "_id name username avatar")
     .limit(30)
-    .exec()
-    .then(function(messages, err) {
+    .then((messages, err) => {
       if (err) {
-        res.render("error", {
-          status: 500,
-          error: err,
-        })
+        res.status(400).json(err)
       } else {
         res.jsonp(messages)
       }

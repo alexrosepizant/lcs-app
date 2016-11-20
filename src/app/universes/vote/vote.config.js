@@ -8,10 +8,10 @@ export default function AgendaConfig($stateProvider) {
       resolve: {
         votes: ($stateParams, VoteFactory) => {
           const filter = ($stateParams.filter) ? $stateParams.filter : "all"
-          return VoteFactory.loadVotes(filter)
+          return VoteFactory.findVotes(filter)
         },
         users: (UserFactory) => {
-          return UserFactory.getUsers()
+          return UserFactory.findUsers()
         },
         filter: ($stateParams) => {
           return ($stateParams.filter) ? $stateParams.filter : "all"

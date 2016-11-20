@@ -1,6 +1,6 @@
 export default function ArticleFactory($http, Article) {
   return {
-    loadArticles(filter) {
+    findArticles(filter) {
       return $http.get("/articles", {
         params: {
           "type": filter,
@@ -24,8 +24,11 @@ export default function ArticleFactory($http, Article) {
       })
     },
 
-    findArticle(articleId) {
+    getArticle(articleId) {
       return $http.get(`/articles/${articleId}`)
+      .then((article) => {
+        return new Article(article)
+      })
     },
 
     createArticle(article) {

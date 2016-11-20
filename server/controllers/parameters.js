@@ -8,10 +8,10 @@ const Parameters = mongoose.model("Parameter")
 /**
  * Get all parameters
  */
-exports.getAllParameters = function(req, res) {
+exports.getAllParameters = (req, res) => {
 
   Parameters.find().exec()
-		.then(function(parameters, err) {
+		.then((parameters, err) => {
   if (err) {
     res.render("error", {
       status: 500,
@@ -25,9 +25,9 @@ exports.getAllParameters = function(req, res) {
 /**
  * Create parameters
  */
-exports.create = function(_parameter) {
+exports.create = (_parameter) => {
   const parameter = new Parameters(_parameter)
-  parameter.save(function(err) {
+  parameter.save((err) => {
     if (err) {
       console.warn("Error when adding params: " + err)
     } else {
@@ -39,14 +39,14 @@ exports.create = function(_parameter) {
 /**
  * Update parameters
  */
-exports.update = function(req, res) {
+exports.update = (req, res) => {
   let parameters = new Parameters(req.parameters)
   parameters = _.extend(parameters, req.body)
   Parameters.update({_id: parameters._id}, {
     $set: {
       articleCategories: parameters.articleCategories,
     },
-  }, function(err) {
+  }, (err) => {
     if (err) {
       console.warn("err: " + err)
     } else {

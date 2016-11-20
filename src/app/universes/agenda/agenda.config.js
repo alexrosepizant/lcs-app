@@ -7,7 +7,7 @@ export default function AgendaConfig($stateProvider) {
       title: "Agenda",
       resolve: {
         events: (AgendaFactory) => {
-          return AgendaFactory.loadUserEvents()
+          return AgendaFactory.findUserEvents()
         },
       },
     })

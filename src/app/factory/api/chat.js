@@ -1,12 +1,12 @@
 export default function ChatFactory($http, Message) {
   return {
-    getMessages() {
+    findMessages() {
       return $http.get("/chat")
-      .then((messages) => {
-        return messages.data.map((message) => {
-          return new Message(message)
+        .then((messages) => {
+          return messages.data.map((message) => {
+            return new Message(message)
+          })
         })
-      })
     },
   }
 }
