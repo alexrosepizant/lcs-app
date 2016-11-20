@@ -1,3 +1,12 @@
 <div class="container">
   Agenda section
+
+  <input ng-model="userEvent.startsAt"
+         type="text"
+         class="input"
+         placeholder="Choisis une date..."
+         ng-flatpickr
+         fp-opts="dateOpts"
+         fp-on-setup="datePostSetup(fpItem)"
+         data-enabletime="true">
 </div>

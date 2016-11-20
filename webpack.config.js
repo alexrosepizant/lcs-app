@@ -43,7 +43,7 @@ const config = {
         test: /\.js$/,
         exclude: [
           /(node_modules|unitTest)/,
-          path.resolve(__dirname, "src/app/common/ui-bootstrap/"),
+          path.resolve(__dirname, "src/app/common/modules/ui-bootstrap/"),
         ],
         loaders: ["babel?compact=false", "eslint"],
       },

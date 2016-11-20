@@ -1,11 +1,12 @@
 // Import our css files
-import "../assets/stylesheets/style.css"
-import "../assets/stylesheets/bulma.css"
-import "../assets/stylesheets/ngpopover.css"
-import "../assets/stylesheets/videogular.css"
-import "../assets/stylesheets/ui-bootstrap-custom-1.3.3-csp.css"
-import "../assets/stylesheets/medium-editor.css"
 import "../assets/stylesheets/angular-lightbox.css"
+import "../assets/stylesheets/bulma.css"
+import "../assets/stylesheets/flatpickr.min.css"
+import "../assets/stylesheets/medium-editor.css"
+import "../assets/stylesheets/ngpopover.css"
+import "../assets/stylesheets/style.css"
+import "../assets/stylesheets/ui-bootstrap-custom-1.3.3-csp.css"
+import "../assets/stylesheets/videogular.css"
 
 // Import our angular libs
 import angular from "angular"
@@ -22,20 +23,19 @@ import "ng-file-upload"
 import "videogular"
 import "videogular-controls"
 import "videogular-buffering"
-import "./common/videogular-youtube/index"
-import "./common/lightbox/angular-lightbox"
+import "./common/modules/videogular-youtube/index"
+import "./common/modules/lightbox/angular-lightbox"
+import "./common/modules/flatpickr"
+import "./common/modules/medium-editor/angular-medium-editor"
+import "./common/modules/popover"
+import "./common/modules/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
+import "./common/modules/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
 
 // Import our app config files
 import constants  from "./config/app.constants"
 import appConfig  from "./config/app.config"
 import appRun     from "./config/app.run"
 import HeaderCtrl from "./common/header/headerCtrl"
-
-// Import commons
-import "./common/popover"
-import "./common/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
-import "./common/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
-import "./common/medium-editor/angular-medium-editor"
 
 // Import app component
 import "./universes/auth"
@@ -62,6 +62,7 @@ const requires = [
   "ui-notification",
   "angular-medium-editor",
   "angular-lightbox",
+  "angular-flatpickr",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
   "info.vietnamcode.nampnq.videogular.plugins.youtube",
