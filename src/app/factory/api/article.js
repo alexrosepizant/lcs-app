@@ -24,23 +24,20 @@ export default function ArticleFactory($http, Article) {
       })
     },
 
-    findArticle($scope, articleId) {
+    findArticle(articleId) {
       return $http.get(`/articles/${articleId}`)
-        .then((article) => {
-          $scope.article = article
-        })
     },
 
-    createArticle($scope) {
-      return $http.post("/articles", $scope.article)
+    createArticle(article) {
+      return $http.post("/articles", article)
     },
 
-    updateArticle($scope, article) {
+    updateArticle(article) {
       return $http.put(`/articles/${article._id}`, article)
     },
 
-    deleteArticle($scope, article) {
-      return $http.delete(`/articles/${article._id}`)
+    deleteArticle(articleId) {
+      return $http.delete(`/articles/${articleId}`)
     },
   }
 }

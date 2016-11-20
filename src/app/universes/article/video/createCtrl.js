@@ -79,7 +79,7 @@ export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload, 
       })
     }
 
-    ArticleFactory.createArticle($scope)
+    ArticleFactory.createArticle($scope.article)
       .then(() => {
         $scope.$close(true)
         Notification.success({

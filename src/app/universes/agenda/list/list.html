@@ -1,12 +1,58 @@
 <div class="container">
-  Agenda section
+  <div class="columns">
+    <div class="column is-9">
+      <div class="nav menu">
+        <div class="container">
+          <div class="nav-left">
+            <a class="nav-item is-tab button is-primary blog-add" ui-sref="agenda.create">
+              <span class="icon is-small">
+                <i class="fa fa-plus"></i>
+              </span>
+              <span>
+                Ajouter
+              </span>
+            </a>
+          </div>
+          <div class="nav-right is-hidden-mobile">
+            <nav class="level">
+              <!-- Left side -->
+              <div class="nav-item is-tab">
+                <p class="is-light">
+                  Filtrer par:
+                </p>
+              </div>
+              <div class="level-right">
+                <p class="level-item">
+                  <a ui-sref="article({ filter: 'all' })" ng-class="{'is-current': filter === 'all'}">
+                    Tous
+                  </a>
+                </p>
+                <p class="level-item">
+                  <a ui-sref="article({ filter: 'standard' })" ng-class="{'is-current': filter === 'standard'}">
+                    En attente
+                  </a>
+                </p>
+                <p class="level-item">
+                  <a ui-sref="article({ filter: 'video' })" ng-class="{'is-current': filter === 'video'}">
+                    Mes évènements
+                  </a>
+                </p>
+              </div>
+           </nav>
+          </div>
+        </div>
+      </div>
 
-  <input ng-model="userEvent.startsAt"
-         type="text"
-         class="input"
-         placeholder="Choisis une date..."
-         ng-flatpickr
-         fp-opts="dateOpts"
-         fp-on-setup="datePostSetup(fpItem)"
-         data-enabletime="true">
+      <div ng-repeat="userEvent in events">
+        <div class="user-blog pull-left">
+          <figure class="image is-64x64">
+            <img ng-src="{{ userEvent.user.getAvatar(40,40) }}" alt="Image">
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-3">
+    </div>
+  </div>
 </div>

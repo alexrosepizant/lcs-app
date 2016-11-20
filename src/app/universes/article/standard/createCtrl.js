@@ -8,13 +8,13 @@ export default function StandardCreationCtrl($scope, $location, ArticleFactory, 
   /** ***
   Upload config
   *** ***/
-  $scope.$watch("file", function() {
+  $scope.$watch("file", () => {
     if ($scope.file !== null) {
       $scope.files = [$scope.file]
     }
   })
 
-  $scope.upload = function(files) {
+  $scope.upload = (files) => {
     if (files && files.length) {
       const file = files[0]
       if (!file.$error) {
@@ -23,18 +23,18 @@ export default function StandardCreationCtrl($scope, $location, ArticleFactory, 
           data: {
             file: file,
           },
-        }).then(function(resp) {
+        }).then((resp) => {
           $scope.article.content += "<img src='" + resp.data.path + "'/>"
         })
       }
     }
   }
 
-  $scope.dismiss = function() {
+  $scope.dismiss = () => {
     $scope.$dismiss()
   }
 
-  $scope.create = function() {
+  $scope.create = () => {
     if (!$scope.article.title) {
       return Notification.warning({
         title: "Info",
@@ -42,7 +42,7 @@ export default function StandardCreationCtrl($scope, $location, ArticleFactory, 
       })
     }
 
-    ArticleFactory.createArticle($scope)
+    ArticleFactory.createArticle($scope.article)
       .then(() => {
         $scope.$close(true)
         Notification.success({

@@ -1,0 +1,43 @@
+<div class="modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Création d'évènement</p>
+    <button class="delete close" ng-click="dismiss()"></button>
+  </header>
+
+  <section class="modal-card-body content">
+    <label class="label">Titre</label>
+    <p class="control">
+      <input type="text"
+             ng-model="userEvent.title"
+             class="input"
+             placeholder="Titre">
+    </p>
+    <label class="label">Date</label>
+    <p class="control">
+      <input ng-model="userEvent.startsAt"
+             type="text"
+             class="input"
+             placeholder="Choisis une date..."
+             ng-flatpickr
+             fp-opts="dateOpts"
+             fp-on-setup="datePostSetup(fpItem)"
+             data-enabletime="true">
+    </p>
+    <label class="label">Contenu</label>
+    <p class="control">
+      <textarea ng-model="userEvent.content"
+                class="textarea"
+                placeholder="Contenu">
+      </textarea>
+    </p>
+  </section>
+
+  <footer class="modal-card-foot">
+    <a class="button is-primary" ng-click="create()">
+      Sauvegarder
+    </a>
+    <a class="button is-link" ng-click="dismiss()">
+      Annuler
+    </a>
+  </footer>
+</div>
