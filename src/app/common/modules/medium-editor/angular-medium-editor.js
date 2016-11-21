@@ -51,11 +51,11 @@ angular.module("angular-medium-editor", []).directive("mediumEditor", () => {
           buttons: [
             "bold",
             "italic",
+            "underline",
+            "fontsize",
             "justifyLeft",
             "justifyCenter",
             "justifyRight",
-            "h1",
-            "h2",
             "anchor",
             "quote",
           ],

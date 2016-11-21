@@ -1,4 +1,7 @@
 <div class="video-meta">
+  <p>
+    <small class="pull-right">{{ article.getDateFrom() }}</small>
+  </p>
   <div class="blog-title ellipsis">{{article.title}}</div>
   <br>
   <article class="media">
@@ -6,7 +9,7 @@
       <div class="content">
         <div class="columns">
           <div class="column is-6 masonry">
-    					<div class="masonry-child" ng-repeat="photo in article.photoList | limitTo:6">
+    					<div class="masonry-child" ng-repeat="photo in article.photoList | limitTo:9">
     						<a ng-href="{{ photo.filepath }}"
                    class="lightbox-trigger"
                    title="{{ photo.name }}"
@@ -43,9 +46,6 @@
                 <a class="button is-default">
                   <i class="fa fa-thumbs-down"></i>
                   1
-                </a>
-                <a class="button is-default">
-                  <span class="icon"><i class="fa fa-plus"></i></span> <span>Add to</span>
                 </a>
                 <a class="button is-default">
                   <span class="icon"><i class="fa fa-ellipsis-h"></i></span> <span>More</span>

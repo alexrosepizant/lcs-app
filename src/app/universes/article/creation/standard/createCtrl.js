@@ -24,7 +24,7 @@ export default function StandardCreationCtrl($scope, $location, ArticleFactory, 
             file: file,
           },
         }).then((resp) => {
-          $scope.article.content += "<img src='" + resp.data.path + "'/>"
+          $scope.article.content += "<img src='" + resp.data.location + "'/>"
         })
       }
     }

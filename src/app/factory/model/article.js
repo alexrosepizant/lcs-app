@@ -2,21 +2,26 @@ import moment from "moment"
 
 export default function Article($sce, UserFactory, User) {
   return (data) => {
+
+    const imgs = angular.element("<div>" + data.content + "</div>").find("img")
+    const image = (imgs.length) ? angular.element(imgs[0]).attr("src") : null
+
     return angular.extend({
       title: "",
       description: "",
+      content: "",
+      image: image,
 
       getTitle() {
-        return angular.element("<div>" + this.title + "</div>").html()
+        return angular.element("<div>" + this.title + "</div>").text()
       },
 
       getContent() {
         return angular.element("<div>" + this.content + "</div>").html()
       },
 
-      getImage() {
-        const img = angular.element("<div>" + this.content + "</div>").find("img").first()
-        return (img.length) ? img.attr("src") : ""
+      getFormattedContent() {
+        return angular.element("<div>" + this.content + "</div>").text()
       },
 
       getDateFrom() {

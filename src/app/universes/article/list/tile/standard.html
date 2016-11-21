@@ -1,12 +1,35 @@
 <article class="media">
   <div class="media-content">
     <div class="content">
-      <p>
-        <small class="pull-right">{{ article.getDateFrom() }}</small>
-        <div ng-bind-html="article.getTitle()"></div>
-        <br>
-        <div ng-bind-html="article.getContent()"></div>
-      </p>
+
+      <!-- Case of text only -->
+      <div ng-if="article.image === null">
+        <p>
+          <small class="pull-right">
+            {{ article.getDateFrom() }}
+          </small>
+          <div class="blog-title ellipsis">{{article.getTitle()}}</div>
+          <br>
+          <div ng-bind-html="article.getContent()"></div>
+        </p>
+      </div>
+
+      <!-- Case of article with image -->
+      <div ng-if="article.image !== null">
+        <p>
+          <small class="pull-right">{{ article.getDateFrom() }}</small>
+        </p>
+        <div class="blog-title ellipsis">{{article.getTitle()}}</div>
+        <br />
+        <div class="columns">
+          <div class="column is-6">
+            <img alt="{{ article.title }}" ng-src="{{ article.image }}"/>
+          </div>
+          <div class="column is-6">
+            {{ article.getFormattedContent() }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </article>

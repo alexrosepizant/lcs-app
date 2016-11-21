@@ -341,15 +341,21 @@ p.title.is-bold {
   margin-top: 20px;
 }
 
+.blog h2 {
+  margin: 0 !important;
+  color: #7a7a7a;
+  font-size: 30px;
+  font-weight: 400;
+}
+
 .blog-add {
   margin: 20px;
 }
 
 .blog-title {
   margin-top: 20px;
-  font-size: 1.5em;
-  font-weight: 500;
-  text-transform: capitalize;
+  font-size: 30px;
+  font-weight: 400;
 }
 
 .user-title {
@@ -702,4 +708,13 @@ textarea {
 .chat-feedback {
   font-style: italic;
   margin: 0 0 0 80px;
+}
+
+.button.is-loading {
+  border: none !important;
+  height: inherit !important;
+}
+
+.progress {
+  margin-top: 5px;
 }

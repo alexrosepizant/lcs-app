@@ -36,8 +36,71 @@
     </div>
     <button class="delete close" ng-click="dismiss()"></button>
   </header>
-  <section class="modal-card-body">
-    <!-- Content ... -->
+  <section class="modal-card-body content">
+    <h1 ng-model="article.title"
+        medium-editor
+        data-placeholder="Titre de l'article">
+    </h1>
+    <form name="demo" class="medium-editor-content">
+      <div class="button"
+           ngf-select='upload(files)'
+           ng-model='files'
+           ngf-multiple='true'
+           accept='image/*,'>
+           Ajouter des photos
+      </div>
+      <hr>
+      <table class="table">
+  			<thead>
+  				<tr>
+  					<th>Nom</th>
+  					<th>Taille</th>
+  					<th>Progression</th>
+  					<th>Compression</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				<tr ng-repeat="file in files">
+  					<td>
+              <strong>{{ file.name }}</strong>
+            </td>
+  					<td>
+              {{ file.size/1024/1024|number:2 }} MB
+            </td>
+  					<td>
+  						<div class="progress">
+  							<div
+  								class="progress-bar"
+  								role="progressbar"
+  								ng-style="{ 'width': progress + '%' }"
+  								style="background-color: lightgray; height: 20px;">
+  							</div>
+  						</div>
+  					</td>
+  					<td class="text-center">
+              <a class="button is-loading">Loading</a>
+  						<span ng-show="progress && !isSuccess && !isCancel && !isError">
+  						<i class="fa fa-spinner"></i>
+  						</span>
+  						<span ng-show="isSuccess">
+  						<i class="fa fa-check-circle"></i>
+  						</span>
+  						<span ng-show="isCancel">
+  						<i class="fa fa-ban"></i>
+  						</span>
+  						<span ng-show="isError">
+  						<i class="fa fa-remove"></i>
+  						</span>
+  					</td>
+  				</tr>
+  			</tbody>
+  		</table>
+  		<div>
+  			<div class="progress" style="">
+  				<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+  			</div>
+  		</div>
+    </form>
   </section>
   <footer class="modal-card-foot">
     <a class="button is-primary" ng-click="create()">
