@@ -23,7 +23,7 @@ export default function Article($sce, UserFactory, User) {
         return moment(this.created).fromNow()
       },
 
-      trustSrc() {
+      getVideoLink() {
         return $sce.trustAsResourceUrl(this.src)
       },
 

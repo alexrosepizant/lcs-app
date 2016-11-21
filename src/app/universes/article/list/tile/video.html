@@ -6,6 +6,19 @@
       <div class="content">
         <div class="columns">
           <div class="column is-6">
+
+            <!-- Include iframe of video -->
+            <iframe ng-src="{{ article.getVideoLink() }}"
+              ng-if="article.isEmbed"
+              width="100%"
+              height="auto"
+              frameborder="0"
+              webkitallowfullscreen="true"
+              mozallowfullscreen="true"
+              allowfullscreen="true">
+				    </iframe>
+
+            <!-- OR video uploaded by user -->
             <videogular vg-player-ready="onPlayerReady($API)" vg-error="onError($event)">
     					<vg-media vg-src="config.sources" vg-tracks="config.tracks" vg-youtube="rel=1;showinfo=1">
     					</vg-media>
