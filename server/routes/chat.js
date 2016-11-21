@@ -5,8 +5,7 @@ const Chat = mongoose.model("Chat")
 module.exports = (app) => {
   app.get("/chat", (req, res) => {
     Chat.find()
-    .sort("-created")
-    .populate("user", "_id name username avatar")
+    .sort("created")
     .limit(30)
     .then((messages, err) => {
       if (err) {

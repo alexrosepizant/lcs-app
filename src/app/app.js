@@ -10,12 +10,13 @@ import "../assets/stylesheets/videogular.css"
 
 // Import our angular libs
 import angular from "angular"
+import "angular-animate"
 import "angular-ui-router"
 import "angular-cookies"
 import "angular-http-auth"
 import "angular-resource"
 import "angular-sanitize"
-import "angular-animate"
+import "angularjs-scroll-glue"
 import "angular-translate"
 import "angular-translate-loader-static-files"
 import "angular-ui-notification"
@@ -63,6 +64,7 @@ const requires = [
   "angular-medium-editor",
   "angular-lightbox",
   "angular-flatpickr",
+  "luegg.directives",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
   "info.vietnamcode.nampnq.videogular.plugins.youtube",

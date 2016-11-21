@@ -54,7 +54,7 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
   Add and save actions
   **/
   $scope.addMessage = (message) => {
-    $scope.messages.unshift(new Message(message))
+    $scope.messages.push(new Message(message))
   }
 
   $scope.sendMessage = () => {

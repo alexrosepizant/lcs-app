@@ -21,6 +21,7 @@
     "angular-translate-loader-static-files": "^2.13.0",
     "angular-ui-notification": "^0.2.0",
     "angular-ui-router": "^0.2.17",
+    "angularjs-scroll-glue": "^2.1.0",
     "archiver": "latest",
     "body-parser": "1.8",
     "connect-mongo": "^1.3.2",

@@ -1,16 +1,10 @@
-import moment from "moment"
-
-export default function Message() {
+export default () => {
   return (data) => {
     return angular.extend({
       content: "",
       created: Date.now(),
       username: "",
       room: "",
-
-      getDateFrom() {
-        return moment(this.created).fromNow()
-      },
 
       getUsername() {
         return (this.username) ? this.username + ": " : ""

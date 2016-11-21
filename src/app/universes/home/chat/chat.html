@@ -64,7 +64,6 @@
             <div style="width: 100%;">
               <small class="pull-right">{{ message.getDateFrom() }}</small>
             </div>
-            <br/>
             <div class="content">
               <p>
                 <strong>{{ message.getUsername() }}</strong>
@@ -75,6 +74,36 @@
         </article>
       </div>
     </div>
+
+    <div id="live-chat">
+  		<header class="clearfix">
+  			<button class="delete close chat-close" ng-click="dismiss()"></button>
+  			<h4>{{ currentUser.username }}</h4>
+  			<span class="chat-message-counter">3</span>
+  		</header>
+  		<div class="chat">
+  			<div scroll-glue class="chat-history">
+  				<div class="chat-message clearfix" ng-repeat="message in messages">
+  					<div class="chat-message-content clearfix">
+  						<span class="chat-time">{{ message.created | date:'H:mm' }}</span>
+  						<strong>{{ message.getUsername() }}</strong>
+  						{{ message.content }}
+  					</div>
+  				</div>
+  			</div>
+  			<form>
+          <p class="control has-icon has-icon-right">
+            <textarea class="textarea textareaChat"
+                   ng-model="message.content"
+                   ng-enter="sendMessage()"
+                   placeholder="Entre ton message…"
+                   autofocus>
+            </textarea>
+            <i class="fa fa-send"></i>
+          </p>
+  			</form>
+  		</div>
+	</div>
 
     <div class="column is-3">
       <div class="box">
