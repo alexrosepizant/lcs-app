@@ -1,6 +1,12 @@
-export default function AlbumCreationCtrl($scope, Upload, ArticleFactory) {
+export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFactory, Notification) {
   // Init variables
+  $scope.state = null
   $scope.fileUploaded = []
+  $scope.article = {
+    type: "album",
+    photoList: [],
+    user: $rootScope.currentUser._id,
+  }
 
   /** ***
   Upload config
@@ -14,11 +20,17 @@ export default function AlbumCreationCtrl($scope, Upload, ArticleFactory) {
             file: files[i],
           },
         }).then((resp) => {
-          console.warn(resp.data.location)
-        }, (err) => {
-          console.warn("err" + err)
+          $scope.state = "success"
+          $scope.article.photoList.push({
+            filepath: resp.data.location,
+            name: resp.data.name,
+            id: "",
+          })
         }, () => {
-          // const progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+          $scope.state = "error"
+        }, (evt) => {
+          $scope.state = "progress"
+          files[i].progress = parseInt(100.0 * evt.loaded / evt.total)
         })
       }
     }
@@ -29,6 +41,26 @@ export default function AlbumCreationCtrl($scope, Upload, ArticleFactory) {
   }
 
   $scope.create = function() {
-    ArticleFactory.create($scope.article)
+    if (!$scope.article.title) {
+      return Notification.warning({
+        title: "Info",
+        message: "Mets au moins un titre",
+      })
+    }
+
+    ArticleFactory.createArticle($scope.article)
+      .then(() => {
+        $scope.$close(true)
+        Notification.success({
+          title: "Success",
+          message: "Article créé avec succés",
+        })
+      })
+      .catch((err) => {
+        Notification.error({
+          title: "Error",
+          message: err,
+        })
+      })
   }
 }

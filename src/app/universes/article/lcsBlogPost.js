@@ -1,4 +1,4 @@
-export default function lcsBlogPostDirective() {
+export default () => {
   return {
     restrict: "E",
     replace: true,

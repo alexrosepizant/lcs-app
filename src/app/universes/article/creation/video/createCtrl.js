@@ -1,10 +1,11 @@
-export default function VideoCreationCtrl($scope, $sce, ArticleFactory, Upload, Notification) {
+export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFactory, Upload, Notification) {
 
   $scope.showError = false
   $scope.API = null
   $scope.article = {
     type: "video",
     url: "",
+    user: $rootScope.currentUser._id,
   }
 
   /**

@@ -1,11 +1,14 @@
-export default function HomeCtrl($rootScope, $scope, User, Message, socket, users, messages) {
+export default function ChatCtrl($rootScope, $scope, User, Message, socket, UserFactory, ChatFactory) {
 
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser
 
   // Retrieve others params and init
-  $scope.users = users
-  $scope.messages = messages
+  UserFactory.findUsers()
+    .then((users) => $scope.users = users)
+
+  ChatFactory.findMessages()
+    .then((messages) => $scope.messages = messages)
 
   $scope.connectedUsers = []
   $scope.message = {

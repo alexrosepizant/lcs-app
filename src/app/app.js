@@ -31,6 +31,8 @@ import "./common/modules/medium-editor/angular-medium-editor"
 import "./common/modules/popover"
 import "./common/modules/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
 import "./common/modules/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
+import "./common/modules/utils"
+import "./common/modules/chat"
 
 // Import our app config files
 import constants  from "./config/app.constants"
@@ -68,7 +70,9 @@ const requires = [
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
   "info.vietnamcode.nampnq.videogular.plugins.youtube",
+  "app.utils",
   "app.auth",
+  "app.chat",
   "app.home",
   "app.user",
   "app.article",

@@ -1,8 +1,9 @@
-export default function StandardCreationCtrl($scope, $location, ArticleFactory, Upload, Notification) {
+export default function StandardCreationCtrl($rootScope, $scope, $location, ArticleFactory, Upload, Notification) {
 
   $scope.showError = false
   $scope.article = {
     type: "standard",
+    user: $rootScope.currentUser._id,
   }
 
   /** ***

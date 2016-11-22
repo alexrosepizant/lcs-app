@@ -1,6 +1,6 @@
 import Article from "../../factory/model/article"
 import ArticleFactory from "../../factory/api/article"
-import lcsBlogPostDirective from "./directive"
+import lcsBlogPostDirective from "./lcsBlogPost"
 import ArticleConfig from "./article.config"
 import ArticleListCtrl from "./list/listCtrl"
 import VideoCreationCtrl from "./creation/video/createCtrl"

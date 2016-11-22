@@ -359,6 +359,7 @@ p.title.is-bold {
 .user-article {
   border-radius: 50%;
   display: inline-block;
+  width: 40px;
 }
 
 .user-article-name {
@@ -675,6 +676,7 @@ textarea {
 
 #live-chat form {
   padding: 20px;
+  background: white;
 }
 
 .chat-message-counter {
@@ -744,9 +746,9 @@ textarea {
 
 .button.is-loading {
   border: none !important;
-  height: inherit !important;
 }
 
 .progress {
   margin-top: 5px;
+  border-radius: 3px !important;
 }

@@ -41,6 +41,12 @@
         medium-editor
         data-placeholder="Titre de l'article">
     </h1>
+    <p class="control">
+      <textarea ng-model="article.description"
+                class="textarea"
+                placeholder="Description">
+      </textarea>
+    </p>
     <form name="demo" class="medium-editor-content">
       <div class="button"
            ngf-select='upload(files)'
@@ -69,27 +75,17 @@
             </td>
   					<td>
   						<div class="progress">
-  							<div
-  								class="progress-bar"
-  								role="progressbar"
-  								ng-style="{ 'width': progress + '%' }"
-  								style="background-color: lightgray; height: 20px;">
-  							</div>
+  							<progress class="progress is-primary" value="{{ file.progress || 0}}" max="100"></progress>
   						</div>
   					</td>
   					<td class="text-center">
-              <a class="button is-loading">Loading</a>
-  						<span ng-show="progress && !isSuccess && !isCancel && !isError">
-  						<i class="fa fa-spinner"></i>
-  						</span>
-  						<span ng-show="isSuccess">
+              <a class="button is-loading" ng-show="state === 'progress'">
+              </a>
+  						<span ng-show="state === 'success'">
   						<i class="fa fa-check-circle"></i>
   						</span>
-  						<span ng-show="isCancel">
+  						<span ng-show="state === 'error'">
   						<i class="fa fa-ban"></i>
-  						</span>
-  						<span ng-show="isError">
-  						<i class="fa fa-remove"></i>
   						</span>
   					</td>
   				</tr>

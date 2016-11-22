@@ -45,9 +45,8 @@ exports.all = (params) => {
 /**
 * Create a article
 */
-exports.create = (articleData, user) => {
+exports.create = (articleData) => {
   const article = new Article(articleData)
-  article.user = user
   return article.save()
 }
 
