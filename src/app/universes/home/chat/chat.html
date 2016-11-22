@@ -45,49 +45,34 @@
 
     <div class="column is-6">
       <div class="box">
-        <article class="media">
-          <div class="media-content">
-            <p class="control">
-              <textarea ng-model="message.content"
-                        class="textarea textareaChat"
-                        placeholder="Ecrire une connerie aux copaings">
-              </textarea>
-            </p>
-            <p class="control">
-              <button class="button" ng-click="sendMessage()">Poster</button>
-            </p>
-          </div>
-        </article>
-        <article ng-repeat="message in messages"
-                 ng-class="{'is-mention' : message.getMention(currentUser.username)}">
-          <div class="media-content">
-            <div style="width: 100%;">
-              <small class="pull-right">{{ message.getDateFrom() }}</small>
-            </div>
-            <div class="content">
-              <p>
-                <strong>{{ message.getUsername() }}</strong>
-                {{ message.content }}
-              </p>
-            </div>
-          </div>
-        </article>
+        <h2>A la une</h2>
       </div>
     </div>
 
     <div id="live-chat">
   		<header class="clearfix">
   			<button class="delete close chat-close" ng-click="dismiss()"></button>
-  			<h4>{{ currentUser.username }}</h4>
+        <div class="user-chat-container">
+          <img ng-repeat="user in (filteredUsers = users | filterConnectedUser:this | limitTo: 6)"
+               ng-src="{{ user.getAvatar(30,30)}}"
+               title="{{ user.username }}"
+               class="img-chat"
+               alt="Image" />
+          <h4 ng-if="(users | filterConnectedUser:this).length === 0">
+            Personne n'est connecté
+          </h4>
+        </div>
   			<span class="chat-message-counter">3</span>
   		</header>
   		<div class="chat">
   			<div scroll-glue class="chat-history">
-  				<div class="chat-message clearfix" ng-repeat="message in messages">
-  					<div class="chat-message-content clearfix">
+  				<div ng-repeat="message in messages"
+               class="chat-message clearfix">
+  					<div ng-class="{'is-mention' : message.getMention(currentUser.username)}"
+                 class="clearfix">
   						<span class="chat-time">{{ message.created | date:'H:mm' }}</span>
   						<strong>{{ message.getUsername() }}</strong>
-  						{{ message.content }}
+  						<p>{{ message.content }}</p>
   					</div>
   				</div>
   			</div>
@@ -107,22 +92,7 @@
 
     <div class="column is-3">
       <div class="box">
-        <div ng-repeat="user in users | filterConnectedUser:this"
-             class="columns"
-             ng-class="">
-          <div class="user-chat is-3 is-marginless">
-            <div class="image is-32x32">
-              <img ng-src="{{ user.getAvatar(30,30)}}" alt="Image">
-            </div>
-          </div>
-          <div class="column is-9">
-            <p class="user-title" ng-click="mention(user.username)">
-              <a href="#">
-                <strong>{{ user.username }}</strong>
-              </a>
-            </p>
-          </div>
-        </div>
+        Agenda
       </div>
     </div>
   </div>

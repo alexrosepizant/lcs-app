@@ -639,7 +639,7 @@ textarea {
   font-size: 12px;
   right: 24px;
   position: fixed;
-  width: 300px;
+  width: 380px;
 }
 
 #live-chat header {
@@ -650,14 +650,11 @@ textarea {
   padding: 16px 24px;
 }
 
-#live-chat h4::before {
-  background: #23d160;
-  border-radius: 50%;
-  content: "";
-  display: inline-block;
-  height: 8px;
-  margin: 0 8px 0 0;
-  width: 8px;
+#live-chat h4 {
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 34px;
+  color: #aaa;
 }
 
 #live-chat form {
@@ -682,7 +679,7 @@ textarea {
 }
 
 .chat-close {
-  margin: -12px 0 0;
+  margin: -5px 0 0;
   background: #aaa;
 }
 
@@ -691,13 +688,17 @@ textarea {
 }
 
 .chat-history {
-  height: 252px;
-  padding: 8px 24px;
+  height: 400px;
+  padding: 0 20px;
   overflow-y: scroll;
 }
 
 .chat-message {
   margin: 16px 0;
+}
+
+.chat-message p {
+  display: inline-block;
 }
 
 .chat-time {
@@ -708,6 +709,21 @@ textarea {
 .chat-feedback {
   font-style: italic;
   margin: 0 0 0 80px;
+}
+
+.user-chat-container {
+  height: 37px;
+}
+
+.img-chat {
+  border-radius: 50%;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+
+.img-chat:not(:first-child) {
+  margin-left: -6px;
 }
 
 .button.is-loading {

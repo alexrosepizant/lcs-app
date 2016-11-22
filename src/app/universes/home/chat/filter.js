@@ -7,7 +7,7 @@ export default function FilterConnectedUser() {
     }
 
     return inputArray.filter(function(v) {
-      return scope.connectedUsers.indexOf(v.username) !== -1
+      return scope.connectedUsers.indexOf(v.username) !== -1 && scope.currentUser.username !== v.username
     })
   }
 }
