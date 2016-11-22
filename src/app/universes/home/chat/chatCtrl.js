@@ -43,11 +43,18 @@ export default function HomeCtrl($rootScope, $scope, User, Message, socket, user
     })
   })
 
+  /**
+  Others events
+  **/
   $scope.mention = (name) => {
     if ($scope.message.content.length > 0) {
       $scope.message.content += " "
     }
     $scope.message.content += "@" + name + " "
+  }
+
+  $scope.toggleChat = () => {
+    $scope.showChat = !$scope.showChat
   }
 
   /**

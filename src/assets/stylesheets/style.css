@@ -335,10 +335,8 @@ p.title.is-bold {
 }
 
 .blog {
-  display: inline-block !important;
-  width: calc(100% - 104px);
   padding: 0 20px 20px !important;
-  margin-top: 20px;
+  margin-bottom: inherit !important;
 }
 
 .blog h2 {
@@ -356,6 +354,24 @@ p.title.is-bold {
   margin-top: 20px;
   font-size: 30px;
   font-weight: 400;
+}
+
+.user-article {
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.user-article-name {
+  vertical-align: bottom;
+  display: inline-block;
+  height: 35px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.article-description {
+  text-align: justify;
+  margin-bottom: 10px !important;
 }
 
 .user-title {

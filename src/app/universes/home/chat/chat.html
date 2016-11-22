@@ -8,7 +8,7 @@
         <div class="home-user card-content">
           <a class="card-avatar">
             <img ng-src="{{ currentUser.getAvatar(80, 80)}}"
-                 class="card-avatar-img" />
+            class="card-avatar-img" />
           </a>
           <div class="card-user">
             <div class="card-user-name">
@@ -43,57 +43,66 @@
       </div>
     </div>
 
-    <div class="column is-6">
-      <div class="box">
-        <h2>A la une</h2>
-      </div>
-    </div>
-
-    <div id="live-chat">
-  		<header class="clearfix">
-  			<button class="delete close chat-close" ng-click="dismiss()"></button>
-        <div class="user-chat-container">
-          <img ng-repeat="user in (filteredUsers = users | filterConnectedUser:this | limitTo: 6)"
-               ng-src="{{ user.getAvatar(30,30)}}"
-               title="{{ user.username }}"
-               class="img-chat"
-               alt="Image" />
-          <h4 ng-if="(users | filterConnectedUser:this).length === 0">
-            Personne n'est connecté
-          </h4>
+    <div class="column is-9">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent">
+          <div class="tile is-child box">
+            <p class="title">A la une</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut. Morbi maximus, leo sit amet vehicula eleifend, nunc dui porta orci, quis semper odio felis ut quam.</p>
+            <p>Suspendisse varius ligula in molestie lacinia. Maecenas varius eget ligula a sagittis. Pellentesque interdum, nisl nec interdum maximus, augue diam porttitor lorem, et sollicitudin felis neque sit amet erat. Maecenas imperdiet felis nisi, fringilla luctus felis hendrerit sit amet. Aenean vitae gravida diam, finibus dignissim turpis. Sed eget varius ligula, at volutpat tortor.</p>
+            <p>Integer sollicitudin, tortor a mattis commodo, velit urna rhoncus erat, vitae congue lectus dolor consequat libero. Donec leo ligula, maximus et pellentesque sed, gravida a metus. Cras ullamcorper a nunc ac porta. Aliquam ut aliquet lacus, quis faucibus libero. Quisque non semper leo.</p>
+          </div>
         </div>
-  			<span class="chat-message-counter">3</span>
-  		</header>
-  		<div class="chat">
-  			<div scroll-glue class="chat-history">
-  				<div ng-repeat="message in messages"
-               class="chat-message clearfix">
-  					<div ng-class="{'is-mention' : message.getMention(currentUser.username)}"
-                 class="clearfix">
-  						<span class="chat-time">{{ message.created | date:'H:mm' }}</span>
-  						<strong>{{ message.getUsername() }}</strong>
-  						<p>{{ message.content }}</p>
-  					</div>
-  				</div>
-  			</div>
-  			<form>
-          <p class="control has-icon has-icon-right">
-            <textarea class="textarea textareaChat"
-                   ng-model="message.content"
-                   ng-enter="sendMessage()"
-                   placeholder="Entre ton message…"
-                   autofocus>
-            </textarea>
-            <i class="fa fa-send"></i>
-          </p>
-  			</form>
-  		</div>
-	</div>
-
-    <div class="column is-3">
-      <div class="box">
-        Agenda
+        <div class="tile is-4 is-vertical is-parent">
+          <div class="tile is-child box">
+            <p class="title">One</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title">Two</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+<div id="live-chat">
+  <header class="clearfix" ng-click="toggleChat()">
+    <button class="delete close chat-close" ng-click="dismiss()"></button>
+    <div class="user-chat-container">
+      <img ng-repeat="user in (filteredUsers = users | filterConnectedUser:this | limitTo: 6)"
+      ng-src="{{ user.getAvatar(30,30)}}"
+      title="{{ user.username }}"
+      class="img-chat"
+      alt="Image" />
+      <h4 ng-if="(users | filterConnectedUser:this).length === 0">
+        Personne n'est connecté
+      </h4>
+    </div>
+    <span class="chat-message-counter">3</span>
+  </header>
+  <div class="chat" ng-show="showChat">
+    <div scroll-glue class="chat-history">
+      <div ng-repeat="message in messages" class="chat-message">
+        <div ng-class="{'is-mention' : message.getMention(currentUser.username)}" class="clearfix">
+          <span class="chat-time">{{ message.created | date:'H:mm' }}</span>
+          <strong>{{ message.getUsername() }}</strong>
+          <p>{{ message.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form>
+    <p class="control has-icon has-icon-right">
+      <textarea class="textarea textareaChat"
+      ng-model="message.content"
+      ng-enter="sendMessage()"
+      placeholder="Entre ton message…"
+      autofocus>
+    </textarea>
+    <i class="fa fa-send"></i>
+  </p>
+</form>
 </div>

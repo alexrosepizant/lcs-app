@@ -1,4 +1,4 @@
-<div class="video-meta">
+<div>
   <p>
     <small class="pull-right">{{ article.getDateFrom() }}</small>
   </p>
@@ -8,53 +8,58 @@
     <div class="media-content">
       <div class="content">
         <div class="columns">
-          <div class="column is-6 masonry">
-    					<div class="masonry-child" ng-repeat="photo in article.photoList | limitTo:9">
-    						<a ng-href="{{ photo.filepath }}"
-                   class="lightbox-trigger"
-                   title="{{ photo.name }}"
-                   lightbox
-                   index="{{$index}}">
-    							<img ng-src="{{ photo.filepath }}?dim=300"/>
-    						</a>
-    					</div>
-          </div>
           <div class="column is-6">
+           <img ng-src="{{ article.user.getAvatar(40,40) }}" alt="Image" class="user-article" />
+           <strong class="user-article-name">{{article.user.username}}</strong>
+           <p class="three-line-ellipsis article-description">
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+           </p>
             <nav class="nav">
               <div class="container">
                 <div class="nav-left">
                   <a class="nav-item is-tab is-active">
-                    <span class="title is-4">124 304 vues</span>
+                    <span class="title is-4">4 vues</span>
                   </a>
                 </div>
               </div>
             </nav>
-            <div class="trending margin-top-20">
-    					<span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
-    						{{ category.value }}
-    					</span>
-    					<span ng-if="article.categories.length === 0" class="tag">
-    						Aucune catégorie associée
-    					</span>
-    				</div>
             <nav class="level margin-top-20">
               <p class="level-item has-text-left">
                 <a class="button is-default">
                   <i class="fa fa-thumbs-up"></i>
-                  5254
+                  2
                 </a>
                 <a class="button is-default">
                   <i class="fa fa-thumbs-down"></i>
                   1
                 </a>
                 <a class="button is-default">
-                  <span class="icon"><i class="fa fa-ellipsis-h"></i></span> <span>More</span>
+                  <span class="icon"><i class="fa fa-ellipsis-h"></i></span> <span>Voir plus</span>
                 </a>
               </p>
             </nav>
           </div>
+          <div class="column is-6 masonry">
+            <div class="masonry-child" ng-repeat="photo in article.photoList | limitTo:9">
+              <a ng-href="{{ photo.filepath }}"
+              class="lightbox-trigger"
+              title="{{ photo.name }}"
+              lightbox
+              index="{{$index}}">
+              <img ng-src="{{ photo.filepath }}?dim=300"/>
+            </a>
+          </div>
         </div>
       </div>
+      <div class="trending pull-right">
+        <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
+          {{ category.value }}
+        </span>
+        <span ng-if="article.categories.length === 0" class="tag">
+          Aucune catégorie associée
+        </span>
+      </div>
     </div>
-  </article>
+  </div>
+</article>
 </div>

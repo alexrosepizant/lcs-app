@@ -48,15 +48,10 @@
         </div>
       </div>
 
-      <div ng-repeat="article in articles">
-        <div class="user-blog pull-left">
-          <figure class="image is-64x64">
-            <img ng-src="{{ article.user.getAvatar(40,40) }}" alt="Image">
-          </figure>
-        </div>
-        <lcs-blog-post class="pull-left box blog" type="{{ article.type || 'standard' }}">
-        </lcs-blog-post>
-      </div>
+      <lcs-blog-post ng-repeat="article in articles"
+                     type="{{ article.type || 'standard' }}"
+                     class="box blog">
+      </lcs-blog-post>
     </div>
 
     <div class="column is-4">
