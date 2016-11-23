@@ -8,7 +8,6 @@ const archiver = require("archiver")
 const config = require("../config")
 
 const Album = mongoose.model("Album")
-const Article = mongoose.model("Article")
 
 exports.album = (req, res, next) => {
   Album.findOne({_id: req.params.id})
@@ -43,7 +42,6 @@ exports.findAllAlbums = (req, res) => {
 }
 
 exports.findAlbumById = (req, res) => {
-
   Album.findOne({_id: req.params.id})
 		.populate("comments.user", "_id name username avatar")
 		.populate("comments.replies.user", "_id name username avatar")
@@ -159,40 +157,4 @@ exports.getZipFile = (req, res) => {
       fs.unlink(filePath) // Delete the archive
     }
   })
-}
-
-exports.migrateAlbums = () => {
-  const promises = []
-
-  return Album.find({})
-    .then((albums, err) => {
-      if (err) {
-        return Promise.reject("Error when to fetch album " + err)
-      } else {
-
-        console.log(albums.length + " albums to migrate: ")
-        _.each(albums, (album) => {
-          const article = new Article({
-            title: album.name,
-            user: album.user,
-            content: album.description,
-            type: "album",
-            comments: [],
-            created: album.created,
-            photoList: album.photoList,
-            coverPicPath: album.coverPicPath,
-          })
-
-          promises.push(article.save((err) => {
-            if (err) {
-              console.log("Error when trying to save new article " + err)
-            } else {
-              console.log("Save new article: " + article.title)
-            }
-          }))
-        })
-
-        return Promise.all(promises)
-      }
-    })
 }

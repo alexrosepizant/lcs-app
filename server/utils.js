@@ -6,6 +6,14 @@ const localExpress = require("./express")
 const routesPath = __dirname + "/routes"
 const modelsPath = __dirname + "/models"
 
+exports.titleLog = (value) => {
+  console.log("")
+  console.log("-------------------------")
+  console.log(value)
+  console.log("-------------------------")
+  console.log("")
+}
+
 const bootstrapFiles = (path, app, withPasseport) => {
   fs.readdirSync(path).forEach((file) => {
     const newPath = path + "/" + file
