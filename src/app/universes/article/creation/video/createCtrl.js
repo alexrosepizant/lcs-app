@@ -1,5 +1,5 @@
 export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFactory, Upload, Notification) {
-
+  // init varibles
   $scope.showError = false
   $scope.API = null
   $scope.article = {
@@ -9,7 +9,31 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
   }
 
   /**
-  Video upload
+  Video player config
+  **/
+  $scope.config = {
+    sources: [],
+    tracks: [],
+  }
+
+  $scope.onPlayerReady = (API) => {
+    $scope.API = API
+  }
+
+  $scope.onError = (evt) => {
+    console.warn("onError", evt)
+  }
+
+  $scope.testVideo = () => {
+    $scope.API.stop()
+    $scope.config.sources = [{
+      src: $sce.trustAsResourceUrl($scope.article.url),
+      type: "video/mp4",
+    }]
+  }
+
+  /**
+  Video upload config
   **/
   $scope.$watch("file", () => {
     if ($scope.file !== null) {
@@ -33,7 +57,7 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
           } else {
             $scope.showError = false
             $scope.article.url = resp.data.location
-            $scope.testVideo()
+            $scope.onVideoDownloaded()
           }
         }, null, (evt) => {
           const progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
@@ -45,19 +69,7 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
     }
   }
 
-  /**
-  Video player
-  **/
-  $scope.config = {
-    sources: [],
-    tracks: [],
-  }
-
-  $scope.onPlayerReady = (API) => {
-    $scope.API = API
-  }
-
-  $scope.testVideo = () => {
+  $scope.onVideoDownloaded = () => {
     $scope.API.stop()
     $scope.config.sources = [{
       src: $sce.trustAsResourceUrl($scope.article.url),
@@ -66,8 +78,31 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
   }
 
   /**
-  Save / Cancel actions
+  Utils
   **/
+  $scope.cleanVideoUrl = () => {
+    if ($scope.article.url.toLowerCase().indexOf("iframe") !== -1
+    || $scope.article.url.toLowerCase().indexOf("embed") !== -1) {
+      const src = angular.element($scope.article.url)
+      $scope.formattedUrl = $sce.trustAsResourceUrl(src.attr("src"))
+      $scope.isEmbed = true
+    } else {
+      $scope.isEmbed = false
+      $scope.formattedUrl = null
+    }
+  }
+
+  /**
+  Save / Test / Cancel actions
+  **/
+  $scope.testVideo = () => {
+    $scope.cleanVideoUrl()
+
+    if (!$scope.isEmbed) {
+      $scope.onVideoDownloaded()
+    }
+  }
+
   $scope.dismiss = () => {
     $scope.$dismiss()
   }
@@ -78,6 +113,11 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
         title: "Info",
         message: "Mets au moins un titre",
       })
+    }
+
+    if ($scope.isEmbed) {
+      $scope.article.isEmbed = true
+      $scope.article.url = $scope.formattedUrl
     }
 
     ArticleFactory.createArticle($scope.article)
