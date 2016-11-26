@@ -98,5 +98,6 @@ exports.handleVideoUpload = (req, res) => {
   res.jsonp({
     err: null,
     location: config.uploadDirectory + req.files.file.path.split("/").pop(),
+    mimeType: req.files.file.mimetype,
   })
 }

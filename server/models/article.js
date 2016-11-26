@@ -29,19 +29,17 @@ const ArticleSchema = new Schema({
   description: {
     type: String,
   },
-  linkAdress: [new Schema({
-    value: {
-      type: String,
-    },
-    adress: {
-      type: String,
-    },
-  })],
-  audioLink: {
-    type: String,
-  },
   videoLink: {
     type: String,
+  },
+  url: {
+    type: String,
+  },
+  mimeType: {
+    type: String,
+  },
+  isEmbed: {
+    type: Boolean,
   },
   yes: [new Schema({
     created: {
@@ -103,6 +101,10 @@ const ArticleSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: "User",
+  },
+  viewCount: {
+    type: Number,
+    default: 0,
   },
   comments: [new Schema({
     created: {

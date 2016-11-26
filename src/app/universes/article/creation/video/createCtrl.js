@@ -35,46 +35,45 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
   /**
   Video upload config
   **/
-  $scope.$watch("file", () => {
-    if ($scope.file !== null) {
-      $scope.files = [$scope.file]
-    }
-  })
-
-  $scope.upload = (files) => {
-    if (files && files.length) {
-      const file = files[0]
-      if (!file.$error) {
-        Upload.upload({
-          url: "/upload/video",
-          data: {
-            username: $scope.username,
-            file: file,
-          },
-        }).then((resp) => {
-          if (resp.data.err) {
-            $scope.showError = true
-          } else {
-            $scope.showError = false
-            $scope.article.url = resp.data.location
-            $scope.onVideoDownloaded()
-          }
-        }, null, (evt) => {
-          const progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
-          console.warn(progressPercentage)
-        }).catch(() => {
-          $scope.showError = true
-        })
+  $scope.upload = () => {
+    Upload.upload({
+      url: "/upload/video",
+      data: {
+        username: $scope.username,
+        file: $scope.file,
+      },
+    }).then((resp) => {
+      if (resp.data.err) {
+        $scope.showError = true
+      } else {
+        $scope.showError = false
+        $scope.article.url = resp.data.location
+        $scope.article.mimeType = resp.data.mimeType
+        $scope.onVideoDownloaded()
       }
-    }
+    }, null, (evt) => {
+      $scope.file.progress = parseInt(100.0 * evt.loaded / evt.total)
+    }).catch(() => {
+      $scope.showError = true
+    })
   }
 
   $scope.onVideoDownloaded = () => {
     $scope.API.stop()
     $scope.config.sources = [{
       src: $sce.trustAsResourceUrl($scope.article.url),
-      type: "video/mp4",
+      type: $scope.article.mimeType,
     }]
+  }
+
+  $scope.formatFacebookUrl = () => {
+    if ($scope.article.url.indexOf("facebook") !== -1) {
+      $scope.article.url = "http://www.facebook.com/video/embed?video_id=" + $scope.article.url.split("videos/").pop()
+      $scope.isEmbed = true
+      $scope.formattedUrl = $sce.trustAsResourceUrl($scope.article.url)
+      return true
+    }
+    return false
   }
 
   /**

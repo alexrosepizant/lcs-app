@@ -1,11 +1,14 @@
 export default function ParameterFactory($http) {
   return {
     getParameters() {
-      $http.get("/parameters")
+      return $http.get("/parameters")
+        .then((resp) => {
+          return resp.data[0]
+        })
     },
 
     updateParameters(parameters) {
-      $http.put("/parameters", parameters)
+      return $http.put("/parameters", parameters)
     },
   }
 }

@@ -16,6 +16,9 @@ export default function ArticleConfig($stateProvider) {
       filter: ($stateParams) => {
         return ($stateParams.filter) ? $stateParams.filter : "all"
       },
+      parameters: (ParameterFactory) => {
+        return ParameterFactory.getParameters()
+      },
     },
   })
   .state("article.create", {

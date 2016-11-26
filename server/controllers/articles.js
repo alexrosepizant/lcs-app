@@ -39,6 +39,8 @@ exports.all = (params) => {
   return Article.find(query)
     .sort("-created")
     .populate("user", "_id name username avatar")
+    .populate("comments.user", "_id name username avatar")
+    .populate("comments.replies.user", "_id name username avatar")
     .limit(20)
 }
 

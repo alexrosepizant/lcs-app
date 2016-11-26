@@ -42,9 +42,12 @@
 				<div>
 					ou
 				</div>
-				<div class="button margin-top-10" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="video/*,">
+				<div class="button margin-top-10" ngf-select="upload()" ng-model="file" ngf-multiple="false" accept="video/*,">
 					Uploader une vidéo
 				</div>
+        <div class="progress" ng-show="file.progress > 0">
+          <progress class="progress is-primary" value="{{ file.progress || 0}}" max="100"></progress>
+        </div>
 				<hr/>
 
 				<label class="label">Titre</label>
@@ -82,14 +85,14 @@
 					<vg-controls>
 						<vg-play-pause-button></vg-play-pause-button>
 						<vg-time-display>
-							{{ currentTime | date:'mm:ss' }}
+							{{ currentTime | date:'HH:mm:ss':'+0000' }}
 						</vg-time-display>
 						<vg-scrub-bar>
 							<vg-scrub-bar-current-time>
               </vg-scrub-bar-current-time>
 						</vg-scrub-bar>
 						<vg-time-display>
-							{{ timeLeft | date:'mm:ss' }}
+							{{ timeLeft | date:'HH:mm:ss':'+0000' }}
 						</vg-time-display>
 						<vg-volume>
 							<vg-mute-button>

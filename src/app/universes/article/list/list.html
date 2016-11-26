@@ -56,19 +56,19 @@
 
     <div class="column is-4">
       <div class="box trending">
-        <p class="trend-title"><span class="title is-5">Les tags</span></p>
-        <span class="tag is-dark">Dark</span>
-        <span class="tag is-primary">Primary</span>
-        <span class="tag is-info">Info</span>
-        <span class="tag is-success">Success</span>
-        <span class="tag is-warning">Warning</span>
-        <span class="tag is-danger">Danger</span>
+        <p class="trend-title">
+          <span class="title is-5">
+            Les catégories
+          </span>
+        </p>
+        <span ng-repeat="category in categories" class="tag">
+          {{ category.value }}
+        </span>
       </div>
 
       <div class="box">
         <p>
           <span class="title is-5">Ceux qui postent le plus</span>
-          <br/>
           <a href="#" class="user-link">Voir tous le monde</a>
         </p>
         <hr>

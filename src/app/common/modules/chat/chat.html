@@ -13,26 +13,28 @@
     </div>
     <span class="chat-message-counter">3</span>
   </header>
-  <div class="chat" ng-show="showChat">
-    <div scroll-glue class="chat-history">
-      <div ng-repeat="message in messages" class="chat-message">
-        <div ng-class="{'is-mention' : message.getMention(currentUser.username)}" class="clearfix">
-          <span class="chat-time">{{ message.created | date:'H:mm' }}</span>
-          <strong>{{ message.getUsername() }}</strong>
-          <p>{{ message.content }}</p>
+  <section ng-show="showChat">
+    <div class="chat">
+      <div scroll-glue class="chat-history">
+        <div ng-repeat="message in messages" class="chat-message">
+          <div ng-class="{'is-mention' : message.getMention(currentUser.username)}" class="clearfix">
+            <span class="chat-time">{{ message.created | date:'H:mm' }}</span>
+            <strong>{{ message.getUsername() }}</strong>
+            <p>{{ message.content }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <form>
-    <p class="control has-icon has-icon-right">
-      <textarea class="textarea textareaChat"
-      ng-model="message.content"
-      ng-enter="sendMessage()"
-      placeholder="Entre ton message…"
-      autofocus>
-    </textarea>
-    <i class="fa fa-send"></i>
-  </p>
-</form>
+    <form>
+      <p class="control has-icon has-icon-right">
+        <textarea class="textarea textareaChat"
+        ng-model="message.content"
+        ng-enter="sendMessage()"
+        placeholder="Entre ton message…"
+        autofocus>
+      </textarea>
+      <i class="fa fa-send"></i>
+    </p>
+  </form>
+</section>
 </div>

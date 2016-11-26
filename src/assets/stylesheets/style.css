@@ -335,8 +335,7 @@ p.title.is-bold {
 }
 
 .blog {
-  padding: 0 20px 20px !important;
-  margin-bottom: inherit !important;
+  padding: 0 20px !important;
 }
 
 .blog h2 {
@@ -541,7 +540,8 @@ a.is-current {
   background-color: #e4e9eb;
 }
 
-.masonry-child img {
+.masonry-child img,
+.blog-album img {
   border-radius: 8px;
   padding: 5px;
 }
@@ -654,7 +654,7 @@ textarea {
 #live-chat {
   bottom: 0;
   font-size: 12px;
-  right: 24px;
+  right: 75px;
   position: fixed;
   width: 380px;
 }
@@ -677,6 +677,11 @@ textarea {
 #live-chat form {
   padding: 20px;
   background: white;
+}
+
+#live-chat section {
+  border-left: 1px solid #f2f2f2;
+  border-right: 1px solid #f2f2f2;
 }
 
 .chat-message-counter {
@@ -712,7 +717,7 @@ textarea {
 }
 
 .chat-message {
-  margin: 16px 0;
+  margin: 8px 0;
 }
 
 .chat-message p {
@@ -751,4 +756,95 @@ textarea {
 .progress {
   margin-top: 5px;
   border-radius: 3px !important;
+}
+
+.blog-tile-footer {
+  margin: 10px 0 10px 10px;
+  width: 100%;
+}
+
+.blog-user-section {
+  margin: 20px 0 0;
+  border-top: 1px solid #f2f2f2;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.blog-user-section .authorSectionContainer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  height: 100%;
+  position: relative;
+  padding: 35px 0 20px 5px;
+  border-right: 1px solid #f2f2f2;
+}
+
+.authorSectionTitle {
+  position: absolute;
+  top: 10px;
+  color: #999;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  line-height: 16px;
+  text-transform: uppercase;
+  min-width: 300px;
+}
+
+.authorContent {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  margin-right: 20px;
+}
+
+.authorContent img {
+  border-radius: 50%;
+}
+
+.authorContent-name {
+  font-weight: 700;
+  line-height: 30px;
+  font-size: 14px;
+  color: #000 !important;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.blogCommentSection {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  height: 100%;
+  position: relative;
+  padding: 35px 0 20px 10px;
+}
+
+.tag {
+  margin-right: 10px;
+  text-transform: uppercase;
+  color: black;
+}
+
+.videoTileFrame {
+  max-width: 350px;
 }

@@ -6,11 +6,18 @@ export default function Article($sce, UserFactory, User) {
     const imgs = angular.element("<div>" + data.content + "</div>").find("img")
     const image = (imgs.length) ? angular.element(imgs[0]).attr("src") : null
 
+    const users = []
+    data.comments.forEach((comment) => {
+      users.push(new User(comment.user))
+    })
+    const commentsUser = users.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
+
     return angular.extend({
       title: "",
       description: "",
       content: "",
       image: image,
+      commentsUser: commentsUser,
 
       getTitle() {
         return angular.element("<div>" + this.title + "</div>").text()
@@ -29,7 +36,7 @@ export default function Article($sce, UserFactory, User) {
       },
 
       getVideoLink() {
-        return $sce.trustAsResourceUrl(this.src)
+        return $sce.trustAsResourceUrl(this.url)
       },
 
       getSuggestionAnswerLength(suggestion, option) {
