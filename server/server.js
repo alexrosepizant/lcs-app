@@ -37,7 +37,7 @@ io.sockets.on("connection", socket)
 /**
 App endPoint entry
 **/
-app.get("/*", (req, res) => {
+app.get("/", (req, res) => {
   if (req.user) {
     res.cookie("user", JSON.stringify(req.user.user_info))
   }

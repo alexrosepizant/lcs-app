@@ -12,7 +12,6 @@ const MongoStore = require("connect-mongo")(session)
 const	config = require("./config")
 
 const router = express.Router()
-const serverPublicDir = __dirname + "/public"
 const appDirectory = __dirname + "/../src/"
 const assetDirectory = appDirectory + "assets/"
 const faviconPath = assetDirectory + "/images/favicon.ico"
@@ -31,19 +30,23 @@ module.exports = (app, passport) => {
 
   // Express utilities: cookies, bodyParser, uploadDirectory
   app.use(cookieParser())
-  app.use(bodyParser.json({limit: "5mb"}))
+  app.use(bodyParser.json({
+    limit: config.requestMaxSize,
+  }))
   app.use(bodyParser.urlencoded({
     extended: true,
-    limit: "5mb",
+    limit: config.requestMaxSize,
   }))
   app.use(multer({
-    dest: config.uploadDirectory,
+    dest: __dirname + config.publicDirectory + config.uploadDirectory,
   }))
   app.use(methodOverride())
 
   // Assets rendering: app/users_ressources/favicon
   app.use(serveStatic(appDirectory))
-  app.use("/public", qt.static(serverPublicDir))
+  app.use(serveStatic(__dirname + config.publicDirectory))
+  app.use(config.publicDirectory + config.imgDirectory,
+    qt.static(__dirname + config.publicDirectory + config.imgDirectory))
   app.use(favicon(faviconPath))
 
 	// Express/Mongo session storage

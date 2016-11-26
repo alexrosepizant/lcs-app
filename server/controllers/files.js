@@ -97,7 +97,6 @@ exports.handlePhotoUpload = (req, res) => {
 exports.handleVideoUpload = (req, res) => {
   res.jsonp({
     err: null,
-    path: req.files.file.path,
-    location: req.files.file.path,
+    location: config.uploadDirectory + req.files.file.path.split("/").pop(),
   })
 }
