@@ -121,6 +121,7 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
 
     ArticleFactory.createArticle($scope.article)
       .then(() => {
+        $rootScope.$broadcast("updateArticleList")
         $scope.$close(true)
         Notification.success({
           title: "Success",

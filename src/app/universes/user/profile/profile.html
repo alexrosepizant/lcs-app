@@ -21,97 +21,56 @@
         <p class="stat-key">Articles postés</p>
       </div>
       <div class="column is-2 following has-text-centered">
-        <p class="stat-val">2k</p>
-        <p class="stat-key">Commentaires</p>
+        <p class="stat-val">36</p>
+        <p class="stat-key">Likes</p>
       </div>
       <div class="column is-2 likes has-text-centered">
         <p class="stat-val">29</p>
-        <p class="stat-key">likes</p>
+        <p class="stat-key">Unlikes</p>
       </div>
     </div>
   </div>
   <div class="profile-options">
     <div class="tabs is-fullwidth">
       <ul>
-        <li class="link is-active">
-          <a>
-            <span class="icon"><i class="fa fa-check-square"></i></span>
-            <span>Résumé</span>
-          </a>
-        </li>
         <li class="link">
           <a>
             <span class="icon"><i class="fa fa-vcard"></i></span>
             <span>Mes infos</span>
           </a>
         </li>
+        <li class="link is-active">
+          <a>
+            <span class="icon"><i class="fa fa-file-text-o"></i></span>
+            <span>Mes publications</span>
+          </a>
+        </li>
         <li class="link">
           <a>
             <span class="icon"><i class="fa fa-bookmark"></i></span>
-            <span>Mes favoris</span>
+            <span>Mes préférences</span>
           </a>
         </li>
       </ul>
     </div>
   </div>
 
-  <div class="nav menu">
-    <div class="nav-left">
-      <nav class="level">
-        <!-- Left side -->
-        <div class="nav-item is-tab">
-          <p class="is-light">
-            Filtrer par:
-          </p>
+  <div deckgrid class="deckgrid" source="articles" ng-if="articles.length > 0">
+    <div class="card user-profile">
+      <header class="card-header">
+        <p class="card-header-title ellipsis">
+          {{card.title}}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p class="three-line-ellipsis">{{card.getFormattedContent() || card.description}}</p>
         </div>
-        <div class="level-right">
-          <p class="level-item">
-            <a ui-sref="article({ filter: 'all' })" ng-class="{'is-current': filter === 'all'}">
-              Tous
-            </a>
-          </p>
-          <p class="level-item">
-            <a ui-sref="article({ filter: 'standard' })" ng-class="{'is-current': filter === 'standard'}">
-              Articles
-            </a>
-          </p>
-          <p class="level-item">
-            <a ui-sref="article({ filter: 'video' })" ng-class="{'is-current': filter === 'video'}">
-              Vidéos
-            </a>
-          </p>
-          <p class="level-item">
-            <a ui-sref="article({ filter: 'album' })" ng-class="{'is-current': filter === 'album'}">
-              Photos
-            </a>
-          </p>
-        </div>
-      </nav>
-    </div>
-  </div>
-
-  <div class="spacer"></div>
-
-  <div class="columns">
-    <div class="column is-12">
-      <div ng-repeat="article in articles" class="card user-profile">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="http://placehold.it/300x225" alt="">
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="content">
-            <span class="tag is-dark">#webdev</span>
-            <strong class="timestamp">2 d</strong>
-            <p>{{article.title}}</p>
-          </div>
-        </div>
-        <footer class="card-footer">
-          <a class="card-footer-item">Modifier</a>
-          <a class="card-footer-item">Supprimer</a>
-        </footer>
       </div>
+      <footer class="card-footer">
+        <a class="card-footer-item" ng-click="card.goToUpdate($event)">Modifier</a>
+        <a class="card-footer-item" ng-click="card.remove($event)">Supprimer</a>
+      </footer>
     </div>
   </div>
 </div>

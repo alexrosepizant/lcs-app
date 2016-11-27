@@ -35,11 +35,11 @@ export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFac
     }
   }
 
-  $scope.dismiss = function() {
+  $scope.dismiss = () => {
     $scope.$dismiss()
   }
 
-  $scope.create = function() {
+  $scope.create = () => {
     if (!$scope.article.title) {
       return Notification.warning({
         title: "Info",
@@ -49,6 +49,7 @@ export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFac
 
     ArticleFactory.createArticle($scope.article)
       .then(() => {
+        $rootScope.$broadcast("updateArticleList")
         $scope.$close(true)
         Notification.success({
           title: "Success",

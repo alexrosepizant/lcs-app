@@ -522,38 +522,18 @@ a.is-current {
   color: #ff3860;
 }
 
-.masonry {
-  column-count: 3;
-  column-gap: 0;
-}
-
 .masonry-child {
   break-inside: avoid;
   margin-bottom: -5px;
-}
-
-.masonry-child a {
-  border-bottom: 0 !important;
 }
 
 .lightbox-trigger > img:hover {
   background-color: #e4e9eb;
 }
 
-.masonry-child img,
 .blog-album img {
   border-radius: 8px;
   padding: 5px;
-}
-
-.card-header {
-  background-image: url("http://placehold.it/600x200");
-  background-position: 0 50%;
-  background-size: 100% auto;
-  border-bottom: 1px solid #e1e8ed;
-  border-radius: 4px 4px 0 0;
-  height: 95px;
-  width: 100%;
 }
 
 .home-user.card-content {

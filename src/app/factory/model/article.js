@@ -1,6 +1,6 @@
 import moment from "moment"
 
-export default function Article($sce, UserFactory, User) {
+export default function Article($sce, $uibModal, $location, UserFactory, User) {
   return (data) => {
 
     const imgs = angular.element("<div>" + data.content + "</div>").find("img")
@@ -58,6 +58,26 @@ export default function Article($sce, UserFactory, User) {
         } else {
           $scope.article.categories.splice($scope.article.categories.indexOf(category), 1)
         }
+      },
+
+      goToUpdate(evt) {
+        if (evt) {
+          evt.preventDefault()
+          evt.stopPropagation()
+        }
+
+        console.warn("redirection vers update article")
+      },
+
+      remove(evt) {
+        if (evt) {
+          evt.preventDefault()
+          evt.stopPropagation()
+        }
+
+        $uibModal.open({
+          templateUrl: "app/universes/article/creation/standard/create.html",
+        })
       },
     }, data, {user: new User(data.user)})
   }

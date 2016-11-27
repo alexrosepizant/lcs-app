@@ -45,7 +45,9 @@ export default function StandardCreationCtrl($rootScope, $scope, $location, Arti
 
     ArticleFactory.createArticle($scope.article)
       .then(() => {
+        $rootScope.$broadcast("updateArticleList")
         $scope.$close(true)
+
         Notification.success({
           title: "Success",
           message: "Article créé avec succés",
