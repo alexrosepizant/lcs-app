@@ -24,7 +24,19 @@
     </div>
     <button class="delete close" ng-click="dismiss()"></button>
   </header>
-  <section class="modal-card-body">
+  <section class="modal-card-body content">
+    <h1 ng-model="article.title"
+        medium-editor
+        data-placeholder="Titre de l'article">
+    </h1>
+    <p class="control">
+      <textarea ng-model="article.description"
+                class="textarea"
+                placeholder="Description">
+      </textarea>
+    </p>
+    <hr>
+
 		<div class="columns">
 			<div class="column is-6">
 
@@ -48,22 +60,6 @@
         <div class="progress" ng-show="file.progress > 0">
           <progress class="progress is-primary" value="{{ file.progress || 0}}" max="100"></progress>
         </div>
-				<hr/>
-
-				<label class="label">Titre</label>
-				<p class="control">
-					<input type="text"
-                 ng-model="article.title"
-                 class="input"
-                 placeholder="Titre">
-				</p>
-				<label class="label">Description</label>
-				<p class="control">
-					<textarea ng-model="article.description"
-                    class="textarea"
-                    placeholder="Description">
-          </textarea>
-				</p>
 			</div>
 
 			<div class="column is-6">

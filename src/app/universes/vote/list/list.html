@@ -38,13 +38,58 @@
                   </a>
                 </p>
               </div>
-           </nav>
+            </nav>
           </div>
         </div>
       </div>
 
-      <div ng-repeat="vote in votes">
-        {{vote.content}}
+      <div class="container margin-top-20" ng-if="votes.length === 0">
+        <div class="notification">
+          Il n'y a aucun vote en ce moment.
+        </div>
+      </div>
+
+      <div deckgrid class="deckgrid" source="votes" ng-if="votes.length > 0">
+        <div class="card">
+          <div class="card-image voteContainer">
+            <figure class="image voteCircle">
+              <div class="mask-a">
+                <div class="hand" ng-click="vote(card, 1);">
+                </div>
+                <div class="hand-1" ng-click="vote(card, 2);">
+                </div>
+                <div class="hand-2" ng-click="vote(card, 3);">
+                </div>
+              </div>
+            </figure>
+          </div>
+          <div class="voteCardContent">
+            <div class="voteEndDate">
+              Fin des débats {{ card.getDays() }}
+            </div>
+            <div class="content margin-top-20">
+              {{ card.content }}
+              <br>
+            </div>
+            <div class="authorSectionContainer">
+              <span class="voteSectionTitle">
+                Lancé par
+              </span>
+              <div class="authorContent">
+                <span class="user-image">
+                  <div class="user-image--image">
+                    <div>
+                      <img ng-src="{{ card.user.getAvatar(40,40) }}" height="30" width="30">
+                    </div>
+                  </div>
+                </span>
+                <a class="authorContent-name" href="#">
+                  {{card.user.username}}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

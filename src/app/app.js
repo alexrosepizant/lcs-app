@@ -26,6 +26,7 @@ import "videogular-controls"
 import "videogular-buffering"
 import "./common/modules/videogular-youtube/index"
 import "./common/modules/lightbox/angular-lightbox"
+import "./common/modules/deckgrid/angular-deckgrid"
 import "./common/modules/flatpickr"
 import "./common/modules/medium-editor/angular-medium-editor"
 import "./common/modules/popover"
@@ -66,6 +67,7 @@ const requires = [
   "angular-medium-editor",
   "angular-lightbox",
   "angular-flatpickr",
+  "akoenig.deckgrid",
   "luegg.directives",
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",

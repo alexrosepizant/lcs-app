@@ -58,6 +58,10 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
 
   $scope.toggleChat = () => {
     $scope.showChat = !$scope.showChat
+
+    if ($scope.showChat) {
+      $scope.hasNewMessage = false
+    }
   }
 
   /**
@@ -65,6 +69,7 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
   **/
   $scope.addMessage = (message) => {
     $scope.messages.push(new Message(message))
+    $scope.hasNewMessage = true
   }
 
   $scope.sendMessage = () => {
@@ -74,6 +79,7 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
 
       // Reset content value
       $scope.message.content = ""
+      $scope.hasNewMessage = false
     }
   }
 }

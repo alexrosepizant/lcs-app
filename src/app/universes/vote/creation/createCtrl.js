@@ -1,4 +1,4 @@
-export default function VoteCreationCtrl($scope, VoteFactory, Notification) {
+export default function VoteCreationCtrl($scope, $location, VoteFactory, Notification) {
 
   $scope.showError = false
   $scope.vote = {
@@ -20,7 +20,7 @@ export default function VoteCreationCtrl($scope, VoteFactory, Notification) {
 
     VoteFactory.createVote($scope)
       .then(() => {
-        $scope.$close(true)
+        $location.path("/vote")
         Notification.success({
           title: "Success",
           message: "Vote créé avec succés",

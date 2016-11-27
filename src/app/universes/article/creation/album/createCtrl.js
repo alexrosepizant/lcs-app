@@ -1,6 +1,5 @@
 export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFactory, Notification) {
   // Init variables
-  $scope.state = null
   $scope.fileUploaded = []
   $scope.article = {
     type: "album",
@@ -20,16 +19,16 @@ export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFac
             file: files[i],
           },
         }).then((resp) => {
-          $scope.state = "success"
+          files[i].state = "success"
           $scope.article.photoList.push({
             filepath: resp.data.location,
             name: resp.data.name,
             id: "",
           })
         }, () => {
-          $scope.state = "error"
+          files[i].state = "error"
         }, (evt) => {
-          $scope.state = "progress"
+          files[i].state = "progress"
           files[i].progress = parseInt(100.0 * evt.loaded / evt.total)
         })
       }

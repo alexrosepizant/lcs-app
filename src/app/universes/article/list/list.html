@@ -48,7 +48,14 @@
         </div>
       </div>
 
+      <div class="container margin-top-20" ng-if="articles.length === 0">
+        <div class="notification">
+          Il n'y a aucun articles.
+        </div>
+      </div>
+
       <lcs-blog-post ng-repeat="article in articles"
+                     ng-if="articles.length > 0"
                      type="{{ article.type || 'standard' }}"
                      class="box blog">
       </lcs-blog-post>

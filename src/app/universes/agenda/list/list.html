@@ -43,7 +43,13 @@
         </div>
       </div>
 
-      <div ng-repeat="userEvent in events">
+      <div class="container margin-top-20" ng-if="events.length === 0">
+        <div class="notification">
+          Il n'y a aucun évènement à venir.
+        </div>
+      </div>
+
+      <div ng-repeat="userEvent in events" ng-if="events.length > 0">
         <div class="user-blog pull-left">
           <figure class="image is-64x64">
             <img ng-src="{{ userEvent.user.getAvatar(40,40) }}" alt="Image">
