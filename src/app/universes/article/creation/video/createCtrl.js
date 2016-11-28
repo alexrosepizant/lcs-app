@@ -58,27 +58,10 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
     })
   }
 
-  $scope.onVideoDownloaded = () => {
-    $scope.API.stop()
-    $scope.config.sources = [{
-      src: $sce.trustAsResourceUrl($scope.article.url),
-      type: $scope.article.mimeType,
-    }]
-  }
-
-  $scope.formatFacebookUrl = () => {
-    if ($scope.article.url.indexOf("facebook") !== -1) {
-      $scope.article.url = "http://www.facebook.com/video/embed?video_id=" + $scope.article.url.split("videos/").pop()
-      $scope.isEmbed = true
-      $scope.formattedUrl = $sce.trustAsResourceUrl($scope.article.url)
-      return true
-    }
-    return false
-  }
-
   /**
   Utils
   **/
+  // Embed videos: youtube, daylimotion, vimeo...
   $scope.cleanVideoUrl = () => {
     if ($scope.article.url.toLowerCase().indexOf("iframe") !== -1
     || $scope.article.url.toLowerCase().indexOf("embed") !== -1) {
@@ -91,15 +74,33 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
     }
   }
 
+  // Special case: facebook videos
+  $scope.formatFacebookUrl = () => {
+    if ($scope.article.url.indexOf("facebook") !== -1) {
+      $scope.article.url = "http://www.facebook.com/video/embed?video_id=" + $scope.article.url.split("videos/").pop()
+      $scope.isEmbed = true
+      $scope.formattedUrl = $sce.trustAsResourceUrl($scope.article.url)
+    }
+  }
+
   /**
   Save / Test / Cancel actions
   **/
   $scope.testVideo = () => {
     $scope.cleanVideoUrl()
+    $scope.formatFacebookUrl()
 
     if (!$scope.isEmbed) {
       $scope.onVideoDownloaded()
     }
+  }
+
+  $scope.onVideoDownloaded = () => {
+    $scope.API.stop()
+    $scope.config.sources = [{
+      src: $sce.trustAsResourceUrl($scope.article.url),
+      type: $scope.article.mimeType,
+    }]
   }
 
   $scope.dismiss = () => {

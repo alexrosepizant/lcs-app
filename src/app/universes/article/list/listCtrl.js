@@ -3,7 +3,7 @@ export default function ArticleListCtrl($scope, ArticleFactory, articles, users,
   $scope.articles = articles
   $scope.users = users
   $scope.filter = filter
-  $scope.categories = parameters.articleCategories
+  $scope.categories = (parameters) ? parameters.articleCategories : []
 
   $scope.$on("updateArticleList", () => {
     ArticleFactory.findArticles(filter)

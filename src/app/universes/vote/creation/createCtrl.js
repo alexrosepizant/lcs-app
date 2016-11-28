@@ -20,7 +20,8 @@ export default function VoteCreationCtrl($scope, $location, VoteFactory, Notific
 
     VoteFactory.createVote($scope)
       .then(() => {
-        $location.path("/vote")
+        $rootScope.$broadcast("updateVoteList")
+        $scope.$close(true)
         Notification.success({
           title: "Success",
           message: "Vote créé avec succés",
