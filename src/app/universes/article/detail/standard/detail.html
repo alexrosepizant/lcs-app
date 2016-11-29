@@ -1,4 +1,4 @@
-<div>
+<div class="container box">
   <p>
     <small class="pull-right">{{ article.getDateFrom() }}</small>
   </p>
@@ -15,17 +15,7 @@
           </span>
         </div>
         <div class="content">
-          <div ng-if="article.image === null" class="three-line-ellipsis">
-            {{ article.getFormattedContent() }}
-          </div>
-          <div ng-if="article.image !== null" class="columns">
-            <div class="column is-3">
-              <img alt="{{ article.title }}" ng-src="{{ article.image }}"/>
-            </div>
-            <div class="column is-3 three-line-ellipsis">
-              {{ article.getFormattedContent() }}
-            </div>
-          </div>
+          <div ng-bind-html="article.getContent()"></div>
         </div>
 
         <nav class="nav margin-top-10">
@@ -42,12 +32,6 @@
                 <a class="button is-default">
                   <i class="fa fa-bomb"></i>
                   1
-                </a>
-                <a class="button is-default pull-right is-primary" ui-sref="standardView({ articleId: article._id })">
-                  <span class="icon">
-                    <i class="fa fa-ellipsis-h"></i>
-                  </span>
-                  <span>Voir plus</span>
                 </a>
               </p>
             </div>

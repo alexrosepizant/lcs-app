@@ -7,9 +7,9 @@ export default function Article($sce, $uibModal, $location, UserFactory, User) {
     const image = (imgs.length) ? angular.element(imgs[0]).attr("src") : null
 
     const users = []
-    data.comments.forEach((comment) => {
-      users.push(new User(comment.user))
-    })
+    if (data.comments) {
+      data.comments.forEach((comment) => users.push(new User(comment.user)))
+    }
     const commentsUser = users.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
 
     return angular.extend({
@@ -58,26 +58,6 @@ export default function Article($sce, $uibModal, $location, UserFactory, User) {
         } else {
           $scope.article.categories.splice($scope.article.categories.indexOf(category), 1)
         }
-      },
-
-      goToUpdate(evt) {
-        if (evt) {
-          evt.preventDefault()
-          evt.stopPropagation()
-        }
-
-        console.warn("redirection vers update article")
-      },
-
-      remove(evt) {
-        if (evt) {
-          evt.preventDefault()
-          evt.stopPropagation()
-        }
-
-        $uibModal.open({
-          templateUrl: "app/universes/article/creation/standard/create.html",
-        })
       },
     }, data, {user: new User(data.user)})
   }

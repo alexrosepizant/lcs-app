@@ -11,7 +11,7 @@ const Article = mongoose.model("Article")
 * Find article by id
 */
 exports.article = (id) => {
-  Article.findOne({
+  return Article.findOne({
     "_id": id,
   })
   .populate("user", "name username avatar")

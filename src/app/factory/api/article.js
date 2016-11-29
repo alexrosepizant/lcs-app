@@ -27,7 +27,7 @@ export default function ArticleFactory($http, Article) {
     getArticle(articleId) {
       return $http.get(`/articles/${articleId}`)
       .then((article) => {
-        return new Article(article)
+        return new Article(article.data)
       })
     },
 

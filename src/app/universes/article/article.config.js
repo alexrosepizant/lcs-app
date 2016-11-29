@@ -60,4 +60,37 @@ export default function ArticleConfig($stateProvider) {
       })
     }],
   })
+  .state("albumView", {
+    url: "/article/album/view?articleId",
+    template: require("./detail/album/detail.html"),
+    controller: "AlbumDetailCtrl",
+    title: "Article",
+    resolve: {
+      article: ($stateParams, ArticleFactory) => {
+        return ArticleFactory.getArticle($stateParams.articleId)
+      },
+    },
+  })
+  .state("standardView", {
+    url: "/article/standard/view?articleId",
+    template: require("./detail/standard/detail.html"),
+    controller: "StandardDetailCtrl",
+    title: "Article",
+    resolve: {
+      article: ($stateParams, ArticleFactory) => {
+        return ArticleFactory.getArticle($stateParams.articleId)
+      },
+    },
+  })
+  .state("videoView", {
+    url: "/article/video/view?articleId",
+    template: require("./detail/video/detail.html"),
+    controller: "VideoDetailCtrl",
+    title: "Article",
+    resolve: {
+      article: ($stateParams, ArticleFactory) => {
+        return ArticleFactory.getArticle($stateParams.articleId)
+      },
+    },
+  })
 }
