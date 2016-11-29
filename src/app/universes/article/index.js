@@ -1,4 +1,5 @@
 import Article from "../../factory/model/article"
+import Comment from "../../factory/model/comment"
 import ArticleFactory from "../../factory/api/article"
 import ParameterFactory from "../../factory/api/parameter"
 import lcsBlogPostDirective from "./lcsBlogPost"
@@ -19,6 +20,7 @@ import VideoDetailCtrl from "./detail/video/detailCtrl"
 const articleModule = angular.module("app.article", [])
 articleModule.config(ArticleConfig)
 articleModule.factory("Article", Article)
+articleModule.factory("Comment", Comment)
 articleModule.factory("ArticleFactory", ArticleFactory)
 articleModule.factory("ParameterFactory", ParameterFactory)
 articleModule.directive("lcsBlogPost", lcsBlogPostDirective)

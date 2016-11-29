@@ -1,91 +1,132 @@
-<div class="container box">
-  <p>
-    <small class="pull-right">{{ article.getDateFrom() }}</small>
-  </p>
-  <div class="blog-title ellipsis">{{article.title}}</div>
-  <article class="media margin-top-10">
-    <div class="media-content">
-      <div>
-        <div>
-          <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
-            {{ category.value }}
-          </span>
-          <span ng-if="article.categories.length === 0" class="tag">
-            Aucune catégorie associée
-          </span>
+<div class="container">
+  <div class="columns">
+    <div class="column is-8">
+      <div class="box bottom-50">
+        <p>
+          <small class="pull-left">{{ article.getDateFrom() }}</small>
+        </p>
+        <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
+        <div class="blog-title ellipsis">{{article.title}}</div>
+
+        <div class="margin-top-20">
+          {{article.description}}
         </div>
-        <div class="blog-album margin-top-10">
-          <span ng-repeat="photo in article.photoList | limitTo:8">
-            <a ng-href="{{ photo.filepath }}"
-            class="lightbox-trigger"
-            title="{{ photo.name }}"
-            lightbox
-            index="{{$index}}">
-            <img ng-src="{{ photo.filepath }}?dim=80x80"/>
-          </a>
-        </span>
+
+        <article class="media margin-top-10">
+          <div class="media-content">
+            <div>
+              <div>
+                <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
+                  {{ category.value }}
+                </span>
+                <span ng-if="article.categories.length === 0" class="tag">
+                  Aucune catégorie associée
+                </span>
+              </div>
+
+              <div class="blog-album margin-top-20">
+                <div deckgrid class="deckgrid" source="article.photoList">
+                  <a ng-href="{{ card.filepath }}"
+                  class="lightbox-trigger"
+                  title="{{ card.name }}"
+                  lightbox
+                  index="{{$index}}">
+                  <img ng-src="{{ card.filepath }}?dim=300"/>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <div class="spacer">
       </div>
+
+      <section class="blog-user-section margin-top-20">
+        <div class="authorSectionContainer">
+          <span class="authorSectionTitle">
+            Créé par
+          </span>
+          <div class="authorContent small-margin-top">
+            <span class="user-image">
+              <div class="user-image--image">
+                <div>
+                  <img ng-src="{{ article.user.getAvatar(40,40) }}">
+                </div>
+              </div>
+            </span>
+            <a class="authorContent-name" href="#">
+              {{article.user.username}}
+            </a>
+          </div>
+        </div>
+
+        <div class="container">
+          <div style="margin: 0 20px;">
+            <span class="authorSectionTitle" style="position: relative; top: 7px;">
+              Les commentaires
+            </span>
+
+            <article class="media margin-top-20">
+              <div class="media-content">
+                <p class="control">
+                  <textarea class="textarea textareaChat" placeholder="Ajouter un commentaire..."></textarea>
+                </p>
+              </div>
+            </article>
+
+            <article class="media margin-top-20" ng-repeat="comment in article.comments | orderBy:'-created'">
+              <figure class="media-left">
+                <p class="user-image--image rounded">
+                  <img ng-src="{{ comment.user.getAvatar(40, 40) }}">
+                </p>
+              </figure>
+
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{comment.user.username}}</strong>
+                    <br>
+                    {{comment.content}}
+                    <br>
+                    <small><a>Répondre</a> · {{comment.created | date:dateFormat}}</small>
+                  </p>
+                </div>
+
+                <div ng-repeat="reply in comment.replies | orderBy:'-created'">
+                  <article class="media">
+                    <figure class="media-left">
+                      <p class="image is-48x48 rounded">
+                        <img src="http://placehold.it/96x96">
+                      </p>
+                    </figure>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>{{reply.user.username}}</strong>
+                          <br>
+                          {{reply.content}}
+                          <br>
+                          <small><a>Répondre</a> · {{reply.created | date:dateFormat}}</small>
+                        </p>
+                      </div>
+
+                      <article class="media">
+                        {{Vivamus quis semper metus, non tincidunt dolor. Vivamus in mi eu lorem cursus ullamcorper sit amet nec massa.}}
+                      </article>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
-
-    <nav class="nav margin-top-10">
-      <div class="container">
-        <div class="nav-left">
-          <a class="nav-item is-tab is-active">
-            <span class="title is-4">{{article.viewCount}} vues</span>
-          </a>
-          <p class="level-item has-text-left blog-tile-footer">
-            <a class="button is-default">
-              <i class="fa fa-trophy"></i>
-              2
-            </a>
-            <a class="button is-default">
-              <i class="fa fa-bomb"></i>
-              1
-            </a>
-          </p>
-        </div>
-      </div>
-    </nav>
-
-    <section class="blog-user-section">
-      <div class="authorSectionContainer">
-        <span class="authorSectionTitle">
-          Créé par
-        </span>
-        <div class="authorContent">
-          <span class="user-image">
-            <div class="user-image--image">
-              <div>
-                <img ng-src="{{ article.user.getAvatar(40,40) }}" height="30" width="30">
-              </div>
-            </div>
-          </span>
-          <a class="authorContent-name" href="#">
-            {{article.user.username}}
-          </a>
-        </div>
-      </div>
-      <div class="blogCommentSection">
-        <span class="authorSectionTitle">
-          Ils ont laissé un commentaire
-        </span>
-        <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser" class="authorContent">
-          <span class="user-image">
-            <div class="user-image--image">
-              <div>
-                <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
-              </div>
-            </div>
-          </span>
-          <a class="authorContent-name" href="#">
-            {{user.username}}
-          </a>
-        </div>
-        <div ng-if="article.commentsUser.length === 0" class="small-margin-top">
-          <strong>Pas encore de commentaire</strong>
-        </div>
-      </div>
-    </section>
   </div>
-</article>
+  <div class="column is-4">
+    <div class="notification box">
+      Pour l'instant rien
+    </div>
+  </div>
+</div>
 </div>

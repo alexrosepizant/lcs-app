@@ -1,135 +1,162 @@
-<div class="container box">
-  <p>
-    <small class="pull-right">{{ article.getDateFrom() }}</small>
-  </p>
-  <div class="blog-title ellipsis">{{article.title}}</div>
-  <article class="media">
-    <div class="media-content">
-      <div class="content">
-        <div>
-          <div>
-            <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
-              {{ category.value }}
-            </span>
-            <span ng-if="article.categories.length === 0" class="tag margin-top-10">
-              Aucune catégorie associée
-            </span>
+<div class="container">
+  <div class="columns">
+    <div class="column is-8">
+      <div class="box bottom-50">
+        <p>
+          <small class="pull-left">{{ article.getDateFrom() }}</small>
+        </p>
+        <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
+        <div class="blog-title ellipsis">{{article.title}}</div>
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <div>
+                <div>
+                  <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
+                    {{ category.value }}
+                  </span>
+                  <span ng-if="article.categories.length === 0" class="tag margin-top-10">
+                    Aucune catégorie associée
+                  </span>
+                </div>
+              </div>
+
+              <div class="margin-top-10">
+
+                <!-- Include iframe of video -->
+                <iframe ng-src="{{ article.getVideoLink() }}"
+                ng-if="article.isEmbed"
+                width="100%"
+                height="auto"
+                class="videoDetailFrame"
+                frameborder="0"
+                webkitallowfullscreen="true"
+                mozallowfullscreen="true"
+                allowfullscreen="true">
+              </iframe>
+
+              <!-- OR video uploaded by user -->
+              <videogular ng-if="!article.isEmbed" vg-player-ready="onPlayerReady($API)" vg-error="onError($event)">
+                <vg-media vg-src="config.sources" vg-tracks="config.tracks" vg-youtube="rel=1;showinfo=1">
+                </vg-media>
+                <vg-controls>
+                  <vg-play-pause-button></vg-play-pause-button>
+                  <vg-time-display>
+                    {{ currentTime | date:'HH:mm:ss':'+0000' }}
+                  </vg-time-display>
+                  <vg-scrub-bar>
+                    <vg-scrub-bar-current-time>
+                    </vg-scrub-bar-current-time>
+                  </vg-scrub-bar>
+                  <vg-time-display>
+                    {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
+                  </vg-time-display>
+                  <vg-volume>
+                    <vg-mute-button>
+                    </vg-mute-button>
+                    <vg-volume-bar>
+                    </vg-volume-bar>
+                  </vg-volume>
+                  <vg-fullscreen-button>
+                  </vg-fullscreen-button>
+                </vg-controls>
+                <vg-overlay-play></vg-overlay-play>
+              </videogular>
+            </div>
           </div>
+        </article>
+
+        <div class="margin-top-20">
+          {{article.description}}
         </div>
 
-        <div class="margin-top-10">
-
-          <!-- Include iframe of video -->
-          <iframe ng-src="{{ article.getVideoLink() }}"
-          ng-if="article.isEmbed"
-          width="100%"
-          height="auto"
-          class="videoTileFrame"
-          frameborder="0"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-          allowfullscreen="true">
-        </iframe>
-
-        <!-- OR video uploaded by user -->
-        <videogular ng-if="!article.isEmbed"
-        vg-player-ready="onPlayerReady($API)"
-        vg-error="onError($event)">
-        <vg-media vg-src="config.sources"
-        vg-tracks="config.tracks"
-        vg-youtube="rel=1;showinfo=1">
-      </vg-media>
-      <vg-controls>
-        <vg-play-pause-button></vg-play-pause-button>
-        <vg-time-display>
-          {{ currentTime | date:'HH:mm:ss':'+0000' }}
-        </vg-time-display>
-        <vg-scrub-bar>
-          <vg-scrub-bar-current-time>
-          </vg-scrub-bar-current-time>
-        </vg-scrub-bar>
-        <vg-time-display>
-          {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
-        </vg-time-display>
-        <vg-volume>
-          <vg-mute-button>
-          </vg-mute-button>
-          <vg-volume-bar>
-          </vg-volume-bar>
-        </vg-volume>
-        <vg-fullscreen-button>
-        </vg-fullscreen-button>
-      </vg-controls>
-      <vg-overlay-play></vg-overlay-play>
-    </videogular>
-  </div>
-
-  <nav class="nav margin-top-10">
-    <div class="container">
-      <div class="nav-left">
-        <a class="nav-item is-tab is-active">
-          <span class="title is-4">{{article.viewCount}} vues</span>
-        </a>
-        <p class="level-item has-text-left blog-tile-footer">
-          <a class="button is-default">
-            <i class="fa fa-thumbs-up"></i>
-            2
-          </a>
-          <a class="button is-default">
-            <i class="fa fa-thumbs-down"></i>
-            1
-          </a>
-          <a class="button is-default pull-right is-primary" ui-sref="videoView({ articleId: article._id })">
-            <span class="icon">
-              <i class="fa fa-ellipsis-h"></i>
+        <section class="blog-user-section margin-top-20">
+          <div class="authorSectionContainer">
+            <span class="authorSectionTitle">
+              Créé par
             </span>
-            <span>Voir plus</span>
-          </a>
-        </p>
-      </div>
-    </div>
-  </nav>
+            <div class="authorContent small-margin-top">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ article.user.getAvatar(40,40) }}">
+                  </div>
+                </div>
+              </span>
+              <a class="authorContent-name" href="#">
+                {{article.user.username}}
+              </a>
+            </div>
+          </div>
 
-  <section class="blog-user-section">
-    <div class="authorSectionContainer">
-      <span class="authorSectionTitle">
-        Créé par
-      </span>
-      <div class="authorContent">
-        <span class="user-image">
-          <div class="user-image--image">
-            <div>
-              <img ng-src="{{ article.user.getAvatar(40,40) }}" height="30" width="30">
+          <div class="container">
+            <div style="margin: 0 20px;">
+              <span class="authorSectionTitle" style="position: relative; top: 7px;">
+                Les commentaires
+              </span>
+
+              <article class="media margin-top-20">
+                <div class="media-content">
+                  <p class="control">
+                    <textarea class="textarea textareaChat" placeholder="Ajouter un commentaire..."></textarea>
+                  </p>
+                </div>
+              </article>
+
+              <article class="media margin-top-20" ng-repeat="comment in article.comments | orderBy:'-created'">
+                <figure class="media-left">
+                  <p class="user-image--image rounded">
+                    <img ng-src="{{ comment.user.getAvatar(40, 40) }}">
+                  </p>
+                </figure>
+
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{comment.user.username}}</strong>
+                      <br>
+                      {{comment.content}}
+                      <br>
+                      <small><a>Répondre</a> · {{comment.created | date:dateFormat}}</small>
+                    </p>
+                  </div>
+
+                  <div ng-repeat="reply in comment.replies | orderBy:'-created'">
+                    <article class="media">
+                      <figure class="media-left">
+                        <p class="image is-48x48 rounded">
+                          <img src="http://placehold.it/96x96">
+                        </p>
+                      </figure>
+                      <div class="media-content">
+                        <div class="content">
+                          <p>
+                            <strong>{{reply.user.username}}</strong>
+                            <br>
+                            {{reply.content}}
+                            <br>
+                            <small><a>Répondre</a> · {{reply.created | date:dateFormat}}</small>
+                          </p>
+                        </div>
+
+                        <article class="media">
+                          {{Vivamus quis semper metus, non tincidunt dolor. Vivamus in mi eu lorem cursus ullamcorper sit amet nec massa.}}
+                        </article>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
-        </span>
-        <a class="authorContent-name" href="#">
-          {{article.user.username}}
-        </a>
+        </section>
       </div>
     </div>
-    <div class="blogCommentSection">
-      <span class="authorSectionTitle">
-        Ils ont laissé un commentaire
-      </span>
-      <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser" class="authorContent">
-        <span class="user-image">
-          <div class="user-image--image">
-            <div>
-              <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
-            </div>
-          </div>
-        </span>
-        <a class="authorContent-name" href="#">
-          {{user.username}}
-        </a>
-      </div>
-      <div ng-if="article.commentsUser.length === 0" class="small-margin-top">
-        <strong>Pas encore de commentaire</strong>
+
+    <div class="column is-4">
+      <div class="notification box">
+        Pour l'instant rien
       </div>
     </div>
-  </section>
-</div>
-</section>
-</div>
+  </div>
 </div>

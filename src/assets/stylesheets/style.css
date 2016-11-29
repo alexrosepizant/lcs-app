@@ -105,6 +105,15 @@ body {
   margin-top: 20px;
 }
 
+.bottom-50 {
+  margin-bottom: 50px;
+}
+
+.media + .media {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
 .footer {
   margin-top: 20px;
 }
@@ -306,6 +315,10 @@ body {
 
 .articleTag:not(:first-child) {
   margin-left: 10px;
+}
+
+.articleContent {
+  overflow: hidden;
 }
 
 .avatar {
@@ -533,7 +546,7 @@ a.is-current {
 
 .blog-album img {
   border-radius: 8px;
-  padding: 5px;
+  padding: 5px 5px 0;
 }
 
 .home-user.card-content {
@@ -839,6 +852,10 @@ textarea {
   height: 200px;
 }
 
+.videoDetailFrame {
+  height: 300px;
+}
+
 /* =====================================================================================
     VOTE
 =======================================================================================
@@ -998,6 +1015,10 @@ figure {
   margin: -10px;
 }
 
+.blog-album .deckgrid > div > div {
+  margin-top: 0;
+}
+
 .deckgrid > div > div {
   margin-top: 20px;
 }
@@ -1008,4 +1029,16 @@ figure {
 
 .deckgrid .column-1-4 {
   width: 25%;
+}
+
+.blog-album .column {
+  padding: 0;
+}
+
+.comment {
+  width: 100%;
+}
+
+.rounded img {
+  border-radius: 50%;
 }

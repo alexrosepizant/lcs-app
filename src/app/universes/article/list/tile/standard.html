@@ -1,21 +1,25 @@
 <div>
-  <p>
-    <small class="pull-right">{{ article.getDateFrom() }}</small>
-  </p>
-  <div class="blog-title ellipsis">{{article.title}}</div>
-  <article class="media margin-top-10">
+  <!-- <p>
+    <small class="pull-left">
+      {{ article.getDateFrom() }}
+    </small>
+  </p> -->
+
+  <a class="button is-default pull-right is-primary" ui-sref="standardView({ articleId: article._id })">
+    <span class="icon">
+      <i class="fa fa-ellipsis-h"></i>
+    </span>
+    <span>Voir plus</span>
+  </a>
+
+  <div class="blog-title two-line-ellipsis">
+    {{article.title}}
+  </div>
+  <article class="media margin-top-10 articleContent">
     <div class="media-content">
       <div class="content">
         <div class="content">
-          <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
-            {{ category.value }}
-          </span>
-          <span ng-if="article.categories.length === 0" class="tag">
-            Aucune catégorie associée
-          </span>
-        </div>
-        <div class="content">
-          <div ng-if="article.image === null" class="three-line-ellipsis">
+          <div ng-if="article.image === null" class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky">
             {{ article.getFormattedContent() }}
           </div>
           <div ng-if="article.image !== null" class="columns">
@@ -27,32 +31,23 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </article>
 
-        <nav class="nav margin-top-10">
-          <div class="container">
-            <div class="nav-left">
-              <a class="nav-item is-tab is-active">
-                <span class="title is-4">{{article.viewCount}} vues</span>
-              </a>
-              <p class="level-item has-text-left blog-tile-footer">
-                <a class="button is-default">
-                  <i class="fa fa-trophy"></i>
-                  2
-                </a>
-                <a class="button is-default">
-                  <i class="fa fa-bomb"></i>
-                  1
-                </a>
-                <a class="button is-default pull-right is-primary" ui-sref="standardView({ articleId: article._id })">
-                  <span class="icon">
-                    <i class="fa fa-ellipsis-h"></i>
-                  </span>
-                  <span>Voir plus</span>
-                </a>
-              </p>
-            </div>
+  <article class="margin-top-20">
+    <div class="media-content">
+      <div class="content">
+        <div>
+          <div>
+            <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
+              {{ category.value }}
+            </span>
+            <span ng-if="article.categories.length === 0" class="tag margin-top-10">
+              Aucune catégorie associée
+            </span>
           </div>
-        </nav>
+        </div>
 
         <section class="blog-user-section">
           <div class="authorSectionContainer">
@@ -76,7 +71,7 @@
             <span class="authorSectionTitle">
               Ils ont laissé un commentaire
             </span>
-            <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo:5" class="authorContent">
+            <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser" class="authorContent">
               <span class="user-image">
                 <div class="user-image--image">
                   <div>
@@ -94,6 +89,7 @@
           </div>
         </section>
       </div>
-    </div>
-  </article>
+    </section>
+  </div>
+</article>
 </div>

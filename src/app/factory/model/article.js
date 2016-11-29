@@ -1,6 +1,6 @@
 import moment from "moment"
 
-export default function Article($sce, $uibModal, $location, UserFactory, User) {
+export default function Article($sce, $uibModal, $location, UserFactory, User, Comment) {
   return (data) => {
 
     const imgs = angular.element("<div>" + data.content + "</div>").find("img")
@@ -59,6 +59,10 @@ export default function Article($sce, $uibModal, $location, UserFactory, User) {
           $scope.article.categories.splice($scope.article.categories.indexOf(category), 1)
         }
       },
-    }, data, {user: new User(data.user)})
+    }, data, {
+      user: new User(data.user),
+    }, {
+      comments: data.comments.map((comment) => new Comment(comment)),
+    })
   }
 }
