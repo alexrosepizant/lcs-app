@@ -1,4 +1,5 @@
-export default function ProfileCtrl($rootScope, $scope, $translate, Upload, UserFactory, articles) {
+export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
+                                    Upload, ArticleFactory, UserFactory, articles) {
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
@@ -30,6 +31,34 @@ export default function ProfileCtrl($rootScope, $scope, $translate, Upload, User
       }
     }
   }
+
+  /** *
+    Article deletion
+  ***/
+  $scope.remove = (evt, articleId) => {
+    if (evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
+    }
+
+    $uibModal.open({
+      templateUrl: "app/universes/user/deletion/removeArticle.html",
+      controller: "RemoveContentCtrl",
+      resolve: {
+        articleId: () => {
+          return articleId
+        },
+        type: () => {
+          return "article"
+        },
+      },
+    })
+  }
+
+  $scope.$on("updateUserContentList", () => {
+    ArticleFactory.getArticlesByUser($rootScope.currentUser._id)
+      .then((articles) => $scope.articles = articles)
+  })
 
   /** *
     SETTINGS

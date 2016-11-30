@@ -109,6 +109,10 @@ body {
   margin-bottom: 50px;
 }
 
+.bottom-60 {
+  margin-bottom: 60px;
+}
+
 .media + .media {
   margin-top: 20px;
   padding-top: 20px;
@@ -257,7 +261,7 @@ body {
 
 .profile-heading {
   margin: 20px 0;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
 }
 
 .profile-heading .name {
@@ -270,12 +274,11 @@ body {
 .profile-heading .following {
   border-right: 1px solid #f1f1f1;
   margin: -30px 0;
-  padding: 70px 30px;
+  padding: 50px 30px;
 }
 
-.profile-heading .likes {
-  margin: -30px 0;
-  padding: 70px 30px;
+.profile-heading .following:last-child {
+  border-right: 0;
 }
 
 .profile-heading .stat-key {

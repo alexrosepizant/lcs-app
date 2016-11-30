@@ -54,11 +54,11 @@ module.exports = (app) => {
   // DELETE: DELETE articles/articleId
   app.delete("/articles/:articleId", authorization.requiresLogin, (req, res) => {
     articles.destroy(req.article)
-      .then((err) => {
+      .then((article, err) => {
         if (err) {
           res.status(400).json(err)
         } else {
-          res.jsonp({})
+          res.jsonp(article)
         }
       })
   })
