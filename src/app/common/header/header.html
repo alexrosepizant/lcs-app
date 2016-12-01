@@ -23,6 +23,18 @@
       </div>
       <div class="nav-right nav-menu">
         <ng-popover
+        trigger="popover-trigger-chat"
+        popover-class="popover-chat">
+        <nav class="panel user-popover">
+          <lcs-chat></lcs-chat>
+        </nav>
+        </ng-popover>
+        <a id="popover-trigger-chat" class="ng-popover-trigger nav-item is-tab">
+          <span class="icon icon-chevron">
+            <i class="fa fa-comment font-medium"></i>
+          </span>
+        </a>
+        <ng-popover
         trigger="popover-trigger"
         popover-class="custom-popover">
         <nav class="panel user-popover">

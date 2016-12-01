@@ -43,8 +43,12 @@
 
           const maxWidth = getMaxWidth()
           const triggerRect = trigger.getBoundingClientRect()
-          const left = (triggerRect.left + document.body.scrollLeft > maxWidth) ?
-            maxWidth : triggerRect.left + document.body.scrollLeft
+          let left = (triggerRect.left > maxWidth) ?
+            maxWidth : triggerRect.left
+
+          if ($scope.popoverClass === "popover-chat" && (maxWidth < triggerRect.left + 100)) {
+            left -= (triggerRect.left + 100 - maxWidth)
+          }
 
           return {
             top: triggerRect.top + document.body.scrollTop,

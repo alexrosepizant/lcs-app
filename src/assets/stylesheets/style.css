@@ -219,7 +219,7 @@ body {
 .ng-popover-wrapper {
   position: relative;
   z-index: 2;
-  width: 190px;
+  min-width: 190px;
 }
 
 .user-popover {
@@ -648,10 +648,10 @@ textarea {
 }
 
 #live-chat {
-  bottom: 0;
   font-size: 12px;
-  right: 75px;
-  position: fixed;
+}
+
+.popover-chat {
   width: 380px;
 }
 
@@ -1044,4 +1044,31 @@ figure {
 
 .rounded img {
   border-radius: 50%;
+}
+
+.icon-chevron {
+  font-size: 12px;
+}
+
+.icon-item-type i {
+  font-size: 12px;
+  padding: 6px 15px;
+  color: #bbb;
+}
+
+.event-timeline hr {
+  margin-top: 10px;
+}
+
+p.event-item {
+  padding: 10px 10px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.hero-body {
+  padding: 10px 20px;
+}
+
+.homeTitle {
+  margin-bottom: 0 !important;
 }

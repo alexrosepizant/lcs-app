@@ -62,7 +62,7 @@ export default function Article($sce, $uibModal, $location, UserFactory, User, C
     }, data, {
       user: new User(data.user),
     }, {
-      comments: data.comments.map((comment) => new Comment(comment)),
+      comments: (data.comments) ? data.comments.map((comment) => new Comment(comment)) : [],
     })
   }
 }

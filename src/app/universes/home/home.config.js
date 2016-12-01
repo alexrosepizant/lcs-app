@@ -1,9 +1,14 @@
 export default function HomeConfig($stateProvider) {
-
   $stateProvider
     .state("home", {
       url: "/home",
-      template: require("./home.html"),
+      template: require("./dashboard/home.html"),
+      controller: "HomeCtrl",
       title: "Accueil",
+      resolve: {
+        datas: (HomeFactory) => {
+          return HomeFactory.getUserDatas()
+        },
+      },
     })
 }
