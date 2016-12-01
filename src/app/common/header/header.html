@@ -1,35 +1,34 @@
-<div class="top-menu-container"
-     ng-controller="HeaderCtrl"
-     ng-if="currentUser">
-  <div class="container">
-    <nav class="nav">
-      <div class="nav-left">
-        <a class="nav-item" ui-sref="home">
+<section class="hero is-primary" ng-controller="HeaderCtrl" ng-if="currentUser">
+  <div class="hero-head">
+    <div class="container">
+      <nav class="nav">
+        <div class="nav-left">
           <h1 class="title mainTitle">
             Les coqs soccer
           </h1>
-        </a>
-      </div>
-      <div class="nav-center">
-        <p class="control has-addons searchbox">
-          <input type="text"
-          ng-model="searchWord"
-          class="input"
-          placeholder="Rechercher un truc..." />
-          <a class="button" ng-click="search()">
-            &nbsp; <i class="fa fa-search"></i> &nbsp;
-          </a>
-        </p>
-      </div>
-      <div class="nav-right nav-menu">
-        <ng-popover
-        trigger="popover-trigger-chat"
-        popover-class="popover-chat">
-        <nav class="panel user-popover">
-          <lcs-chat></lcs-chat>
-        </nav>
+        </div>
+
+        <!-- <div class="nav-center">
+          <p class="control has-addons searchbox">
+            <input type="text"
+            ng-model="searchWord"
+            class="input"
+            placeholder="Rechercher un truc..." />
+            <a class="button" ng-click="search()">
+              &nbsp; <i class="fa fa-search"></i> &nbsp;
+            </a>
+          </p>
+        </div> -->
+
+        <div class="nav-right nav-menu">
+          <ng-popover
+          trigger="popover-trigger-chat"
+          popover-class="popover-chat">
+          <nav class="panel user-popover">
+            <lcs-chat></lcs-chat>
+          </nav>
         </ng-popover>
-        <a id="popover-trigger-chat" class="ng-popover-trigger nav-item is-tab">
+        <a id="popover-trigger-chat" class="ng-popover-trigger nav-item is-tab" ng-class="{'active' : activeChat}">
           <span class="icon icon-chevron">
             <i class="fa fa-comment font-medium"></i>
           </span>
@@ -43,40 +42,71 @@
             <strong>{{currentUser.username}}</strong>
           </p>
           <a class="panel-block is-active"
-             ui-sref="profile"
-             ng-click="closeMenu('popover-trigger')">
-            Profile
-          </a>
-          <a class="panel-block"
-             ui-sref="settings"
-             ng-click="closeMenu('popover-trigger')">
-            Paramètres
-          </a>
-          <a class="panel-block"
-             ng-click="logout()">
-            Déconnexion
-          </a>
-        </nav>
-      </ng-popover>
-      <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
-        <img ng-src="{{ currentUser.getAvatar(30,30) }}" class="avatar-photo-square">
-        <span class="icon icon-chevron">
-          <i class="fa fa-chevron-down font-small"></i>
-        </span>
-      </a>
-    </div>
-  </nav>
-  <nav class="nav">
-    <div class="container">
-      <div class="nav-left">
-        <a ng-repeat="item in menu"
-        ui-sref="{{item.link}}"
-        class="nav-item is-tab"
-        ng-class="{'is-active' : isCurrentPath(item)}">
-          {{item.name}}
+          ui-sref="profile"
+          ng-click="closeMenu('popover-trigger')">
+          Profile
         </a>
+        <a class="panel-block"
+        ui-sref="settings"
+        ng-click="closeMenu('popover-trigger')">
+        Paramètres
+      </a>
+      <a class="panel-block"
+      ng-click="logout()">
+      Déconnexion
+    </a>
+  </nav>
+</ng-popover>
+<a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
+  <img ng-src="{{ currentUser.getAvatar(40,40) }}" class="avatar-photo-square">
+  <span class="icon icon-chevron">
+    <i class="fa fa-chevron-down font-small"></i>
+  </span>
+</a>
+</div>
+</nav>
+
+</div>
+</div>
+
+<div class="hero-body">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column">
+        <p class="title">
+          Les coqs soccer
+        </p>
+        <p class="subtitle">
+          Everything you need to <strong>create a website</strong> with Bulma
+        </p>
+      </div>
+      <div class="column is-narrow">
+        <div id="carbon" class="box">
+          <div id="carbonads">
+            <span>
+              <span class="carbon-wrap">
+                <a href="#" class="carbon-text" target="_blank">
+                  Get a Slack notification when a new user signs up to your Web app
+                </a>
+              </span>
+              <a href="http://carbonads.net/" class="carbon-poweredby" target="_blank">ads via Carbon</a>
+              <img src="http://d3fa-721a.com.global.prod.fastly.net/a.gif" border="0" height="1" width="1" style="display: none;">
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
+  </div>
 </div>
-</div>
+
+<div class="hero-foot">
+  <div class="container">
+    <nav class="tabs is-boxed">
+      <ul>
+        <li ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">
+          <a ui-sref="{{item.link}}">{{item.name}}</a>
+        </li>
+      </ul>
+    </nav></div>
+  </div>
+</section>

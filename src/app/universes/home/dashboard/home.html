@@ -1,43 +1,33 @@
-<div class="container">
+<div class="container margin-top-20">
   <div class="columns">
     <div class="column is-8">
-      <section class="hero is-primary is-bold box homeTitle">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              A la une
-            </h1>
-          </div>
-        </div>
-      </section>
-      <lcs-blog-post type="{{ datas.article.type || 'standard' }}" class="box blog">
-      </lcs-blog-post>
+      <p class="margin-top-20">
+        <h1 class="title">
+          <strong>A la une</strong>
+        </h1>
+      </p>
+      <hr>
+    </section>
+    <lcs-blog-post type="{{ datas.article.type || 'standard' }}" class="box blog">
+    </lcs-blog-post>
+  </div>
 
-      <section class="hero is-info is-bold box homeTitle">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              Agenda
-            </h1>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div class="column is-4">
-      <div class="event-timeline margin-top-20">
-        <p>
-            <h1 class="title">
-              Les derniers mouvements
-            </h1>
-        </p>
-        <hr>
-        <p class="event-item" ng-repeat="content in datas.content">
-          <span class="icon-item-type"><i class="fa fa-star"></i></span>
-          <a href="#">{{content.user.username}}</a> starred
-          <a href="#">jsmith/wordpad</a>
-          <small>1 hours ago</small>
-        </p>
-      </div>
+  <div class="column is-4">
+    <div class="event-timeline margin-top-20">
+      <p>
+        <h1 class="title">
+          Les derniers mouvements
+        </h1>
+      </p>
+      <hr>
+      <p class="event-item ellipsis" ng-repeat="content in datas.content | orderBy:'-created'">
+        <small class="pull-right">{{content.getDateFrom()}}</small>
+        <span class="icon-item-type">
+          <i class="fa" ng-class="content.getIcon()"></i>
+        </span>
+        <a href="#">{{content.user.username}}</a> {{content.getFormattedType()}}
+        <a ui-sref="content.getLink()">{{content.title || 'un commentaire'}}</a>
+      </p>
     </div>
   </div>
+</div>
