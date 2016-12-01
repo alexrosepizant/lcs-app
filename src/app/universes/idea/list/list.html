@@ -1,7 +1,66 @@
 <div class="container">
-  <div class="container margin-top-20" ng-if="events.length === 0">
-    <div class="notification">
-      Il n'y a aucune idées.
+  <div class="boards">
+        <div class="columns">
+  <div class="column is-4 board">
+      <div class="box is-gray">
+        <div class="head">
+          <div class="name">Idées</div>
+          <div class="count">1</div>
+          <div class="options"><i class="fa fa-ellipsis-h"></i></div>
+        </div>
+        <div class="items">
+          <div class="box">
+            <p class="title">test item</p>
+            <p class="meta">
+              <img src="https://placehold.it/28x28">
+              <a href="#"><i class="fa fa-bars"></i></a>
+            </p>
+          </div>
+          <div class="add-card">
+           <div onclick="addCard(this)">
+            <i class="fa fa-plus-circle"></i>
+            Ajouter une idée
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="column is-4 board">
+    <div class="box is-gray">
+      <div class="head">
+        <div class="name">En cours</div>
+        <div class="count">1</div>
+        <div class="options"><i class="fa fa-ellipsis-h"></i></div>
+      </div>
+      <div class="items">
+        <div class="box">
+          <p class="title">Update middle-out compression algorithm</p>
+          <p class="meta">
+            <img src="https://placehold.it/28x28">
+            <a href="#"><i class="fa fa-bars"></i></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column is-4 board">
+    <div class="box is-gray">
+      <div class="head">
+        <div class="name">C'est fait</div>
+        <div class="count">1</div>
+        <div class="options"><i class="fa fa-ellipsis-h"></i></div>
+      </div>
+      <div class="items">
+        <div class="box">
+          <p class="title">Send project notification to users</p>
+          <p class="meta">
+            <img src="https://placehold.it/28x28">
+            <a href="#"><i class="fa fa-bars"></i></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 </div>

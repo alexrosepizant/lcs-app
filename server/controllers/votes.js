@@ -27,12 +27,8 @@ exports.create = (req, res) => {
   const vote = new Vote(req.body)
   vote.user = req.user
   vote.save((err) => {
-    console.log(err)
     if (err) {
-      return res.send("users/signup", {
-        errors: err.errors,
-        vote: vote,
-      })
+      res.status(400).json(err)
     } else {
       res.jsonp(vote)
     }
@@ -47,10 +43,7 @@ exports.update = (req, res) => {
   vote = _.extend(vote, req.body)
   vote.save((err) => {
     if (err) {
-      return res.send("users/signup", {
-        errors: err.errors,
-        vote: vote,
-      })
+      res.status(400).json(err)
     } else {
       res.jsonp(vote)
     }
@@ -64,10 +57,7 @@ exports.destroy = (req, res) => {
   const vote = req.vote
   vote.remove((err) => {
     if (err) {
-      return res.send("users/signup", {
-        errors: err.errors,
-        vote: vote,
-      })
+      res.status(400).json(err)
     } else {
       res.jsonp(vote)
     }
