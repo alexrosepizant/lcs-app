@@ -4,6 +4,11 @@ export default function Comment(User) {
       content: "",
       created: Date.now(),
       username: "",
-    }, data, {user: new User(data.user)})
+      replies: data.replies.map((reply) => {
+        reply.user = new User(reply.user)
+      }),
+    }, data, {
+      user: new User(data.user),
+    })
   }
 }

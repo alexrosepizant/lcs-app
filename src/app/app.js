@@ -34,6 +34,7 @@ import "./common/modules/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
 import "./common/modules/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
 import "./common/modules/utils"
 import "./common/modules/chat"
+import "./common/modules/comment"
 
 // Import our app config files
 import constants  from "./config/app.constants"
@@ -75,6 +76,7 @@ const requires = [
   "app.utils",
   "app.auth",
   "app.chat",
+  "app.comment",
   "app.home",
   "app.article",
   "app.user",

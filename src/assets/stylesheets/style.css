@@ -1095,6 +1095,15 @@ figure {
 }
 
 .comment {
+  margin-top: 0 !important;
+  padding-top: 10px !important;
+}
+
+.reply {
+  padding-bottom: 10px !important;
+}
+
+lcs-comment {
   width: 100%;
 }
 

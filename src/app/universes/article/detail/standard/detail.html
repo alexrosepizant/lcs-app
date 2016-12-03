@@ -45,75 +45,7 @@
             </div>
           </div>
 
-          <div class="container commentContainer">
-            <div>
-              <span class="authorSectionTitle">
-                Les commentaires
-              </span>
-
-              <article class="media margin-top-20">
-                <div class="media-content">
-                  <p class="control">
-                    <textarea ng-enter="addComment()" class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="newComment">
-                    </textarea>
-                  </p>
-                </div>
-              </article>
-
-              <article class="media margin-top-20" ng-repeat="comment in article.comments | orderBy:'-created'">
-                <figure class="media-left">
-                  <p class="user-image--image rounded">
-                    <img ng-src="{{ comment.user.getAvatar(40, 40) }}" width="40" height="40">
-                  </p>
-                </figure>
-
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>{{comment.user.username}}</strong>
-                      <br>
-                      {{comment.content}}
-                      <br>
-                      <small>
-                        <a ng-click="showReply($event, comment)">Répondre</a>
-                         · {{comment.created | date:dateFormat}}
-                       </small>
-                    </p>
-                  </div>
-
-                  <div class="media margin-top-20">
-                    <div class="media-content">
-                      <p class="control">
-                        <textarea ng-show="isCurrentComment(comment)" ng-enter="addReply()" class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="reply">
-                        </textarea>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div ng-repeat="reply in comment.replies | orderBy:'-created'">
-                    <article class="media">
-                      <figure class="media-left">
-                        <p class="image is-48x48 rounded">
-                          <img src="http://placehold.it/96x96">
-                        </p>
-                      </figure>
-                      <div class="media-content">
-                        <div class="content">
-                          <p>
-                            <strong>{{reply.user.username}}</strong>
-                            <br>
-                            {{reply.content}}
-                            <br>
-                            <small><a>Répondre</a> · {{reply.created | date:dateFormat}}</small>
-                          </p>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
+          <lcs-comment update-method="updateMethod()" object="article"></lcs-comment>
         </section>
       </div>
     </div>
