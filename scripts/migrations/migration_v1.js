@@ -119,6 +119,32 @@ const migrateVideoArticles = () => {
     })
 }
 
+const migrateCategoriesArticles = () => {
+  const articlePromises = []
+  return Article.find({})
+    .then((articles, err) => {
+      if (err) {
+        return Promise.reject(err)
+      } else {
+
+        console.log(articles.length + " to migrate")
+        _.each(articles, (article) => {
+          article.categories = article.categories.map((categorie) => categorie.value)
+          articlePromises.push(article.save((err) => {
+            if (err) {
+              console.log("Error when trying to update article " + err)
+            } else {
+              console.log("Update article: " + article.title)
+            }
+          }))
+        })
+
+        return Promise.all(articlePromises)
+      }
+    })
+}
+
+
 /**
 Execute Scripts
 **/
@@ -137,6 +163,10 @@ mongoose.connect(config.db)
   .then(() => {
     utils.titleLog("Prepare to migrate video articles")
     return migrateVideoArticles()
+  })
+  .then(() => {
+    utils.titleLog("Prepare to migrate categories articles")
+    return migrateCategoriesArticles()
   })
   .then(() => {
     utils.titleLog("Script migration ended")

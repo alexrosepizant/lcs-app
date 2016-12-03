@@ -32,6 +32,10 @@ exports.all = (params) => {
     query.type = params.type
   }
 
+  if (params.categories) {
+    query.categories = params.categories
+  }
+
   if (params.search) {
     query.word = new RegExp(req.body.search, "i")
   }

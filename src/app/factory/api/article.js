@@ -12,6 +12,18 @@ export default function ArticleFactory($http, Article) {
       })
     },
 
+    getArticlesByCategory(category) {
+      return $http.get("/articles", {
+        params: {
+          "categories": category,
+        },
+      }).then((articles) => {
+        return articles.data.map((article) => {
+          return new Article(article)
+        })
+      })
+    },
+
     getArticlesByUser(userId) {
       return $http.get("/articles", {
         params: {

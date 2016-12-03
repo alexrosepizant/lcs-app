@@ -864,6 +864,11 @@ textarea {
   color: black;
 }
 
+.tag:hover,
+.tag.active {
+  background-color: #ccc;
+}
+
 .videoTileFrame {
   max-width: 350px;
   height: 200px;

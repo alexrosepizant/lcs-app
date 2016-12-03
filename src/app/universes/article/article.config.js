@@ -1,20 +1,28 @@
 export default function ArticleConfig($stateProvider) {
   $stateProvider
   .state("article", {
-    url: "/article?filter",
+    url: "/article?filter&category",
     template: require("./list/list.html"),
     controller: "ArticleListCtrl",
     title: "Article",
     resolve: {
       articles: ($stateParams, ArticleFactory) => {
         const filter = ($stateParams.filter) ? $stateParams.filter : "all"
-        return ArticleFactory.findArticles(filter)
+        const category = ($stateParams.category) ? $stateParams.category : null
+        if (category) {
+          return ArticleFactory.getArticlesByCategory(category)
+        } else {
+          return ArticleFactory.findArticles(filter)
+        }
       },
       users: (UserFactory) => {
         return UserFactory.findUsers()
       },
       filter: ($stateParams) => {
         return ($stateParams.filter) ? $stateParams.filter : "all"
+      },
+      currentCategory: ($stateParams) => {
+        return ($stateParams.category) ? $stateParams.category : null
       },
       parameters: (ParameterFactory) => {
         return ParameterFactory.getParameters()

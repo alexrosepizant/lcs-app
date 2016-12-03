@@ -51,9 +51,15 @@
             Les catégories
           </span>
         </p>
-        <span ng-repeat="category in categories" class="tag">
-          {{ category.value }}
-        </span>
+        <a ng-repeat="category in categories"
+           ui-sref="article({
+             category: category.value,
+             filter: 'all'
+           })">
+          <span class="tag" ng-class="{'active' : category.value === currentCategory}">
+            {{ category.value }}
+          </span>
+        </a>
       </div>
 
       <div class="box">

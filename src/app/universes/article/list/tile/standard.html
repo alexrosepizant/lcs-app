@@ -35,8 +35,8 @@
     <div class="content">
       <div>
         <div>
-          <span ng-repeat="category in article.categories" title="{{ category.value }}" class="tag articleTag">
-            {{ category.value }}
+          <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+            {{ category }}
           </span>
           <span ng-if="article.categories.length === 0" class="tag margin-top-10">
             Aucune catégorie associée
