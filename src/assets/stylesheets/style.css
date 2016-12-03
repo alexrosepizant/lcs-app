@@ -879,16 +879,23 @@ textarea {
 */
 
 .voteContainer {
-  overflow: hidden;
   height: 260px;
   text-align: center;
   background: #f2f2f2;
+  padding-top: 0;
+  margin-bottom: 60px !important;
 }
 
 .voteEndDate {
   width: 100%;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.vote_ended img {
+  width: 70%;
+  margin-left: 15%;
 }
 
 .voteSectionTitle {
@@ -902,7 +909,7 @@ textarea {
 }
 
 .voteCardContent {
-  padding: 20px 20px 10px;
+  padding: 0 20px 10px;
 }
 
 .voteCircle {
@@ -1014,9 +1021,41 @@ textarea {
 }
 
 /* =====================================================================================
-    DECKGRID CONFIGURATION
+    MASONRY CONFIGURATION
 =======================================================================================
 */
+
+.masonry {
+  column-count: 3;
+  column-gap: 0;
+  margin: 20px -10px;
+}
+
+.masonry-child {
+  break-inside: avoid;
+  padding: 10px;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.masonry-child:first-of-type:last-of-type {
+    display: inline-block;
+}
+
+.masonry-child a {
+  border-bottom: 0 !important;
+}
+
+.lightbox-trigger > img:hover {
+  background-color: #e4e9eb;
+}
+
+.masonry-child img,
+.blog-album img {
+  border-radius: 8px;
+  padding: 5px;
+}
 
 figure {
   margin: 0;

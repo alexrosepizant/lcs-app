@@ -49,46 +49,48 @@
         </div>
       </div>
 
-      <div ng-repeat="vote in votes" ng-if="votes.length > 0">
-        <div class="card">
-          <div class="card-image voteContainer">
-            <figure class="image voteCircle" ng-if="!vote.hasUserAnswered(currentUser._id)">
-              <div class="mask-a">
-                <div class="hand" ng-click="addVote(vote, 1)">
-                </div>
-                <div class="hand-1" ng-click="addVote(vote, 2)">
-                </div>
-                <div class="hand-2" ng-click="addVote(vote, 3)">
-                </div>
-              </div>
-            </figure>
-            <h1 ng-if="vote.hasUserAnswered(currentUser._id)">
-              A voté
-            </h1>
-          </div>
-          <div class="voteCardContent">
+      <div class="masonry">
+        <div ng-repeat="vote in votes | orderBy: '-created'" ng-if="votes.length > 0" class="masonry-child">
+          <div class="box">
             <div class="voteEndDate">
               Fin des débats {{ vote.getDays() }}
             </div>
-            <div class="content margin-top-20">
-              {{ vote.content }}
-              <br>
-            </div>
-            <div class="authorSectionContainer">
-              <span class="voteSectionTitle">
-                Lancé par
-              </span>
-              <div class="authorContent">
-                <span class="user-image">
-                  <div class="user-image--image">
-                    <div>
-                      <img ng-src="{{ vote.user.getAvatar(40,40) }}" height="30" width="30">
-                    </div>
+            <div class="voteContainer box" ng-if="!vote.hasUserAnswered(currentUser._id)">
+              <figure class="image voteCircle">
+                <div class="mask-a">
+                  <div class="hand" ng-click="addVote(vote, 1)">
                   </div>
+                  <div class="hand-1" ng-click="addVote(vote, 2)">
+                  </div>
+                  <div class="hand-2" ng-click="addVote(vote, 3)">
+                  </div>
+                </div>
+              </figure>
+            </div>
+            <div ng-if="vote.hasUserAnswered(currentUser._id)" class="vote_ended">
+              <img src="/assets/images/vote_ended.jpg"/>
+            </div>
+            <div class="voteCardContent">
+              <div class="content margin-top-20">
+                {{ vote.content }}
+                <br>
+              </div>
+              <div class="authorSectionContainer">
+                <span class="voteSectionTitle">
+                  Lancé par
                 </span>
-                <a class="authorContent-name" href="#">
-                  {{vote.user.username}}
-                </a>
+                <div class="authorContent">
+                  <span class="user-image">
+                    <div class="user-image--image">
+                      <div>
+                        <img ng-src="{{ vote.user.getAvatar(40,40) }}" height="40" width="40">
+                      </div>
+                    </div>
+                  </span>
+                  <a class="authorContent-name" href="#">
+                    {{vote.user.username}}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
