@@ -10,7 +10,7 @@ export default () => {
         return (this.username) ? this.username + ": " : ""
       },
 
-      getMention(username) {
+      getMention(username = "") {
         const content = this.content
         const pattern = /\B\@([\w\-]+)/gim
         let mention = content.match(pattern)

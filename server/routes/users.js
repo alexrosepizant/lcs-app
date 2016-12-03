@@ -1,25 +1,127 @@
 "use strict"
 
 // User routes use users controller
+const passport = require("passport")
 const users = require("../controllers/users")
-const session = require("../controllers/session")
 const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
 
-  // Login and signup
-  app.get("/auth/check_username/:username", users.exists)
-  app.get("/auth/session", authorization.requiresLogin, session.session)
-  app.post("/auth/session", session.login)
-  app.post("/auth/users", users.create)
-  app.delete("/auth/session", session.logout)
+  app.get("/auth/check_username/:username", (req, res, next) => {
+    users.exists(req.params.username)
+     .then((userExist) => {
+       res.json({
+         exists: userExist,
+       })
+     })
+     .catch((err) => {
+       return next(err)
+     })
+  })
+
+  /**
+   * Session
+   * returns info on authenticated user
+   */
+  app.get("/auth/session", authorization.requiresLogin, (req, res) => {
+    res.json(req.user.user_info)
+  })
+
+  /**
+   *  Login
+   *  requires: {email, password}
+   */
+  app.post("/auth/session", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+      const error = err || info
+      if (error) {
+        return res.status(400).json(error)
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.status(400).json(err)
+        }
+        res.json(req.user.user_info)
+      })
+    })(req, res, next)
+  })
+
+  /**
+  * Create user
+  */
+  app.post("/auth/users", (req, res, next) => {
+    users.create(req.body)
+    .then((newUser) => {
+      req.logIn(newUser, (err) => {
+        if (err) {
+          return next(err)
+        } else {
+          res.json(newUser.user_info)
+        }
+      })
+    })
+    .catch((err) => {
+      return next(err)
+    })
+  })
+
+  /**
+   * Logout
+   * returns nothing
+   */
+  app.delete("/auth/session", (req, res) => {
+    if (req.user) {
+      req.logout()
+      res.sendStatus(200)
+    } else {
+      res.status(400).send("Not logged in")
+    }
+  })
 
   // CRUD endPoints
-  app.get("/users", users.team)
-  app.get("/users/me", users.me)
-  app.put("/users/:userId", users.update)
-  app.get("/users/:userId", users.findOne)
+  app.get("/users", (req, res) => {
+    users.team()
+    .then((users) => {
+      res.jsonp(users)
+    })
+    .catch((err) => {
+      res.status(400).json(err)
+    })
+  })
 
-	// Setting up the userId param
-  app.param("userId", users.user)
+  /**
+  * Send User
+  */
+  app.get("/users/me", (req, res) => {
+    res.jsonp(req.user || null)
+  })
+
+  app.put("/users/:userId", (req, res) => {
+    users.update(_.extend(req.user, req.body))
+    .then((user) => {
+      res.jsonp(user)
+    })
+    .catch((err) => {
+      res.status(400).json(err)
+    })
+  })
+
+  /**
+  * Return current user
+  */
+  app.get("/users/:userId", (req, res) => {
+    res.jsonp(req.profile)
+  })
+
+  // Setting up the userId param
+  app.param("userId", (req, res, next, id) => {
+    return users.user(id)
+     .then((user) => {
+       req.profile = user
+       return next()
+     })
+     .catch((err) => {
+       return next(err)
+     })
+  })
 }

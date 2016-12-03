@@ -10,8 +10,7 @@ export default function Vote(User) {
       no: [],
 
       hasUserAnswered(userId) {
-        console.warn(Array.from(new Set(this.yes, this.no, this.blank)).indexOf(userId) === -1)
-        return Array.from(new Set(this.yes, this.no, this.blank)).indexOf(userId) === -1
+        return this.yes.concat(this.no, this.blank).indexOf(userId) !== -1
       },
 
       getDays() {

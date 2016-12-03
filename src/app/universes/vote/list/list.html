@@ -49,29 +49,29 @@
         </div>
       </div>
 
-      <div deckgrid class="deckgrid" source="votes" ng-if="votes.length > 0">
+      <div ng-repeat="vote in votes" ng-if="votes.length > 0">
         <div class="card">
           <div class="card-image voteContainer">
-            <figure class="image voteCircle" ng-if="!card.hasUserAnswered(mother.currentUser._id)">
+            <figure class="image voteCircle" ng-if="!vote.hasUserAnswered(currentUser._id)">
               <div class="mask-a">
-                <div class="hand" ng-click="mother.vote(card, 1);">
+                <div class="hand" ng-click="addVote(vote, 1)">
                 </div>
-                <div class="hand-1" ng-click="mother.vote(card, 2);">
+                <div class="hand-1" ng-click="addVote(vote, 2)">
                 </div>
-                <div class="hand-2" ng-click="mother.vote(card, 3);">
+                <div class="hand-2" ng-click="addVote(vote, 3)">
                 </div>
               </div>
             </figure>
-            <figure ng-if="card.hasUserAnswered(mother.currentUser._id)">
+            <h1 ng-if="vote.hasUserAnswered(currentUser._id)">
               A voté
-            </figure>
+            </h1>
           </div>
           <div class="voteCardContent">
             <div class="voteEndDate">
-              Fin des débats {{ card.getDays() }}
+              Fin des débats {{ vote.getDays() }}
             </div>
             <div class="content margin-top-20">
-              {{ card.content }}
+              {{ vote.content }}
               <br>
             </div>
             <div class="authorSectionContainer">
@@ -82,12 +82,12 @@
                 <span class="user-image">
                   <div class="user-image--image">
                     <div>
-                      <img ng-src="{{ card.user.getAvatar(40,40) }}" height="30" width="30">
+                      <img ng-src="{{ vote.user.getAvatar(40,40) }}" height="30" width="30">
                     </div>
                   </div>
                 </span>
                 <a class="authorContent-name" href="#">
-                  {{card.user.username}}
+                  {{vote.user.username}}
                 </a>
               </div>
             </div>

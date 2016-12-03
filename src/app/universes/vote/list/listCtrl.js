@@ -8,8 +8,8 @@ export default function VoteListCtrl($rootScope, $scope, VoteFactory, Notificati
   // correspondance values
   $scope.voteOptions = ["yes", "blank", "no"]
 
-  $scope.vote = (vote, value) => {
-    if ($scope.hasUserAnswered(vote)) {
+  $scope.addVote = (vote, value) => {
+    if (vote.hasUserAnswered($scope.currentUser._id)) {
 
       Notification.warning({
         title: "Warning",

@@ -1,6 +1,7 @@
 export default function AuthFactory($http, $rootScope, $cookieStore, $location, User) {
 
-  $rootScope.currentUser = new User($cookieStore.get("user")) || null
+  const cookieUser = $cookieStore.get("user")
+  $rootScope.currentUser = (cookieUser) ? new User(cookieUser) : null
 
   return {
     login(provider, user) {
