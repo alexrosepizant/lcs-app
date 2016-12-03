@@ -31,39 +31,39 @@ export default function ArticleConfig($stateProvider) {
   })
   .state("article.create", {
     url: "/article/create",
-    onEnter: ["$state", "$uibModal", function($state, $uibModal) {
+    onEnter: ["$state", "$uibModal", ($state, $uibModal) => {
       $uibModal.open({
         templateUrl: "app/universes/article/creation/standard/create.html",
         controller: "StandardCreationCtrl",
         backdrop: "static",
         animation: false,
-      }).result.finally(function() {
+      }).result.finally(() => {
         $state.go("^")
       })
     }],
   })
   .state("article.createVideo", {
     url: "/article/create/video",
-    onEnter: ["$state", "$uibModal", function($state, $uibModal) {
+    onEnter: ["$state", "$uibModal", ($state, $uibModal) => {
       $uibModal.open({
         templateUrl: "app/universes/article/creation/video/create.html",
         controller: "VideoCreationCtrl",
         backdrop: "static",
         animation: false,
-      }).result.finally(function() {
+      }).result.finally(() => {
         $state.go("^")
       })
     }],
   })
   .state("article.createAlbum", {
     url: "/article/create/album",
-    onEnter: ["$state", "$uibModal", function($state, $uibModal) {
+    onEnter: ["$state", "$uibModal", ($state, $uibModal) => {
       $uibModal.open({
         templateUrl: "app/universes/article/creation/album/create.html",
         controller: "AlbumCreationCtrl",
         backdrop: "static",
         animation: false,
-      }).result.finally(function() {
+      }).result.finally(() => {
         $state.go("^")
       })
     }],

@@ -391,7 +391,7 @@ p.title.is-bold {
 }
 
 .user-title {
-  margin: -5px 0 0;
+  margin: 10px 0 0;
 }
 
 .user-chat {
@@ -656,17 +656,19 @@ textarea {
 }
 
 #popover-trigger-chat:not(.active) {
-  border-radius: 50%;
-  padding: 5px !important;
-  height: 35px;
-  margin-top: 8px;
-  border: 1px solid;
+  padding: 2px;
+  height: 26px;
+  margin-top: 12px;
+  border: 1px solid white !important;
   color: white;
 }
 
 #popover-trigger-chat.active {
   background: red;
   color: white;
+  padding: 2px;
+  height: 26px;
+  margin-top: 12px;
 }
 
 #live-chat header {
@@ -751,10 +753,6 @@ textarea {
 .chat-feedback {
   font-style: italic;
   margin: 0 0 0 80px;
-}
-
-.user-chat-container {
-  height: 30px;
 }
 
 .img-chat {
@@ -1045,7 +1043,7 @@ textarea {
 }
 
 .masonry-child:first-of-type:last-of-type {
-    display: inline-block;
+  display: inline-block;
 }
 
 .masonry-child a {
@@ -1098,6 +1096,16 @@ figure {
 
 .comment {
   width: 100%;
+}
+
+.commentContainer {
+  padding: 0 20px;
+  width: 100%;
+}
+
+.commentContainer .authorSectionTitle {
+  position: relative;
+  top: 7px;
 }
 
 .rounded img {

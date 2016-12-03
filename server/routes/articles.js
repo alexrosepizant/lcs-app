@@ -1,6 +1,7 @@
 "use strict"
 
 // Articles routes use articles controller
+const _ = require("lodash")
 const articles = require("../controllers/articles")
 const authorization = require("./middlewares/authorization")
 

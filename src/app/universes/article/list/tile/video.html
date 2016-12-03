@@ -10,6 +10,7 @@
       {{article.title}}
     </div>
   </a>
+
   <div class="margin-top-10">
 
     <!-- Include iframe of video -->
@@ -56,6 +57,12 @@
 <p class="three-line-ellipsis margin-top-20" ng-if="article.description">
   {{article.description}}
 </p>
+
+<div class="margin-top-20">
+  <a ui-sref="videoView({ articleId: article._id })">
+    Voir plus
+  </a>
+</div>
 
 <article class="media margin-top-20">
   <div class="media-content">

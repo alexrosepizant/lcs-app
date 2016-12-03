@@ -40,8 +40,9 @@ module.exports = (app) => {
       req.logIn(user, (err) => {
         if (err) {
           return res.status(400).json(err)
+        } else {
+          res.jsonp(user.user_info)
         }
-        res.json(req.user.user_info)
       })
     })(req, res, next)
   })
@@ -56,7 +57,7 @@ module.exports = (app) => {
         if (err) {
           return next(err)
         } else {
-          res.json(newUser.user_info)
+          res.jsonp(newUser.user_info)
         }
       })
     })

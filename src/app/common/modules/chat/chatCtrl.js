@@ -70,6 +70,7 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
   $scope.addMessage = (message) => {
     $scope.messages.push(new Message(message))
     $scope.hasNewMessage = true
+    $rootScope.$broadcast("onNewMessage")
   }
 
   $scope.sendMessage = () => {

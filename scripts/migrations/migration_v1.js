@@ -1,6 +1,6 @@
 /**
- * Global dependencies includes db models and routes.
- */
+* Global dependencies includes db models and routes.
+*/
 const mongoose = require("mongoose")
 const _ = require("lodash")
 const config = require("../../server/config")
@@ -17,162 +17,268 @@ const Album = mongoose.model("Album")
 const Article = mongoose.model("Article")
 const Chat = mongoose.model("Chat")
 const Conversation = mongoose.model("Conversation")
+const User = mongoose.model("User")
+const Vote = mongoose.model("Vote")
+const UserEvent = mongoose.model("UserEvent")
 
 const migrateAlbum = () => {
   const albumPromises = []
   return Album.find({})
-    .then((albums, err) => {
-      if (err) {
-        return Promise.reject("Error when to fetch album " + err)
-      } else {
+  .then((albums, err) => {
+    if (err) {
+      return Promise.reject("Error when to fetch album " + err)
+    } else {
 
-        console.log(albums.length + " albums to migrate: ")
-        _.each(albums, (album) => {
-          const article = new Article({
-            title: album.name,
-            user: album.user,
-            content: album.description,
-            type: "album",
-            comments: [],
-            created: album.created,
-            photoList: album.photoList,
-            coverPicPath: album.coverPicPath,
-          })
-
-          albumPromises.push(article.save((err) => {
-            if (err) {
-              console.log("Error when trying to save new article " + err)
-            } else {
-              console.log("Save new article: " + article.title)
-            }
-          }))
+      console.log(albums.length + " albums to migrate: ")
+      _.each(albums, (album) => {
+        const article = new Article({
+          title: album.name,
+          user: album.user,
+          content: album.description,
+          type: "album",
+          comments: [],
+          created: album.created,
+          photoList: album.photoList,
+          coverPicPath: album.coverPicPath,
         })
 
-        return Promise.all(albumPromises)
-      }
-    })
+        albumPromises.push(article.save((err) => {
+          if (err) {
+            console.log("Error when trying to save new article " + err)
+          } else {
+            console.log("Save new article: " + article.title)
+          }
+        }))
+      })
+
+      return Promise.all(albumPromises)
+    }
+  })
 }
 
 const migrateConversation = () => {
   const conversationPromises = []
   return Conversation.findOne({users: []})
-    .populate("messages.user", "username")
-    .then((conversations, err) => {
-      if (err) {
-        return Promise.reject(err)
-      } else {
+  .populate("messages.user", "username")
+  .then((conversations, err) => {
+    if (err) {
+      return Promise.reject(err)
+    } else {
 
-        if (!conversations || !conversations.messages)  {
-          console.log("No conversations to migrate")
-          return Promise.resolve()
-        }
-
-        console.log(conversations.messages.length + " to migrate")
-        _.each(conversations.messages, (message) => {
-          if (message.content.length > 0) {
-
-            const chat = new Chat({
-              username: message.user.username,
-              content: message.content,
-              created: message.created,
-            })
-
-            conversationPromises.push(chat.save((err) => {
-              if (err) {
-                console.log("Error when trying to save new chat " + err)
-              } else {
-                console.log("Save new chat: " + chat.content)
-              }
-            }))
-          }
-        })
-
-        return Promise.all(conversationPromises)
+      if (!conversations || !conversations.messages)  {
+        console.log("No conversations to migrate")
+        return Promise.resolve()
       }
-    })
+
+      console.log(conversations.messages.length + " to migrate")
+      _.each(conversations.messages, (message) => {
+        if (message.content.length > 0) {
+
+          const chat = new Chat({
+            username: message.user.username,
+            content: message.content,
+            created: message.created,
+          })
+
+          conversationPromises.push(chat.save((err) => {
+            if (err) {
+              console.log("Error when trying to save new chat " + err)
+            } else {
+              console.log("Save new chat: " + chat.content)
+            }
+          }))
+        }
+      })
+
+      return Promise.all(conversationPromises)
+    }
+  })
 }
 
 const migrateVideoArticles = () => {
   const articlePromises = []
   return Article.find({type: "video"})
-    .then((articles, err) => {
-      if (err) {
-        return Promise.reject(err)
-      } else {
+  .then((articles, err) => {
+    if (err) {
+      return Promise.reject(err)
+    } else {
 
-        console.log(articles.length + " to migrate")
-        _.each(articles, (article) => {
-          article.url = article.videoLink
-          article.isEmbed = true
+      console.log(articles.length + " to migrate")
+      _.each(articles, (article) => {
+        article.url = article.videoLink
+        article.isEmbed = true
 
-          articlePromises.push(article.save((err) => {
-            if (err) {
-              console.log("Error when trying to update article " + err)
-            } else {
-              console.log("Update article: " + article.title)
-            }
-          }))
-        })
+        articlePromises.push(article.save((err) => {
+          if (err) {
+            console.log("Error when trying to update article " + err)
+          } else {
+            console.log("Update article: " + article.title)
+          }
+        }))
+      })
 
-        return Promise.all(articlePromises)
-      }
-    })
+      return Promise.all(articlePromises)
+    }
+  })
 }
 
 const migrateCategoriesArticles = () => {
   const articlePromises = []
   return Article.find({})
-    .then((articles, err) => {
-      if (err) {
-        return Promise.reject(err)
-      } else {
+  .then((articles, err) => {
+    if (err) {
+      return Promise.reject(err)
+    } else {
 
-        console.log(articles.length + " to migrate")
-        _.each(articles, (article) => {
-          article.categories = article.categories.map((categorie) => categorie.value)
-          articlePromises.push(article.save((err) => {
-            if (err) {
-              console.log("Error when trying to update article " + err)
-            } else {
-              console.log("Update article: " + article.title)
-            }
-          }))
-        })
+      console.log(articles.length + " to migrate")
+      _.each(articles, (article) => {
+        article.categories = article.categories.map((categorie) => categorie.value)
+        articlePromises.push(article.save((err) => {
+          if (err) {
+            console.log("Error when trying to update article " + err)
+          } else {
+            console.log("Update article: " + article.title)
+          }
+        }))
+      })
 
-        return Promise.all(articlePromises)
-      }
-    })
+      return Promise.all(articlePromises)
+    }
+  })
 }
 
+const keepCreateContentRefOnUser = () => {
+  const userPromises = []
+  return User.find({})
+  .then((users, err) => {
+    if (err) {
+      return Promise.reject(err)
+    } else {
+
+      console.log(users.length + " to migrate")
+      _.each(users, (user) => {
+        userPromises.push(Article.find({
+          user: user._id,
+        })
+        .then((articles, err) => {
+          if (err) {
+            console.log("Error when trying to update article " + err)
+          } else {
+            if (articles.length > 0) {
+              console.log("Add " + articles.length + " articles to user")
+              return User.update({
+                "_id": user._id,
+              }, {
+                "$set": {
+                  articles: articles.map((article) => article._id),
+                },
+              })
+            } else {
+              return User.update({
+                "_id": user._id,
+              }, {
+                "$set": {
+                  articles: [],
+                },
+              })
+            }
+          }
+        }))
+
+        userPromises.push(Vote.find({
+          user: user._id,
+        })
+        .then((votes, err) => {
+          if (err) {
+            console.log("Error when trying to update vote " + err)
+          } else {
+            if (votes.length > 0) {
+              console.log("Add " + votes.length + " votes to user")
+              return User.update({
+                "_id": user._id,
+              }, {
+                "$set": {
+                  votes: votes.map((vote) => vote._id),
+                },
+              })
+            } else {
+              return User.update({
+                "_id": user._id,
+              }, {
+                "$set": {
+                  votes: [],
+                },
+              })
+            }
+          }
+        }))
+
+        userPromises.push(UserEvent.find({
+          user: user._id,
+        })
+        .then((userEvents, err) => {
+          if (err) {
+            console.log("Error when trying to update vote " + err)
+          } else {
+            if (userEvents.length > 0) {
+              console.log("Add " + userEvents.length + " userEvents to user")
+              return User.update({
+                "_id": user._id,
+              }, {
+                "$set": {
+                  userEvents: userEvents.map((userEvent) => userEvent._id),
+                },
+              })
+            } else {
+              return User.update({
+                "_id": user._id,
+              }, {
+                "$set": {
+                  userEvents: [],
+                },
+              })
+            }
+          }
+        }))
+      })
+
+      return Promise.all(userPromises)
+    }
+  })
+}
 
 /**
 Execute Scripts
 **/
 mongoose.connect(config.db)
-  .then(() => {
-    utils.titleLog("Start script migration...")
-  })
-  .then(() => {
-    utils.titleLog("Prepare to migrate albums")
-    return migrateAlbum()
-  })
-  .then(() => {
-    utils.titleLog("Prepare to migrate conversations")
-    return migrateConversation()
-  })
-  .then(() => {
-    utils.titleLog("Prepare to migrate video articles")
-    return migrateVideoArticles()
-  })
-  .then(() => {
-    utils.titleLog("Prepare to migrate categories articles")
-    return migrateCategoriesArticles()
-  })
-  .then(() => {
-    utils.titleLog("Script migration ended")
-    process.exit(-1)
-  })
-  .catch((err) => {
-    utils.titleLog(err)
-    process.exit(-1)
-  })
+.then(() => {
+  utils.titleLog("Start script migration...")
+})
+.then(() => {
+  utils.titleLog("Prepare to migrate albums")
+  // return migrateAlbum()
+})
+.then(() => {
+  utils.titleLog("Prepare to migrate conversations")
+  // return migrateConversation()
+})
+.then(() => {
+  utils.titleLog("Prepare to migrate video articles")
+  // return migrateVideoArticles()
+})
+.then(() => {
+  utils.titleLog("Prepare to migrate categories articles")
+  // return migrateCategoriesArticles()
+})
+.then(() => {
+  utils.titleLog("Prepare to migrate users to add content ref")
+  return keepCreateContentRefOnUser()
+})
+.then(() => {
+  utils.titleLog("Script migration ended")
+  process.exit(-1)
+})
+.catch((err) => {
+  utils.titleLog(err)
+  process.exit(-1)
+})

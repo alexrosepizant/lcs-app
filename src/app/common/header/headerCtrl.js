@@ -53,6 +53,10 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, n
     ngPopoverFactory.closePopover(triggerId)
   }
 
+  $scope.$on("onNewMessage", () => {
+    $scope.showChat = true
+  })
+
   // Logout action
   $scope.logout = () => {
     AuthFactory.logout((err) => {
