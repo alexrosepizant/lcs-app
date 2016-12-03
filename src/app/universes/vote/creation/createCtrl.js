@@ -1,9 +1,12 @@
-export default function VoteCreationCtrl($scope, $location, VoteFactory, Notification) {
+export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFactory, Notification) {
 
   $scope.showError = false
   $scope.vote = {
     title: "",
     content: "",
+    yes: [],
+    no: [],
+    blank: [],
   }
 
   $scope.dismiss = function() {
