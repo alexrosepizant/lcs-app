@@ -61,6 +61,15 @@ exports.rotateImage = () => {
   })
 }
 
+exports.rename = (from, to) => {
+  return new Promise((resolve, reject) => {
+    fs.rename(from, to, (err, res) => {
+      if (err) reject(err)
+      else resolve(res)
+    })
+  })
+}
+
   // Manage photo upload with gm
 exports.handlePhotoUpload = (req, res) => {
   const params = req.files

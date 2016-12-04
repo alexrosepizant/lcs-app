@@ -1,10 +1,16 @@
-export default function StandardCreationCtrl($rootScope, $scope, $location, ArticleFactory, Upload, Notification) {
+export default function StandardCreationCtrl($rootScope, $scope, $location,
+  ArticleFactory, Upload, Notification, ParameterFactory) {
 
   $scope.showError = false
   $scope.article = {
     type: "standard",
     user: $rootScope.currentUser._id,
   }
+
+  ParameterFactory.getParameters()
+    .then((parameters) => {
+      $scope.categories = (parameters) ? parameters.articleCategories : []
+    })
 
   /** ***
   Upload config

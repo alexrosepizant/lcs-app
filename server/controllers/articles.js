@@ -3,7 +3,10 @@
 /**
 * Module dependencies.
 */
+const path = require("path")
 const mongoose = require("mongoose")
+const config = require("../config")
+const Files = require("./files")
 
 const Article = mongoose.model("Article")
 
@@ -53,7 +56,22 @@ exports.all = (params) => {
 */
 exports.create = (articleData) => {
   const article = new Article(articleData)
-  return article.save()
+
+  if (article.type === "video" && !article.isEmbed) {
+    const oldPath = path.resolve(config.root + "/server" + config.publicDirectory + article.url)
+    const newPath = path.resolve(config.root + "/server" + config.publicDirectory
+      + config.userVideoDirectory + article.url.split("/").pop())
+    return Files.rename(oldPath, newPath)
+      .then(() => {
+        article.url = config.userVideoDirectory + article.url.split("/").pop()
+        return article.save()
+      })
+      .catch((err) => {
+        return Promise.reject(err)
+      })
+  } else {
+    return article.save()
+  }
 }
 
 /**

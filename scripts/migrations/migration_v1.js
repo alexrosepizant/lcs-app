@@ -95,9 +95,9 @@ const migrateConversation = () => {
   })
 }
 
-const migrateVideoArticles = () => {
+const migrateCategoriesArticles = () => {
   const articlePromises = []
-  return Article.find({type: "video"})
+  return Article.find({})
   .then((articles, err) => {
     if (err) {
       return Promise.reject(err)
@@ -105,9 +105,13 @@ const migrateVideoArticles = () => {
 
       console.log(articles.length + " to migrate")
       _.each(articles, (article) => {
-        article.url = article.videoLink
-        article.isEmbed = true
-
+        article.categories = article.categories.map((categorie) => {
+          if (categorie.value) {
+            return categorie.value
+          } else {
+            return categorie
+          }
+        })
         articlePromises.push(article.save((err) => {
           if (err) {
             console.log("Error when trying to update article " + err)
@@ -122,9 +126,9 @@ const migrateVideoArticles = () => {
   })
 }
 
-const migrateCategoriesArticles = () => {
+const migrateVideoArticles = () => {
   const articlePromises = []
-  return Article.find({})
+  return Article.find({type: "video"})
   .then((articles, err) => {
     if (err) {
       return Promise.reject(err)
@@ -132,7 +136,9 @@ const migrateCategoriesArticles = () => {
 
       console.log(articles.length + " to migrate")
       _.each(articles, (article) => {
-        article.categories = article.categories.map((categorie) => categorie.value)
+        article.url = article.videoLink
+        article.isEmbed = true
+
         articlePromises.push(article.save((err) => {
           if (err) {
             console.log("Error when trying to update article " + err)
@@ -263,16 +269,16 @@ mongoose.connect(config.db)
   // return migrateConversation()
 })
 .then(() => {
-  utils.titleLog("Prepare to migrate video articles")
-  // return migrateVideoArticles()
+  utils.titleLog("Prepare to migrate categories articles")
+  return migrateCategoriesArticles()
 })
 .then(() => {
-  utils.titleLog("Prepare to migrate categories articles")
-  // return migrateCategoriesArticles()
+  utils.titleLog("Prepare to migrate video articles")
+  return migrateVideoArticles()
 })
 .then(() => {
   utils.titleLog("Prepare to migrate users to add content ref")
-  return keepCreateContentRefOnUser()
+  // return keepCreateContentRefOnUser()
 })
 .then(() => {
   utils.titleLog("Script migration ended")

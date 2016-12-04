@@ -18,6 +18,10 @@ export default function Article($sce, $uibModal, $location, UserFactory, User, C
       content: "",
       image: image,
       commentsUser: commentsUser,
+      sources: [{
+        src: $sce.trustAsResourceUrl(data.url),
+        type: data.mimeType,
+      }],
 
       getTitle() {
         return angular.element("<div>" + this.title + "</div>").text()

@@ -36,8 +36,8 @@
               </iframe>
 
               <!-- OR video uploaded by user -->
-              <videogular ng-if="!article.isEmbed" vg-player-ready="onPlayerReady($API)" vg-error="onError($event)">
-                <vg-media vg-src="config.sources" vg-tracks="config.tracks" vg-youtube="rel=1;showinfo=1">
+              <videogular ng-if="!article.isEmbed">
+                <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
                 </vg-media>
                 <vg-controls>
                   <vg-play-pause-button></vg-play-pause-button>
@@ -89,7 +89,7 @@
             </div>
           </div>
 
-          <lcs-comment update-method="updateMethod()" object="article"></lcs-comment>
+          <lcs-comment update-method="updateMethod()" object="article" class="lcs-comment"></lcs-comment>
         </section>
       </div>
     </div>

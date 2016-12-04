@@ -57,6 +57,11 @@
       data-placeholder="Raconte nous ton histoire...">
       </div>
     </form>
+    <div class="content">
+      <span ng-repeat="category in categories" title="{{ category }}" class="tag articleTag">
+        {{ category.value }}
+      </span>
+    </div>
   </section>
 
   <footer class="modal-card-foot">

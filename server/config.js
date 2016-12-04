@@ -16,7 +16,7 @@ module.exports = {
   uploadDirectory:  "tmp/",
   imgDirectory:  "img/",
   userImgDirectory: "public/img/users/",
-  userVideoDirectory: "public/video/",
+  userVideoDirectory: "video/",
   cacheDirectoryX300: "public/.cache/crop/300/img/users/",
   cacheDirectoryX100: "public/.cache/crop/100x100/img/users/",
 }
