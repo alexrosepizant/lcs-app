@@ -58,7 +58,10 @@ exports.create = (user) => {
 * Update user
 */
 exports.update = (user) => {
-  return user.save()
+  const userToUpdate = Object.assign({}, user)
+  delete userToUpdate._id
+
+  return User.findOneAndUpdate({_id: user._id}, userToUpdate, {upsert:true})
     .then((updatedUser, err) => {
       if (err) {
         return Promise.reject(err)

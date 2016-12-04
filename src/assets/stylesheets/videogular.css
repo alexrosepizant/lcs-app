@@ -42,6 +42,9 @@ videogular, [videogular] {
   /**********************/
   /* IMA ads plugin */
   /**********************/ }
+  videogular:not(.videogularFullWidth) {
+    max-width: 350px;
+  }
   videogular button, [videogular] button {
     cursor: pointer; }
   videogular.fullscreen, [videogular].fullscreen {

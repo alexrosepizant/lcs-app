@@ -262,11 +262,11 @@ mongoose.connect(config.db)
 })
 .then(() => {
   utils.titleLog("Prepare to migrate albums")
-  // return migrateAlbum()
+  return migrateAlbum()
 })
 .then(() => {
   utils.titleLog("Prepare to migrate conversations")
-  // return migrateConversation()
+  return migrateConversation()
 })
 .then(() => {
   utils.titleLog("Prepare to migrate categories articles")
@@ -278,7 +278,7 @@ mongoose.connect(config.db)
 })
 .then(() => {
   utils.titleLog("Prepare to migrate users to add content ref")
-  // return keepCreateContentRefOnUser()
+  return keepCreateContentRefOnUser()
 })
 .then(() => {
   utils.titleLog("Script migration ended")

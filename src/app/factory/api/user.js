@@ -17,9 +17,12 @@ export default function UserFactory($http, $rootScope, $cookieStore, User) {
     },
 
     updateUser(user) {
-      $rootScope.currentUser = user
-      $cookieStore.put("user", user)
       return $http.put(`/users/${user._id}`, user)
+        .then((user) => {
+          $rootScope.currentUser = user
+          $cookieStore.put("user", user)
+          return user
+        })
     },
 
     deleteUser(userId) {

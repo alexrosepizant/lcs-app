@@ -1,7 +1,7 @@
 <div>
   <strong>
     <small class="pull-right">
-      {{ article.getDateFrom() }}
+      <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
     </small>
   </strong>
   <a ui-sref="albumView({ articleId: article._id })">
@@ -23,12 +23,6 @@
   </div>
 </article>
 
-<div class="margin-top-20">
-  <a ui-sref="albumView({ articleId: article._id })">
-    Voir plus
-  </a>
-</div>
-
 <article class="margin-top-20">
   <div class="media-content">
     <div class="content">
@@ -40,6 +34,9 @@
           <span ng-if="article.categories.length === 0" class="tag margin-top-10">
             Aucune catégorie associée
           </span>
+          <a ui-sref="albumView({ articleId: article._id })" class="pull-right margin-top-10">
+            Voir plus
+          </a>
         </div>
       </div>
 

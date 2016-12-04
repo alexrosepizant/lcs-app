@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-2">
         <div class="image is-128x128 avatar">
-          <img ng-src="{{ currentUser.getAvatar(300,300) }}" alt="Image"/>
+          <img ng-src="{{ user.getAvatar(300,300) }}" alt="Image"/>
           <div class="spacer"></div>
           <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
             Changer la photo
@@ -12,20 +12,20 @@
       </div>
       <div class="column is-4 name">
         <p>
-          <span class="title is-bold">{{ currentUser.username }}</span>
+          <span class="title is-bold">{{ user.username }}</span>
         </p>
-        <p class="tagline">{{ currentUser.description || "Rentre un petit mot de présentation pour les copaings" }}</p>
+        <p class="tagline">{{ user.presentation || "Rentre un petit mot de présentation pour les copaings" }}</p>
       </div>
       <div class="column is-2 following has-text-centered">
-        <p class="stat-val">129</p>
+        <p class="stat-val">{{ user.articles.length }}</p>
         <p class="stat-key">Articles</p>
       </div>
       <div class="column is-2 following has-text-centered">
-        <p class="stat-val">36</p>
+        <p class="stat-val">{{ user.userEvents.length }}</p>
         <p class="stat-key">Evènements</p>
       </div>
       <div class="column is-2 following has-text-centered">
-        <p class="stat-val">29</p>
+        <p class="stat-val">{{ user.votes.length }}</p>
         <p class="stat-key">Votes</p>
       </div>
     </div>
@@ -33,14 +33,14 @@
   <div class="profile-options">
     <div class="tabs is-fullwidth">
       <ul>
-        <li class="link">
-          <a>
-            <span class="icon"><i class="fa fa-vcard"></i></span>
-            <span>Mes infos</span>
-          </a>
-        </li>
         <li class="link is-active">
           <a>
+            <span class="icon"><i class="fa fa-vcard"></i></span>
+            <span>Editer mon profil</span>
+          </a>
+        </li>
+        <li class="link">
+          <a ui-sref="publication">
             <span class="icon"><i class="fa fa-file-text-o"></i></span>
             <span>Voir mes publications</span>
           </a>
@@ -49,22 +49,69 @@
     </div>
   </div>
 
-  <div deckgrid class="deckgrid" source="articles" ng-if="articles.length > 0">
-    <div class="card user-profile">
-      <header class="card-header">
-        <p class="card-header-title ellipsis">
-          {{card.title}}
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          <p class="three-line-ellipsis">{{card.getFormattedContent() || card.description}}</p>
+  <div class="container section bottom-50">
+    <div class="columns">
+      <div class="column is-6">
+        <div>
+          <h1 class="title">
+            Mes infos de compte
+          </h1>
+        </div>
+        <div class="margin-top-20">
+          <label class="label">Nom d'utilisateur</label>
+          <p class="control">
+            <input class="input"
+            type="text"
+            placeholder="Nom d'utilisateur"
+            ng-model="user.username">
+          </p>
+
+          <label class="label">Email</label>
+          <p class="control">
+            <input class="input"
+            type="text"
+            placeholder="Email"
+            ng-model="user.email">
+          </p>
+
+          <label class="label">Le petit mot aux copaings</label>
+          <p class="control">
+            <textarea class="textarea"
+            type="text"
+            placeholder="Le petit mot aux copaings"
+            ng-model="user.presentation">
+          </textarea>
+          </p>
         </div>
       </div>
-      <footer class="card-footer">
-        <a class="card-footer-item">Modifier</a>
-        <a class="card-footer-item" ng-click="mother.remove($event, card._id)">Supprimer</a>
-      </footer>
+      <div class="column is-6">
+        <div>
+          <h1 class="title">
+            Changer de mot de passe
+          </h1>
+        </div>
+
+        <div class="margin-top-20">
+          <label class="label">Ancien mot de passe</label>
+          <p class="control">
+            <input class="input"
+            type="text"
+            placeholder="●●●●●●●"
+            ng-model="user.oldPassword">
+          </p>
+
+          <label class="label">Nouveau mot de passe</label>
+          <p class="control">
+            <input class="input"
+            type="text"
+            placeholder="●●●●●●●"
+            ng-model="user.newPassword">
+          </p>
+        </div>
+      </div>
     </div>
+    <span class="pull-rigth button is-primary" ng-click="update()">
+      Sauvegarder
+    </span>
   </div>
 </div>

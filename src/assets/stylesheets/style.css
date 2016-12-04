@@ -293,7 +293,7 @@ body {
 
 .profile-options {
   background-color: #f1f1f1;
-  margin: -20px 0 20px 0;
+  margin: -20px 0 0;
 }
 
 .profile-options .link a {
@@ -369,6 +369,16 @@ p.title.is-bold {
   margin-top: 20px;
   font-size: 30px;
   font-weight: 400;
+}
+
+.blog-title-detail {
+  padding: 10px 15px;
+  margin: 40px 0 10px;
+  width: 100%;
+  background: #f5f5f5;
+  color: var(--MainColor);
+  font-size: 25px;
+  text-transform: capitalize;
 }
 
 .user-article {
@@ -1097,6 +1107,10 @@ figure {
 .comment {
   margin-top: 0 !important;
   padding-top: 10px !important;
+}
+
+.comment textarea {
+  margin-bottom: 20px;
 }
 
 .reply {

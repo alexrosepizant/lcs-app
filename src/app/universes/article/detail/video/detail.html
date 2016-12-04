@@ -3,10 +3,12 @@
     <div class="column is-8">
       <div class="box bottom-50">
         <p>
-          <small class="pull-left">{{ article.getDateFrom() }}</small>
+          <strong>
+            <i class="fa fa-clock-o font-small pull-left"></i> <small class="pull-left">{{ article.getDateFrom() }}</small>
+          </strong>
         </p>
         <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
-        <div class="blog-title ellipsis">{{article.title}}</div>
+        <div class="blog-title-detail ellipsis">{{article.title}}</div>
         <article class="media">
           <div class="media-content">
             <div class="content">
@@ -36,7 +38,7 @@
               </iframe>
 
               <!-- OR video uploaded by user -->
-              <videogular ng-if="!article.isEmbed">
+              <videogular ng-if="!article.isEmbed" class="videogularFullWidth">
                 <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
                 </vg-media>
                 <vg-controls>

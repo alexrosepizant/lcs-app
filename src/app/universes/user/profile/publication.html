@@ -1,0 +1,70 @@
+<div class="container profile">
+  <div class="section profile-heading">
+    <div class="columns">
+      <div class="column is-2">
+        <div class="image is-128x128 avatar">
+          <img ng-src="{{ user.getAvatar(300,300) }}" alt="Image"/>
+          <div class="spacer"></div>
+          <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
+            Changer la photo
+          </div>
+        </div>
+      </div>
+      <div class="column is-4 name">
+        <p>
+          <span class="title is-bold">{{ user.username }}</span>
+        </p>
+        <p class="tagline">{{ user.description || "Rentre un petit mot de présentation pour les copaings" }}</p>
+      </div>
+      <div class="column is-2 following has-text-centered">
+        <p class="stat-val">{{ user.articles.length }}</p>
+        <p class="stat-key">Articles</p>
+      </div>
+      <div class="column is-2 following has-text-centered">
+        <p class="stat-val">{{ user.userEvents.length }}</p>
+        <p class="stat-key">Evènements</p>
+      </div>
+      <div class="column is-2 following has-text-centered">
+        <p class="stat-val">{{ user.votes.length }}</p>
+        <p class="stat-key">Votes</p>
+      </div>
+    </div>
+  </div>
+  <div class="profile-options">
+    <div class="tabs is-fullwidth">
+      <ul>
+        <li class="link">
+          <a ui-sref="profile">
+            <span class="icon"><i class="fa fa-vcard"></i></span>
+            <span>Mes infos</span>
+          </a>
+        </li>
+        <li class="link is-active">
+          <a>
+            <span class="icon"><i class="fa fa-file-text-o"></i></span>
+            <span>Voir mes publications</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div deckgrid class="deckgrid" source="articles" ng-if="articles.length > 0">
+    <div class="card user-profile">
+      <header class="card-header">
+        <p class="card-header-title ellipsis">
+          {{card.title}}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p class="three-line-ellipsis">{{card.getFormattedContent() || card.description}}</p>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a class="card-footer-item">Modifier</a>
+        <a class="card-footer-item" ng-click="mother.remove($event, card._id)">Supprimer</a>
+      </footer>
+    </div>
+  </div>
+</div>

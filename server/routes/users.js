@@ -98,13 +98,13 @@ module.exports = (app) => {
   })
 
   app.put("/users/:userId", (req, res) => {
-    users.update(_.extend(req.user, req.body))
-    .then((user) => {
-      res.jsonp(user)
-    })
-    .catch((err) => {
-      res.status(400).json(err)
-    })
+    users.update(req.body)
+      .then((user) => {
+        res.jsonp(user)
+      })
+      .catch((err) => {
+        res.status(400).json(err)
+      })
   })
 
   /**

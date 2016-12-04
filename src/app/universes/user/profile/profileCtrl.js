@@ -1,10 +1,11 @@
 export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
-                                    Upload, ArticleFactory, UserFactory, articles) {
+                                    Upload, ArticleFactory, UserFactory, articles, user, Notification) {
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.articles = articles
   $scope.filter = "all"
+  $scope.user = user
 
   /** ***
   Upload config
@@ -26,7 +27,7 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
             file: file,
           },
         }).then((resp) => {
-          $scope.currentUser.avatar = resp.data.location
+          $scope.user.avatar = resp.data.location
         })
       }
     }
@@ -71,6 +72,18 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
     Update
   ***/
   $scope.update = () => {
-    UserFactory.updateUser($scope.currentUser)
+    UserFactory.updateUser($scope.user)
+      .then((user) => {
+        Notification.success({
+          title: "Success",
+          message: user,
+        })
+      })
+      .catch((err) => {
+        Notification.error({
+          title: "Error",
+          message: err,
+        })
+      })
   }
 }
