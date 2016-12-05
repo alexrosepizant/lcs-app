@@ -35,23 +35,26 @@
         const trigger = document.querySelector("#"+$scope.trigger)
         const target = document.querySelector(".ng-popover[trigger=\""+$scope.trigger+"\"]")
 
-        const getMaxWidth = function() {
-          return document.querySelector("body .container").offsetWidth
-        }
+        const getTriggerOffset = function(triggerWidth) {
 
-        const getTriggerOffset = function() {
-
-          const maxWidth = getMaxWidth()
           const triggerRect = trigger.getBoundingClientRect()
-          let left = (triggerRect.left > maxWidth) ?
-            maxWidth : triggerRect.left
+          let left = triggerRect.left
+          let top = triggerRect.top + document.body.scrollTop
 
-          if ($scope.popoverClass === "popover-chat" && (maxWidth < triggerRect.left + 100)) {
-            left -= (triggerRect.left + 100 - maxWidth)
+          if (triggerRect.left + triggerWidth > document.querySelector("body .container").offsetWidth) {
+            left += (document.querySelector("body .container").offsetWidth - triggerRect.left)
+            left -= triggerWidth
+            if ($scope.popoverClass === "popover-chat") {
+              left -= 65
+            }
+          }
+
+          if ($scope.popoverClass === "popover-chat") {
+            top += 12
           }
 
           return {
-            top: triggerRect.top + document.body.scrollTop,
+            top: top,
             left: left,
           }
         }
@@ -59,8 +62,6 @@
         const calcPopoverPosition = function(trigger, target) {
           let left
           let top
-
-          const maxWidth = getMaxWidth()
 
           target.classList.toggle("hide")
           const targetWidth = target.offsetWidth
@@ -72,27 +73,23 @@
 
           switch ($scope.dropDirection) {
           case "left":
-            left = getTriggerOffset().left - targetWidth - 10 + "px"
-            top = getTriggerOffset().top + "px"
+            left = getTriggerOffset(triggerWidth).left - targetWidth - 10 + "px"
+            top = getTriggerOffset(triggerWidth).top + "px"
             break
 
           case "right":
-            left = getTriggerOffset().left + triggerWidth + 10 + "px"
+            left = getTriggerOffset(triggerWidth).left + triggerWidth + 10 + "px"
             top = getTriggerOffset().top + "px"
             break
 
           case "top":
-            left = getTriggerOffset().left + "px"
-            top = getTriggerOffset().top - targetHeight - 10 + "px"
+            left = getTriggerOffset(triggerWidth).left + "px"
+            top = getTriggerOffset(triggerWidth).top - targetHeight - 10 + "px"
             break
 
           default:
-            left = getTriggerOffset().left
-            if (left < maxWidth) {
-              left = Math.min(left + triggerWidth, maxWidth)
-            }
-            left = left - targetWidth + "px"
-            top = getTriggerOffset().top + triggerHeight + 10 + "px"
+            left = getTriggerOffset(triggerWidth).left - targetWidth + triggerWidth + "px"
+            top = getTriggerOffset(triggerWidth).top + triggerHeight + 10 + "px"
           }
           target.style.position = "absolute"
           target.style.left = left
