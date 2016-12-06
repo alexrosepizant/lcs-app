@@ -35,6 +35,7 @@ import "./common/modules/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
 import "./common/modules/utils"
 import "./common/modules/chat"
 import "./common/modules/comment"
+import "./common/modules/countdown"
 
 // Import our app config files
 import constants  from "./config/app.constants"
@@ -77,6 +78,7 @@ const requires = [
   "app.auth",
   "app.chat",
   "app.comment",
+  "app.countdown",
   "app.home",
   "app.article",
   "app.user",

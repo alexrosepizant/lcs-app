@@ -5,6 +5,7 @@ export default function Content(User) {
     return angular.extend({
       title: "",
       type: "",
+      contentId: "",
 
       getFormattedType() {
         switch (this.type) {
@@ -37,15 +38,15 @@ export default function Content(User) {
       getLink() {
         switch (this.type) {
         case "standard":
-          return "fa-file-text-o"
+          return "/article/" + this.type + "/" + this._id
         case "album":
-          return "fa-image"
+          return "/article/" + this.type + "/" + this._id
         case "video":
-          return "fa-play-circle"
+          return "/article/" + this.type + "/" + this._id
         case "vote":
-          return "fa-hand-stop-o"
+          return "/vote"
         case "userEvent":
-          return "fa-calendar-o"
+          return "/agenda"
         case "comment":
           return "fa-comment"
         default:

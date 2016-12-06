@@ -73,16 +73,16 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
   ***/
   $scope.update = () => {
     UserFactory.updateUser($scope.user)
-      .then((user) => {
+      .then(() => {
         Notification.success({
           title: "Success",
-          message: user,
+          message: "Profil bien mis a jour.",
         })
       })
-      .catch((err) => {
+      .catch(() => {
         Notification.error({
           title: "Error",
-          message: err,
+          message: "Erreur dans la mise à jour du profil",
         })
       })
   }

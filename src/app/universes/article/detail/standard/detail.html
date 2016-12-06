@@ -1,3 +1,18 @@
+<nav class="nav has-shadow">
+  <div class="container">
+    <div class="nav-right">
+      <a class="nav-item is-tab button is-primary blog-add" ui-sref="article.create">
+        <span class="icon is-small">
+          <i class="fa fa-plus"></i>
+        </span>
+        <span>
+          Action button
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
 <div class="container margin-top-20">
   <div class="columns">
     <div class="column is-8">
@@ -9,7 +24,7 @@
         </p>
         <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
         <div class="blog-title-detail ellipsis">{{article.title}}</div>
-        <article class="media margin-top-10">
+        <article class="media margin-top-20">
           <div class="media-content">
             <div class="content">
               <div class="content">

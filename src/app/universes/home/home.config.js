@@ -9,6 +9,9 @@ export default function HomeConfig($stateProvider) {
         datas: (HomeFactory) => {
           return HomeFactory.getUserDatas()
         },
+        users: (UserFactory) => {
+          return UserFactory.findUsers()
+        },
       },
     })
 }

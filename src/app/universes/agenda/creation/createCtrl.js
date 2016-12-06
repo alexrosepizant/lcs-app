@@ -1,4 +1,7 @@
-export default function CreateEventCtrl($scope, AgendaFactory, Notification) {
+export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notification) {
+  // Retrieve params
+  $scope.currentUser = $rootScope.currentUser
+
   /**
   Flatpick config
   **/
@@ -29,6 +32,7 @@ export default function CreateEventCtrl($scope, AgendaFactory, Notification) {
     AgendaFactory.createUserEvent($scope.userEvent)
       .then(() => {
         $scope.$close(true)
+        $rootScope.$broadcast("updateAgendaList")
         Notification.success({
           title: "Success",
           message: "Evènement créé avec succés",

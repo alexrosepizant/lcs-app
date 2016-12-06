@@ -1,48 +1,21 @@
+<nav class="nav has-shadow">
+  <div class="container">
+    <div class="nav-right">
+      <a class="nav-item is-tab button is-primary blog-add" ui-sref="agenda.create">
+        <span class="icon is-small">
+          <i class="fa fa-plus"></i>
+        </span>
+        <span>
+          Ajouter un évènement
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
   <div class="columns">
     <div class="column is-9">
-      <div class="nav menu">
-        <div class="container">
-          <div class="nav-left">
-            <a class="nav-item is-tab button is-primary blog-add" ui-sref="agenda.create">
-              <span class="icon is-small">
-                <i class="fa fa-plus"></i>
-              </span>
-              <span>
-                Ajouter
-              </span>
-            </a>
-          </div>
-          <div class="nav-right is-hidden-mobile">
-            <nav class="level">
-              <!-- Left side -->
-              <div class="nav-item is-tab">
-                <p class="is-light">
-                  Filtrer par:
-                </p>
-              </div>
-              <div class="level-right">
-                <p class="level-item">
-                  <a ui-sref="article({ filter: 'all' })" ng-class="{'is-current': filter === 'all'}">
-                    Tous
-                  </a>
-                </p>
-                <p class="level-item">
-                  <a ui-sref="article({ filter: 'standard' })" ng-class="{'is-current': filter === 'standard'}">
-                    En attente
-                  </a>
-                </p>
-                <p class="level-item">
-                  <a ui-sref="article({ filter: 'video' })" ng-class="{'is-current': filter === 'video'}">
-                    Mes évènements
-                  </a>
-                </p>
-              </div>
-           </nav>
-          </div>
-        </div>
-      </div>
-
       <div class="container margin-top-20" ng-if="events.length === 0">
         <div class="notification">
           Il n'y a aucun évènement à venir.
