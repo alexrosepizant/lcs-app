@@ -1,16 +1,9 @@
-export default function StandardCreationCtrl($rootScope, $scope, $location,
-  ArticleFactory, Upload, Notification, ParameterFactory) {
+export default function StandardCreationCtrl($rootScope, $scope,
+  ArticleFactory, Notification, Upload, article, parameters) {
 
-  $scope.showError = false
-  $scope.article = {
-    type: "standard",
-    user: $rootScope.currentUser._id,
-  }
-
-  ParameterFactory.getParameters()
-    .then((parameters) => {
-      $scope.categories = (parameters) ? parameters.articleCategories : []
-    })
+  // Retrieve params
+  $scope.article = article
+  $scope.categories = (parameters) ? parameters.articleCategories : []
 
   /** ***
   Upload config
@@ -49,6 +42,7 @@ export default function StandardCreationCtrl($rootScope, $scope, $location,
       })
     }
 
+    $scope.article.user = $rootScope.currentUser._id
     ArticleFactory.createArticle($scope.article)
       .then(() => {
         $rootScope.$broadcast("updateArticleList")

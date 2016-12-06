@@ -7,6 +7,18 @@ const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
   /**
+   * Count articles
+   */
+  app.get("/articles/count", (req, res) => {
+    articles.count()
+      .then((count) => {
+        res.jsonp(count)
+      }).catch((err) => {
+        res.status(400).json(err)
+      })
+  })
+
+  /**
   CRUD endPoints
   **/
 

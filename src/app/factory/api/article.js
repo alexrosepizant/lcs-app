@@ -1,6 +1,7 @@
 export default function ArticleFactory($http, AppConstants, Article) {
   return {
     findArticles(filter, page = 0) {
+      console.warn(filter + " " + page)
       return $http.get("/articles", {
         params: {
           type: filter,
@@ -44,6 +45,13 @@ export default function ArticleFactory($http, AppConstants, Article) {
       return $http.get(`/articles/${articleId}`)
       .then((article) => {
         return new Article(article.data)
+      })
+    },
+
+    getArticleCount() {
+      return $http.get("/articles/count")
+      .then((result) => {
+        return result.data
       })
     },
 

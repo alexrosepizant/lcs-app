@@ -13,25 +13,105 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container margin-top-20">
   <div class="columns">
-    <div class="column is-9">
-      <div class="container margin-top-20" ng-if="events.length === 0">
-        <div class="notification">
-          Il n'y a aucun évènement à venir.
+    <div class="column is-8 margin-top-20">
+      <h1 class="title">
+        <strong>Prochainement</strong>
+      </h1>
+      <hr>
+      <div class="box bottom-50">
+        <div class="container margin-top-20" ng-if="events.length === 0">
+          <div class="notification">
+            Il n'y a aucun évènement à venir.
+          </div>
         </div>
-      </div>
 
-      <div ng-repeat="userEvent in events" ng-if="events.length > 0">
-        <div class="user-blog pull-left">
-          <figure class="image is-64x64">
-            <img ng-src="{{ userEvent.user.getAvatar(40,40) }}" alt="Image">
-          </figure>
+        <div ng-if="events.length > 0">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-32x32">
+                  <img ng-src="{{ events[0].user.getAvatar(40,40) }}" alt="Image">
+                </figure>
+              </div>
+              <div class="media-content margin-top-10">
+                <p class="title is-5">{{ events[0].user.username }}</p>
+                <p class="subtitle is-6">vous propose</p>
+              </div>
+              <div class="media-right">
+                <div class="eventDate" ng-if="events[0].subType !== 'euroMatch'">
+                  <i class="fa fa-calendar"></i>
+                  {{ events[0].startsAt | date:"dd MMM yyyy" }}
+                </div>
+                <div class="eventDate" ng-if="events[0].subType === 'euroMatch'">
+                  {{ events[0].startsAt | date:"dd MMM yyyy, à HH:mm" }}
+                </div>
+              </div>
+            </div>
+
+            <a ui-sref="#">
+              <div class="blog-title ellipsis">{{events[0].title}}</div>
+            </a>
+
+            <div class="content">
+              {{events[0].content}}
+              <br>
+            </div>
+
+            <div class="content">
+              <button class="button is-success">Je viens</button>
+              <button class="button is-primary">Je peux pas</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="column is-3">
+    <div class="column is-4 margin-top-20 bottom-50">
+      <h1 class="title">
+        <strong>Ca arrive bientôt</strong>
+      </h1>
+      <hr>
+      <div class="margin-top-20" ng-repeat="userEvent in events" ng-if="events.length > 0 && $index > 0">
+        <div class="sidebar-content">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-32x32">
+                  <img ng-src="{{ userEvent.user.getAvatar(40,40) }}" alt="Image">
+                </figure>
+              </div>
+              <div class="media-content margin-top-10">
+                <p class="title is-5">{{ userEvent.user.username }}</p>
+                <p class="subtitle is-6">vous propose</p>
+              </div>
+              <div class="media-right">
+                <div style="color: #ccc;" ng-if="userEvent.subType !== 'euroMatch'">
+                  {{ userEvent.startsAt | date:"dd MMM yyyy" }}
+                </div>
+                <div style="color: #ccc;" ng-if="userEvent.subType === 'euroMatch'">
+                  {{ userEvent.startsAt | date:"dd MMM yyyy, à HH:mm" }}
+                </div>
+              </div>
+            </div>
+
+            <a ui-sref="#">
+              <div class="blog-title ellipsis">{{userEvent.title}}</div>
+            </a>
+
+            <div class="content">
+              {{userEvent.content}}
+              <br>
+            </div>
+
+            <div class="content">
+              <button class="button is-success">Je viens</button>
+              <button class="button is-primary">Je peux pas</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

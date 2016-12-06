@@ -1,22 +1,33 @@
-export default function ArticleListCtrl($scope, $location, ArticleFactory,
-  articles, users, filter, currentCategory, parameters) {
-  // Retrieve params
+export default function ArticleListCtrl($scope, $state, ArticleFactory,
+  articles, users, filter, currentCategory, parameters, count, page) {
+
+    /**
+    Retrieve params
+    **/
   $scope.articles = articles
   $scope.users = users
   $scope.filter = filter
   $scope.currentCategory = currentCategory
   $scope.categories = (parameters) ? parameters.articleCategories : []
 
-  // Pagination
+    /**
+    Pagination
+    **/
   $scope.maxSize = 5
-  $scope.totalItems = 60
-  $scope.currentPage = 3
+  $scope.totalItems = count
+  $scope.currentPage = page
+  $scope.itemPerPage = 20
 
   $scope.pageChanged = () => {
-    console.warn("Page changed to: " + $scope.currentPage)
+    ArticleFactory.findArticles($scope.filter, $scope.currentPage - 1)
+      .then((articles) => {
+        $scope.articles = articles
+      })
   }
 
-  // Event listener on list update for article creation
+    /**
+    Event listener on list update for article creation
+    **/
   $scope.$on("updateArticleList", () => {
     ArticleFactory.findArticles(filter)
       .then((articles) => $scope.articles = articles)

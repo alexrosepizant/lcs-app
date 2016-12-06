@@ -16,6 +16,9 @@ export default function ArticleConfig($stateProvider) {
           return ArticleFactory.findArticles(filter, page)
         }
       },
+      count: (ArticleFactory) => {
+        return ArticleFactory.getArticleCount()
+      },
       users: (UserFactory) => {
         return UserFactory.findUsers()
       },
@@ -28,46 +31,86 @@ export default function ArticleConfig($stateProvider) {
       parameters: (ParameterFactory) => {
         return ParameterFactory.getParameters()
       },
+      page: ($stateParams) => {
+        return ($stateParams.page) ? $stateParams.page : 0
+      },
     },
   })
   .state("article.create", {
-    url: "/article/create",
-    onEnter: ["$state", "$uibModal", ($state, $uibModal) => {
+    parent: "article",
+    url: "/create",
+    onEnter: ($state, $uibModal) => {
       $uibModal.open({
         templateUrl: "app/universes/article/creation/standard/create.html",
         controller: "StandardCreationCtrl",
         backdrop: "static",
         animation: false,
+        resolve: {
+          article: ($rootScope, $stateParams, ArticleFactory, Article) => {
+            return ($stateParams.articleId) ? ArticleFactory.getArticle($stateParams.articleId) : new Article({
+              type: "standard",
+              user: $rootScope.currentUser._id,
+            })
+          },
+          parameters: (ParameterFactory) => {
+            return ParameterFactory.getParameters()
+          },
+        },
       }).result.finally(() => {
         $state.go("^")
       })
-    }],
+    },
   })
   .state("article.createVideo", {
-    url: "/article/create/video",
-    onEnter: ["$state", "$uibModal", ($state, $uibModal) => {
+    parent: "article",
+    url: "/create/video",
+    onEnter: ($state, $uibModal) => {
       $uibModal.open({
         templateUrl: "app/universes/article/creation/video/create.html",
         controller: "VideoCreationCtrl",
         backdrop: "static",
         animation: false,
+        resolve: {
+          article: ($rootScope, $stateParams, ArticleFactory, Article) => {
+            return ($stateParams.articleId) ? ArticleFactory.getArticle($stateParams.articleId) : new Article({
+              type: "video",
+              user: $rootScope.currentUser._id,
+              url: "",
+            })
+          },
+          parameters: (ParameterFactory) => {
+            return ParameterFactory.getParameters()
+          },
+        },
       }).result.finally(() => {
         $state.go("^")
       })
-    }],
+    },
   })
   .state("article.createAlbum", {
-    url: "/article/create/album",
-    onEnter: ["$state", "$uibModal", ($state, $uibModal) => {
+    parent: "article",
+    url: "/create/album",
+    onEnter: ($state, $uibModal) => {
       $uibModal.open({
         templateUrl: "app/universes/article/creation/album/create.html",
         controller: "AlbumCreationCtrl",
         backdrop: "static",
         animation: false,
+        resolve: {
+          article: ($rootScope, $stateParams, ArticleFactory, Article) => {
+            return ($stateParams.articleId) ? ArticleFactory.getArticle($stateParams.articleId) : new Article({
+              type: "album",
+              user: $rootScope.currentUser._id,
+            })
+          },
+          parameters: (ParameterFactory) => {
+            return ParameterFactory.getParameters()
+          },
+        },
       }).result.finally(() => {
         $state.go("^")
       })
-    }],
+    },
   })
   .state("albumView", {
     url: "/article/album/view?articleId",

@@ -187,10 +187,6 @@ body {
   text-transform: uppercase;
 }
 
-.button.is-success {
-  background-color: var(--MainColor);
-}
-
 .spacer {
   height: 20px;
 }
@@ -201,6 +197,10 @@ body {
 
 .avatar-photo {
   border-radius: 50px;
+}
+
+.font-large {
+  font-size: large !important;
 }
 
 .font-medium {
@@ -262,8 +262,15 @@ body {
 }
 
 .user-popover .panel-heading {
-  font-size: 16px;
+  font-size: 18px;
+  padding: 10px;
   background: whitesmoke;
+}
+
+.avatar-header {
+  border: 1px solid white;
+  height: 39px;
+  width: 40px;
 }
 
 .profile-heading {
@@ -341,7 +348,7 @@ body {
 }
 
 .avatar img {
-  border-radius: 200px;
+  border-radius: 50%;
 }
 
 p.title.is-bold {
@@ -387,6 +394,14 @@ p.title.is-bold {
   color: var(--MainColor);
   font-size: 25px;
   text-transform: capitalize;
+}
+
+.blogCreationTagStandard {
+  margin-left: 60px;
+}
+
+.blogCreationTag .tag {
+  margin-right: 5px;
 }
 
 .user-article {
@@ -674,19 +689,19 @@ textarea {
 }
 
 #popover-trigger-chat:not(.active) {
-  padding: 2px;
-  height: 26px;
-  margin-top: 12px;
+  height: 40px;
+  width: 40px;
+  margin-top: 10px;
   border: 1px solid white !important;
   color: white;
 }
 
 #popover-trigger-chat.active {
-  background: red;
-  color: white;
-  padding: 2px;
-  height: 26px;
-  margin-top: 12px;
+  background: white;
+  color: red;
+  height: 40px;
+  width: 40px;
+  margin-top: 10px;
 }
 
 #live-chat header {
@@ -699,7 +714,6 @@ textarea {
 
 #live-chat h4 {
   font-size: 18px;
-  color: #aaa;
 }
 
 #live-chat form {
@@ -1158,8 +1172,16 @@ figure {
 }
 
 p.event-item {
-  padding: 10px 10px 0;
+  padding: 6px 10px 4px;
   border-bottom: 1px solid #f1f1f1;
+}
+
+.eventDate {
+  font-size: x-large;
+  background: red;
+  padding: 10px;
+  color: white;
+  margin-top: -10px;
 }
 
 .hero-body {
@@ -1309,4 +1331,12 @@ p.event-item {
   100% {
     text-indent: -105em;
   }
+}
+
+.is-64 {
+  width: 64px;
+}
+
+.sidebar-content {
+  background: white;
 }

@@ -24,14 +24,14 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, n
     link: "vote",
     notificationNumber: 0,
   }, {
-    name: "Boite à idées",
-    id: "idea",
-    link: "idea",
-    notificationNumber: 0,
-  }, {
     name: "Archives",
     id: "archive",
     link: "archive",
+    notificationNumber: 0,
+  }, {
+    name: "Boite à idées",
+    id: "idea",
+    link: "idea",
     notificationNumber: 0,
   }]
 

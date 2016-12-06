@@ -43,6 +43,11 @@
         class="meditor-title"
         data-placeholder="Titre de l'article">
     </h1>
+    <div class="content blogCreationTagStandard">
+      <span ng-repeat="category in categories" title="{{ category }}" class="tag" ng-class="{'active': article.hasCategory(category.value)}" ng-click="article.toggleCategory(category.value)">
+        {{ category.value }}
+      </span>
+    </div>
     <form name="demo" class="medium-editor-content">
       <div class="button fa fa-picture-o meditor-add" ngf-select='upload(files)'
            ng-model='file'
@@ -57,11 +62,6 @@
       data-placeholder="Raconte nous ton histoire...">
       </div>
     </form>
-    <div class="content">
-      <span ng-repeat="category in categories" title="{{ category }}" class="tag articleTag">
-        {{ category.value }}
-      </span>
-    </div>
   </section>
 
   <footer class="modal-card-foot">

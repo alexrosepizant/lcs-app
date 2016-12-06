@@ -1,12 +1,14 @@
-export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFactory, Upload, Notification) {
+export default function VideoCreationCtrl($rootScope, $scope, $sce,
+  ArticleFactory, Upload, Notification, article, parameters) {
+
+  // Retrieve params
+  $scope.article = article
+  $scope.categories = (parameters) ? parameters.articleCategories : []
+
   // init varibles
   $scope.showError = false
   $scope.API = null
-  $scope.article = {
-    type: "video",
-    url: "",
-    user: $rootScope.currentUser._id,
-  }
+  $scope.article = article
 
   /**
   Video player config
@@ -120,6 +122,7 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
       $scope.article.url = $scope.formattedUrl
     }
 
+    $scope.article.user = $rootScope.currentUser._id
     ArticleFactory.createArticle($scope.article)
       .then(() => {
         $rootScope.$broadcast("updateArticleList")

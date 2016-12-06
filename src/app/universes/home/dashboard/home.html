@@ -32,14 +32,17 @@
         <strong>Les derniers mouvements</strong>
       </h1>
       <hr>
-      <p class="event-item ellipsis" ng-repeat="content in datas.content | orderBy:'-created'">
+
+      <span ng-repeat="content in datas.content | orderBy:'-created'">
         <small class="pull-right">{{content.getDateFrom()}}</small>
-        <span class="icon-item-type">
-          <i class="fa" ng-class="content.getIcon()"></i>
-        </span>
-        <a href="#">{{content.user.username}}</a> {{content.getFormattedType()}}
-        <a ui-sref="{{content.getLink()}}">{{content.title || 'un commentaire'}}</a>
-      </p>
+        <p class="event-item ellipsis">
+          <span class="icon-item-type">
+            <i class="fa" ng-class="content.getIcon()"></i>
+          </span>
+          <a href="#">{{content.user.username}}</a> {{content.getFormattedType()}}
+          <a ui-sref="{{content.getLink()}}">{{content.title || 'un commentaire'}}</a>
+        </p>
+      </span>
     </div>
   </div>
 </div>

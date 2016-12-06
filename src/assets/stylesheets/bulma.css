@@ -3869,10 +3869,6 @@ a.box:active {
   flex-shrink: 0;
 }
 
-.nav-item img {
-  max-height: 24px;
-}
-
 .nav-item .button + .button {
   margin-left: 10px;
 }
@@ -4019,7 +4015,7 @@ a.nav-item.is-tab.is-active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  min-height: 50px;
+  min-height: 60px;
   position: relative;
   text-align: center;
 }

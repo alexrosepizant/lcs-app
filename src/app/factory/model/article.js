@@ -17,6 +17,7 @@ export default function Article($sce, $uibModal, $location, UserFactory, User, C
       description: "",
       content: "",
       image: image,
+      categories: [],
       commentsUser: commentsUser,
       sources: [{
         src: $sce.trustAsResourceUrl(data.url),
@@ -52,15 +53,15 @@ export default function Article($sce, $uibModal, $location, UserFactory, User, C
         }
       },
 
-      markAsRead() {
-        UserFactory.addReadArticle($scope.article._id)
+      hasCategory(category) {
+        return this.categories && this.categories.indexOf(category) !== -1
       },
 
       toggleCategory(category) {
-        if ($scope.article.categories.indexOf(category) === -1) {
-          $scope.article.categories.push(category)
+        if (this.categories.indexOf(category) === -1) {
+          this.categories.push(category)
         } else {
-          $scope.article.categories.splice($scope.article.categories.indexOf(category), 1)
+          this.categories.splice(this.categories.indexOf(category), 1)
         }
       },
     }, data, {

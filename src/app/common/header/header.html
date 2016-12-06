@@ -30,7 +30,7 @@
         </ng-popover>
         <a id="popover-trigger-chat" class="ng-popover-trigger nav-item is-tab" ng-class="{'active' : showChat}">
           <span class="icon icon-chevron">
-            <i class="fa fa-comment font-medium"></i>
+            <i class="fa fa-comment font-large"></i>
           </span>
         </a>
         <ng-popover
@@ -46,11 +46,6 @@
           ng-click="closeMenu('popover-trigger')">
           Profile
         </a>
-        <a class="panel-block"
-        ui-sref="settings"
-        ng-click="closeMenu('popover-trigger')">
-        Paramètres
-      </a>
       <a class="panel-block"
       ng-click="logout()">
       Déconnexion
@@ -58,7 +53,7 @@
   </nav>
 </ng-popover>
 <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
-  <img ng-src="{{ currentUser.getAvatar(40,40) }}" class="avatar-photo-square">
+  <img ng-src="{{ currentUser.getAvatar(40,40) }}" class="avatar-photo-square avatar-header">
   <span class="icon icon-chevron">
     <i class="fa fa-chevron-down font-small"></i>
   </span>

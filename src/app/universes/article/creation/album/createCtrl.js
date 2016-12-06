@@ -1,11 +1,12 @@
-export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFactory, Notification) {
+export default function AlbumCreationCtrl($rootScope, $scope,
+  Upload, ArticleFactory, Notification, article, parameters) {
+
+  // Retrieve params
+  $scope.article = article
+  $scope.categories = (parameters) ? parameters.articleCategories : []
+
   // Init variables
   $scope.fileUploaded = []
-  $scope.article = {
-    type: "album",
-    photoList: [],
-    user: $rootScope.currentUser._id,
-  }
 
   /** ***
   Upload config
@@ -47,6 +48,7 @@ export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFac
       })
     }
 
+    $scope.article.user = $rootScope.currentUser._id
     ArticleFactory.createArticle($scope.article)
       .then(() => {
         $rootScope.$broadcast("updateArticleList")

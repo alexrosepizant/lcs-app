@@ -45,7 +45,7 @@
             left += (document.querySelector("body .container").offsetWidth - triggerRect.left)
             left -= triggerWidth
             if ($scope.popoverClass === "popover-chat") {
-              left -= 65
+              left -= 90
             }
           }
 
