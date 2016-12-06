@@ -43,12 +43,16 @@ exports.all = (params) => {
     query.word = new RegExp(req.body.search, "i")
   }
 
+  const limit = (params.perPage) ? parseInt(params.perPage) : 20
+  const skip = (params.page) ? parseInt(params.page * limit) : 0
+
   return Article.find(query)
     .sort("-created")
     .populate("user", "_id name username avatar")
     .populate("comments.user", "_id name username avatar")
     .populate("comments.replies.user", "_id name username avatar")
-    .limit(20)
+    .limit(limit)
+    .skip(skip)
 }
 
 /**

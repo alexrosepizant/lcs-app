@@ -1,9 +1,11 @@
-export default function ArticleFactory($http, Article) {
+export default function ArticleFactory($http, AppConstants, Article) {
   return {
-    findArticles(filter) {
+    findArticles(filter, page = 0) {
       return $http.get("/articles", {
         params: {
-          "type": filter,
+          type: filter,
+          perPage: AppConstants.aticlePerPage,
+          page: page,
         },
       }).then((articles) => {
         return articles.data.map((article) => {
@@ -12,10 +14,12 @@ export default function ArticleFactory($http, Article) {
       })
     },
 
-    getArticlesByCategory(category) {
+    getArticlesByCategory(category, page = 0) {
       return $http.get("/articles", {
         params: {
-          "categories": category,
+          categories: category,
+          perPage: AppConstants.aticlePerPage,
+          page: page,
         },
       }).then((articles) => {
         return articles.data.map((article) => {
@@ -27,7 +31,7 @@ export default function ArticleFactory($http, Article) {
     getArticlesByUser(userId) {
       return $http.get("/articles", {
         params: {
-          "userId": userId,
+          userId: userId,
         },
       }).then((articles) => {
         return articles.data.map((article) => {

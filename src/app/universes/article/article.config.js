@@ -1,7 +1,7 @@
 export default function ArticleConfig($stateProvider) {
   $stateProvider
   .state("article", {
-    url: "/article?filter&category",
+    url: "/article?filter&category&page",
     template: require("./list/list.html"),
     controller: "ArticleListCtrl",
     title: "Article",
@@ -9,10 +9,11 @@ export default function ArticleConfig($stateProvider) {
       articles: ($stateParams, ArticleFactory) => {
         const filter = ($stateParams.filter) ? $stateParams.filter : "all"
         const category = ($stateParams.category) ? $stateParams.category : null
+        const page = ($stateParams.page) ? $stateParams.page : 0
         if (category) {
-          return ArticleFactory.getArticlesByCategory(category)
+          return ArticleFactory.getArticlesByCategory(category, page)
         } else {
-          return ArticleFactory.findArticles(filter)
+          return ArticleFactory.findArticles(filter, page)
         }
       },
       users: (UserFactory) => {
