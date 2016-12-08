@@ -41,11 +41,9 @@
         medium-editor
         data-placeholder="Titre de l'article">
     </h1>
-    <div class="content blogCreationTag">
-      <span ng-repeat="category in categories" title="{{ category }}" class="tag" ng-class="{'active': article.hasCategory(category.value)}" ng-click="article.toggleCategory(category.value)">
-        {{ category.value }}
-      </span>
-    </div>
+
+    <lcs-category article="article"></lcs-category>
+
     <p class="control">
       <textarea ng-model="article.description"
                 class="textarea textareaChat"

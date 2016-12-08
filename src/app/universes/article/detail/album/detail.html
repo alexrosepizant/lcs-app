@@ -1,75 +1,82 @@
+<nav class="nav has-shadow">
+  <div class="container">
+    <div class="nav-left">
+      <a class="nav-item is-tab button is-primary blog-add" ui-sref="agenda.create">
+        <span class="icon is-small">
+          <i class="fa fa-download"></i>
+        </span>
+        <span>
+          Télécharger
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
 <div class="container margin-top-20">
-  <div class="columns">
-    <div class="column is-8">
-      <div class="box bottom-50">
-        <p>
-          <strong>
-            <i class="fa fa-clock-o font-small pull-left"></i> <small class="pull-left">{{ article.getDateFrom() }}</small>
-          </strong>
-        </p>
-        <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
-        <div class="blog-title-detail ellipsis">{{article.title}}</div>
+  <div class="box bottom-50">
+    <p>
+      <strong>
+        <i class="fa fa-clock-o font-small pull-left"></i> <small class="pull-left">{{ article.getDateFrom() }}</small>
+      </strong>
+    </p>
+    <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
+    <div class="blog-title-detail ellipsis">{{article.title}}</div>
 
-        <div class="margin-top-20">
-          {{article.description}}
-        </div>
+    <div class="margin-top-20">
+      {{article.description}}
+    </div>
 
-        <article class="media margin-top-10">
-          <div class="media-content">
-            <div>
-              <div>
-                <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
-                  {{ category }}
-                </span>
-                <span ng-if="article.categories.length === 0" class="tag">
-                  Aucune catégorie associée
-                </span>
-              </div>
-
-              <div class="blog-album margin-top-20">
-                <div deckgrid class="deckgrid" source="article.photoList">
-                  <a ng-href="{{ card.filepath }}"
-                  class="lightbox-trigger"
-                  title="{{ card.name }}"
-                  lightbox
-                  index="{{$index}}">
-                  <img ng-src="{{ card.filepath }}?dim=300"/>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <div class="spacer">
-      </div>
-
-      <section class="blog-user-section margin-top-20">
-        <div class="authorSectionContainer">
-          <span class="authorSectionTitle">
-            Créé par
-          </span>
-          <div class="authorContent small-margin-top">
-            <span class="user-image">
-              <div class="user-image--image">
-                <div>
-                  <img ng-src="{{ article.user.getAvatar(40,40) }}" width="40" height="40">
-                </div>
-              </div>
+    <article class="media margin-top-10">
+      <div class="media-content">
+        <div>
+          <div>
+            <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+              {{ category }}
             </span>
-            <a class="authorContent-name" href="#">
-              {{article.user.username}}
+            <span ng-if="article.categories.length === 0" class="tag">
+              Aucune catégorie associée
+            </span>
+          </div>
+
+          <div class="blog-album margin-top-20">
+            <div deckgrid class="deckgrid" source="article.photoList">
+              <a ng-href="{{ card.filepath }}"
+              class="lightbox-trigger"
+              title="{{ card.name }}"
+              lightbox
+              index="{{$index}}">
+              <img ng-src="{{ card.filepath }}?dim=300"/>
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </article>
+  <div class="spacer">
+  </div>
 
-        <lcs-comment update-method="updateMethod()" object="article" class="lcs-comment"></lcs-comment>
-      </section>
+  <section class="blog-user-section margin-top-20">
+    <div class="authorSectionContainer">
+      <span class="authorSectionTitle">
+        Créé par
+      </span>
+      <div class="authorContent small-margin-top">
+        <span class="user-image">
+          <div class="user-image--image">
+            <div>
+              <img ng-src="{{ article.user.getAvatar(40,40) }}" width="40" height="40">
+            </div>
+          </div>
+        </span>
+        <a class="authorContent-name" href="#">
+          {{article.user.username}}
+        </a>
+      </div>
     </div>
-  </div>
-  <div class="column is-4">
-    <div class="notification box">
-      Pour l'instant rien
-    </div>
-  </div>
+
+    <lcs-comment update-method="updateMethod()" object="article" class="lcs-comment"></lcs-comment>
+  </section>
 </div>
 </div>

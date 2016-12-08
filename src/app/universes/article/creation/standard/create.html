@@ -43,11 +43,7 @@
         class="meditor-title"
         data-placeholder="Titre de l'article">
     </h1>
-    <div class="content blogCreationTagStandard">
-      <span ng-repeat="category in categories" title="{{ category }}" class="tag" ng-class="{'active': article.hasCategory(category.value)}" ng-click="article.toggleCategory(category.value)">
-        {{ category.value }}
-      </span>
-    </div>
+    <lcs-category article="article"></lcs-category>
     <form name="demo" class="medium-editor-content">
       <div class="button fa fa-picture-o meditor-add" ngf-select='upload(files)'
            ng-model='file'

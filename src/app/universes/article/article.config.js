@@ -52,9 +52,6 @@ export default function ArticleConfig($stateProvider) {
               user: $rootScope.currentUser._id,
             })
           },
-          parameters: (ParameterFactory) => {
-            return ParameterFactory.getParameters()
-          },
         },
       }).result.finally(() => {
         $state.go("^")
@@ -78,9 +75,6 @@ export default function ArticleConfig($stateProvider) {
               url: "",
             })
           },
-          parameters: (ParameterFactory) => {
-            return ParameterFactory.getParameters()
-          },
         },
       }).result.finally(() => {
         $state.go("^")
@@ -102,9 +96,6 @@ export default function ArticleConfig($stateProvider) {
               type: "album",
               user: $rootScope.currentUser._id,
             })
-          },
-          parameters: (ParameterFactory) => {
-            return ParameterFactory.getParameters()
           },
         },
       }).result.finally(() => {

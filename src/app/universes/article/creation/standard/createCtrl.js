@@ -1,9 +1,7 @@
-export default function StandardCreationCtrl($rootScope, $scope,
-  ArticleFactory, Notification, Upload, article, parameters) {
+export default function StandardCreationCtrl($rootScope, $scope, ArticleFactory, Notification, Upload, article) {
 
   // Retrieve params
   $scope.article = article
-  $scope.categories = (parameters) ? parameters.articleCategories : []
 
   /** ***
   Upload config

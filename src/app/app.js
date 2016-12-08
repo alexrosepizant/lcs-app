@@ -33,6 +33,7 @@ import "./common/modules/popover"
 import "./common/modules/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
 import "./common/modules/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
 import "./common/modules/utils"
+import "./common/modules/category"
 import "./common/modules/chat"
 import "./common/modules/comment"
 import "./common/modules/countdown"
@@ -76,6 +77,7 @@ const requires = [
   "info.vietnamcode.nampnq.videogular.plugins.youtube",
   "app.utils",
   "app.auth",
+  "app.category",
   "app.chat",
   "app.comment",
   "app.countdown",

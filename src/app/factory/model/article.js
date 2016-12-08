@@ -1,32 +1,36 @@
 import moment from "moment"
 
-export default function Article($sce, $uibModal, $location, UserFactory, User, Comment) {
+const formatComments = (comments, User) => {
+  const users = []
+  if (comments) {
+    comments.forEach((comment) => users.push(new User(comment.user)))
+  }
+  return users.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
+}
+
+const getPreview = (content) => {
+  const imgs = angular.element("<div>" + content + "</div>").find("img")
+  return (imgs.length) ? angular.element(imgs[0]).attr("src") : null
+}
+
+export default function Article($sce, User, Comment) {
   return (data) => {
-
-    const imgs = angular.element("<div>" + data.content + "</div>").find("img")
-    const image = (imgs.length) ? angular.element(imgs[0]).attr("src") : null
-
-    const users = []
-    if (data.comments) {
-      data.comments.forEach((comment) => users.push(new User(comment.user)))
-    }
-    const commentsUser = users.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
 
     return angular.extend({
       title: "",
       description: "",
       content: "",
       content: "",
-      image: image,
+      image: getPreview(data.content),
       categories: [],
-      commentsUser: commentsUser,
+      commentsUser: formatComments(data.comments, User),
       sources: [{
         src: $sce.trustAsResourceUrl(data.url),
         type: data.mimeType,
       }],
 
       getTitle() {
-        return angular.element("<div>" + this.title + "</div>").text()
+        return this.title
       },
 
       getContent() {
@@ -51,21 +55,21 @@ export default function Article($sce, $uibModal, $location, UserFactory, User, C
       },
 
       hasCategory(category) {
-        return this.categories && this.categories.indexOf(category) !== -1
+        return this.categories.indexOf(category) !== -1
       },
 
       addCategory(category) {
-        if (!this.hasCategory()) {
-          this.categories.push(category)
+        if (this.hasCategory()) {
+          return false
         }
+        return this.categories.push(category)
       },
 
       toggleCategory(category) {
-        if (!this.hasCategory()) {
-          this.categories.push(category)
-        } else {
-          this.categories.splice(this.categories.indexOf(category), 1)
+        if (this.addCategory(category)) {
+          return
         }
+        this.categories.splice(this.categories.indexOf(category), 1)
       },
     }, data, {
       user: new User(data.user),

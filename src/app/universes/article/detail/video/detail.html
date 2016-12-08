@@ -1,105 +1,95 @@
 <div class="container margin-top-20">
-  <div class="columns">
-    <div class="column is-8">
-      <div class="box bottom-50">
-        <p>
-          <strong>
-            <i class="fa fa-clock-o font-small pull-left"></i> <small class="pull-left">{{ article.getDateFrom() }}</small>
-          </strong>
-        </p>
-        <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
-        <div class="blog-title-detail ellipsis">{{article.title}}</div>
-        <article class="media">
-          <div class="media-content">
-            <div class="content">
-              <div>
-                <div>
-                  <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
-                    {{ category }}
-                  </span>
-                  <span ng-if="article.categories.length === 0" class="tag margin-top-10">
-                    Aucune catégorie associée
-                  </span>
-                </div>
-              </div>
-
-              <div class="margin-top-10">
-
-                <!-- Include iframe of video -->
-                <iframe ng-src="{{ article.getVideoLink() }}"
-                ng-if="article.isEmbed"
-                width="100%"
-                height="auto"
-                class="videoDetailFrame"
-                frameborder="0"
-                webkitallowfullscreen="true"
-                mozallowfullscreen="true"
-                allowfullscreen="true">
-              </iframe>
-
-              <!-- OR video uploaded by user -->
-              <videogular ng-if="!article.isEmbed" class="videogularFullWidth">
-                <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
-                </vg-media>
-                <vg-controls>
-                  <vg-play-pause-button></vg-play-pause-button>
-                  <vg-time-display>
-                    {{ currentTime | date:'HH:mm:ss':'+0000' }}
-                  </vg-time-display>
-                  <vg-scrub-bar>
-                    <vg-scrub-bar-current-time>
-                    </vg-scrub-bar-current-time>
-                  </vg-scrub-bar>
-                  <vg-time-display>
-                    {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
-                  </vg-time-display>
-                  <vg-volume>
-                    <vg-mute-button>
-                    </vg-mute-button>
-                    <vg-volume-bar>
-                    </vg-volume-bar>
-                  </vg-volume>
-                  <vg-fullscreen-button>
-                  </vg-fullscreen-button>
-                </vg-controls>
-                <vg-overlay-play></vg-overlay-play>
-              </videogular>
-            </div>
-          </div>
-        </article>
-
-        <div class="margin-top-20">
-          {{article.description}}
-        </div>
-
-        <section class="blog-user-section margin-top-20">
-          <div class="authorSectionContainer">
-            <span class="authorSectionTitle">
-              Créé par
-            </span>
-            <div class="authorContent small-margin-top">
-              <span class="user-image">
-                <div class="user-image--image">
-                  <div>
-                    <img ng-src="{{ article.user.getAvatar(40,40) }}" width="40" height="40">
-                  </div>
-                </div>
+  <div class="box bottom-50">
+    <p>
+      <strong>
+        <i class="fa fa-clock-o font-small pull-left"></i> <small class="pull-left">{{ article.getDateFrom() }}</small>
+      </strong>
+    </p>
+    <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
+    <div class="blog-title-detail ellipsis">{{article.title}}</div>
+    <article class="media">
+      <div class="media-content">
+        <div class="content">
+          <div>
+            <div>
+              <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+                {{ category }}
               </span>
-              <a class="authorContent-name" href="#">
-                {{article.user.username}}
-              </a>
+              <span ng-if="article.categories.length === 0" class="tag margin-top-10">
+                Aucune catégorie associée
+              </span>
             </div>
           </div>
 
-          <lcs-comment update-method="updateMethod()" object="article" class="lcs-comment"></lcs-comment>
-        </section>
+          <div class="margin-top-10">
+
+            <!-- Include iframe of video -->
+            <iframe ng-src="{{ article.getVideoLink() }}"
+            ng-if="article.isEmbed"
+            width="100%"
+            height="auto"
+            class="videoDetailFrame"
+            frameborder="0"
+            webkitallowfullscreen="true"
+            mozallowfullscreen="true"
+            allowfullscreen="true">
+          </iframe>
+
+          <!-- OR video uploaded by user -->
+          <videogular ng-if="!article.isEmbed" class="videogularFullWidth">
+            <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
+            </vg-media>
+            <vg-controls>
+              <vg-play-pause-button></vg-play-pause-button>
+              <vg-time-display>
+                {{ currentTime | date:'HH:mm:ss':'+0000' }}
+              </vg-time-display>
+              <vg-scrub-bar>
+                <vg-scrub-bar-current-time>
+                </vg-scrub-bar-current-time>
+              </vg-scrub-bar>
+              <vg-time-display>
+                {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
+              </vg-time-display>
+              <vg-volume>
+                <vg-mute-button>
+                </vg-mute-button>
+                <vg-volume-bar>
+                </vg-volume-bar>
+              </vg-volume>
+              <vg-fullscreen-button>
+              </vg-fullscreen-button>
+            </vg-controls>
+            <vg-overlay-play></vg-overlay-play>
+          </videogular>
+        </div>
       </div>
+    </article>
+
+    <div class="margin-top-20">
+      {{article.description}}
     </div>
 
-    <div class="column is-4">
-      <div class="notification box">
-        Pour l'instant rien
+    <section class="blog-user-section margin-top-20">
+      <div class="authorSectionContainer">
+        <span class="authorSectionTitle">
+          Créé par
+        </span>
+        <div class="authorContent small-margin-top">
+          <span class="user-image">
+            <div class="user-image--image">
+              <div>
+                <img ng-src="{{ article.user.getAvatar(40,40) }}" width="40" height="40">
+              </div>
+            </div>
+          </span>
+          <a class="authorContent-name" href="#">
+            {{article.user.username}}
+          </a>
+        </div>
       </div>
-    </div>
+
+      <lcs-comment update-method="updateMethod()" object="article" class="lcs-comment"></lcs-comment>
+    </section>
   </div>
 </div>

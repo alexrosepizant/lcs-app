@@ -389,13 +389,11 @@ p.title.is-bold {
 }
 
 .blog-title-detail {
-  padding: 10px 15px;
   margin: 40px 0 10px;
   width: 100%;
-  background: #f5f5f5;
-  color: var(--MainColor);
-  font-size: 25px;
+  font-size: 50px;
   text-transform: capitalize;
+  font-family: Bangers;
 }
 
 .blogCreationTagStandard {
@@ -905,7 +903,7 @@ textarea {
 
 .tag:hover,
 .tag.active {
-  background-color: #ccc;
+  background-color: var(--MainColor);
 }
 
 .videoTileFrame {
@@ -1354,4 +1352,10 @@ p.event-item {
 .header-item:last-child a {
   background-color: black;
   color: white;
+}
+
+.inputCategory {
+  width: inherit;
+  height: inherit;
+  line-height: inherit;
 }

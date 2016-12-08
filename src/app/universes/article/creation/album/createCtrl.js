@@ -1,9 +1,7 @@
-export default function AlbumCreationCtrl($rootScope, $scope,
-  Upload, ArticleFactory, Notification, article, parameters) {
+export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFactory, Notification, article) {
 
   // Retrieve params
   $scope.article = article
-  $scope.categories = (parameters) ? parameters.articleCategories : []
 
   // Init variables
   $scope.fileUploaded = []

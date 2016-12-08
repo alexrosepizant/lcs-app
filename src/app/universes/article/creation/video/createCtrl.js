@@ -1,9 +1,7 @@
-export default function VideoCreationCtrl($rootScope, $scope, $sce,
-  ArticleFactory, Upload, Notification, article, parameters) {
+export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFactory, Upload, Notification, article) {
 
   // Retrieve params
   $scope.article = article
-  $scope.categories = (parameters) ? parameters.articleCategories : []
 
   // init varibles
   $scope.showError = false
