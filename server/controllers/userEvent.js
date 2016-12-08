@@ -10,16 +10,16 @@ exports.userEvent = (req, res, next) => {
   UserEvent.findOne({
     "_id": req.params.userEventId,
   })
-		.populate("user", "_id name username avatar")
-		.populate("guest", "_id name username avatar")
-		.populate("guestUnavailable", "_id name username avatar")
-		.populate("comments.user", "_id name username avatar")
-		.populate("comments.replies.user", "_id name username avatar")
-		.exec((err, userEvent) => {
-  if (err) return next(err)
-  req.userEvent = userEvent
-  next()
-})
+  .populate("user", "_id name username avatar")
+  .populate("guest", "_id name username avatar")
+  .populate("guestUnavailable", "_id name username avatar")
+  .populate("comments.user", "_id name username avatar")
+  .populate("comments.replies.user", "_id name username avatar")
+  .then((userEvent, err) => {
+    if (err) return next(err)
+    req.userEvent = userEvent
+    next()
+  })
 }
 
 /**
@@ -29,15 +29,15 @@ exports.show = (req, res) => {
   UserEvent.findOne({
     "_id": req.params.userEventId,
   })
-		.populate("user", "_id name username avatar")
-		.populate("guest", "_id name username avatar")
-		.populate("guestUnavailable", "_id name username avatar")
-		.populate("comments.user", "_id name username avatar")
-		.populate("comments.replies.user", "_id name username avatar")
-		.exec((err, userEvent) => {
-  if (err) return next(err)
-  res.jsonp(userEvent)
-})
+  .populate("user", "_id name username avatar")
+  .populate("guest", "_id name username avatar")
+  .populate("guestUnavailable", "_id name username avatar")
+  .populate("comments.user", "_id name username avatar")
+  .populate("comments.replies.user", "_id name username avatar")
+  .then((userEvent, err) => {
+    if (err) return next(err)
+    res.jsonp(userEvent)
+  })
 }
 
 /**
@@ -48,10 +48,7 @@ exports.create = (req, res) => {
   userEvent.user = req.user
   userEvent.save((err) => {
     if (err) {
-      return res.send("agenda", {
-        errors: err.errors,
-        userEvent: userEvent,
-      })
+      return res.status(400).json(err)
     } else {
       res.jsonp(userEvent)
     }
@@ -66,10 +63,7 @@ exports.update = (req, res) => {
   userEvent = _.extend(userEvent, req.body)
   userEvent.save((err) => {
     if (err) {
-      return res.send("users/signup", {
-        errors: err.errors,
-        userEvent: userEvent,
-      })
+      return res.status(400).json(err)
     } else {
       res.jsonp(userEvent)
     }
@@ -84,10 +78,7 @@ exports.destroy = (req, res) => {
   const userEvent = new UserEvent(req.userEvent)
   userEvent.remove((err) => {
     if (err) {
-      return res.send("users/signup", {
-        errors: err.errors,
-        userEvent: userEvent,
-      })
+      return res.status(400).json(err)
     } else {
       res.jsonp(userEvent)
     }
@@ -98,23 +89,25 @@ exports.destroy = (req, res) => {
  * List of userEvent
  */
 exports.all = (req, res) => {
-  UserEvent.find({
+
+  // Filter on-going events
+  const query = {
     startsAt: {
       "$gte": new Date(),
     },
-  })
-		.sort("startsAt")
-		.limit(40)
-		.populate("user", "name username avatar")
-		.populate("guest", "name username avatar")
-		.populate("guestUnavailable", "name username avatar")
-		.exec((err, userEvent) => {
-  if (err) {
-    res.render("error", {
-      status: 500,
-    })
-  } else {
-    res.jsonp(userEvent)
   }
-})
+
+  UserEvent.find(query)
+    .sort("startsAt")
+    .limit(40)
+    .populate("user", "name username avatar")
+    .populate("guest", "name username avatar")
+    .populate("guestUnavailable", "name username avatar")
+    .then((userEvent, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.jsonp(userEvent)
+      }
+    })
 }

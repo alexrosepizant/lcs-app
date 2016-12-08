@@ -16,6 +16,7 @@ export default function Article($sce, $uibModal, $location, UserFactory, User, C
       title: "",
       description: "",
       content: "",
+      content: "",
       image: image,
       categories: [],
       commentsUser: commentsUser,
@@ -44,21 +45,23 @@ export default function Article($sce, $uibModal, $location, UserFactory, User, C
         return $sce.trustAsResourceUrl(this.url)
       },
 
-      getSuggestionAnswerLength(suggestion, option) {
-        if (suggestion.yes.length + suggestion.no.length + suggestion.blank.length === 0) {
-          return 0
-        } else {
-          return Math.round(suggestion[option].length /
-            (suggestion.yes.length + suggestion.no.length + suggestion.blank.length) * 100)
-        }
+      getSuggestionAnswerLength(vote, option) {
+        const totalVoteCount = vote.yes.concat(this.no, this.blank).length
+        return (totalVoteCount === 0) ? 0 : Math.round(vote[option].length / totalVoteCount * 100)
       },
 
       hasCategory(category) {
         return this.categories && this.categories.indexOf(category) !== -1
       },
 
+      addCategory(category) {
+        if (!this.hasCategory()) {
+          this.categories.push(category)
+        }
+      },
+
       toggleCategory(category) {
-        if (this.categories.indexOf(category) === -1) {
+        if (!this.hasCategory()) {
           this.categories.push(category)
         } else {
           this.categories.splice(this.categories.indexOf(category), 1)

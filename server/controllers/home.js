@@ -13,7 +13,7 @@ const Comment = mongoose.model("Comment")
 const  _ = require("lodash")
 
 
-const formatUserData = function(userData) {
+const formatUserData = (userData) => {
 
   const formattedDatas = {
     content: [],
@@ -23,17 +23,17 @@ const formatUserData = function(userData) {
     content: [],
   }
 
-  _.each(userData.articles, function(article) {
+  _.each(userData.articles, (article) => {
     formattedDatas.content.push(article)
   })
 
-  _.each(userData.comments, function(comment) {
+  _.each(userData.comments, (comment) => {
     formattedDatas.content.push(_.defaults({
       type: "comment",
     }, comment._doc))
   })
 
-  _.each(userData.userEvents, function(userEvent) {
+  _.each(userData.userEvents, (userEvent) => {
     if (userEvent._doc.subType !== "euroMatch") {
       formattedDatas.content.push(_.defaults({
         type: "userEvent",
@@ -41,13 +41,13 @@ const formatUserData = function(userData) {
     }
   })
 
-  _.each(userData.suggestions, function(suggestion) {
+  _.each(userData.suggestions, (suggestion) => {
     formattedDatas.content.push(_.defaults({
       type: "suggestion",
     }, suggestion._doc))
   })
 
-  sortedDatas.content = _.sortBy(formattedDatas.content, function(item) {
+  sortedDatas.content = _.sortBy(formattedDatas.content, (item) => {
     return item.created || item.startsAt
   })
 
@@ -57,7 +57,7 @@ const formatUserData = function(userData) {
 /**
  * User data
  */
-exports.getAllUserData = function(req, res) {
+exports.getAllUserData = (req, res) => {
 
   const query = (req.query.userId) ? {
     user: req.query.userId,
@@ -79,69 +79,58 @@ exports.getAllUserData = function(req, res) {
   }
 
   Article.find(query, "-comments -yes -no -blank")
-		.sort("-created")
+    .sort("-created")
     .limit(30)
-		.populate("user", "_id name username avatar")
+    .populate("user", "_id name username avatar")
     .populate("comments.user", "_id name username avatar")
-    .populate("comments.replies.user", "_id name username avatar").exec()
-		.then(function(articles, err) {
-  if (err) {
-    res.render("error", {
-      status: 500,
-    })
-  } else {
-    responseObject.article = articles[0]
-    userData.articles = articles
-    return UserEvent.find(query, "-comments")
-					.sort("-created")
+    .populate("comments.replies.user", "_id name username avatar")
+    .then((articles, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        responseObject.article = articles[0]
+        userData.articles = articles
+        return UserEvent.find(query, "-comments")
+          .sort("-created")
           .limit(30)
-					.populate("user", "_id name username avatar").exec()
-  }
-}).then(function(userEvent, err) {
-  if (err) {
-    res.render("error", {
-      status: 500,
+          .populate("user", "_id name username avatar")
+      }
+    }).then((userEvent, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        responseObject.userEvents = userEvent
+        userData.userEvents = userEvent
+        return Vote.find(query)
+        .sort("-created")
+        .limit(30)
+        .populate("user", "_id name username avatar")
+      }
+    }).then((votes, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        responseObject.votes = votes
+        userData.votes = votes
+        return User.find({},
+          "-password -salt -hashed_password -__v -provider -readAlbums -readArticles -readVotes -conversations")
+      }
+    }).then((users, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        responseObject.users = users
+        return Comment.find({}).populate("user", "_id name username avatar")
+      }
+    }).then((comments, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        if (!req.query.userId) {
+          userData.comments = comments
+        }
+        responseObject.content = formatUserData(userData)
+        res.jsonp(responseObject)
+      }
     })
-  } else {
-    responseObject.userEvents = userEvent
-    userData.userEvents = userEvent
-    return Vote.find(query)
-					.sort("-created")
-          .limit(30)
-					.populate("user", "_id name username avatar").exec()
-  }
-}).then(function(votes, err) {
-  if (err) {
-    res.render("error", {
-      status: 500,
-    })
-  } else {
-    responseObject.votes = votes
-    userData.votes = votes
-    return User.find({},
-      "-password -salt -hashed_password -__v -provider -readAlbums -readArticles -readVotes -conversations")
-      .exec()
-  }
-}).then(function(users, err) {
-  if (err) {
-    res.render("error", {
-      status: 500,
-    })
-  } else {
-    responseObject.users = users
-    return Comment.find({}).populate("user", "_id name username avatar").exec()
-  }
-}).then(function(comments, err) {
-  if (err) {
-    res.render("error", {
-      status: 500,
-    })
-  } else {
-    if (!req.query.userId) {
-      userData.comments = comments
-    }
-    responseObject.content = formatUserData(userData)
-    res.jsonp(responseObject)
-  }
-})
 }

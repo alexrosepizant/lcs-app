@@ -98,7 +98,7 @@
   <div class="container">
     <nav class="tabs is-boxed">
       <ul>
-        <li ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">
+        <li ng-repeat="item in menu" class="header-item" ng-class="{'is-active' : isCurrentPath(item)}">
           <a ui-sref="{{item.link}}">{{item.name}}</a>
         </li>
       </ul>

@@ -1,7 +1,6 @@
 export default function ArticleFactory($http, AppConstants, Article) {
   return {
     findArticles(filter, page = 0) {
-      console.warn(filter + " " + page)
       return $http.get("/articles", {
         params: {
           type: filter,

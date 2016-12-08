@@ -1,30 +1,74 @@
-<article class="media">
-  <div class="media-left">
-    <figure class="image is-64x64">
-      <img ng-src="{{ article.user.avatar }}?dim=40x40" alt="Image">
-    </figure>
-  </div>
-  <div class="media-content">
-    <h2>Vote</h2>
-    <div class="content">
-      <p>
-        <strong>{{article.user.username}}</strong> <small>{{ article.getDateFrom() }}</small>
-        <br>
-        {{article.content}}
-      </p>
+<div>
+  <strong>
+    <small class="pull-right">
+      <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
+    </small>
+  </strong>
+
+  <a ui-sref="videoView({ articleId: article._id })">
+    <div class="blog-title ellipsis">
+      {{article.title}}
     </div>
-    <nav class="level">
-      <div class="level-left">
-        <a class="level-item">
-          <span class="icon is-small"><i class="fa fa-reply"></i></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fa fa-retweet"></i></span>
-        </a>
-        <a class="level-item">
-          <span class="icon is-small"><i class="fa fa-heart"></i></span>
+  </a>
+
+  <div class="margin-top-10">
+  </div>
+</div>
+
+<p class="three-line-ellipsis margin-top-20">
+  {{article.content}}
+</p>
+
+<article class="media margin-top-20">
+  <div class="media-content">
+    <div class="content">
+      <div>
+        <a ui-sref="videoView({ articleId: article._id })" class="margin-top-10">
+          Voir le détail
         </a>
       </div>
-    </nav>
-  </div>
+
+      <section class="blog-user-section">
+        <div class="authorSectionContainer">
+          <span class="authorSectionTitle">
+            Créé par
+          </span>
+          <div class="authorContent">
+            <span class="user-image">
+              <div class="user-image--image">
+                <div>
+                  <img ng-src="{{ article.user.getAvatar(40,40) }}" height="40" width="40">
+                </div>
+              </div>
+            </span>
+            <a class="authorContent-name" href="#">
+              {{article.user.username}}
+            </a>
+          </div>
+        </div>
+        <div class="blogCommentSection">
+          <span class="authorSectionTitle">
+            Ils ont laissé un commentaire
+          </span>
+          <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser" class="authorContent">
+            <span class="user-image">
+              <div class="user-image--image">
+                <div>
+                  <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
+                </div>
+              </div>
+            </span>
+            <a class="authorContent-name" href="#">
+              {{user.username}}
+            </a>
+          </div>
+          <div ng-if="article.commentsUser.length === 0" class="small-margin-top">
+            <strong>Pas encore de commentaire</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
 </article>
+</div>

@@ -349,6 +349,8 @@ body {
 
 .avatar img {
   border-radius: 50%;
+  height: 100px;
+  width: 100px;
 }
 
 p.title.is-bold {
@@ -863,6 +865,8 @@ textarea {
 
 .authorContent img {
   border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 
 .authorContent-name {
@@ -886,6 +890,11 @@ textarea {
   height: 100%;
   position: relative;
   padding: 35px 0 20px 10px;
+}
+
+.user-tag {
+  margin-bottom: 0;
+  background-color: #ccc;
 }
 
 .tag {
@@ -1339,4 +1348,10 @@ p.event-item {
 
 .sidebar-content {
   background: white;
+}
+
+/* Christmas */
+.header-item:last-child a {
+  background-color: black;
+  color: white;
 }

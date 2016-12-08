@@ -19,7 +19,8 @@ export default function AgendaConfig($stateProvider) {
       },
     })
     .state("vote.create", {
-      url: "/vote/create",
+      parent: "vote",
+      url: "/create",
       onEnter: ["$state", "$uibModal", function($state, $uibModal) {
         $uibModal.open({
           templateUrl: "app/universes/vote/creation/create.html",

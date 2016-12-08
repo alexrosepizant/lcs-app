@@ -1,4 +1,5 @@
 export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notification) {
+
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
 
@@ -16,8 +17,8 @@ export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notif
     altFormat: "j F Y, H:i",
   }
 
-  $scope.datePostSetup = (fpItem) => {
-    console.log("flatpickr", fpItem)
+  $scope.dismiss = function() {
+    $scope.$dismiss()
   }
 
   // Save function
@@ -31,8 +32,8 @@ export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notif
 
     AgendaFactory.createUserEvent($scope.userEvent)
       .then(() => {
-        $scope.$close(true)
         $rootScope.$broadcast("updateAgendaList")
+        $scope.$close(true)
         Notification.success({
           title: "Success",
           message: "Evènement créé avec succés",

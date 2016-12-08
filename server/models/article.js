@@ -71,6 +71,9 @@ const ArticleSchema = new Schema({
       ref: "User",
     }}),
   ],
+  endsAt: {
+    type: Date,
+  },
   categories: [],
   coverPicPath: {
     type: String,

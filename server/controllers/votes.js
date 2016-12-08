@@ -1,6 +1,5 @@
 "use strict"
 
-const moment = require("moment")
 const _ = require("lodash")
 const mongoose = require("mongoose")
 
@@ -80,107 +79,77 @@ exports.all = (req, res) => {
   const page = req.query.page
 
   Vote.find({})
-		.sort("-created")
-		.limit(perPage)
-		.skip(perPage * page)
-		.populate("user", "_id name username avatar")
-		.exec((err, votes) => {
-  if (err) {
-    res.render("error", {
-      status: 500,
+    .sort("-created")
+    .limit(perPage)
+    .skip(perPage * page)
+    .populate("user", "_id name username avatar")
+    .then((votes, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.jsonp(votes)
+      }
     })
-  } else {
-    res.jsonp(votes)
-  }
-})
 }
 
 /**
  * Create article from ended vote to see results
  **/
 exports.closeVotes = () => {
-
-  const date = moment().subtract(1, "months").toISOString()
-
-  Vote.find({
-    "created": {
-      "$lt": date,
+  console.warn("close votes")
+  // Fetch votes that are ended
+  const query = {
+    "endsAt": {
+      "$lt": new Date(),
     },
-  })
-		.sort("-created")
-		.exec((err, votes) => {
+  }
 
-  if (err) {
-    console.warn("Error when to fetch votes " + err)
-  } else {
-    _.each(votes, (vote) => {
+  Vote.find(query)
+    .sort("-created")
+    .then((votes, err) => {
+      if (err) {
+        console.warn("Error when to fetch votes " + err)
+      } else {
+        _.each(votes, (vote) => {
+          const article = new Article({
+            title: "Résultats de vote",
+            user: vote.user,
+            content: vote.content,
+            type: "vote",
+            comments: [],
+            created: vote.created,
+            endsAt: vote.endsAt,
+            yes: vote.yes.map((userId) => {
+              return {
+                user: userId,
+              }
+            }),
+            no: vote.no.map((userId) => {
+              return {
+                user: userId,
+              }
+            }),
+            blank: vote.blank.map((userId) => {
+              return {
+                user: userId,
+              }
+            }),
+          })
 
-      const yes = []
-      const no = []
-      const blank = []
-
-      const article = new Article({
-        title: "Vote",
-        user: vote.user,
-        content: vote.content,
-        type: "vote",
-        comments: [],
-        created: vote.created,
-      })
-
-      _.each(vote.yes, (userId) => {
-        yes.push({
-          user: userId,
-        })
-      })
-      article.yes = yes
-
-      _.each(vote.blank, (userId) => {
-        blank.push({
-          user: userId,
-        })
-      })
-      article.blank = blank
-
-      _.each(vote.no, (userId) => {
-        no.push({
-          user: userId,
-        })
-      })
-      article.no = no
-
-      article.save((err) => {
-
-        if (err) {
-          console.warn("Error when trying to save new article " + err)
-        } else {
-
-          vote.remove((err) => {
+          article.save((err) => {
             if (err) {
-              console.warn("Error when trying to remove vote " + err)
+              console.warn("Error when trying to save new article " + err)
             } else {
-              console.warn("Vote removed with success")
+              vote.remove((err) => {
+                if (err) {
+                  console.warn("Error when trying to remove vote " + err)
+                } else {
+                  console.warn("Vote removed with success")
+                }
+              })
             }
           })
-        }
-      })
+        })
+      }
     })
-  }
-})}
-
-exports.changeQuoteToVote = () => {
-  Article.find({
-    type: "quote",
-  }).exec((err, articles) => {
-    _.each(articles, (article) => {
-      article.type = "vote"
-      article.save((err) => {
-        if (err) {
-          console.warn("error when trying to save user")
-        } else {
-          console.warn("article updated")
-        }
-      })
-    })
-  })
 }

@@ -5,6 +5,7 @@ export default function Vote(User) {
     return angular.extend({
       content: "",
       created: Date.now(),
+      endsAt: "",
       blank: [],
       yes: [],
       no: [],
@@ -14,7 +15,7 @@ export default function Vote(User) {
       },
 
       getDays() {
-        return moment(this.created).add(1, "months").fromNow()
+        return moment(this.endsAt).fromNow()
       },
     }, data, {user: new User(data.user)})
   }

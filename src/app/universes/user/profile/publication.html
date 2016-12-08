@@ -53,16 +53,18 @@
     <div class="card user-profile">
       <header class="card-header">
         <p class="card-header-title ellipsis">
-          {{card.title}}
+          <span class="tag user-tag">
+            {{card.type}}
+          </span>
         </p>
       </header>
       <div class="card-content">
         <div class="content">
-          <p class="three-line-ellipsis">{{card.getFormattedContent() || card.description}}</p>
+          <p class="two-line-ellipsis">{{card.title}}</p>
         </div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item">Modifier</a>
+        <a class="card-footer-item" ui-sref="article.createAlbum({articleId: card._id})">Modifier</a>
         <a class="card-footer-item" ng-click="mother.remove($event, card._id)">Supprimer</a>
       </footer>
     </div>

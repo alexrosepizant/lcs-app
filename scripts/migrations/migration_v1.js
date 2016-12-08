@@ -153,6 +153,35 @@ const migrateVideoArticles = () => {
   })
 }
 
+const changeQuoteToVote = () => {
+  const articlePromises = []
+  return Article.find({
+    type: "quote",
+  }).then((articles, err) => {
+    if (articles.length === 0) {
+      console.warn("Nothing to migrate")
+      return Promise.resolve()
+    }
+
+    if (err) {
+      console.warn("Error when trying to migrate suggestions articles")
+      return Promise.resolve()
+    }
+
+    _.each(articles, (article) => {
+      article.type = "vote"
+      articlePromises.push(article.save((err) => {
+        if (err) {
+          console.warn("error when trying to save user")
+        } else {
+          console.warn("article updated")
+        }
+      }))
+    })
+    return Promise.all(articlePromises)
+  })
+}
+
 const keepCreateContentRefOnUser = () => {
   const userPromises = []
   return User.find({})
@@ -263,6 +292,10 @@ mongoose.connect(config.db)
 .then(() => {
   utils.titleLog("Prepare to migrate albums")
   return migrateAlbum()
+})
+.then(() => {
+  utils.titleLog("Prepare to migrate suggestion articles")
+  return changeQuoteToVote()
 })
 .then(() => {
   utils.titleLog("Prepare to migrate conversations")

@@ -3,7 +3,7 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
-  $scope.articles = articles
+  $scope.articles = articles.filter((article) => article.type !== "vote")
   $scope.filter = "all"
   $scope.user = user
 

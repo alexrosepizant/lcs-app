@@ -21,6 +21,9 @@ const VoteSchema = new Schema({
     type: Schema.ObjectId,
     ref: "User",
   },
+  endsAt: {
+    type: Date,
+  },
   yes: [],
   no: [],
   blank: [],
