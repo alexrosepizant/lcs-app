@@ -6063,6 +6063,7 @@ a.panel-block:hover {
 
 .hero.is-primary .tabs.is-boxed a, .hero.is-primary .tabs.is-toggle a {
   color: white;
+  font-size: 1.4em;
 }
 
 .hero.is-primary .tabs.is-boxed a:hover, .hero.is-primary .tabs.is-toggle a:hover {

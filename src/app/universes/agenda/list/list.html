@@ -15,11 +15,7 @@
 
 <div class="container margin-top-20">
   <div class="columns">
-    <div class="column is-8 margin-top-20">
-      <h1 class="title">
-        <strong>Prochainement</strong>
-      </h1>
-      <hr>
+    <div class="column is-8">
       <div class="box bottom-50">
         <div class="container margin-top-20" ng-if="events.length === 0">
           <div class="notification">
@@ -28,49 +24,78 @@
         </div>
 
         <div ng-if="events.length > 0">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-32x32">
-                  <img ng-src="{{ events[0].user.getAvatar(40,40) }}" alt="Image">
-                </figure>
-              </div>
-              <div class="media-content margin-top-10">
-                <p class="title is-5">{{ events[0].user.username }}</p>
-                <p class="subtitle is-6">vous propose</p>
-              </div>
-              <div class="media-right">
-                <div class="eventDate" ng-if="events[0].subType !== 'euroMatch'">
-                  <i class="fa fa-calendar"></i>
-                  {{ events[0].startsAt | date:"dd MMM yyyy" }}
-                </div>
-                <div class="eventDate" ng-if="events[0].subType === 'euroMatch'">
-                  {{ events[0].startsAt | date:"dd MMM yyyy, à HH:mm" }}
-                </div>
-              </div>
-            </div>
-
+          <div class="media-left">
             <a ui-sref="#">
-              <div class="blog-title ellipsis">{{events[0].title}}</div>
+              <div class="blog-title ellipsis">{{currentEvent.title}}</div>
             </a>
-
-            <div class="content">
-              {{events[0].content}}
-              <br>
-            </div>
-
-            <div class="content">
-              <button class="button is-success">Je viens</button>
-              <button class="button is-primary">Je peux pas</button>
+          </div>
+          <div class="media-right">
+            <div class="eventDate">
+              <div class="eventDay" ng-if="currentEvent.subType !== 'euroMatch'">
+                {{ currentEvent.getDay() }}
+              </div>
+              <div>
+                {{ currentEvent.startsAt | date:"dd MMM yyyy" }}
+              </div>
             </div>
           </div>
+
+          <div class="content">
+            {{currentEvent.content}}
+            <br>
+          </div>
+
+          <div class="content">
+            <button class="button is-success" ng-click="isAvailableForEvent()">Je viens</button>
+            <button class="button is-primary" ng-click="isUnavailableForEvent()">Je peux pas</button>
+          </div>
+
+          <section class="blog-user-section">
+            <div class="authorSectionContainer">
+              <span class="authorSectionTitle">
+                Organisé par
+              </span>
+              <div class="authorContent">
+                <span class="user-image">
+                  <div class="user-image--image">
+                    <div>
+                      <img ng-src="{{ currentEvent.user.getAvatar(40,40) }}" height="40" width="40">
+                    </div>
+                  </div>
+                </span>
+                <a class="authorContent-name" href="#">
+                  {{currentEvent.user.username}}
+                </a>
+              </div>
+            </div>
+            <div class="blogCommentSection">
+              <span class="authorSectionTitle">
+                Ils viennent
+              </span>
+              <div ng-if="currentEvent.guest.length > 0" ng-repeat="user in currentEvent.guest" class="authorContent">
+                <span class="user-image">
+                  <div class="user-image--image">
+                    <div>
+                      <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
+                    </div>
+                  </div>
+                </span>
+                <a class="authorContent-name" href="#">
+                  {{user.username}}
+                </a>
+              </div>
+              <div ng-if="currentEvent.guest.length === 0" class="small-margin-top">
+                <strong>Pour l'instant personne</strong>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
 
     <div class="column is-4 margin-top-20 bottom-50">
       <h1 class="title">
-        <strong>Ca arrive bientôt</strong>
+        <strong>Prochainement</strong>
       </h1>
       <hr>
       <div class="margin-top-20" ng-repeat="userEvent in events" ng-if="events.length > 0 && $index > 0">
@@ -88,7 +113,7 @@
               </div>
               <div class="media-right">
                 <div style="color: #ccc;" ng-if="userEvent.subType !== 'euroMatch'">
-                  {{ userEvent.startsAt | date:"dd MMM yyyy" }}
+                  {{ userEvent.startsAt | date:"dd MMM yyy" }}
                 </div>
                 <div style="color: #ccc;" ng-if="userEvent.subType === 'euroMatch'">
                   {{ userEvent.startsAt | date:"dd MMM yyyy, à HH:mm" }}

@@ -10,6 +10,10 @@ export default function UserEvent(User) {
       getDateFrom() {
         return moment(this.created).fromNow()
       },
+
+      getDay() {
+        return moment(this.startsAt).format("dddd")
+      },
     }, data, {user: new User(data.user)})
   }
 }

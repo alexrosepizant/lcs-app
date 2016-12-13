@@ -9,12 +9,11 @@ export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notif
   $scope.dateOpts = {
     utc: true,
     minDate: new Date(),
-    enableTime: true,
     time_24hr: true,
 
     // create an extra input solely for display purposes
     altInput: true,
-    altFormat: "j F Y, H:i",
+    altFormat: "j F Y",
   }
 
   $scope.dismiss = function() {
