@@ -839,7 +839,7 @@ textarea {
 
 .authorSectionTitle {
   position: absolute;
-  top: 10px;
+  top: 20px;
   color: #999;
   font-size: 12px;
   font-weight: 600;
@@ -859,6 +859,8 @@ textarea {
   -ms-flex-line-pack: center;
   align-content: center;
   margin-right: 20px;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .authorContent img {
@@ -1174,6 +1176,44 @@ figure {
   color: #bbb;
 }
 
+.agenda-container {
+  margin-bottom: -20px;
+}
+
+.limitedHeight {
+  height: 100%;
+}
+
+.agenda-title {
+  font-size: 50px;
+  font-weight: 400;
+}
+
+.agenda-content {
+  margin: 20px 0;
+  font-size: 1.5em;
+}
+
+.agenda-author {
+  position: absolute;
+  left: 70px;
+  top: 70px;
+}
+
+.agendaUserSection {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  height: 100%;
+  position: relative;
+  padding: 35px 0 20px 20px;
+}
+
 .event-timeline hr {
   margin-top: 10px;
 }
@@ -1184,16 +1224,19 @@ p.event-item {
 }
 
 .eventDate {
-  font-size: x-large;
-  background: #e74c3c;
   padding: 10px;
-  color: #ccc;
+  text-align: center;
+  font-size: 3em;
 }
 
 .eventDay {
-  color: white;
-  text-transform: uppercase;
-  font-size: 1.3em;
+  font-family: Bangers;
+  background: #ccc;
+}
+
+.eventYear {
+  font-size: 0.6em;
+  color: #ccc;
 }
 
 .hero-body {

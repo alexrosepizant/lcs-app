@@ -5,14 +5,14 @@
   </header>
 
   <section class="modal-card-body content">
-    <label class="label">Titre</label>
+    <label class="label">Titre *</label>
     <p class="control">
       <input type="text"
              ng-model="userEvent.title"
              class="input"
              placeholder="Titre">
     </p>
-    <label class="label">Date</label>
+    <label class="label">Date *</label>
     <p class="control">
       <input ng-model="userEvent.startsAt"
              type="text"
@@ -23,12 +23,28 @@
              fp-on-setup="datePostSetup(fpItem)"
              data-enabletime="true">
     </p>
-    <label class="label">Contenu</label>
+    <label class="label">Description *</label>
     <p class="control">
       <textarea ng-model="userEvent.content"
                 class="textarea"
                 placeholder="Contenu">
       </textarea>
+    </p>
+
+    <label class="label">Lieu</label>
+    <p class="control">
+      <input type="text"
+             ng-model="userEvent.location"
+             class="input"
+             placeholder="Lieu">
+    </p>
+
+    <label class="label">Prix</label>
+    <p class="control">
+      <input type="text"
+             ng-model="userEvent.price"
+             class="input"
+             placeholder="Prix">
     </p>
   </section>
 

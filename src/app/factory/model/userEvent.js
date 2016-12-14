@@ -14,6 +14,17 @@ export default function UserEvent(User) {
       getDay() {
         return moment(this.startsAt).format("dddd")
       },
-    }, data, {user: new User(data.user)})
+    },
+    data,
+      {
+        user: new User(data.user),
+      },
+      {
+        guest: (data.guest) ? data.guest.map((user) => new User(user)) : [],
+      },
+      {
+        guestUnavailable: (data.guestUnavailable) ? data.guestUnavailable.map((user) => new User(user)) : [],
+      }
+    )
   }
 }

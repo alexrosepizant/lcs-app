@@ -2,6 +2,7 @@
 
 const _ = require("lodash")
 const mongoose = require("mongoose")
+const moment = require("moment")
 
 const UserEvent = mongoose.model("UserEvent")
 
@@ -93,7 +94,7 @@ exports.all = (req, res) => {
   // Filter on-going events
   const query = {
     startsAt: {
-      "$gte": new Date(),
+      "$gte": moment().startOf("day"),
     },
   }
 

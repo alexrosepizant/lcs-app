@@ -12,15 +12,16 @@ export default function AgendaConfig($stateProvider) {
       },
     })
     .state("agenda.create", {
-      url: "/agenda/create",
-      onEnter: ["$state", "$uibModal", function($state, $uibModal) {
+      parent: "agenda",
+      url: "/create",
+      onEnter: ($state, $uibModal) => {
         $uibModal.open({
           templateUrl: "app/universes/agenda/creation/create.html",
           controller: "CreateEventCtrl",
           backdrop: "static",
-        }).result.finally(function() {
+        }).result.finally(() => {
           $state.go("^")
         })
-      }],
+      },
     })
 }
