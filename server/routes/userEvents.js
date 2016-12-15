@@ -1,18 +1,79 @@
 "use strict"
 
-// userEvent routes use userEvent controller
+// UserEvent routes use userEvent controller
+const _ = require("lodash")
 const userEvents = require("../controllers/userEvent")
 const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
 
-  // CRUD endPoints
-  app.get("/userEvent/:userEventId", userEvents.show)
-  app.get("/userEvent", userEvents.all)
-  app.post("/userEvent", authorization.requiresLogin, userEvents.create)
-  app.put("/userEvent/:userEventId", userEvents.update)
-  app.delete("/userEvent/:userEventId", userEvents.destroy)
+  // Setting up the userEventId param
+  app.param("userEventId", (req, res, next) => {
+    userEvents.userEvent(req.params.userEventId)
+      .then((userEvent) => {
+        req.userEvent = userEvent
+        next()
+      })
+      .catch((err) => {
+        next(err)
+      })
+  })
 
-	// Finish with setting up the userEventId param
-  app.param("userEventId", userEvents.userEvent)
+  /**
+  CRUD endPoints
+  **/
+
+  // CREATE: POST /userEvent
+  app.post("/userEvent", authorization.requiresLogin, (req, res) => {
+    userEvents.create(Object.assign(req.body, {
+      user: req.user,
+    })).then((userEvent) => {
+      res.jsonp(userEvent)
+    }).catch((err) => {
+      res.status(400).json(err)
+    })
+  })
+
+  // READ ALL: GET userEvent
+  app.get("/userEvent", (req, res) => {
+    userEvents.all()
+      .then((userEvents) => {
+        res.jsonp(userEvents)
+      }).catch((err) => {
+        res.status(400).json(err)
+      })
+  })
+
+  // READ ONE: GET userEvent/userEventId
+  app.get("/userEvent/:userEventId", (req, res) => {
+    userEvents.userEvent(req.params.userEventId)
+      .then((userEvent) => {
+        res.jsonp(userEvent)
+      })
+      .catch((err) => {
+        res.status(400).json(err)
+      })
+  })
+
+  // UPDATE: POST userEvent/userEventId
+  app.put("/userEvent/:userEventId", (req, res) => {
+    const userEvent = _.extend(req.userEvent, req.body)
+    userEvents.update(userEvent)
+      .then((userEvent) => {
+        res.jsonp(userEvent)
+      })
+      .catch((err) => {
+        res.status(400).json(err)
+      })
+  })
+
+  // DELETE: DELETE userEvent/userEventId
+  app.delete("/userEvent/:userEventId", (req, res) => {
+    userEvents.destroy(req.userEvent)
+      .then((userEvent) => {
+        res.jsonp(userEvent)
+      }).catch((err) => {
+        res.status(400).json(err)
+      })
+  })
 }

@@ -1,5 +1,5 @@
 <nav class="nav has-shadow">
-  <div class="container">
+  <div class="container nav-right">
     <a class="nav-item is-tab button is-primary blog-add" ui-sref="vote.create">
       <span class="icon is-small">
         <i class="fa fa-plus"></i>
@@ -13,67 +13,57 @@
 
 <div class="container">
   <div class="boards">
-        <div class="columns">
-  <div class="column is-4 board">
-      <div class="box is-gray">
-        <div class="head">
-          <div class="name">Idées</div>
-          <div class="count">1</div>
-          <div class="options"><i class="fa fa-ellipsis-h"></i></div>
-        </div>
-        <div class="items">
-          <div class="box">
-            <p class="title">test item</p>
-            <p class="meta">
-              <img src="https://placehold.it/28x28">
-              <a href="#"><i class="fa fa-bars"></i></a>
-            </p>
-          </div>
-          <div class="add-card">
-           <div onclick="addCard(this)">
-            <i class="fa fa-plus-circle"></i>
-            Ajouter une idée
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="column is-4 board">
-    <div class="box is-gray">
-      <div class="head">
-        <div class="name">En cours</div>
-        <div class="count">1</div>
-        <div class="options"><i class="fa fa-ellipsis-h"></i></div>
-      </div>
-      <div class="items">
+    <div class="columns">
+
+      <div class="column is-4 board">
         <div class="box">
-          <p class="title">Update middle-out compression algorithm</p>
-          <p class="meta">
-            <img src="https://placehold.it/28x28">
-            <a href="#"><i class="fa fa-bars"></i></a>
-          </p>
+          <div class="head">
+            <div class="name">Idées</div>
+            <div class="count media-number pull-right">1</div>
+          </div>
+          <div class="items">
+            <div class="idea">
+              <p>test item</p>
+              <div class="margin-top-10">
+                <span class="tag">
+                  Bug
+                </span>
+                <span class="tag">
+                  Amélioration
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="column is-4 board">
-    <div class="box is-gray">
-      <div class="head">
-        <div class="name">C'est fait</div>
-        <div class="count">1</div>
-        <div class="options"><i class="fa fa-ellipsis-h"></i></div>
-      </div>
-      <div class="items">
+
+      <div class="column is-4 board">
         <div class="box">
-          <p class="title">Send project notification to users</p>
-          <p class="meta">
-            <img src="https://placehold.it/28x28">
-            <a href="#"><i class="fa fa-bars"></i></a>
-          </p>
+          <div class="head">
+            <div class="name">En cours</div>
+            <div class="count media-number pull-right">1</div>
+          </div>
+          <div class="items">
+            <div class="idea">
+              <p>Update middle-out compression algorithm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-4 board">
+        <div class="box">
+          <div class="head">
+            <div class="name">C'est fait</div>
+            <div class="count media-number pull-right">1</div>
+          </div>
+          <div class="items">
+            <div class="idea is-gray">
+              <p>Send project notification to users</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
 </div>

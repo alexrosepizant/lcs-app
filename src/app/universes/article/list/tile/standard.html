@@ -33,7 +33,7 @@
 <article class="margin-top-20">
   <div class="media-content">
     <div class="content">
-      <div>
+      <div class="blog-category">
         <div>
           <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
             {{ category }}
@@ -81,7 +81,7 @@
               {{user.username}}
             </a>
           </div>
-          <div ng-if="article.commentsUser.length === 0" class="margin-top-20">
+          <div ng-if="article.commentsUser.length === 0" class="margin-top-25">
             <strong>Pas encore de commentaire</strong>
           </div>
         </div>
