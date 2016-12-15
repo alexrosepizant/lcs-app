@@ -7,20 +7,18 @@
 <div class="container margin-top-20">
   <div class="columns">
     <div class="column is-8 margin-top-20 bottom-50">
-      <h1 class="title">
+      <h1 class="section-title">
         <strong>A la une</strong>
       </h1>
-      <hr>
       <div class='time-to'>
         Festival internationnal de plaisir pure dans...
         <span countdown='' date='December 25, 2016 00:00:00'></span>
       </div>
       <div class="margin-top-40">
-        <h1 class="title">
+        <h1 class="section-title">
           <strong>Derniers articles</strong>
         </h1>
       </div>
-      <hr>
     </section>
     <lcs-blog-post type="{{ datas.article.type || 'standard' }}" class="box blog">
     </lcs-blog-post>
@@ -28,11 +26,11 @@
 
   <div class="column is-4">
     <div class="event-timeline margin-top-20 bottom-50">
-      <h1 class="title">
+      <h1 class="section-title">
         <strong>Les derniers mouvements</strong>
       </h1>
-      <hr>
 
+      <div class="box home-contents">
       <span ng-repeat="content in datas.content | orderBy:'-created'">
         <small class="pull-right">{{content.getDateFrom()}}</small>
         <p class="event-item ellipsis">
@@ -43,6 +41,7 @@
           <a ui-sref="{{content.getLink()}}">{{content.title || 'un commentaire'}}</a>
         </p>
       </span>
+    </div>
     </div>
   </div>
 </div>

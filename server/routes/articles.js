@@ -6,6 +6,17 @@ const articles = require("../controllers/articles")
 const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
+
+  // Setting up the articleId param
+  app.param("articleId", (req, res, next, id) => {
+    articles.article(id)
+      .then((article, err) => {
+        if (err) return next(err)
+        req.article = article
+        next()
+      })
+  })
+
   /**
    * Count articles
    */
@@ -22,7 +33,7 @@ module.exports = (app) => {
   CRUD endPoints
   **/
 
-  // CREATE: POST articles/
+  // CREATE: POST /articles
   app.post("/articles", authorization.requiresLogin, (req, res) => {
     articles.create(req.body)
       .then((article, err) => {
@@ -73,16 +84,6 @@ module.exports = (app) => {
         } else {
           res.jsonp(article)
         }
-      })
-  })
-
-	// Finish with setting up the articleId param
-  app.param("articleId", (req, res, next, id) => {
-    articles.article(id)
-      .then((article, err) => {
-        if (err) return next(err)
-        req.article = article
-        next()
       })
   })
 }

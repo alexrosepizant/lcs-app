@@ -43,10 +43,6 @@
 
           if (triggerRect.left + triggerWidth > document.querySelector("body .container").offsetWidth) {
             left += (document.querySelector("body .container").offsetWidth - triggerRect.left)
-            left -= triggerWidth
-            if ($scope.popoverClass === "popover-chat") {
-              left -= 90
-            }
           }
 
           if ($scope.popoverClass === "popover-chat") {
@@ -88,7 +84,7 @@
             break
 
           default:
-            left = getTriggerOffset(triggerWidth).left - targetWidth + triggerWidth + "px"
+            left = getTriggerOffset(triggerWidth).left - targetWidth + "px"
             top = getTriggerOffset(triggerWidth).top + triggerHeight + 10 + "px"
           }
           target.style.position = "absolute"

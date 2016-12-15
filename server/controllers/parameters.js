@@ -9,16 +9,14 @@ const Parameters = mongoose.model("Parameter")
  * Get all parameters
  */
 exports.getAllParameters = (req, res) => {
-  Parameters.find().exec()
-		.then((parameters, err) => {
-  if (err) {
-    res.render("error", {
-      status: 500,
+  Parameters.find()
+    .then((parameters, err) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.jsonp(parameters)
+      }
     })
-  } else {
-    res.jsonp(parameters)
-  }
-})
 }
 
 /**

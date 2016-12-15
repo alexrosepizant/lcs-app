@@ -2380,11 +2380,6 @@ a.box:active {
   word-break: break-word;
 }
 
-.title:not(:last-child),
-.subtitle:not(:last-child) {
-  margin-bottom: 20px;
-}
-
 .title em,
 .title span,
 .subtitle em,

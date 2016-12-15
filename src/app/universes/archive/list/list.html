@@ -7,12 +7,11 @@
   <div class="columns">
     <div class="column is-8">
       <div class="margin-top-20">
-        <h1 class="title">
+        <h1 class="section-title">
           <strong>Les blogs des copains</strong>
         </h1>
-        <hr>
-        <div class="container margin-top-20 bottom-50">
-          <div class="box margin-top-20" ng-repeat="blog in blogs">
+        <div class="box container bottom-50">
+          <div ng-repeat="blog in blogs">
             <article class="media">
               <div class="media-left">
                 <figure class="image is-64">
@@ -31,32 +30,28 @@
                 </div>
               </div>
             </article>
+            <hr ng-if="$index !== blogs.length - 1">
           </div>
         </div>
       </div>
     </div>
     <div class="column is-4">
       <div class="margin-top-20">
-        <h1 class="title">
+        <h1 class="section-title">
           <strong>Les archives du site</strong>
         </h1>
-        <hr>
         <div>
-          <div class="sidebar-content">
+          <div class="box sidebar-content">
             <div class="card-image">
-              <figure class="image is-4by3">
+              <figure class="image">
                 <img src="/assets/images/euro/logo-euro-2016.jpg" alt="">
               </figure>
             </div>
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
-                  <p class="title is-5">Euro 2016</p>
+                  <p class="title is-5">Les paris de l'Euro 2016</p>
                 </div>
-              </div>
-
-              <div class="content">
-                Revoir les matchs et les paris de l'euro. Pour les courageux d'entre nous.
               </div>
             </div>
           </div>

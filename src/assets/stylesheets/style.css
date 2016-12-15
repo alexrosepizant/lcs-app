@@ -211,8 +211,10 @@ body {
   font-size: small !important;
 }
 
-.title {
-  margin-top: -10px;
+.section-title {
+  background: white;
+  font-size: 20px;
+  padding: 10px;
 }
 
 .trending .trend-title {
@@ -268,9 +270,9 @@ body {
 }
 
 .avatar-header {
-  border: 1px solid white;
-  height: 39px;
+  height: 40px;
   width: 40px;
+  margin-right: 15px;
 }
 
 .profile-heading {
@@ -589,6 +591,10 @@ a.is-current {
   padding: 0 20px !important;
 }
 
+.home-contents {
+  padding-top: 10px;
+}
+
 .card-avatar {
   background-color: #fff;
   border-radius: 6px;
@@ -688,20 +694,17 @@ textarea {
   width: 380px;
 }
 
-#popover-trigger-chat:not(.active) {
+#popover-trigger-chat {
   height: 40px;
   width: 40px;
   margin-top: 10px;
-  border: 1px solid white !important;
+  border: 2px solid white !important;
+  border-radius: 50px;
   color: white;
 }
 
 #popover-trigger-chat.active {
-  background: white;
-  color: red;
-  height: 40px;
-  width: 40px;
-  margin-top: 10px;
+  background: #e74c3c;
 }
 
 #live-chat header {
@@ -871,7 +874,7 @@ textarea {
 
 .authorContent-name {
   font-weight: 700;
-  line-height: 30px;
+  line-height: 40px;
   font-size: 14px;
   color: #000 !important;
   margin: 0;
@@ -1159,7 +1162,7 @@ figure {
 
 .commentContainer .authorSectionTitle {
   position: relative;
-  top: 7px;
+  top: 20px;
 }
 
 .rounded img {
@@ -1185,7 +1188,7 @@ figure {
 }
 
 .agenda-title {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 400;
 }
 
@@ -1197,7 +1200,7 @@ figure {
 .agenda-author {
   position: absolute;
   left: 70px;
-  top: 70px;
+  top: 80px;
 }
 
 .agendaUserSection {
@@ -1219,7 +1222,7 @@ figure {
 }
 
 p.event-item {
-  padding: 6px 10px 4px;
+  padding: 6px 0 4px;
   border-bottom: 1px solid #f1f1f1;
 }
 
@@ -1227,6 +1230,7 @@ p.event-item {
   padding: 10px;
   text-align: center;
   font-size: 3em;
+  background: white;
 }
 
 .eventDay {
@@ -1237,6 +1241,7 @@ p.event-item {
 .eventYear {
   font-size: 0.6em;
   color: #ccc;
+  background: white;
 }
 
 .hero-body {
@@ -1485,5 +1490,6 @@ p.event-item {
 }*/
 
 .top-header {
-  background: #333 !important;
+  background: #606c88;
+  background: linear-gradient(to left, #606c88, #3f4c6b);
 }
