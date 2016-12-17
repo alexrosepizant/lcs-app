@@ -2,7 +2,6 @@ export default function StandardCreationCtrl($rootScope, $scope, ArticleFactory,
 
   // Retrieve params
   $scope.article = article
-
   /** ***
   Upload config
   *** ***/

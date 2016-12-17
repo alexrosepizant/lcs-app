@@ -38,15 +38,15 @@ export default function Content(User) {
       getLink() {
         switch (this.type) {
         case "standard":
-          return "/article/" + this.type + "/" + this._id
+          return "standardView({articleId:'" + this._id + "'})"
         case "album":
-          return "/article/" + this.type + "/" + this._id
+          return "albumView({articleId:'" + this._id + "'})"
         case "video":
-          return "/article/" + this.type + "/" + this._id
+          return "videoView({articleId:'" + this._id + "'})"
         case "vote":
-          return "/vote"
+          return "vote"
         case "userEvent":
-          return "/agenda"
+          return "agenda"
         case "comment":
           return "fa-comment"
         default:

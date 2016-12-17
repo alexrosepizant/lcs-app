@@ -714,9 +714,9 @@ textarea {
   height: 40px;
   width: 40px;
   margin-top: 10px;
-  border: 2px solid white !important;
   border-radius: 50px;
   color: white;
+  background: black;
 }
 
 #popover-trigger-chat.active {

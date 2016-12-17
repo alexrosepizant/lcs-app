@@ -1,4 +1,4 @@
-export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
+export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $state,
                                     Upload, ArticleFactory, UserFactory, articles, user, Notification) {
 
   // Retrieve params
@@ -34,9 +34,32 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
   }
 
   /** *
-    Article deletion
+    Article update and delete
   ***/
-  $scope.remove = (evt, articleId) => {
+  $scope.updateContent = (evt, content) => {
+    if (evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
+    }
+
+    switch (content.type) {
+    case "standard":
+      $state.go("article.update", {articleId: content._id})
+      break
+    case "video":
+      $state.go("article.updateVideo", {articleId: content._id})
+      break
+    case "album":
+      $state.go("article.updateAlbum", {articleId: content._id})
+      break
+    case "userEvent":
+      break
+    default:
+      break
+    }
+  }
+
+  $scope.removeContent = (evt, articleId) => {
     if (evt) {
       evt.preventDefault()
       evt.stopPropagation()

@@ -64,8 +64,8 @@
         </div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" ui-sref="article.createAlbum({articleId: card._id})">Modifier</a>
-        <a class="card-footer-item" ng-click="mother.remove($event, card._id)">Supprimer</a>
+        <a class="card-footer-item" ng-click="mother.updateContent($event, card)">Modifier</a>
+        <a class="card-footer-item" ng-click="mother.removeContent($event, card._id)">Supprimer</a>
       </footer>
     </div>
   </div>
