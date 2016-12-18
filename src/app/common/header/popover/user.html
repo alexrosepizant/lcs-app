@@ -1,0 +1,12 @@
+<nav class="user-popover">
+  <p class="panel-heading">
+    Connecté en tant que
+    <strong>{{currentUser.username}}</strong>
+  </p>
+  <a class="panel-block is-active" ui-sref="profile" ng-click="closeMenu('popover-trigger')">
+    Profile
+  </a>
+  <a class="panel-block" ng-click="logout()">
+    Déconnexion
+  </a>
+</nav>

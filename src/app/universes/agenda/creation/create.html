@@ -31,20 +31,28 @@
       </textarea>
     </p>
 
-    <label class="label">Lieu</label>
+    <label class="label">Prix (optionnel)</label>
+    <p class="control">
+      <input type="number"
+             ng-model="userEvent.price"
+             class="input"
+             placeholder="Prix">
+    </p>
+
+    <label class="label">Lieu (optionnel)</label>
     <p class="control">
       <input type="text"
-             ng-model="userEvent.location"
+             ng-model="userEvent.location.adress"
              class="input"
              placeholder="Lieu">
     </p>
 
-    <label class="label">Prix</label>
+    <label class="label">Lien (optionnel)</label>
     <p class="control">
       <input type="text"
-             ng-model="userEvent.price"
+             ng-model="userEvent.link"
              class="input"
-             placeholder="Prix">
+             placeholder="Lien">
     </p>
   </section>
 

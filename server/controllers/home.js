@@ -51,7 +51,7 @@ const formatUserData = (userData) => {
     return item.created || item.startsAt
   })
 
-  return sortedDatas.content.slice(Math.max(sortedDatas.content.length - 31, 0), sortedDatas.content.length)
+  return sortedDatas.content.slice(Math.max(sortedDatas.content.length - 11, 0), sortedDatas.content.length)
 }
 
 /**

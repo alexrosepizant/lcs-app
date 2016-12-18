@@ -1,7 +1,8 @@
-export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notification) {
+export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notification, userEvent) {
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
+  $scope.userEvent = userEvent
 
   /**
   Flatpick config
@@ -10,6 +11,7 @@ export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notif
     utc: true,
     minDate: new Date(),
     time_24hr: true,
+    defaultDate: userEvent.startsAt,
 
     // create an extra input solely for display purposes
     altInput: true,

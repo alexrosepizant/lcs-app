@@ -8,29 +8,22 @@
     <div class="column is-8">
       <div class="margin-top-20">
         <h1 class="section-title">
-          <strong>Les blogs des copains</strong>
+          <strong>En ce moment</strong>
         </h1>
-        <div class="box container bottom-50">
-          <div ng-repeat="blog in blogs">
-            <article class="media">
-              <div class="media-left">
-                <figure class="image is-64">
-                  <img ng-src="{{blog.image}}" alt="Image">
-                </figure>
-              </div>
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <strong>{{blog.title}}</strong> <small>{{blog.subtitle}}</small>
-                    <br>
-                    <a ng-href="{{blog.href}}" target="_blank">
-                      {{blog.href}}
-                    </a>
-                  </p>
+        <div>
+          <div class="box sidebar-content">
+            <div class="card-image">
+              <figure class="image">
+                <img src="/assets/images/euro/logo-euro-2016.jpg" alt="">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <p class="title is-5">C'est noel</p>
                 </div>
               </div>
-            </article>
-            <hr ng-if="$index !== blogs.length - 1">
+            </div>
           </div>
         </div>
       </div>
@@ -38,11 +31,11 @@
     <div class="column is-4">
       <div class="margin-top-20">
         <h1 class="section-title">
-          <strong>Les archives du site</strong>
+          <strong>Précédemment</strong>
         </h1>
-        <div>
-          <div class="box sidebar-content">
-            <div class="card-image">
+        <div class="box">
+          <div class="sidebar-content">
+            <div>
               <figure class="image">
                 <img src="/assets/images/euro/logo-euro-2016.jpg" alt="">
               </figure>

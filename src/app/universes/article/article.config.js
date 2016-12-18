@@ -58,6 +58,25 @@ export default function ArticleConfig($stateProvider) {
       })
     },
   })
+  .state("article.update", {
+    parent: "article",
+    url: "/update?articleId",
+    onEnter: ($state, $stateParams, $uibModal) => {
+      $uibModal.open({
+        templateUrl: "app/universes/article/creation/standard/create.html",
+        controller: "StandardCreationCtrl",
+        backdrop: "static",
+        animation: false,
+        resolve: {
+          article: (ArticleFactory) => {
+            return ArticleFactory.getArticle($stateParams.articleId)
+          },
+        },
+      }).result.finally(() => {
+        $state.go("^")
+      })
+    },
+  })
   .state("article.createVideo", {
     parent: "article",
     url: "/create/video",
@@ -68,12 +87,31 @@ export default function ArticleConfig($stateProvider) {
         backdrop: "static",
         animation: false,
         resolve: {
-          article: ($rootScope, $stateParams, ArticleFactory, Article) => {
-            return ($stateParams.articleId) ? ArticleFactory.getArticle($stateParams.articleId) : new Article({
+          article: ($rootScope, Article) => {
+            return new Article({
               type: "video",
               user: $rootScope.currentUser._id,
               url: "",
             })
+          },
+        },
+      }).result.finally(() => {
+        $state.go("^")
+      })
+    },
+  })
+  .state("article.updateVideo", {
+    parent: "article",
+    url: "/update/video?articleId",
+    onEnter: ($state, $stateParams, $uibModal) => {
+      $uibModal.open({
+        templateUrl: "app/universes/article/creation/video/create.html",
+        controller: "VideoCreationCtrl",
+        backdrop: "static",
+        animation: false,
+        resolve: {
+          article: (ArticleFactory) => {
+            return ArticleFactory.getArticle($stateParams.articleId)
           },
         },
       }).result.finally(() => {
@@ -91,11 +129,30 @@ export default function ArticleConfig($stateProvider) {
         backdrop: "static",
         animation: false,
         resolve: {
-          article: ($rootScope, $stateParams, ArticleFactory, Article) => {
-            return ($stateParams.articleId) ? ArticleFactory.getArticle($stateParams.articleId) : new Article({
+          article: ($rootScope, ArticleFactory, Article) => {
+            return new Article({
               type: "album",
               user: $rootScope.currentUser._id,
             })
+          },
+        },
+      }).result.finally(() => {
+        $state.go("^")
+      })
+    },
+  })
+  .state("article.updateAlbum", {
+    parent: "article",
+    url: "/update/album?articleId",
+    onEnter: ($state, $stateParams, $uibModal) => {
+      $uibModal.open({
+        templateUrl: "app/universes/article/creation/album/create.html",
+        controller: "AlbumCreationCtrl",
+        backdrop: "static",
+        animation: false,
+        resolve: {
+          article: (ArticleFactory) => {
+            return ArticleFactory.getArticle($stateParams.articleId)
           },
         },
       }).result.finally(() => {

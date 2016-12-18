@@ -1,4 +1,4 @@
-export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, ngPopoverFactory, Notification) {
+export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, Notification) {
 
   $scope.currentUser = $rootScope.currentUser
 
@@ -7,6 +7,11 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, n
     name: "Accueil",
     id: "home",
     link: "home",
+    notificationNumber: 0,
+  }, {
+    name: "Le site",
+    id: "idea",
+    link: "idea",
     notificationNumber: 0,
   }, {
     name: "Blog",
@@ -18,25 +23,15 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, n
     link: "agenda",
     id: "agenda",
     notificationNumber: 0,
+  // }, {
+  //   name: "Votes",
+  //   id: "vote",
+  //   link: "vote",
+  //   notificationNumber: 0,
   }, {
-    name: "Votes",
-    id: "vote",
-    link: "vote",
-    notificationNumber: 0,
-  }, {
-    name: "Archives",
+    name: "En ce moment",
     id: "archive",
     link: "archive",
-    notificationNumber: 0,
-  }, {
-    name: "Boite à idées",
-    id: "idea",
-    link: "idea",
-    notificationNumber: 0,
-  },{
-    name: "La noel",
-    id: "christmas",
-    link: "christmas",
     notificationNumber: 0,
   }]
 
@@ -51,11 +46,6 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, n
       title: "Info",
       message: "C'est pour bientôt!",
     })
-  }
-
-  // Close user menu
-  $scope.closeMenu = (triggerId) => {
-    ngPopoverFactory.closePopover(triggerId)
   }
 
   $scope.$on("onNewMessage", () => {

@@ -1,9 +1,11 @@
-export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
-                                    Upload, ArticleFactory, UserFactory, articles, user, Notification) {
+export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $state,
+                                    Upload, ArticleFactory, UserFactory, articles, userEvents, user, Notification) {
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.articles = articles.filter((article) => article.type !== "vote")
+  $scope.userEvents = userEvents
+  $scope.contents = $scope.articles.concat($scope.userEvents)
   $scope.filter = "all"
   $scope.user = user
 
@@ -34,9 +36,31 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
   }
 
   /** *
-    Article deletion
+    Article update and delete
   ***/
-  $scope.remove = (evt, articleId) => {
+  $scope.updateContent = (evt, content) => {
+    if (evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
+    }
+
+    switch (content.type) {
+    case "standard":
+      $state.go("article.update", {articleId: content._id})
+      break
+    case "video":
+      $state.go("article.updateVideo", {articleId: content._id})
+      break
+    case "album":
+      $state.go("article.updateAlbum", {articleId: content._id})
+      break
+    default:
+      $state.go("agenda.update", {userEventId: content._id})
+      break
+    }
+  }
+
+  $scope.removeContent = (evt, content) => {
     if (evt) {
       evt.preventDefault()
       evt.stopPropagation()
@@ -46,11 +70,11 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal,
       templateUrl: "app/universes/user/deletion/removeArticle.html",
       controller: "RemoveContentCtrl",
       resolve: {
-        articleId: () => {
-          return articleId
+        contentId: () => {
+          return content._id
         },
         type: () => {
-          return "article"
+          return content.type || "agenda"
         },
       },
     })

@@ -1,4 +1,4 @@
-<div class="container profile">
+<div class="container profile bottom-50">
   <div class="section profile-heading">
     <div class="columns">
       <div class="column is-2">
@@ -16,17 +16,13 @@
         </p>
         <p class="tagline">{{ user.description || "Rentre un petit mot de présentation pour les copaings" }}</p>
       </div>
-      <div class="column is-2 following has-text-centered">
+      <div class="column is-3 following has-text-centered">
         <p class="stat-val">{{ user.articles.length }}</p>
         <p class="stat-key">Articles</p>
       </div>
-      <div class="column is-2 following has-text-centered">
+      <div class="column is-3 following has-text-centered">
         <p class="stat-val">{{ user.userEvents.length }}</p>
         <p class="stat-key">Evènements</p>
-      </div>
-      <div class="column is-2 following has-text-centered">
-        <p class="stat-val">{{ user.votes.length }}</p>
-        <p class="stat-key">Votes</p>
       </div>
     </div>
   </div>
@@ -49,12 +45,12 @@
     </div>
   </div>
 
-  <div deckgrid class="deckgrid" source="articles" ng-if="articles.length > 0">
+  <div deckgrid class="deckgrid" source="contents" ng-if="contents.length > 0">
     <div class="card user-profile">
       <header class="card-header">
         <p class="card-header-title ellipsis">
           <span class="tag user-tag">
-            {{card.type}}
+            {{card.type || "évènement"}}
           </span>
         </p>
       </header>
@@ -64,8 +60,8 @@
         </div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" ui-sref="article.createAlbum({articleId: card._id})">Modifier</a>
-        <a class="card-footer-item" ng-click="mother.remove($event, card._id)">Supprimer</a>
+        <a class="card-footer-item" ng-click="mother.updateContent($event, card)">Modifier</a>
+        <a class="card-footer-item" ng-click="mother.removeContent($event, card)">Supprimer</a>
       </footer>
     </div>
   </div>

@@ -1,16 +1,16 @@
-export default function IdeaFactory($http) {
+export default function IdeaFactory($http, Idea) {
   return {
-    loadIdeas($scope) {
+    loadIdeas() {
       return $http.get("/idea")
-        .then((ideas) => {
-          return $scope.ideas = ideas
+        .then((response) => {
+          return response.data.map((idea) => new Idea(idea))
         })
     },
 
     getIdea(ideaId) {
       return $http.get(`/idea/${ideaId}`)
-        .then((idea) => {
-          return idea
+        .then((response) => {
+          return new Idea(response.data)
         })
     },
 

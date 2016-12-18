@@ -2,7 +2,7 @@
 @import "//fonts.googleapis.com/css?family=Oswald";
 
 :root {
-  --MainColor: #e74c3c;
+  --MainColor: #39f;
   --AsideColor: #232b2d;
   --BorderColor: #f6f7f7;
   --TitleColor: #6f7b7e;
@@ -214,7 +214,7 @@ body {
 .section-title {
   background: white;
   font-size: 20px;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .trending .trend-title {
@@ -234,33 +234,12 @@ body {
 .user-popover {
   background: white;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 }
 
 .user-popover {
   background: white;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-}
-
-.user-popover::before {
-  top: -16px;
-  right: 15px;
-  left: auto;
-  border: 8px solid transparent;
-  border-bottom-color: #dbdbdb;
-  position: absolute;
-  display: inline-block;
-  content: "";
-}
-
-.user-popover::after {
-  top: -13px;
-  right: 16px;
-  left: auto;
-  border: 7px solid transparent;
-  border-bottom-color: whitesmoke;
-  position: absolute;
-  display: inline-block;
-  content: "";
 }
 
 .user-popover .panel-heading {
@@ -273,6 +252,7 @@ body {
   height: 40px;
   width: 40px;
   margin-right: 15px;
+  border-radius: 50%;
 }
 
 .profile-heading {
@@ -380,26 +360,24 @@ p.title.is-bold {
 }
 
 .blog-add {
-  margin: 20px;
+  margin: 20px 0 20px 20px;
 }
 
 .blog-title {
-  margin-top: 20px;
-  font-size: 30px;
+  margin-top: 10px;
+  font-size: 25px;
   font-weight: 400;
-  font-family: Bangers;
 }
 
 .blog-title-detail {
-  margin: 40px 0 10px;
+  margin: 30px 0 10px;
   width: 100%;
-  font-size: 50px;
+  font-size: 40px;
   text-transform: capitalize;
-  font-family: Bangers;
 }
 
 .blogCreationTagStandard {
-  margin-left: 60px;
+  margin-bottom: 20px;
 }
 
 .blogCreationTag .tag {
@@ -426,7 +404,15 @@ p.title.is-bold {
 }
 
 .user-title {
-  margin: 10px 0 0;
+  margin: 15px 0 0;
+}
+
+.idea {
+  background-color: white;
+  border: 1px solid #f2f2f2;
+  display: block;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .user-chat {
@@ -473,10 +459,6 @@ a.is-current {
 
 .medium-editor-action .fa {
   font-size: 18px;
-}
-
-.meditor-title {
-  padding-left: 60px;
 }
 
 .meditor-content {
@@ -592,7 +574,12 @@ a.is-current {
 }
 
 .home-contents {
-  padding-top: 10px;
+  padding: 0 10px;
+}
+
+.home-title {
+  font-size: 35px;
+  margin: 10px;
 }
 
 .card-avatar {
@@ -698,9 +685,9 @@ textarea {
   height: 40px;
   width: 40px;
   margin-top: 10px;
-  border: 2px solid white !important;
   border-radius: 50px;
   color: white;
+  background: black;
 }
 
 #popover-trigger-chat.active {
@@ -713,6 +700,7 @@ textarea {
   cursor: pointer;
   padding: 10px 20px;
   text-align: left;
+  border-radius: 2px 2px 0 0;
 }
 
 #live-chat h4 {
@@ -721,12 +709,7 @@ textarea {
 
 #live-chat form {
   padding: 20px;
-  background: white;
-}
-
-#live-chat section {
-  border-left: 1px solid #f2f2f2;
-  border-right: 1px solid #f2f2f2;
+  border-radius: 0 0 4px 4px;
 }
 
 #live-chat i {
@@ -816,7 +799,6 @@ textarea {
 }
 
 .blog-user-section {
-  margin: 20px 0 0;
   border-top: 1px solid #f2f2f2;
   display: -ms-flexbox;
   display: flex;
@@ -838,6 +820,10 @@ textarea {
   position: relative;
   padding: 35px 0 20px 5px;
   border-right: 1px solid #f2f2f2;
+}
+
+.blog-category {
+  margin: -10px 0 10px;
 }
 
 .authorSectionTitle {
@@ -1188,13 +1174,81 @@ figure {
 }
 
 .agenda-title {
-  font-size: 40px;
+  font-size: 35px;
   font-weight: 400;
 }
 
+.agenda-add {
+  margin: 20px 10px;
+}
+
+.unavailableUser {
+  font-weight: 700;
+  line-height: 40px;
+  font-size: 14px;
+  color: #000 !important;
+  margin: 0;
+  margin-left: -30px;
+}
+
+.icon-action-user {
+  color: #e62727;
+  position: relative;
+  top: -5px;
+  right: 38px;
+  font-size: -webkit-xxx-large;
+}
+
+.agendaTag:first-child {
+  margin-top: 10px;
+}
+
+.agendaTag strong {
+  margin-right: 10px;
+}
+
+.sideEvent .box {
+  padding: 20px;
+  min-height: 140px;
+}
+
+.sideEvent.active .box {
+  background: #f3f3f3;
+}
+
+.sideEvent:not(.active):hover .box {
+  background: #f3f3f3;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.eventDateSmall .agenda-title {
+  font-size: 20px;
+}
+
+.event-counter {
+  margin-top: -10px;
+  margin-left: 10px;
+}
+
 .agenda-content {
-  margin: 20px 0;
+  margin: 10px 0;
   font-size: 1.5em;
+}
+
+.agendaComment {
+  margin: 0 -20px;
+}
+
+.agendaGuest {
+  display: block;
+  opacity: 0.6;
+  margin-top: -10px;
+}
+
+.agenda-content-small {
+  margin: 10px 0;
+  font-size: 1em;
 }
 
 .agenda-author {
@@ -1214,7 +1268,22 @@ figure {
   flex: 0 0 auto;
   height: 100%;
   position: relative;
-  padding: 35px 0 20px 20px;
+}
+
+.agendaAnswer {
+  width: 100%;
+  text-align: right;
+}
+
+.agendaSectionTitle {
+  color: #999;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  line-height: 16px;
+  text-transform: uppercase;
+  margin-right: 10px;
+  margin-top: inherit;
 }
 
 .event-timeline hr {
@@ -1223,6 +1292,9 @@ figure {
 
 p.event-item {
   padding: 6px 0 4px;
+}
+
+span:not(:last-child) p.event-item {
   border-bottom: 1px solid #f1f1f1;
 }
 
@@ -1230,18 +1302,36 @@ p.event-item {
   padding: 10px;
   text-align: center;
   font-size: 3em;
-  background: white;
+  background: #39f;
+  height: 100%;
+}
+
+.eventDateSmall {
+  padding: 10px;
+  text-align: center;
+  font-size: 2em;
+  background: #999;
+  color: white;
+  margin-right: 20px;
 }
 
 .eventDay {
-  font-family: Bangers;
-  background: #ccc;
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: black;
+  background: white;
+  padding: 0 10px;
+}
+
+.eventDateLong {
+  font-size: 35px;
+  color: white;
 }
 
 .eventYear {
   font-size: 0.6em;
-  color: #ccc;
-  background: white;
+  color: white;
 }
 
 .hero-body {
@@ -1377,6 +1467,7 @@ p.event-item {
 .marquee span {
   display: inline-block;
   animation: marquee 30s linear infinite;
+  font-size: 17px;
 }
 
 .marquee span:hover {
@@ -1490,6 +1581,5 @@ p.event-item {
 }*/
 
 .top-header {
-  background: #606c88;
-  background: linear-gradient(to left, #606c88, #3f4c6b);
+  background: var(--MainColor);
 }

@@ -1,6 +1,6 @@
 import moment from "moment"
 
-export default function CommentCtrl($rootScope, $scope, ArticleFactory, CommentFactory) {
+export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFactory, CommentFactory) {
 
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser
@@ -40,10 +40,17 @@ export default function CommentCtrl($rootScope, $scope, ArticleFactory, CommentF
         created: moment(new Date()).toISOString(),
       })
 
-      ArticleFactory.updateArticle(angular.extend($scope.object, {
-        user: $scope.object.user._id,
-      })).then((newObject) => {
+      let promise = null
+      switch ($scope.type) {
+      case "agenda":
+        promise = AgendaFactory.update($scope.object)
+        break
+      default:
+        promise = ArticleFactory.updateArticle($scope.object)
+        break
+      }
 
+      promise.then((newObject) => {
         $scope.object.__v = newObject.__v
         $scope.newComment = ""
 
@@ -67,9 +74,17 @@ export default function CommentCtrl($rootScope, $scope, ArticleFactory, CommentF
         created: moment(new Date()).toISOString(),
       })
 
-      ArticleFactory.updateArticle(angular.extend($scope.object,{
-        user: $scope.object.user._id,
-      })).then((newObject) => {
+      let promise = null
+      switch ($scope.type) {
+      case "agenda":
+        promise = AgendaFactory.update($scope.object)
+        break
+      default:
+        promise = ArticleFactory.updateArticle($scope.object)
+        break
+      }
+
+      promise.then((newObject) => {
         $scope.object.__v = newObject.__v
         $scope.replies[commentId].content = ""
         $scope.replies[commentId].active = false

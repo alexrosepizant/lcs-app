@@ -1,4 +1,4 @@
-export default function AgendaListCtrl($rootScope, $scope, AgendaFactory, events, Notification) {
+export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFactory, events, Notification) {
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.events = events
@@ -28,6 +28,10 @@ export default function AgendaListCtrl($rootScope, $scope, AgendaFactory, events
   /**
   Utilities
   **/
+  $scope.setCurrentEvent = (userEvent) => {
+    $scope.currentEvent = userEvent
+  }
+
   $scope.addUserToArray = (array) => {
     if ($scope.currentEvent[array].map((user) => user._id).indexOf($scope.currentUser._id)) {
       $scope.currentEvent[array].push({
@@ -65,7 +69,7 @@ export default function AgendaListCtrl($rootScope, $scope, AgendaFactory, events
   }
 
   $scope.updateEvent = (message) => {
-    AgendaFactory.updateUserEvent($scope.currentEvent)
+    AgendaFactory.update($scope.currentEvent)
       .then((userEvent) => {
         $scope.currentEvent = userEvent
         Notification.success(message)
@@ -73,6 +77,21 @@ export default function AgendaListCtrl($rootScope, $scope, AgendaFactory, events
       .catch(() => {
         Notification.error("Petit soucis pendant la mise à jour de l'évènement")
       })
+  }
+
+  $scope.remove = (userEventId) => {
+    $uibModal.open({
+      templateUrl: "app/universes/user/deletion/removeArticle.html",
+      controller: "RemoveContentCtrl",
+      resolve: {
+        contentId: () => {
+          return userEventId
+        },
+        type: () => {
+          return "agenda"
+        },
+      },
+    })
   }
 
   $scope.$on("updateAgendaList", () => {

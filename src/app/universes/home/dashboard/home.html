@@ -4,16 +4,9 @@
   </div>
 </nav>
 
-<div class="container margin-top-20">
+<div class="container">
   <div class="columns">
-    <div class="column is-8 margin-top-20 bottom-50">
-      <h1 class="section-title">
-        <strong>A la une</strong>
-      </h1>
-      <div class='time-to'>
-        Festival internationnal de plaisir pure dans...
-        <span countdown='' date='December 25, 2016 00:00:00'></span>
-      </div>
+    <div class="column is-8 bottom-50">
       <div class="margin-top-40">
         <h1 class="section-title">
           <strong>Derniers articles</strong>
@@ -25,14 +18,14 @@
   </div>
 
   <div class="column is-4">
-    <div class="event-timeline margin-top-20 bottom-50">
+    <div class="event-timeline margin-top-40 bottom-50">
       <h1 class="section-title">
         <strong>Les derniers mouvements</strong>
       </h1>
 
       <div class="box home-contents">
       <span ng-repeat="content in datas.content | orderBy:'-created'">
-        <small class="pull-right">{{content.getDateFrom()}}</small>
+        <small class="pull-right margin-top-10">{{content.getDateFrom()}}</small>
         <p class="event-item ellipsis">
           <span class="icon-item-type">
             <i class="fa" ng-class="content.getIcon()"></i>
