@@ -1,13 +1,5 @@
 <nav class="nav has-shadow">
   <div class="container nav-right">
-    <a class="nav-item is-tab button is-primary blog-add" ui-sref="vote.create">
-      <span class="icon is-small">
-        <i class="fa fa-plus"></i>
-      </span>
-      <span>
-        Ajouter
-      </span>
-    </a>
   </div>
 </nav>
 
@@ -17,48 +9,25 @@
       <div class="column is-4 board">
         <div class="box">
           <div class="head">
-            <div class="name">Idées</div>
-            <div class="count media-number pull-right">1</div>
+            <div class="name">Idées </div>
+            <div class="count media-number">{{ideas.length}}</div>
+              <a class="nav-item is-tab button is-primary pull-right" ui-sref="idea.create">
+                <span class="icon is-small">
+                  <i class="fa fa-plus"></i>
+                </span>
+                <span>
+                  Ajouter
+                </span>
+              </a>
           </div>
           <div class="items">
-            <div class="idea">
-              <p>test item</p>
+            <div class="idea" ng-repeat="idea in ideas">
+              <p>{{ idea.description }}</p>
               <div class="margin-top-10">
-                <span class="tag">
-                  Bug
-                </span>
-                <span class="tag">
-                  Amélioration
+                <span class="tag" ng-repeat="categorie in idea.categories">
+                  {{ categorie }}
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="column is-4 board">
-        <div class="box">
-          <div class="head">
-            <div class="name">En cours</div>
-            <div class="count media-number pull-right">1</div>
-          </div>
-          <div class="items">
-            <div class="idea">
-              <p>Update middle-out compression algorithm</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="column is-4 board">
-        <div class="box">
-          <div class="head">
-            <div class="name">C'est fait</div>
-            <div class="count media-number pull-right">1</div>
-          </div>
-          <div class="items">
-            <div class="idea is-gray">
-              <p>Send project notification to users</p>
             </div>
           </div>
         </div>

@@ -420,6 +420,7 @@ p.title.is-bold {
   border: 1px solid #f2f2f2;
   display: block;
   padding: 10px;
+  margin-bottom: 20px;
 }
 
 .user-chat {
@@ -581,7 +582,7 @@ a.is-current {
 }
 
 .home-contents {
-  padding-top: 10px;
+  padding: 0 10px;
 }
 
 .home-title {
