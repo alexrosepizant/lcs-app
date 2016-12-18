@@ -4,15 +4,18 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
 
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser
-  $scope.replies = {}
 
-  $scope.object.comments.forEach((comment, index) => {
-    $scope.replies[comment._id] = {
-      active: false,
-      content: "",
-      index: index,
-    }
-  })
+  $scope.buildComments = () => {
+    $scope.replies = {}
+    $scope.object.comments.forEach((comment, index) => {
+      $scope.replies[comment._id] = {
+        active: false,
+        content: "",
+        index: index,
+      }
+    })
+  }
+  $scope.buildComments()
 
   $scope.showReply = (evt, commentId) => {
     if (evt) {
@@ -20,7 +23,9 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
       evt.stopPropagation()
     }
 
-    $scope.replies[commentId].active = true
+    $scope.replies[commentId] = {
+      active: true,
+    }
   }
 
   $scope.isCurrentComment = (commentId) => {

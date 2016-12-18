@@ -443,6 +443,11 @@ p.title.is-bold {
   right: 25px;
 }
 
+.close-chat {
+  position: absolute !important;
+  right: 25px;
+}
+
 .level {
   padding-right: 20px;
 }
@@ -765,6 +770,7 @@ textarea {
   margin: 8px 0;
   text-align: left;
   color: black;
+  max-width: 350px;
 }
 
 .chat-message p {

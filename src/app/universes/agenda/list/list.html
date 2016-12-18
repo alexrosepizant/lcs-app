@@ -1,17 +1,5 @@
 <nav class="nav has-shadow">
   <div class="container">
-    <div class="nav-left">
-      <p class="control margin-top-20">
-        <input ng-model="startsAt"
-               type="text"
-               class="input"
-               placeholder="Selectionne une date..."
-               ng-flatpickr
-               fp-opts="dateOpts"
-               fp-on-setup="datePostSetup(fpItem)"
-               data-enabletime="true">
-      </p>
-    </div>
     <div class="nav-right">
       <a class="nav-item is-tab button is-primary blog-add" ui-sref="agenda.create">
         <span class="icon is-small">
@@ -110,7 +98,7 @@
             </section>
 
             <div class="agendaGuest" ng-if="currentEvent.guest.length > 0">
-              <div ng-repeat="user in currentEvent.guest" class="authorContent">
+              <div ng-repeat="user in currentEvent.guest" class="authorContent pull-left">
                 <span class="user-image">
                   <div class="user-image--image">
                     <div>
@@ -125,7 +113,7 @@
             </div>
 
             <div class="agendaGuest" ng-if="currentEvent.guestUnavailable.length > 0">
-              <div ng-repeat="user in currentEvent.guestUnavailable" class="authorContent">
+              <div ng-repeat="user in currentEvent.guestUnavailable" class="authorContent pull-left">
                 <span class="user-image">
                   <div class="user-image--image">
                     <div>
@@ -139,6 +127,9 @@
                   {{user.username}}
                 </a>
               </div>
+            </div>
+
+            <div class="clearfix">
             </div>
 
             <section class="blog-user-section margin-top-10 agendaComment">

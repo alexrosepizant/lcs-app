@@ -5,27 +5,6 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
   $scope.currentEvent = $scope.events[0]
 
   /**
-  Flatpick config
-  **/
-  $scope.startsAt = $scope.currentEvent.startsAt
-  $scope.dateOpts = {
-    utc: true,
-    minDate: new Date(),
-    time_24hr: true,
-
-    // create an extra input solely for display purposes
-    altInput: true,
-    altFormat: "j F Y",
-  }
-
-  $scope.datePostSetup = (fpItem) => {
-    fpItem.set("onChange", (dateObject, dateString) => {
-      console.warn(dateString)
-      $scope.fpVal = dateString
-    })
-  }
-
-  /**
   Utilities
   **/
   $scope.setCurrentEvent = (userEvent) => {
@@ -33,7 +12,7 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
   }
 
   $scope.addUserToArray = (array) => {
-    if ($scope.currentEvent[array].map((user) => user._id).indexOf($scope.currentUser._id)) {
+    if ($scope.currentEvent[array].map((user) => user._id).indexOf($scope.currentUser._id) === -1) {
       $scope.currentEvent[array].push({
         _id: $scope.currentUser._id,
       })
@@ -41,7 +20,7 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
   }
 
   $scope.removeUserOfArray = (array) => {
-    const index = $scope.currentEvent[array].map((user) => user._id)
+    const index = $scope.currentEvent[array].map((user) => user._id).indexOf($scope.currentUser._id)
     if (index !== -1) {
       $scope.currentEvent[array].splice(index, 1)
     }
