@@ -5,6 +5,27 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
   $scope.currentEvent = $scope.events[0]
 
   /**
+  Flatpick config
+  **/
+  $scope.startsAt = $scope.currentEvent.startsAt
+  $scope.dateOpts = {
+    utc: true,
+    minDate: new Date(),
+    time_24hr: true,
+
+    // create an extra input solely for display purposes
+    altInput: true,
+    altFormat: "j F Y",
+  }
+
+  $scope.datePostSetup = (fpItem) => {
+    fpItem.set("onChange", (dateObject, dateString) => {
+      console.warn(dateString)
+      $scope.fpVal = dateString
+    })
+  }
+
+  /**
   Utilities
   **/
   $scope.setCurrentEvent = (userEvent) => {

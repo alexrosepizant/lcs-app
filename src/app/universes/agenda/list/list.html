@@ -1,5 +1,17 @@
 <nav class="nav has-shadow">
   <div class="container">
+    <div class="nav-left">
+      <p class="control margin-top-20">
+        <input ng-model="startsAt"
+               type="text"
+               class="input"
+               placeholder="Selectionne une date..."
+               ng-flatpickr
+               fp-opts="dateOpts"
+               fp-on-setup="datePostSetup(fpItem)"
+               data-enabletime="true">
+      </p>
+    </div>
     <div class="nav-right">
       <a class="nav-item is-tab button is-primary blog-add" ui-sref="agenda.create">
         <span class="icon is-small">
@@ -33,7 +45,7 @@
                 {{ currentEvent.startsAt | date:"dd MMM" }}
               </div>
               <div class="eventYear">
-                {{ currentEvent.startsAt | date:"yyyy" }}
+                {{ event.startsAt | date:"yyyy" }}
               </div>
             </div>
 
