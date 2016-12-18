@@ -1,9 +1,11 @@
 export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $state,
-                                    Upload, ArticleFactory, UserFactory, articles, user, Notification) {
+                                    Upload, ArticleFactory, UserFactory, articles, userEvents, user, Notification) {
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.articles = articles.filter((article) => article.type !== "vote")
+  $scope.userEvents = userEvents
+  $scope.contents = $scope.articles.concat($scope.userEvents)
   $scope.filter = "all"
   $scope.user = user
 
@@ -52,14 +54,13 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $
     case "album":
       $state.go("article.updateAlbum", {articleId: content._id})
       break
-    case "userEvent":
-      break
     default:
+      $state.go("agenda.update", {userEventId: content._id})
       break
     }
   }
 
-  $scope.removeContent = (evt, articleId) => {
+  $scope.removeContent = (evt, content) => {
     if (evt) {
       evt.preventDefault()
       evt.stopPropagation()
@@ -69,11 +70,11 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $
       templateUrl: "app/universes/user/deletion/removeArticle.html",
       controller: "RemoveContentCtrl",
       resolve: {
-        articleId: () => {
-          return articleId
+        contentId: () => {
+          return content._id
         },
         type: () => {
-          return "article"
+          return content.type || "agenda"
         },
       },
     })

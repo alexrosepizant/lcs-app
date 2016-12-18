@@ -12,6 +12,9 @@ export default function UserConfig($stateProvider) {
              return ArticleFactory.getArticlesByUser($rootScope.currentUser._id)
            })
         },
+        userEvents: ($rootScope, AgendaFactory) => {
+          return AgendaFactory.findUserEventsByUser($rootScope.currentUser._id)
+        },
         user: ($rootScope, UserFactory, User) => {
           return UserFactory.getUser($rootScope.currentUser._id)
             .then((response) => new User(response.data))
@@ -29,6 +32,9 @@ export default function UserConfig($stateProvider) {
            .then(() => {
              return ArticleFactory.getArticlesByUser($rootScope.currentUser._id)
            })
+        },
+        userEvents: ($rootScope, AgendaFactory) => {
+          return AgendaFactory.findUserEventsByUser($rootScope.currentUser._id)
         },
         user: ($rootScope, UserFactory, User) => {
           return UserFactory.getUser($rootScope.currentUser._id)

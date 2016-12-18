@@ -23,20 +23,22 @@ exports.userEvent = (userEventId) => {
 /**
  * List of userEvent
  */
-exports.all = () => {
+exports.all = (params) => {
+
+  const query = (params.userId) ? {user: params.userId} : {}
+
   // Filter on-going events
-  const query = {
-    startsAt: {
-      "$gte": moment().startOf("day"),
-    },
+  query.startsAt = {
+    "$gte": moment().startOf("day"),
   }
 
   return UserEvent.find(query)
     .sort("startsAt")
-    .limit(40)
     .populate("user", userFields)
     .populate("guest", userFields)
     .populate("guestUnavailable", userFields)
+    .populate("comments.user", userFields)
+    .populate("comments.replies.user", userFields)
 }
 
 /**
@@ -52,6 +54,9 @@ exports.create = (userEvent) => {
  */
 exports.update = (userEvent) => {
   return userEvent.save()
+    .then((userEvent) => {
+      return this.userEvent(userEvent._id)
+    })
 }
 
 /**

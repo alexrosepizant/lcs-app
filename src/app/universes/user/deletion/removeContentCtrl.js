@@ -1,19 +1,33 @@
-export default function ProfileCtrl($rootScope, $scope, ArticleFactory, Notification, articleId) {
+export default function ProfileCtrl($rootScope, $scope, ArticleFactory, AgendaFactory, Notification, contentId, type) {
   // retrieve variables
-  $scope.articleId = articleId
+  $scope.contentId = contentId
+  $scope.contentType = type
 
   $scope.dismiss = () => {
     $scope.dismiss()
   }
 
   $scope.removeContent = () => {
-    ArticleFactory.deleteArticle($scope.articleId)
+    let labelType= ""
+    let promise = null
+    switch ($scope.contentType) {
+    case "agenda":
+      labelType = "évènement"
+      promise = AgendaFactory.deleteUserEvent($scope.contentId)
+      break
+    default:
+      labelType = "article"
+      promise = ArticleFactory.deleteArticle($scope.contentId)
+      break
+    }
+
+    promise
       .then(() => {
         $scope.$close(true)
         $rootScope.$broadcast("updateUserContentList")
         Notification.success({
           title: "Success",
-          message: "Article supprimé avec succés",
+          message: `l'${labelType} supprimé avec succés`,
         })
       })
       .catch((err) => {

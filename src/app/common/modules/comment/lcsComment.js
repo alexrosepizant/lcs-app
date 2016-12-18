@@ -5,6 +5,7 @@ export default () => {
     scope: {
       updateMethod: "&",
       object: "=",
+      type: "=",
     },
     controller: "CommentCtrl",
   }

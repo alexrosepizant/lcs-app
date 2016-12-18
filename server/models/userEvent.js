@@ -35,10 +35,6 @@ const UserEventSchema = new Schema({
     type: Schema.ObjectId,
     ref: "User",
   },
-  type: {
-    type: String,
-    trim: true,
-  },
   eventType: {
     type: String,
     trim: true,
@@ -47,23 +43,22 @@ const UserEventSchema = new Schema({
     type: String,
     trim: true,
   },
-  editable:{
-    type: Boolean,
-  },
-  deletable:{
-    type: Boolean,
-  },
-  incrementsBadgeTotal:{
-    type: String,
-    trim: true,
+  price: {
+    type: Number,
   },
   location: {
+    adress: {
+      type: String,
+    },
     latitude: {
       type: String,
     },
     longitude: {
       type: String,
     },
+  },
+  link: {
+    type: String,
   },
   guest: [{
     type : mongoose.Schema.ObjectId, ref : "User",

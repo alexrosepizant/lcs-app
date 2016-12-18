@@ -1,168 +1,156 @@
-;(function(angular) {
-  "use strict"
-  const app = angular.module("ngPopover", [])
-  // Hides all popovers, skips the popover whose trigger Id is provided in the function call
-  const hideAllPopovers = function(trigger) {
-    let triggerId
-    if (trigger)
-      triggerId = trigger.getAttribute("id")
-    const allPopovers = trigger !== undefined ?
-    document.querySelectorAll(".ng-popover:not([trigger=\""+triggerId+"\"])") :
-    document.querySelectorAll(".ng-popover")
-    for (let i =0; i<allPopovers.length; i++) {
-      const popover = allPopovers[i]
-      if (!popover.classList.contains("hide"))
-        popover.classList.add("hide")
-    }
-  }
-  app.directive("ngPopover", function() {
-    return {
-      restrict: "EA",
-      scope: {
-        direction: "@",
-        trigger: "@",
-        onClose: "&",
-        onOpen: "&",
-        popoverClass: "@",
-      },
-      replace: true,
-      transclude: true, // we want to insert custom content inside the directive
-      link($scope, element, attrs, ctrl) {
+angular.module("angular-popover", []).directive("angularPopover", ["$window", function($window) {
+  return {
+    restrict: "A",
+    transclude: true,
+    scope: true,
+    template:
+    "<div class=\"angular-popover-container\"><div class=\"angular-popover hide-popover-element\">" +
+    "<div ng-if=\"isTemplateUrl()\" ng-include=\"getContentPopover()\" class=\"angular-popover-template\"></div>" +
+    "<div ng-if=\"!isTemplateUrl()\" class=\"angular-popover-template\"></div></div>" +
+    "<div class=\"angular-popover-triangle hide-popover-element\" ng-class=\"getTriangleClass()\"></div></div>" +
+    "<ng-transclude></ng-transclude>",
+    link(scope, element, attrs) {
 
-        $scope.popoverClass = attrs.popoverClass
-        $scope.dropDirection = attrs.direction || "bottom"
+      const elementPositionProperty = $window.getComputedStyle(element[0]).position
+      if (elementPositionProperty === "static") {
+        element[0].style.position = "relative"
+      }
 
-        const trigger = document.querySelector("#"+$scope.trigger)
-        const target = document.querySelector(".ng-popover[trigger=\""+$scope.trigger+"\"]")
+      // the root div of the popup template
+      const popoverContainer = element[0].querySelector(".angular-popover-container")
+      let  popover
+      let  parentHeight // height of the element to which the directive is attached
+      let parentWidth // width of the element to which the directive is attached
+      let popoverHeight // height of the popover
+      let  popoverWidth // width of the popover
+      let  triangle // the small triangle attached with the popover
+      const triangleDivSide = 15 // side of the triangle
+      const triangleRectDivSide = 30 // the div which has been rotated to make a triangle using the after pseudo class
 
-        const getTriggerOffset = function(triggerWidth) {
+      const triangleHeight = Math.sqrt(triangleDivSide * triangleDivSide / 2)
+      const mode = attrs.mode || "click"
+      const closeOnClick = attrs.closeOnClick === undefined ?
+      (mode === "click" ? true : false) : (attrs.closeOnClick === "true")
 
-          const triggerRect = trigger.getBoundingClientRect()
-          let left = triggerRect.left
-          let top = triggerRect.top + document.body.scrollTop
+      const closeOnMouseleave = attrs.closeOnMouseleave === undefined ? (mode === "mouseover" ? true : false) :
+      (attrs.closeOnMouseleave === "true")
 
-          if (triggerRect.left + triggerWidth > document.querySelector("body .container").offsetWidth) {
-            left += (document.querySelector("body .container").offsetWidth - triggerRect.left)
-          }
-
-          if ($scope.popoverClass === "popover-chat") {
-            top += 12
-          }
-
-          return {
-            top: top,
-            left: left,
-          }
+      const createPopover = function() {
+        if (attrs.template) {
+          const templateElement = element[0].querySelector(".angular-popover-template")
+          templateElement.innerHTML = attrs.template
         }
 
-        const calcPopoverPosition = function(trigger, target) {
-          let left
-          let top
-
-          target.classList.toggle("hide")
-          const targetWidth = target.offsetWidth
-          const targetHeight = target.offsetHeight
-
-          target.classList.toggle("hide")
-          const triggerWidth = trigger.offsetWidth
-          const triggerHeight = trigger.offsetHeight
-
-          switch ($scope.dropDirection) {
-          case "left":
-            left = getTriggerOffset(triggerWidth).left - targetWidth - 10 + "px"
-            top = getTriggerOffset(triggerWidth).top + "px"
-            break
-
-          case "right":
-            left = getTriggerOffset(triggerWidth).left + triggerWidth + 10 + "px"
-            top = getTriggerOffset().top + "px"
-            break
-
-          case "top":
-            left = getTriggerOffset(triggerWidth).left + "px"
-            top = getTriggerOffset(triggerWidth).top - targetHeight - 10 + "px"
-            break
-
-          default:
-            left = getTriggerOffset(triggerWidth).left - targetWidth + "px"
-            top = getTriggerOffset(triggerWidth).top + triggerHeight + 10 + "px"
-          }
-          target.style.position = "absolute"
-          target.style.left = left
-          target.style.top = top
+        if (attrs.backgroundColor) {
+          popover.style["background-color"] = attrs.backgroundColor
         }
 
-        // Add click event listener to trigger
-        trigger.addEventListener("click", function(ev) {
-          const trigger = this // get trigger element
-          const target =  document.querySelector(".ng-popover[trigger=\""+$scope.trigger+"\"]")
-          ev.preventDefault()
-          calcPopoverPosition(trigger, target) // calculate the position of the popover
-          hideAllPopovers(trigger)
-          target.classList.toggle("hide") // toggle display of target popover
-          // if target popover is visible then add click listener to body and call the open popover callback
-          if (!target.classList.contains("hide")) {
-            ctrl.registerBodyListener()
-            $scope.onOpen()
-            $scope.$apply()
-          } else {
-            ctrl.unregisterBodyListener()
-            $scope.onClose()
-            $scope.$apply()
-          }
+        if (attrs.textColor) {
+          popover.style.color = attrs.textColor
+        }
+
+        if (attrs.padding) {
+          popover.style.padding = attrs.padding
+        }
+
+        popoverHeight = popover.clientHeight
+        popoverWidth = popover.clientWidth
+
+        // check direction and calculate position for appending popover and triangle
+        switch (attrs.direction) {
+        case "top" :
+          popover.style.top = (-parentHeight - popoverHeight - triangleHeight) + "px"
+          popover.style.left = ((parentWidth - popoverWidth)/2) + "px"
+          triangle.style.top = (-parentHeight - triangleHeight) + "px"
+          triangle.style.left = ((parentWidth - triangleRectDivSide)/2) + "px"
+          break
+
+        case "bottom":
+          popover.style.top = triangleHeight + "px"
+          popover.style.left = ((parentWidth - popoverWidth)/2) + "px"
+          triangle.style.top = -(triangleRectDivSide - triangleHeight) + "px"
+          triangle.style.left = ((parentWidth - triangleRectDivSide)/2) + "px"
+          break
+
+        case "right":
+          popover.style.top = ((parentHeight - popoverHeight)/2 - parentHeight) + "px"
+          popover.style.left = parentWidth + triangleHeight + "px"
+          triangle.style.top = ((parentHeight - triangleRectDivSide)/2 - parentHeight) + "px"
+          triangle.style.left = (parentWidth - (triangleRectDivSide - triangleHeight)) + "px"
+          break
+
+        case "left":
+          popover.style.top = ((parentHeight - popoverHeight)/2 - parentHeight) + "px"
+          popover.style.right = triangleHeight + "px"
+          triangle.style.top = ((parentHeight - triangleRectDivSide)/2 - parentHeight) + "px"
+          triangle.style.left = -triangleHeight + "px"
+          break
+        }
+      }
+
+      // return the path of the popover template
+      scope.getContentPopover = function() {
+        return attrs.templateUrl
+      }
+
+      scope.isTemplateUrl = function() {
+        if (attrs.templateUrl) {
+          return true
+        }
+        return false
+      }
+
+      // depending upon the direction specified, attached the appropriate class to the popover
+      scope.getTriangleClass = function() {
+        return "angular-popover-triangle-" + attrs.direction
+      }
+
+
+      if (closeOnMouseleave) {
+        element[0].addEventListener("mouseleave", function() {
+          popover.classList.add("hide-popover-element")
+          triangle.classList.add("hide-popover-element")
         })
+      }
 
-        // calculates the position of the popover
-        calcPopoverPosition(trigger, target)
-      },
+      if (mode !== "click" && closeOnClick) {
+        element[0].addEventListener("click", function() {
+          popover.classList.add("hide-popover-element")
+          triangle.classList.add("hide-popover-element")
+        })
+      }
 
-      controller: ["$scope", function($scope) {
-        // logic to hide popover on click of body
-        const bodyListenerLogic = function(e) {
-          let clickedElement = e.target
-          let insidePopover = false
-          do {
-            if (clickedElement !== document
-              && (clickedElement.classList && (clickedElement.classList.contains("ng-popover") ||
-              clickedElement.classList.contains("ng-popover-trigger")))) {
-              insidePopover = true
-              break
-            }
-          } while ((clickedElement = clickedElement.parentNode))
-          if (!insidePopover) {
-            hideAllPopovers()
-            document.body.removeEventListener("click", bodyListenerLogic)
-            $scope.onClose()
-            $scope.$apply()
-          }
+      // listen for click on the directive element
+      element[0].addEventListener(mode, function() {
+        parentHeight = element[0].clientHeight
+
+        // move the popover container to the bottom of the directive element
+        popoverContainer.style.top = parentHeight + "px"
+        parentWidth = element[0].clientWidth
+        popover = element[0].querySelector(".angular-popover")
+        triangle = element[0].querySelector(".angular-popover-triangle")
+
+        if (mode === "click" && closeOnClick) {
+          popover.classList.toggle("hide-popover-element")
+          triangle.classList.toggle("hide-popover-element")
+          popoverContainer.classList.toggle("popover-animation")
+          popoverContainer.classList.toggle("popover-floating-animation-" + attrs.direction)
+        }      else if (mode === "click" && !closeOnClick) {
+          popover.classList.remove("hide-popover-element")
+          triangle.classList.remove("hide-popover-element")
+          popoverContainer.classList.add("popover-animation")
+          popoverContainer.classList.add("popover-floating-animation-" + attrs.direction)
+        }  else if (popover.classList.contains("hide-popover-element")) {
+          popover.classList.remove("hide-popover-element")
+          triangle.classList.remove("hide-popover-element")
+          popoverContainer.classList.add("popover-animation")
+          popoverContainer.classList.add("popover-floating-animation-" + attrs.direction)
         }
-        this.registerBodyListener = function() {
-          document.body.addEventListener("click", bodyListenerLogic)
-        }
 
-        this.unregisterBodyListener = function() {
-          document.body.removeEventListener("click", bodyListenerLogic)
+        if (!popover.classList.contains("hide-popover-element")) {
+          createPopover()
         }
-      }],
-      template:
-        "<div class=\"ng-popover hide\"><div class=\"ng-popover-wrapper {{dropDirection}}\">" +
-        "<div class=\"ng-popover-content\" ng-class=\"popoverClass\"><ng-transclude></ng-transclude></div></div></div>",
-    }
-  })
-
-  app.factory("ngPopoverFactory", function() {
-    return {
-      closePopover(trigger) {
-        document.querySelector(".ng-popover[trigger="+trigger+"]").classList.add("hide")
-      },
-      closeAll() {
-        const allPopovers = document.querySelectorAll(".ng-popover")
-        for (let i=0; i<allPopovers.length; i++) {
-          if (!allPopovers[i].classList.contains("hide"))
-            allPopovers[i].classList.add("hide")
-        }
-      },
-    }
-  })
-
-})(angular)
+      })
+    },
+  }
+}])

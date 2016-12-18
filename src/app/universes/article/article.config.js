@@ -68,7 +68,7 @@ export default function ArticleConfig($stateProvider) {
         backdrop: "static",
         animation: false,
         resolve: {
-          article: ($rootScope, ArticleFactory) => {
+          article: (ArticleFactory) => {
             return ArticleFactory.getArticle($stateParams.articleId)
           },
         },
@@ -110,7 +110,7 @@ export default function ArticleConfig($stateProvider) {
         backdrop: "static",
         animation: false,
         resolve: {
-          article: ($rootScope, ArticleFactory) => {
+          article: (ArticleFactory) => {
             return ArticleFactory.getArticle($stateParams.articleId)
           },
         },
@@ -151,7 +151,7 @@ export default function ArticleConfig($stateProvider) {
         backdrop: "static",
         animation: false,
         resolve: {
-          article: ($rootScope, ArticleFactory) => {
+          article: (ArticleFactory) => {
             return ArticleFactory.getArticle($stateParams.articleId)
           },
         },

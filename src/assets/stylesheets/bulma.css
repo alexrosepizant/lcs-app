@@ -3300,14 +3300,13 @@ a.box:active {
   background-color: whitesmoke;
   border-radius: 290486px;
   display: inline-block;
-  font-size: 18px;
+  font-size: 14px;
   height: 32px;
   line-height: 24px;
   margin-right: 10px;
   min-width: 32px;
   padding: 4px 8px;
   text-align: center;
-  vertical-align: top;
 }
 
 .media-left {
@@ -3903,14 +3902,9 @@ a.nav-item.is-active {
 a.nav-item.is-tab {
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.nav-item a.is-tab:hover,
-a.nav-item.is-tab:hover {
-  border-bottom: 1px solid #3399ff;
-  border-top: 1px solid transparent;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 15px;
 }
 
 .nav-item a.is-tab.is-active,
@@ -4335,8 +4329,7 @@ a.panel-block:hover {
 .tabs.is-boxed a {
   border: 1px solid transparent;
   border-radius: 3px 3px 0 0;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding: 5px 20px;
 }
 
 .tabs.is-boxed a:hover {

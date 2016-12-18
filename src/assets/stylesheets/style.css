@@ -250,28 +250,6 @@ body {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
 }
 
-.user-popover::before {
-  top: -16px;
-  right: 15px;
-  left: auto;
-  border: 8px solid transparent;
-  border-bottom-color: #dbdbdb;
-  position: absolute;
-  display: inline-block;
-  content: "";
-}
-
-.user-popover::after {
-  top: -13px;
-  right: 16px;
-  left: auto;
-  border: 7px solid transparent;
-  border-bottom-color: whitesmoke;
-  position: absolute;
-  display: inline-block;
-  content: "";
-}
-
 .user-popover .panel-heading {
   font-size: 18px;
   padding: 10px;
@@ -390,7 +368,7 @@ p.title.is-bold {
 }
 
 .blog-add {
-  margin: 20px;
+  margin: 20px 0 20px 20px;
 }
 
 .blog-title {
@@ -434,7 +412,7 @@ p.title.is-bold {
 }
 
 .user-title {
-  margin: 10px 0 0;
+  margin: 15px 0 0;
 }
 
 .idea {
@@ -1203,17 +1181,76 @@ figure {
 }
 
 .agenda-title {
-  font-size: 25px;
+  font-size: 35px;
   font-weight: 400;
+}
+
+.agenda-add {
+  margin: 20px 10px;
+}
+
+.unavailableUser {
+  font-weight: 700;
+  line-height: 40px;
+  font-size: 14px;
+  color: #000 !important;
+  margin: 0;
+  margin-left: -30px;
+}
+
+.icon-action-user {
+  color: #e62727;
+  position: relative;
+  top: -5px;
+  right: 38px;
+  font-size: -webkit-xxx-large;
+}
+
+.agendaTag:first-child {
+  margin-top: 10px;
+}
+
+.agendaTag strong {
+  margin-right: 10px;
+}
+
+.sideEvent .box {
+  padding: 20px;
+  min-height: 140px;
+}
+
+.sideEvent.active .box {
+  background: #f3f3f3;
+}
+
+.sideEvent:not(.active):hover .box {
+  background: #f3f3f3;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .eventDateSmall .agenda-title {
   font-size: 20px;
 }
 
+.event-counter {
+  margin-top: -10px;
+  margin-left: 10px;
+}
+
 .agenda-content {
   margin: 10px 0;
   font-size: 1.5em;
+}
+
+.agendaComment {
+  margin: 0 -20px;
+}
+
+.agendaGuest {
+  display: block;
+  opacity: 0.6;
+  margin-top: -10px;
 }
 
 .agenda-content-small {
@@ -1238,7 +1275,22 @@ figure {
   flex: 0 0 auto;
   height: 100%;
   position: relative;
-  padding: 35px 0 0 20px;
+}
+
+.agendaAnswer {
+  width: 100%;
+  text-align: right;
+}
+
+.agendaSectionTitle {
+  color: #999;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  line-height: 16px;
+  text-transform: uppercase;
+  margin-right: 10px;
+  margin-top: inherit;
 }
 
 .event-timeline hr {
@@ -1257,8 +1309,7 @@ span:not(:last-child) p.event-item {
   padding: 10px;
   text-align: center;
   font-size: 3em;
-  background: #ccc;
-  margin-right: 20px;
+  background: #39f;
   height: 100%;
 }
 
@@ -1272,20 +1323,22 @@ span:not(:last-child) p.event-item {
 }
 
 .eventDay {
-  font-size: 20px;
+  font-size: 25px;
   text-transform: uppercase;
   font-weight: 600;
-  color: #ccc;
+  color: black;
   background: white;
   padding: 0 10px;
 }
 
 .eventDateLong {
-  font-size: 30px;
+  font-size: 35px;
+  color: white;
 }
 
 .eventYear {
   font-size: 0.6em;
+  color: white;
 }
 
 .hero-body {

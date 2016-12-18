@@ -42,19 +42,22 @@ export default function ArticleFactory($http, AppConstants, Article) {
 
     getArticle(articleId) {
       return $http.get(`/articles/${articleId}`)
-      .then((article) => {
-        return new Article(article.data)
-      })
+        .then((article) => {
+          return new Article(article.data)
+        })
     },
 
     getArticleCount() {
       return $http.get("/articles/count")
-      .then((result) => {
-        return result.data
-      })
+        .then((result) => {
+          return result.data
+        })
     },
 
     createArticle(article) {
+      if (article._id) {
+        return this.updateArticle(article)
+      }
       return $http.post("/articles", article)
     },
 

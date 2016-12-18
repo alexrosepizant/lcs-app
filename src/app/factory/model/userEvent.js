@@ -1,11 +1,13 @@
 import moment from "moment"
 
-export default function UserEvent(User) {
+export default function UserEvent(User, Comment) {
   return (data) => {
     return angular.extend({
       title: "",
       content: "",
       created: Date.now(),
+      startsAt: Date.now(),
+      location: {},
 
       getDateFrom() {
         return moment(this.created).fromNow()
@@ -24,6 +26,9 @@ export default function UserEvent(User) {
       },
       {
         guestUnavailable: (data.guestUnavailable) ? data.guestUnavailable.map((user) => new User(user)) : [],
+      },
+      {
+        comments: (data.comments) ? data.comments.map((comment) => new Comment(comment)) : [],
       }
     )
   }

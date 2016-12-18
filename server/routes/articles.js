@@ -62,7 +62,7 @@ module.exports = (app) => {
     res.jsonp(req.article)
   })
 
-  // UPDATE: POST articles/articleId
+  // UPDATE: PUT articles/articleId
   app.put("/articles/:articleId", authorization.requiresLogin, (req, res) => {
     const article = _.extend(req.article, req.body)
     articles.update(article)

@@ -10,12 +10,10 @@ module.exports = (app) => {
   // Setting up the userEventId param
   app.param("userEventId", (req, res, next) => {
     userEvents.userEvent(req.params.userEventId)
-      .then((userEvent) => {
+      .then((userEvent, err) => {
+        if (err) return next(err)
         req.userEvent = userEvent
         next()
-      })
-      .catch((err) => {
-        next(err)
       })
   })
 
@@ -36,7 +34,7 @@ module.exports = (app) => {
 
   // READ ALL: GET userEvent
   app.get("/userEvent", (req, res) => {
-    userEvents.all()
+    userEvents.all(req.params)
       .then((userEvents) => {
         res.jsonp(userEvents)
       }).catch((err) => {
@@ -55,7 +53,7 @@ module.exports = (app) => {
       })
   })
 
-  // UPDATE: POST userEvent/userEventId
+  // UPDATE: PUT userEvent/userEventId
   app.put("/userEvent/:userEventId", (req, res) => {
     const userEvent = _.extend(req.userEvent, req.body)
     userEvents.update(userEvent)
