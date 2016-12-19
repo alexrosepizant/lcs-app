@@ -80,13 +80,13 @@ exports.create = (articleData) => {
     const newPath = path.resolve(config.root + "/server" + config.publicDirectory
     + config.userVideoDirectory + article.url.split("/").pop())
     return Files.rename(oldPath, newPath)
-    .then(() => {
-      article.url = config.userVideoDirectory + article.url.split("/").pop()
-      return article.save()
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
+      .then(() => {
+        article.url = config.userVideoDirectory + article.url.split("/").pop()
+        return article.save()
+      })
+      .catch((err) => {
+        return Promise.reject(err)
+      })
   } else {
     return article.save()
   }

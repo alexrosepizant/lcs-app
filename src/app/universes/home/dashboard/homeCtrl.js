@@ -1,7 +1,6 @@
-export default function HomeCtrl($rootScope, $scope, datas, users) {
+export default function HomeCtrl($rootScope, $scope, notifications, users) {
   // Retrieve params
-  $scope.datas = datas
-  $scope.article = datas.article
+  $scope.notifications = notifications
 
   // Format user presentations
   $scope.presentations = users.map((user) => {

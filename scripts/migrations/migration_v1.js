@@ -17,6 +17,8 @@ const Album = mongoose.model("Album")
 const Article = mongoose.model("Article")
 const Chat = mongoose.model("Chat")
 const Conversation = mongoose.model("Conversation")
+const Comment = mongoose.model("Comment")
+const Notification = mongoose.model("Notification")
 const User = mongoose.model("User")
 const Vote = mongoose.model("Vote")
 const UserEvent = mongoose.model("UserEvent")
@@ -282,6 +284,59 @@ const keepCreateContentRefOnUser = () => {
   })
 }
 
+const createNotificationFromScratch = () => {
+  const promises = []
+  return Article.find()
+    .then((articles, err) => {
+      if (err) {
+        return Promise.reject(err)
+      } else {
+        console.log(articles.length + " notifications from articles")
+        articles.forEach((article) => {
+          const notification = new Notification({
+            title: article.title,
+            contentId: article._id,
+            type: article.type,
+            user: article.user,
+          })
+          promises.push(notification.save())
+        })
+        return UserEvent.find()
+      }
+    }).then((userEvents, err) => {
+      if (err) {
+        return Promise.reject(err)
+      } else {
+        console.log(userEvents.length + " notifications from userEvents")
+        userEvents.forEach((userEvent) => {
+          const notification = new Notification({
+            title: userEvent.title,
+            contentId: userEvent._id,
+            type: "userEvent",
+            user: userEvent.user,
+          })
+          promises.push(notification.save())
+        })
+        return Comment.find()
+      }
+    }).then((comments, err) => {
+      if (err) {
+        return Promise.reject(err)
+      } else {
+        console.log(comments.length + " notifications from comments")
+        comments.forEach((comment) => {
+          const notification = new Notification({
+            title: "",
+            contentId: comment._id,
+            type: "comment",
+            user: comment.user,
+          })
+          promises.push(notification.save())
+        })
+        return Promise.all(promises)
+      }
+    })
+}
 /**
 Execute Scripts
 **/
@@ -312,6 +367,10 @@ mongoose.connect(config.db)
 .then(() => {
   utils.titleLog("Prepare to migrate users to add content ref")
   return keepCreateContentRefOnUser()
+})
+.then(() => {
+  utils.titleLog("Prepare to create notifications")
+  return createNotificationFromScratch()
 })
 .then(() => {
   utils.titleLog("Script migration ended")

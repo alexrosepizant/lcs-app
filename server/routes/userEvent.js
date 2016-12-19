@@ -3,6 +3,7 @@
 // UserEvent routes use userEvent controller
 const _ = require("lodash")
 const userEvents = require("../controllers/userEvent")
+const notifications = require("../controllers/notification")
 const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
@@ -26,6 +27,12 @@ module.exports = (app) => {
     userEvents.create(Object.assign(req.body, {
       user: req.user,
     })).then((userEvent) => {
+      notifications.create({
+        title: userEvent.title,
+        contentId: userEvent._id,
+        type: "userEvent",
+        user: userEvent.user,
+      })
       res.jsonp(userEvent)
     }).catch((err) => {
       res.status(400).json(err)

@@ -3,6 +3,7 @@
 // Articles routes use articles controller
 const _ = require("lodash")
 const articles = require("../controllers/articles")
+const notifications = require("../controllers/notification")
 const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
@@ -40,6 +41,12 @@ module.exports = (app) => {
         if (err) {
           res.status(400).json(err)
         } else {
+          notifications.create({
+            title: article.title,
+            contentId: article._id,
+            type: article.type,
+            user: article.user,
+          })
           res.jsonp(article)
         }
       })

@@ -6,8 +6,8 @@ export default function HomeConfig($stateProvider) {
       controller: "HomeCtrl",
       title: "Accueil",
       resolve: {
-        datas: (HomeFactory) => {
-          return HomeFactory.getUserDatas()
+        notifications: (NotificationFactory) => {
+          return NotificationFactory.loadNotifications()
         },
         users: (UserFactory) => {
           return UserFactory.findUsers()

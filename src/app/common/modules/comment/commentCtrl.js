@@ -1,6 +1,6 @@
 import moment from "moment"
 
-export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFactory, CommentFactory) {
+export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFactory, NotificationFactory) {
 
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser
@@ -101,9 +101,10 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
   }
 
   $scope.createCommentContent = () => {
-    CommentFactory.createComment({
+    NotificationFactory.create({
+      title: $scope.object.title,
       user: $scope.currentUser._id,
-      contentType: $scope.object.type,
+      type: "comment",
       contentId: $scope.object._id,
     })
   }

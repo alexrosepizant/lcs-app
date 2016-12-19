@@ -4,6 +4,7 @@ const AppConstants = {
   port: 3000,
   defaultImg: "https://placehold.it/128x128",
   aticlePerPage: 20,
+  notificationCount: 10,
 }
 
 export default AppConstants
