@@ -45,8 +45,7 @@ exports.all = (params) => {
  * Create a userEvent
  */
 exports.create = (userEvent) => {
-  const _userEvent = new UserEvent(userEvent)
-  return _userEvent.save()
+  return new UserEvent(userEvent).save()
 }
 
 /**
@@ -54,9 +53,7 @@ exports.create = (userEvent) => {
  */
 exports.update = (userEvent) => {
   return userEvent.save()
-    .then((userEvent) => {
-      return this.userEvent(userEvent._id)
-    })
+    .then((userEvent) => this.userEvent(userEvent._id))
 }
 
 /**

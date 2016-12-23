@@ -1,47 +1,36 @@
-<section class="hero is-primary top-header" ng-controller="HeaderCtrl" ng-if="currentUser">
+<section class="top-header" ng-controller="HeaderCtrl" ng-if="currentUser">
   <div class="hero-head">
     <div class="container">
       <nav class="nav">
         <div class="nav-left">
-          <p class="title home-title">
+          <p ui-sref="home" class="title home-title">
             Les coqs soccer
           </p>
+          <input type="text" id="search-query-nav" class="search-query st-default-search-input aa-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top;">
         </div>
 
         <div class="nav-right nav-menu">
 
-          <!-- Chat button infos -->
-          <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html">
-            <a id="popover-trigger-chat" class="ng-popover-trigger nav-item is-tab" ng-class="{'active' : showChat}">
-              <span class="icon icon-chevron">
-                <i class="fa fa-comment font-large"></i>
-              </span>
-            </a>
-          </span>
+          <a class="nav-item" ui-sref="{{item.link}}" ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">{{item.name}}</a>
 
-          <!-- User infos -->
-          <span angular-popover direction="bottom" template-url="app/common/header/popover/user.html" close-on-mouseleave="true">
-            <a id="popover-trigger" class="ng-popover-trigger nav-item is-tab">
-              <img ng-src="{{ currentUser.getAvatar(40,40) }}" class="avatar-photo-square avatar-header">
-              <p>{{ currentUser.username }}</p>
-              <span class="icon icon-chevron">
-                <i class="fa fa-chevron-down font-small"></i>
-              </span>
-            </a>
+          <span class="nav-item">
+            <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html">
+              <a class="ng-popover-trigger chatButton">
+                <span class="icon">
+                  <i class="fa fa-commenting-o"></i>
+                </span>
+              </a>
+            </span>
+
+            <span angular-popover direction="bottom" template-url="app/common/header/popover/user.html" close-on-mouseleave="true">
+              <a class="ng-popover-trigger button profilButton">
+                <span>
+                  <img ng-src="{{ currentUser.getAvatar(30,30) }}" class="avatar-photo-square avatar-header">
+                </span>
+              </a>
+            </span>
           </span>
         </div>
-      </nav>
-    </div>
-  </div>
-
-  <div class="hero-foot margin-top-20">
-    <div class="container">
-      <nav class="tabs is-boxed">
-        <ul>
-          <li ng-repeat="item in menu" class="header-item" ng-class="{'is-active' : isCurrentPath(item)}">
-            <a ui-sref="{{item.link}}">{{item.name}}</a>
-          </li>
-        </ul>
       </nav>
     </div>
   </div>

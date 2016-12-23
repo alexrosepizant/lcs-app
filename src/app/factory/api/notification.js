@@ -2,7 +2,9 @@ export default function NotificationFactory($http, AppConstants, NotificationMod
   return {
     loadNotifications() {
       return $http.get("/notification", {
-        limit: AppConstants.notificationCount,
+        params: {
+          limit: AppConstants.notificationCount,
+        },
       }).then((notifications) => {
         return notifications.data.map((notification) => {
           return new NotificationModel(notification)
@@ -12,8 +14,10 @@ export default function NotificationFactory($http, AppConstants, NotificationMod
 
     loadNotificationsByUserId(userId) {
       return $http.get("/notification", {
-        userId: userId,
-        limit: AppConstants.notificationCount,
+        params: {
+          userId: userId,
+          limit: AppConstants.notificationCount,
+        },
       }).then((notifications) => {
         return notifications.data.map((notification) => {
           return new NotificationModel(notification)

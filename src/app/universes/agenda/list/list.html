@@ -14,157 +14,165 @@
 </nav>
 
 <div class="container">
-  <div class="columns bottom-50 margin-top-10">
+  <div class="container margin-top-20" ng-if="events.length === 0">
+    <div class="notification">
+      Pas d'évènement à venir.
+    </div>
+  </div>
+
+  <div class="columns bottom-50 margin-top-10" ng-if="events.length > 0">
     <div class="column is-8">
-        <div class="container margin-top-20" ng-if="events.length === 0">
-          <div class="notification">
-            Il n'y a aucun évènement à venir.
-          </div>
-        </div>
+      <div class="bottom-20">
+        <div class="box">
 
-        <div ng-if="events.length > 0" class="bottom-20">
-          <div class="box">
-
-            <div class="eventDate pull-right">
+          <div class="eventDate">
+            <div>
               <div class="eventDay" ng-if="currentEvent.subType !== 'euroMatch'">
                 {{ currentEvent.getDay() }}
               </div>
               <div class="eventDateLong">
-                {{ currentEvent.startsAt | date:"dd MMM" }}
+                {{ currentEvent.startsAt | date:"dd MMM. yyyy" }}
               </div>
               <div class="eventYear">
                 {{ event.startsAt | date:"yyyy" }}
               </div>
             </div>
-
-            <div>
-              <a ui-sref="#">
-                <div class="agenda-title ellipsis">{{currentEvent.title}}</div>
-              </a>
-
-              <div class="eventInfos">
-                <div class="agendaTag">
-                  <span class="tag" ng-if="currentEvent.price"><strong>Prix</strong>{{currentEvent.price}} €</span>
-                  <span class="tag" ng-if="currentEvent.location.adress"><strong>Lieu</strong>{{currentEvent.location.adress}}</span>
-                  <span class="tag" ng-if="currentEvent.link"><strong>Lien</strong>{{currentEvent.link}}</span>
-                </div>
-              </div>
-
-              <div class="agenda-content">
-                {{currentEvent.content}}
-                <br>
-              </div>
-            </div>
-
-            <div class="clearfix">
-            </div>
-
-            <section class="blog-user-section margin-top-20">
-              <div class="agendaUserSection">
-                <div class="authorContent">
-                  <span class="user-image">
-                    <div class="user-image--image">
-                      <div>
-                        <img ng-src="{{ currentEvent.user.getAvatar(30,30) }}" title="{{currentEvent.user.username}}" height="30" width="30">
-                      </div>
-                    </div>
-                  </span>
-                  <a class="authorContent-name margin-top-20" href="#">
-                    {{currentEvent.user.username}}
-                  </a>
-                  <span class="agendaSectionTitle">
-                    <span class="media-number event-counter">+ {{currentEvent.guest.length}}</span>
-                  </span>
-                </div>
-              </div>
-              <div class="content agendaAnswer margin-top-20">
-                <button class="button is-success" ng-click="isAvailableForEvent()" ng-disabled="currentEvent.user._id === currentUser._id">
-                  <span class="icon is-small">
-                    <i class="fa fa-check"></i>
-                  </span>
-                  <span>
-                    Je viens
-                  </span>
-                </button>
-                <button class="button is-danger" ng-click="isUnavailableForEvent()" ng-disabled="currentEvent.user._id === currentUser._id">
-                  <span class="icon is-small">
-                    <i class="fa fa-remove"></i>
-                  </span>
-                  <span>
-                    Je peux pas
-                  </span>
-                </button>
-              </div>
-            </section>
-
-            <div class="agendaGuest" ng-if="currentEvent.guest.length > 0">
-              <div ng-repeat="user in currentEvent.guest" class="authorContent pull-left">
-                <span class="user-image">
-                  <div class="user-image--image">
-                    <div>
-                      <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{ user.username }}">
-                    </div>
-                  </div>
-                </span>
-                <a class="authorContent-name" href="#">
-                  {{user.username}}
-                </a>
-              </div>
-            </div>
-
-            <div class="agendaGuest" ng-if="currentEvent.guestUnavailable.length > 0">
-              <div ng-repeat="user in currentEvent.guestUnavailable" class="authorContent pull-left">
-                <span class="user-image">
-                  <div class="user-image--image">
-                    <div>
-                      <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{ user.username }}">
-                    </div>
-                  </div>
-                </span>
-                <span class="icon-action-user fa fa-remove">
-                </span>
-                <a class="unavailableUser" href="#">
-                  {{user.username}}
-                </a>
-              </div>
-            </div>
-
-            <div class="clearfix">
-            </div>
-
-            <section class="blog-user-section margin-top-10 agendaComment">
-              <lcs-comment type="'agenda'" object="currentEvent" class="lcs-comment"></lcs-comment>
-            </section>
           </div>
-        </div>
-      </div>
 
-      <div class="column is-4">
-        <h1 class="section-title">
-          <strong>Prochainement</strong>
-        </h1>
+          <div class="margin-top-10">
+            <a ui-sref="#">
+              <div class="agenda-title ellipsis">{{currentEvent.title}}</div>
+            </a>
+          </div>
 
-        <div ng-if="events.length > 0" ng-repeat="event in events" class="sideEvent margin-top-10" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
-          <div class="box">
-            <div class="eventDateSmall pull-left">
-              <div class="eventDateLong">
-                {{ event.startsAt | date:"dd MMM" }}
-              </div>
-              <div class="eventYear">
-                {{ event.startsAt | date:"yyyy" }}
+          <div>
+            <div class="eventInfos">
+              <div class="agendaTag">
+                <span class="tag" ng-if="currentEvent.price"><strong>Prix</strong>{{currentEvent.price}} €</span>
+                <span class="tag" ng-if="currentEvent.location.adress"><strong>Lieu</strong>{{currentEvent.location.adress}}</span>
+                <span class="tag" ng-if="currentEvent.link" ng-bind-html="currentEvent.link | linky"><strong>Lien</strong>{{currentEvent.link}}</span>
               </div>
             </div>
 
-            <a ui-sref="#">
-              <div class="agenda-title ellipsis">{{event.title}}</div>
-            </a>
-
-            <div class="agenda-content-small two-line-ellipsis">
-              {{event.content}}
+            <div class="agenda-content">
+              {{currentEvent.content}}
               <br>
             </div>
           </div>
+
+          <div class="clearfix">
+          </div>
+
+          <section class="blog-user-section margin-top-20">
+            <div class="agendaUserSection">
+              <div class="authorContent">
+                <span class="user-image">
+                  <div class="user-image--image">
+                    <div>
+                      <img ng-src="{{ currentEvent.user.getAvatar(30,30) }}" title="{{currentEvent.user.username}}" height="30" width="30">
+                    </div>
+                  </div>
+                </span>
+                <a class="authorContent-name margin-top-20" href="#">
+                  {{currentEvent.user.username}}
+                </a>
+                <span class="agendaSectionTitle">
+                  <span class="media-number event-counter">+ {{currentEvent.guest.length}}</span>
+                </span>
+              </div>
+            </div>
+            <div class="content agendaAnswer margin-top-20">
+              <button class="button is-success" ng-click="isAvailableForEvent()" ng-disabled="currentEvent.user._id === currentUser._id">
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+                <span>
+                  Je viens
+                </span>
+              </button>
+              <button class="button is-danger" ng-click="isUnavailableForEvent()" ng-disabled="currentEvent.user._id === currentUser._id">
+                <span class="icon is-small">
+                  <i class="fa fa-remove"></i>
+                </span>
+                <span>
+                  Je peux pas
+                </span>
+              </button>
+            </div>
+          </section>
+
+          <div class="agendaGuest" ng-if="currentEvent.guest.length > 0">
+            <div ng-repeat="user in currentEvent.guest" class="authorContent pull-left">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{ user.username }}">
+                  </div>
+                </div>
+              </span>
+              <a class="authorContent-name" href="#">
+                {{user.username}}
+              </a>
+            </div>
+          </div>
+
+          <div class="agendaGuest" ng-if="currentEvent.guestUnavailable.length > 0">
+            <div ng-repeat="user in currentEvent.guestUnavailable" class="authorContent pull-left">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{ user.username }}">
+                  </div>
+                </div>
+              </span>
+              <span class="icon-action-user fa fa-remove">
+              </span>
+              <a class="unavailableUser" href="#">
+                {{user.username}}
+              </a>
+            </div>
+          </div>
+
+          <div class="clearfix">
+          </div>
+
+          <section class="blog-user-section margin-top-10 agendaComment">
+            <lcs-comment type="'agenda'" object="currentEvent" class="lcs-comment"></lcs-comment>
+          </section>
         </div>
+      </div>
+    </div>
+
+    <div class="column is-4">
+      <h1 class="section-title">
+        <strong>Prochainement</strong>
+      </h1>
+
+      <div ng-if="events.length > 0" ng-repeat="event in events" class="sideEvent margin-top-10" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
+        <div class="eventRight">
+          <article class="media">
+            <div class="media-left">
+              <div class="eventDateSmall pull-left">
+                <div class="eventDateLong">
+                  {{ event.startsAt | date:"dd MMM" }}
+                </div>
+                <div class="eventYear">
+                  {{ event.startsAt | date:"yyyy" }}
+                </div>
+              </div>
+            </div>
+            <div class="media-content" style="overflow: hidden;">
+              <div class="content">
+                <p class="three-line-ellipsis">
+                  <strong>{{event.title}}</strong>
+                  <br>
+                  {{event.content}}
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
     </div>
   </div>
 </div>

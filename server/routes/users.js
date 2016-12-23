@@ -24,7 +24,14 @@ module.exports = (app) => {
    * returns info on authenticated user
    */
   app.get("/auth/session", authorization.requiresLogin, (req, res) => {
-    res.json(req.user.user_info)
+    req.user.lastConnectionDate = new Date()
+    return users.update(req.user)
+      .then(() => {
+        res.json(req.user.user_info)
+      })
+      .catch(() => {
+        res.json(req.user.user_info)
+      })
   })
 
   /**
@@ -37,9 +44,10 @@ module.exports = (app) => {
       if (error) {
         return res.status(400).json(error)
       }
-      req.logIn(user, (err) => {
+
+      return req.logIn(user, (err) => {
         if (err) {
-          return res.status(400).json(err)
+          res.status(400).json(err)
         } else {
           res.jsonp(user.user_info)
         }

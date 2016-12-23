@@ -24,7 +24,7 @@ module.exports = (app) => {
 
   // READ ALL: GET notification
   app.get("/notification", (req, res) => {
-    notifications.all(req.params)
+    notifications.all(req.query)
       .then((notifications) => {
         res.jsonp(notifications)
       }).catch((err) => {

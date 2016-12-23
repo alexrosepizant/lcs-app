@@ -1,8 +1,8 @@
-export default function CreateIdeaCtrl($rootScope, $scope, IdeaFactory, Notification, idea) {
+export default function CreateIssueCtrl($rootScope, $scope, IssueFactory, Notification, issue) {
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
-  $scope.idea = idea
+  $scope.issue = issue
   $scope.categories = [{
     value: "Bug",
   },{
@@ -24,7 +24,7 @@ export default function CreateIdeaCtrl($rootScope, $scope, IdeaFactory, Notifica
       $scope.categories.push({
         value: $scope.newCategory,
       })
-      $scope.idea.addCategory($scope.newCategory)
+      $scope.issue.addCategory($scope.newCategory)
       $scope.newCategory = ""
     }
   }
@@ -35,16 +35,16 @@ export default function CreateIdeaCtrl($rootScope, $scope, IdeaFactory, Notifica
 
   // Save function
   $scope.create = () => {
-    if (!$scope.idea.description) {
+    if (!$scope.issue.description) {
       return Notification.warning({
         title: "Info",
         message: "Mets au moins une description",
       })
     }
 
-    IdeaFactory.createIdea($scope.idea)
+    IssueFactory.createIssue($scope.issue)
       .then(() => {
-        $rootScope.$broadcast("updateIdeaList")
+        $rootScope.$broadcast("updateIssueList")
         $scope.$close(true)
         Notification.success({
           title: "Success",

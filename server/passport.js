@@ -34,6 +34,7 @@ module.exports = (passport) => {
       if (err) {
         return done(err)
       }
+
       if (!user) {
         return done(null, false, {
           errors: [{
@@ -42,6 +43,7 @@ module.exports = (passport) => {
           }],
         })
       }
+
       if (!user.authenticate(password)) {
         return done(null, false, {
           errors: [{
@@ -50,6 +52,7 @@ module.exports = (passport) => {
           }],
         })
       }
+
       return done(null, user)
     })
   }))

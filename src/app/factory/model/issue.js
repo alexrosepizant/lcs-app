@@ -1,4 +1,4 @@
-export default function Idea($sce, User) {
+export default function Issue($sce, User) {
   return (data) => {
 
     return angular.extend({

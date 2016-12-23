@@ -28,7 +28,7 @@
 </nav>
 
 <div class="container">
-  <div class="columns bottom-50 margin-top-10">
+  <div class="columns margin-top-10">
     <div class="column is-8">
 
       <div class="container margin-top-20" ng-if="articles.length === 0">
@@ -39,92 +39,90 @@
 
       <lcs-blog-post ng-repeat="article in articles" ng-if="articles.length > 0" type="{{ article.type || 'standard' }}" class="box blog">
       </lcs-blog-post>
-
-      <div class="margin-top-20">
-        <uib-pagination total-items="totalItems" num-pages="numPages" ng-model="currentPage" ng-change="pageChanged()"
-        max-size="maxSize"
-        class="pagination-sm"
-        boundary-links="true"
-        rotate="false"
-        items-per-page="itemPerPage"
-        previous-text="&lsaquo;"
-        next-text="&rsaquo;"
-        first-text="&laquo;"
-        last-text="&raquo;">
-      </uib-pagination>
-    </div>
-  </div>
-
-  <div class="column is-4">
-
-    <h1 class="section-title">
-      <strong>Les catégories</strong>
-    </h1>
-    <div class="section-title">
-      <a ng-repeat="category in categories" ui-sref="article({category: category.value,filter: 'all'})">
-        <span class="tag" ng-class="{'active' : category.value === currentCategory}">
-          {{ category.value }}
-        </span>
-      </a>
     </div>
 
-    <div class="margin-top-20">
+    <div class="column is-4 margin-top-10">
       <h1 class="section-title">
-        <strong>Ceux qui postent le plus</strong>
+        <strong>Les catégories</strong>
       </h1>
       <div class="section-title">
-        <div ng-repeat="user in users | orderBy: '-articles.length' | limitTo: 5 " class="columns">
-          <div class="column is-marginless">
-            <div class="image">
-              <img ng-src="{{ user.getAvatar(80, 80) }}">
+        <a ng-repeat="category in categories" ui-sref="article({category: category.value,filter: 'all'})">
+          <span class="tag" ng-class="{'active' : category.value === currentCategory}">
+            {{ category.value }}
+          </span>
+        </a>
+      </div>
+
+      <div>
+        <h1 class="section-title">
+          <strong>Ceux qui postent le plus</strong>
+        </h1>
+        <div class="section-title">
+          <div ng-repeat="user in users | orderBy: '-articles.length' | limitTo: 5 " class="columns">
+            <div class="column is-marginless">
+              <div class="image">
+                <img ng-src="{{ user.getAvatar(80, 80) }}">
+              </div>
             </div>
-          </div>
-          <div class="column is-9 ellipsis">
-            <p class="user-title">
-              <span class="media-number">{{$index + 1}}</span>
-              <!-- <span angular-popover direction="bottom" template-url="app/universes/user/detail/resume.html" close-on-mouseleave="true"> -->
+            <div class="column is-9 ellipsis">
+              <p class="user-title">
+                <span class="media-number">{{$index + 1}}</span>
+                <!-- <span angular-popover direction="bottom" template-url="app/universes/user/detail/resume.html" close-on-mouseleave="true"> -->
                 <strong>{{ user.username }}</strong>
-              <!-- </span> -->
-              <a class="is-small">
-                <span class="subtitle is-6">
-                  ({{user.articles.length}} articles)
-                </span>
-              </a>
-            </p>
+                <!-- </span> -->
+                <a class="is-small">
+                  <span class="subtitle is-6">
+                    ({{user.articles.length}} articles)
+                  </span>
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="margin-top-20">
-      <h1 class="section-title">
-        <strong>Les blogs des copains</strong>
-      </h1>
-      <div class="box container bottom-50">
-        <div ng-repeat="blog in blogs">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64">
-                <img ng-src="{{blog.image}}" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>{{blog.title}}</strong>
-                  <br>
-                  <a ng-href="{{blog.href}}" target="_blank">
-                    {{blog.href}}
-                  </a>
-                </p>
+      <div>
+        <h1 class="section-title">
+          <strong>Les blogs des copains</strong>
+        </h1>
+        <div class="section-title container">
+          <div ng-repeat="blog in blogs">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64">
+                  <img ng-src="{{blog.image}}" alt="Image">
+                </figure>
               </div>
-            </div>
-          </article>
-          <hr ng-if="$index !== blogs.length - 1">
+              <div class="media-content">
+                <div class="content">
+                  <p class="ellipsis">
+                    <strong>{{blog.title}}</strong>
+                    <br>
+                    <a ng-href="{{blog.href}}" target="_blank">
+                      {{blog.href}}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </article>
+            <hr ng-if="$index !== blogs.length - 1">
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
+
+<div class="margin-top-20">
+  <uib-pagination total-items="totalItems" num-pages="numPages" ng-model="currentPage" ng-change="pageChanged()"
+  max-size="maxSize"
+  class="pagination-sm"
+  boundary-links="true"
+  rotate="false"
+  items-per-page="itemPerPage"
+  previous-text="&lsaquo;"
+  next-text="&rsaquo;"
+  first-text="&laquo;"
+  last-text="&raquo;">
+</uib-pagination>
 </div>

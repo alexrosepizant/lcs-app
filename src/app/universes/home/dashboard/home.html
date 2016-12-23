@@ -1,40 +1,39 @@
-<nav class="nav has-shadow">
-  <div class="margin-top-20">
-    <p class="marquee"><span>{{presentations}}</span></p>
-  </div>
-</nav>
-
 <div class="container">
   <div class="columns">
-    <div class="column is-8 bottom-50">
-      <div class="margin-top-40">
-        <h1 class="section-title">
-          <strong>Derniers articles</strong>
-        </h1>
+
+    <div class="column is-4">
+      <div class="margin-top-40 bottom-20">
+        <img src="https://placehold.it/400x400"/>
+
       </div>
-    </section>
-    <lcs-blog-post type="{{ datas.article.type || 'standard' }}" class="box blog">
-    </lcs-blog-post>
-  </div>
-
-  <div class="column is-4">
-    <div class="event-timeline margin-top-40 bottom-50">
-      <h1 class="section-title">
-        <strong>Les derniers mouvements</strong>
-      </h1>
-
-      <div class="box home-contents">
-      <span ng-repeat="content in notifications | orderBy:'-created'">
-        <small class="pull-right margin-top-10">{{content.getDateFrom()}}</small>
-        <p class="event-item ellipsis">
-          <span class="icon-item-type">
-            <i class="fa" ng-class="content.getIcon()"></i>
-          </span>
-          <a href="#">{{content.user.username}}</a> {{content.getFormattedType()}}
-          <a ui-sref="{{content.getLink()}}">{{content.title || 'un commentaire'}}</a>
-        </p>
-      </span>
     </div>
+
+    <div class="column is-4">
+      <div class="margin-top-40 bottom-20">
+        <img src="https://placehold.it/400x400"/>
+
+      </div>
+    </div>
+
+    <div class="column is-4">
+      <div class="event-timeline margin-top-20">
+        <h1 class="dashboard-title">
+          <strong>L'activité du site</strong>
+        </h1>
+
+        <div class="home-contents">
+          <span ng-repeat="content in notifications | orderBy:'-created'">
+            <small class="pull-right margin-top-10">{{content.getDateFrom()}}</small>
+            <p class="event-item ellipsis">
+              <span class="icon-item-type">
+                <i class="fa" ng-class="content.getIcon()"></i>
+              </span>
+              <a href="#">{{content.user.username}}</a> {{content.getFormattedType()}}
+              <a ui-sref="{{content.getLink()}}">{{content.title || 'un commentaire'}}</a>
+            </p>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

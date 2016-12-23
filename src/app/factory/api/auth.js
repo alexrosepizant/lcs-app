@@ -1,8 +1,5 @@
 export default function AuthFactory($http, $rootScope, $cookieStore, $location, User) {
 
-  const cookieUser = $cookieStore.get("user")
-  $rootScope.currentUser = (cookieUser) ? new User(cookieUser) : null
-
   return {
     login(provider, user) {
       return $http.post("/auth/session", {
@@ -31,10 +28,7 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $location, 
 
     updateCurrentUser() {
       return $http.get("/auth/session")
-        .then((result) => {
-          $cookieStore.put("user", result.data)
-          return $rootScope.currentUser = new User(result.data)
-        })
+        .then((result) => $rootScope.currentUser = new User(result.data))
     },
 
     authenticateUser() {

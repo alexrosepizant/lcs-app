@@ -9,8 +9,11 @@ export default function HomeConfig($stateProvider) {
         notifications: (NotificationFactory) => {
           return NotificationFactory.loadNotifications()
         },
-        users: (UserFactory) => {
-          return UserFactory.findUsers()
+        // users: (UserFactory) => {
+        //   return UserFactory.findUsers()
+        // },
+        article: (ArticleFactory) => {
+          return ArticleFactory.getLastArticle()
         },
       },
     })

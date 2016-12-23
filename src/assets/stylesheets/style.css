@@ -1,8 +1,5 @@
-@import "//fonts.googleapis.com/css?family=Bangers";
-@import "//fonts.googleapis.com/css?family=Oswald";
-
 :root {
-  --MainColor: #39f;
+  --MainColor: #42b983;
   --AsideColor: #232b2d;
   --BorderColor: #f6f7f7;
   --TitleColor: #6f7b7e;
@@ -10,12 +7,13 @@
 }
 
 body {
-  font-family: Oswald;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
   height: 100%;
 }
 
 .ui-view-container {
   position: relative;
+  min-height: calc(100vh - 175px);
 }
 
 [ui-view].ng-enter,
@@ -225,6 +223,12 @@ body {
   padding: 10px 20px;
 }
 
+.dashboard-title {
+  background: white;
+  font-size: 20px;
+  padding: 20px 0 0;
+}
+
 .trending .trend-title {
   padding-bottom: 10px;
 }
@@ -257,21 +261,57 @@ body {
 }
 
 .avatar-header {
-  height: 40px;
-  width: 40px;
-  margin-right: 15px;
+  height: 30px;
+  width: 30px;
+  margin-top: 10px;
+  margin-right: 5px;
   border-radius: 50%;
+}
+
+.search-query {
+  height: 30px;
+  line-height: 30px;
+  box-sizing: border-box;
+  padding: 0 15px 0 30px;
+  border: 1px solid #e3e3e3;
+  color: #2c3e50;
+  outline: none;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-right: 10px;
+  transition: border-color 0.2s ease;
+  background: #fff url(/assets/images/search.png) 8px 5px no-repeat;
+  background-size: 20px;
+  vertical-align: middle !important;
+}
+
+.chatButton {
+  border: 0;
+  color: black;
+}
+
+.top-header {
+  border-bottom: 1px solid whitesmoke;
+}
+
+.profile {
+  border: 1px solid whitesmoke;
+  margin-top: 20px;
+}
+
+.profilButton {
+  padding-left: 20px;
+  border: none;
 }
 
 .profile-heading {
   margin: 20px 0;
-  padding-bottom: 60px;
 }
 
 .profile-heading .name {
   border-right: 1px solid #f1f1f1;
   margin: -30px 0;
-  padding: 40px 30px 0;
+  padding: 40px 10px 0;
 }
 
 .profile-heading .followers,
@@ -310,6 +350,12 @@ body {
   padding-top: 2px;
 }
 
+.issue {
+  border: 1px solid whitesmoke;
+  margin: 10px 0;
+  padding: 10px;
+}
+
 .tagline {
   padding: 20px 0;
   font-size: 16px;
@@ -341,6 +387,7 @@ body {
   border-radius: 50%;
   height: 100px;
   width: 100px;
+  margin-left: 15px;
 }
 
 p.title.is-bold {
@@ -358,6 +405,23 @@ p.title.is-bold {
 
 .blog {
   padding: 0 20px !important;
+  background: rgba(0, 0, 0, 0.02);
+  border: 0;
+  border-radius: 5px;
+}
+
+.blog:hover,
+.sideEvent:not(.active):hover .eventRight {
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+.eventRight {
+  padding: 20px !important;
+  background: rgba(0, 0, 0, 0.02);
+  border: 0;
+  border-radius: 5px;
 }
 
 .blog h2 {
@@ -368,11 +432,11 @@ p.title.is-bold {
 }
 
 .blog-add {
-  margin: 20px 0 20px 20px;
+  margin: 15px 15px 0;
 }
 
 .blog-title {
-  margin-top: 10px;
+  padding-top: 10px;
   font-size: 25px;
   font-weight: 400;
 }
@@ -1221,19 +1285,9 @@ figure {
   margin-right: 10px;
 }
 
-.sideEvent .box {
-  padding: 20px;
-  min-height: 140px;
-}
-
-.sideEvent.active .box {
-  background: #f3f3f3;
-}
-
-.sideEvent:not(.active):hover .box {
-  background: #f3f3f3;
-  transform: scale(1.1);
-  cursor: pointer;
+.sideEvent.active,
+.sideEvent.active .eventRight {
+  background: white !important;
 }
 
 .eventDateSmall .agenda-title {
@@ -1314,10 +1368,13 @@ span:not(:last-child) p.event-item {
 
 .eventDate {
   padding: 10px;
-  text-align: center;
   font-size: 3em;
-  background: #39f;
+  background: var(--MainColor);
   height: 100%;
+}
+
+.eventDate a {
+  color: white;
 }
 
 .eventDateSmall {
@@ -1330,17 +1387,15 @@ span:not(:last-child) p.event-item {
 }
 
 .eventDay {
-  font-size: 25px;
+  font-size: 35px;
   text-transform: uppercase;
   font-weight: 600;
-  color: black;
-  background: white;
-  padding: 0 10px;
+  color: white;
+  padding: 0;
 }
 
 .eventDateLong {
-  font-size: 35px;
-  color: white;
+  font-size: 25px;
 }
 
 .eventYear {
@@ -1410,11 +1465,6 @@ span:not(:last-child) p.event-item {
   color: #aaa;
   font-weight: bold;
   font-size: 16px;
-}
-
-.hero.is-primary a.nav-item,
-.hero.is-primary .nav-item a:not(.button) {
-  color: #fff;
 }
 
 /* =====================================================================================
@@ -1506,94 +1556,8 @@ span:not(:last-child) p.event-item {
   background: white;
 }
 
-/* Christmas */
-.header-item:last-child a {
-  background-color: black;
-  color: white;
-}
-
 .inputCategory {
   width: inherit;
   height: inherit;
   line-height: inherit;
-}
-
-/* =====================================================================================
-    SNOW
-=======================================================================================
-*/
-
-/*#snow {
-  background: none;
-  font-family: Androgyne;
-  background-image: url('http://www.wearewebstars.dk/codepen/img/s1.png'), url('http://www.wearewebstars.dk/codepen/img//s2.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  -webkit-animation: snow 10s linear infinite;
-  -moz-animation: snow 10s linear infinite;
-  -ms-animation: snow 10s linear infinite;
-  animation: snow 10s linear infinite;
-}
-
-@keyframes snow {
-  0% {
-    background-position: 0 0, 0 0, 0 0;
-  }
-
-  50% {
-    background-position: 500px 500px, 100px 200px, -100px 150px;
-  }
-
-  100% {
-    background-position: 500px 1000px, 200px 400px, -100px 300px;
-  }
-}
-
-@-moz-keyframes snow {
-  0% {
-    background-position: 0 0, 0 0, 0 0;
-  }
-
-  50% {
-    background-position: 500px 500px, 100px 200px, -100px 150px;
-  }
-
-  100% {
-    background-position: 400px 1000px, 200px 400px, 100px 300px;
-  }
-}
-
-@-webkit-keyframes snow {
-  0% {
-    background-position: 0 0, 0 0, 0 0;
-  }
-
-  50% {
-    background-position: 500px 500px, 100px 200px, -100px 150px;
-  }
-
-  100% {
-    background-position: 500px 1000px, 200px 400px, -100px 300px;
-  }
-}
-
-@-ms-keyframes snow {
-  0% {
-    background-position: 0 0, 0 0, 0 0;
-  }
-
-  50% {
-    background-position: 500px 500px, 100px 200px, -100px 150px;
-  }
-
-  100% {
-    background-position: 500px 1000px, 200px 400px, -100px 300px;
-  }
-}*/
-
-.top-header {
-  background: var(--MainColor);
 }

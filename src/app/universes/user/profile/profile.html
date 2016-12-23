@@ -10,19 +10,27 @@
           </div>
         </div>
       </div>
-      <div class="column is-4 name">
+      <div class="column is-2 name">
         <p>
           <span class="title is-bold">{{ user.username }}</span>
         </p>
         <p class="tagline">{{ user.presentation || "Rentre un petit mot de présentation pour les copaings" }}</p>
       </div>
-      <div class="column is-3 following has-text-centered">
+      <div class="column is-2 following has-text-centered">
         <p class="stat-val">{{ user.articles.length }}</p>
         <p class="stat-key">Articles</p>
       </div>
-      <div class="column is-3 following has-text-centered">
+      <div class="column is-2 following has-text-centered">
         <p class="stat-val">{{ user.userEvents.length }}</p>
         <p class="stat-key">Evènements</p>
+      </div>
+      <div class="column is-2 following has-text-centered">
+        <p class="stat-val">{{ user.userEvents.length }}</p>
+        <p class="stat-key">Commentaires</p>
+      </div>
+      <div class="column is-2 following has-text-centered">
+        <p class="stat-val">{{ user.userEvents.length }}</p>
+        <p class="stat-key">Coqs</p>
       </div>
     </div>
   </div>
@@ -91,15 +99,15 @@
           <label class="label">Ancien mot de passe</label>
           <p class="control">
             <input class="input"
-            type="text"
+            type="password"
             placeholder="●●●●●●●"
-            ng-model="user.oldPassword">
+            ng-model="user.password">
           </p>
 
           <label class="label">Nouveau mot de passe</label>
           <p class="control">
             <input class="input"
-            type="text"
+            type="password"
             placeholder="●●●●●●●"
             ng-model="user.newPassword">
           </p>

@@ -4,17 +4,7 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, N
 
   // Main menu
   $scope.menu = [{
-    name: "Accueil",
-    id: "home",
-    link: "home",
-    notificationNumber: 0,
-  }, {
-    name: "Le site",
-    id: "idea",
-    link: "idea",
-    notificationNumber: 0,
-  }, {
-    name: "Blog",
+    name: "Articles",
     id: "article",
     link: "article",
     notificationNumber: 0,
@@ -28,10 +18,15 @@ export default function GlobalCtrl($rootScope, $scope, AuthFactory, $location, N
   //   id: "vote",
   //   link: "vote",
   //   notificationNumber: 0,
+  // }, {
+  //   name: "Recommendations",
+  //   id: "recommendations",
+  //   link: "recommendations",
+  //   notificationNumber: 0,
   }, {
-    name: "En ce moment",
-    id: "archive",
-    link: "archive",
+    name: "A propos",
+    id: "about",
+    link: "about",
     notificationNumber: 0,
   }]
 

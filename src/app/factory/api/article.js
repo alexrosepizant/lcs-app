@@ -40,17 +40,27 @@ export default function ArticleFactory($http, AppConstants, Article) {
       })
     },
 
-    getArticle(articleId) {
-      return $http.get(`/articles/${articleId}`)
-        .then((article) => {
-          return new Article(article.data)
-        })
-    },
-
     getArticleCount() {
       return $http.get("/articles/count")
         .then((result) => {
           return result.data
+        })
+    },
+
+    getLastArticle() {
+      return $http.get("/articles", {
+        params: {
+          limit: 1,
+        },
+      }).then((article) => {
+        return new Article(article.data[0])
+      })
+    },
+
+    getArticle(articleId) {
+      return $http.get(`/articles/${articleId}`)
+        .then((article) => {
+          return new Article(article.data)
         })
     },
 

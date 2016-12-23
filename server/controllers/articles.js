@@ -57,7 +57,7 @@ exports.all = (params) => {
     query.word = new RegExp(req.body.search, "i")
   }
 
-  const limit = (params.perPage) ? parseInt(params.perPage) : 20
+  const limit = (params.perPage) ? parseInt(params.perPage) : (params.limit) ? parseInt(params.limit) : 25
   const skip = (params.page) ? parseInt(params.page * limit) : 0
 
   return Article.find(query)

@@ -45,14 +45,13 @@ import appRun     from "./config/app.run"
 import HeaderCtrl from "./common/header/headerCtrl"
 
 // Import app component
+import "./universes/about"
 import "./universes/auth"
 import "./universes/home"
 import "./universes/user"
 import "./universes/article"
 import "./universes/agenda"
 import "./universes/vote"
-import "./universes/idea"
-import "./universes/archive"
 
 // Create and bootstrap application
 const requires = [
@@ -76,6 +75,7 @@ const requires = [
   "com.2fdevs.videogular.plugins.controls",
   "info.vietnamcode.nampnq.videogular.plugins.youtube",
   "app.utils",
+  "app.about",
   "app.auth",
   "app.category",
   "app.chat",
@@ -86,8 +86,6 @@ const requires = [
   "app.user",
   "app.agenda",
   "app.vote",
-  "app.idea",
-  "app.archive",
 ]
 
 // Mount on window for testing

@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="columns">
+    <div class="column is-8">
+      <div class="margin-top-20">
+        <h1 class="section-title">
+          <strong>Les coqs soccer</strong>
+        </h1>
+        <div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-4">
+      <div class="margin-top-20">
+        <div class="head">
+          <h1 class="section-title">
+            <strong>Idées</strong>
+            <div class="count media-number">{{issues.length}}</div>
+              <a class="nav-item is-tab button is-primary pull-right" ui-sref="about.create">
+                <span class="icon is-small">
+                  <i class="fa fa-plus"></i>
+                </span>
+                <span>
+                  Ajouter
+                </span>
+              </a>
+          </div>
+          </h1>
+
+        <div class="items margin-top-20">
+          <div class="issue" ng-repeat="issue in issues">
+            <p>{{ issue.description }}</p>
+            <div class="margin-top-10">
+              <span class="tag" ng-repeat="categorie in issue.categories">
+                {{ categorie }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20">
+        <h1 class="section-title">
+          <strong>Les archives du site</strong>
+        </h1>
+        <div class="box">
+          <div class="sidebar-content">
+            <div>
+              <figure class="image">
+                <img src="/assets/images/euro/logo-euro-2016.jpg" alt="">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <p class="title is-5">Les paris de l'Euro 2016</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

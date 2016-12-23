@@ -1,28 +1,28 @@
-export default function IdeaFactory($http, Idea) {
+export default function IssueFactory($http, Issue) {
   return {
-    loadIdeas() {
+    loadIssues() {
       return $http.get("/idea")
         .then((response) => {
-          return response.data.map((idea) => new Idea(idea))
+          return response.data.map((idea) => new Issue(idea))
         })
     },
 
-    getIdea(ideaId) {
+    getIssue(ideaId) {
       return $http.get(`/idea/${ideaId}`)
         .then((response) => {
-          return new Idea(response.data)
+          return new Issue(response.data)
         })
     },
 
-    createIdea(idea) {
+    createIssue(idea) {
       return $http.post("/idea", idea)
     },
 
-    updateIdea(idea) {
+    updateIssue(idea) {
       return $http.put(`/idea/${idea._id}`, idea)
     },
 
-    deleteIdea(ideaId) {
+    deleteIssue(ideaId) {
       return $http.delete(`/idea/${ideaId}`)
     },
   }

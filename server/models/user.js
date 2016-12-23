@@ -17,51 +17,23 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  previousConnectionDate: {
-    type: Date,
-    default: Date.now,
-  },
-  name: String,
-  lastname: String,
-  email: String,
+  avatar: String,
   username: {
     type: String,
     unique: true,
   },
-  hashed_password: String,
-  provider: String,
-  salt: String,
-  avatar: {
-    type: String,
-    default: "/img/Professor.png",
-  },
-  community: [],
-  preferences: {
-    notifyCommunity: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  skills: [],
-  coins: Number,
   presentation: String,
-  popularity: Number,
-  readArticles: {
-    type: Array,
-    "default": [],
+  email: {
+    type: String,
+    unique: true,
   },
-  conversations: [{
-    conversationId: String,
-    lastUpdate: Date,
-  }],
-  readVotes: {
-    type: Array,
-    "default": [],
+  birthday :{
+    type: Date,
   },
-  readAlbums: {
-    type: Array,
-    "default": [],
-  },
+  hashed_password: String,
+  salt: String,
+  provider: String,
+  exclude: Boolean,
   articles: [{
     type : mongoose.Schema.ObjectId, ref : "Article",
   }],
@@ -80,10 +52,6 @@ const UserSchema = new Schema({
   isEuroAdmin: {
     type: Boolean,
   },
-  birthday :{
-    type: Date,
-  },
-  exclude: Boolean,
 })
 
 /**
@@ -107,6 +75,7 @@ UserSchema
       "username": this.username,
       "email": this.email,
       "avatar": this.avatar,
+      "lastConnectionDate": this.lastConnectionDate,
     }
   })
 

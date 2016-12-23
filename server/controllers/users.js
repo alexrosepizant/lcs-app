@@ -58,10 +58,18 @@ exports.create = (user) => {
 * Update user
 */
 exports.update = (user) => {
-  const userToUpdate = Object.assign({}, user)
-  delete userToUpdate._id
+  const _user = new User(user)
 
-  return User.findOneAndUpdate({_id: user._id}, userToUpdate, {upsert:true})
+  // Manage password change
+  if (user.newPassword) {
+    if (_user.authenticate(_user.password)) {
+      _user.password = user.newPassword
+    } else {
+      return Promise.reject("Old password is not valid")
+    }
+  }
+
+  return User.findByIdAndUpdate(_user._id, _user, {upsert: true})
     .then((updatedUser, err) => {
       if (err) {
         return Promise.reject(err)

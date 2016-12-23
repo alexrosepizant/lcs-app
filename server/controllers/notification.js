@@ -10,10 +10,10 @@ const userFields = "_id name username avatar"
  */
 exports.all = (params) => {
   const query = (params.userId) ? {user: params.userId} : {}
-  const limit = (params.limit) ? params.limit : 30
+  const limit = (params.limit) ? parseInt(params.limit) : 25
 
   return Notification.find(query)
-    .sort("created")
+    .sort("-created")
     .limit(limit)
     .populate("user", userFields)
 }
