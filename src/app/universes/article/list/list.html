@@ -1,11 +1,14 @@
 <nav class="nav has-shadow">
   <div class="container">
     <div class="nav-left">
+      <strong class="nav-item is-tab">
+        Filtrer par
+      </strong>
       <a class="nav-item is-tab" ui-sref="article({ filter: 'all' })" ng-class="{'is-active': filter === 'all'}">
         Tous
       </a>
       <a class="nav-item is-tab " ui-sref="article({ filter: 'standard' })" ng-class="{'is-active': filter === 'standard'}">
-        Articles
+        Récits
       </a>
       <a class="nav-item is-tab " ui-sref="article({ filter: 'video' })" ng-class="{'is-active': filter === 'video'}">
         Vidéos
@@ -113,8 +116,12 @@
   </div>
 </div>
 
-<div class="margin-top-20">
-  <uib-pagination total-items="totalItems" num-pages="numPages" ng-model="currentPage" ng-change="pageChanged()"
+<div class="margin-top-20 bottom-10">
+  <uib-pagination
+  total-items="totalItems"
+  num-pages="numPages"
+  ng-model="currentPage"
+  ng-change="pageChanged()"
   max-size="maxSize"
   class="pagination-sm"
   boundary-links="true"

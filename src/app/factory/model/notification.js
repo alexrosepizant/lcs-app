@@ -1,6 +1,6 @@
 import moment from "moment"
 
-export default function Notification(User) {
+export default function Notification($state, User) {
   return (data) => {
     return angular.extend({
       created: "",
@@ -36,22 +36,25 @@ export default function Notification(User) {
         }
       },
 
-      getLink() {
+      openLink() {
         switch (this.type) {
         case "standard":
-          return "standardView({articleId:'" + this._id + "'})"
+          $state.go("standardView", {articleId: this.contentId})
+          break
         case "album":
-          return "albumView({articleId:'" + this._id + "'})"
+          $state.go("albumView", {articleId: this.contentId})
+          break
         case "video":
-          return "videoView({articleId:'" + this._id + "'})"
+          $state.go("videoView", {articleId: this.contentId})
+          break
         case "vote":
-          return "vote"
+          $state.go("videoView", {articleId: this.contentId})
+          break
         case "userEvent":
-          return "agenda"
-        case "comment":
-          return "fa-comment"
+          $state.go("agenda", {eventId: this.contentId})
+          break
         default:
-          return "fa-comment"
+          return "article"
         }
       },
 

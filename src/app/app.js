@@ -35,6 +35,7 @@ import "./common/modules/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
 import "./common/modules/utils"
 import "./common/modules/category"
 import "./common/modules/chat"
+import "./common/modules/notification"
 import "./common/modules/comment"
 import "./common/modules/countdown"
 
@@ -47,7 +48,6 @@ import HeaderCtrl from "./common/header/headerCtrl"
 // Import app component
 import "./universes/about"
 import "./universes/auth"
-import "./universes/home"
 import "./universes/user"
 import "./universes/article"
 import "./universes/agenda"
@@ -74,17 +74,17 @@ const requires = [
   "com.2fdevs.videogular",
   "com.2fdevs.videogular.plugins.controls",
   "info.vietnamcode.nampnq.videogular.plugins.youtube",
-  "app.utils",
   "app.about",
   "app.auth",
+  "app.agenda",
+  "app.article",
   "app.category",
   "app.chat",
   "app.comment",
   "app.countdown",
-  "app.home",
-  "app.article",
+  "app.notification",
   "app.user",
-  "app.agenda",
+  "app.utils",
   "app.vote",
 ]
 

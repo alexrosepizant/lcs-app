@@ -114,6 +114,10 @@ body {
   margin-top: 40px;
 }
 
+.bottom-10 {
+  margin-bottom: 20px;
+}
+
 .bottom-20 {
   margin-bottom: 20px;
 }
@@ -261,10 +265,8 @@ body {
 }
 
 .avatar-header {
-  height: 30px;
-  width: 30px;
-  margin-top: 10px;
-  margin-right: 5px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
 }
 
@@ -274,20 +276,21 @@ body {
   box-sizing: border-box;
   padding: 0 15px 0 30px;
   border: 1px solid #e3e3e3;
+  position: relative;
+  vertical-align: top;
   color: #2c3e50;
   outline: none;
   border-radius: 15px;
   margin-top: 15px;
   margin-right: 10px;
-  transition: border-color 0.2s ease;
+  width: 150px;
+  transition: width 0.2s ease;
   background: #fff url(/assets/images/search.png) 8px 5px no-repeat;
   background-size: 20px;
-  vertical-align: middle !important;
 }
 
-.chatButton {
-  border: 0;
-  color: black;
+.search-query:focus {
+  width: 250px;
 }
 
 .top-header {
@@ -300,7 +303,7 @@ body {
 }
 
 .profilButton {
-  padding-left: 20px;
+  padding-left: 0;
   border: none;
 }
 
@@ -414,7 +417,6 @@ p.title.is-bold {
 .sideEvent:not(.active):hover .eventRight {
   background: #fff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  transform: scale(1.02);
 }
 
 .eventRight {
@@ -652,6 +654,7 @@ a.is-current {
 
 .home-contents {
   padding: 0 10px;
+  text-align: left;
 }
 
 .home-title {
@@ -897,7 +900,6 @@ textarea {
   height: 100%;
   position: relative;
   padding: 35px 0 20px 5px;
-  border-right: 1px solid #f2f2f2;
 }
 
 .blog-category {
@@ -1226,7 +1228,7 @@ figure {
 
 .commentContainer .authorSectionTitle {
   position: relative;
-  top: 20px;
+  top: 15px;
 }
 
 .rounded img {
@@ -1367,7 +1369,7 @@ span:not(:last-child) p.event-item {
 }
 
 .eventDate {
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 3em;
   background: var(--MainColor);
   height: 100%;
@@ -1395,6 +1397,7 @@ span:not(:last-child) p.event-item {
 }
 
 .eventDateLong {
+  color: white;
   font-size: 25px;
 }
 

@@ -104,7 +104,7 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
     NotificationFactory.create({
       title: $scope.object.title,
       user: $scope.currentUser._id,
-      type: "comment",
+      type: $scope.object.type || "userEvent",
       contentId: $scope.object._id,
     })
   }

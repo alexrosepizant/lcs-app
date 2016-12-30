@@ -4185,10 +4185,7 @@ a.nav-item.is-tab.is-active {
   display: block;
   line-height: 16px;
   padding: 10px 15px;
-}
-
-.panel-block:not(:last-child) {
-  border-bottom: 1px solid #dbdbdb;
+  text-align: left;
 }
 
 a.panel-block:hover {

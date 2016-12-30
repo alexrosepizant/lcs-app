@@ -2,7 +2,7 @@ import moment from "moment"
 import "moment/locale/fr"
 
 function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider, NotificationProvider) {
-  $urlRouterProvider.otherwise("/home")
+  $urlRouterProvider.otherwise("/article")
 
   // Configure translate provider
   $translateProvider.useSanitizeValueStrategy("sanitize")

@@ -23,23 +23,23 @@
   <div class="columns bottom-50 margin-top-10" ng-if="events.length > 0">
     <div class="column is-8">
       <div class="bottom-20">
-        <div class="box">
 
-          <div class="eventDate">
-            <div>
-              <div class="eventDay" ng-if="currentEvent.subType !== 'euroMatch'">
-                {{ currentEvent.getDay() }}
-              </div>
-              <div class="eventDateLong">
-                {{ currentEvent.startsAt | date:"dd MMM. yyyy" }}
-              </div>
-              <div class="eventYear">
-                {{ event.startsAt | date:"yyyy" }}
-              </div>
+        <div class="eventDate">
+          <div>
+            <div class="eventDay" ng-if="currentEvent.subType !== 'euroMatch'">
+              {{ currentEvent.getDay() }}
+            </div>
+            <div class="eventDateLong">
+              {{ currentEvent.startsAt | date:"dd MMM. yyyy" }}
+            </div>
+            <div class="eventYear">
+              {{ event.startsAt | date:"yyyy" }}
             </div>
           </div>
+        </div>
 
-          <div class="margin-top-10">
+        <div class="box">
+          <div>
             <a ui-sref="#">
               <div class="agenda-title ellipsis">{{currentEvent.title}}</div>
             </a>

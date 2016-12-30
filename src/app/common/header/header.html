@@ -3,29 +3,50 @@
     <div class="container">
       <nav class="nav">
         <div class="nav-left">
+          <!-- Title -->
           <p ui-sref="home" class="title home-title">
             Les coqs soccer
           </p>
-          <input type="text" id="search-query-nav" class="search-query st-default-search-input aa-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top;">
+        </div>
+
+        <div class="nav-center">
+          <!-- Search bar -->
+          <input type="text" class="search-query" ng-enter="search()" ng-model="word">
         </div>
 
         <div class="nav-right nav-menu">
 
+          <!-- Menu items -->
           <a class="nav-item" ui-sref="{{item.link}}" ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">{{item.name}}</a>
 
+          <!-- Chat button -->
           <span class="nav-item">
             <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html">
-              <a class="ng-popover-trigger chatButton">
+              <a class="ng-popover-trigger">
                 <span class="icon">
                   <i class="fa fa-commenting-o"></i>
                 </span>
               </a>
             </span>
+          </span>
 
+          <!-- Notification button -->
+          <span class="nav-item">
+            <span angular-popover direction="bottom" template-url="app/common/header/popover/notification.html" close-on-mouseleave="true">
+              <a class="ng-popover-trigger">
+                <span class="icon">
+                  <i class="fa fa-bell-o"></i>
+                </span>
+              </a>
+            </span>
+          </span>
+
+          <!-- Profil button -->
+          <span class="nav-item">
             <span angular-popover direction="bottom" template-url="app/common/header/popover/user.html" close-on-mouseleave="true">
-              <a class="ng-popover-trigger button profilButton">
+              <a class="ng-popover-trigger profilButton">
                 <span>
-                  <img ng-src="{{ currentUser.getAvatar(30,30) }}" class="avatar-photo-square avatar-header">
+                  <img ng-src="{{ currentUser.getAvatar(40, 40) }}" class="avatar-photo-square avatar-header">
                 </span>
               </a>
             </span>
