@@ -20,7 +20,7 @@ export default function ArticleConfig($stateProvider) {
         return ArticleFactory.getArticleCount()
       },
       users: (UserFactory) => {
-        return UserFactory.findUsers()
+        return UserFactory.findUsersByArticleCount()
       },
       filter: ($stateParams) => {
         return ($stateParams.filter) ? $stateParams.filter : "all"

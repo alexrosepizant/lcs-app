@@ -9,6 +9,17 @@ export default function UserFactory($http, $rootScope, $cookieStore, User) {
         })
     },
 
+    findUsersByArticleCount() {
+      return $http.get("/users/getAuthorsByArticleCount")
+        .then((users) => {
+          return users.data.map((user) => {
+            return new User(Object.assign({count: user.count}, user._id))
+          }).sort((a, b) => {
+            return b.count - a.count
+          })
+        })
+    },
+
     getUser(userId) {
       return $http.get(`/users/${userId}`)
         .then((user) => {
@@ -27,10 +38,6 @@ export default function UserFactory($http, $rootScope, $cookieStore, User) {
 
     deleteUser(userId) {
       return $http.delete(`/users/${userId}`)
-    },
-
-    addReadArticle(articleId) {
-      console.warn(articleId)
     },
   }
 }

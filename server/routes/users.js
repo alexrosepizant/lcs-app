@@ -115,6 +115,16 @@ module.exports = (app) => {
       })
   })
 
+  app.get("/users/getAuthorsByArticleCount", (req, res) => {
+    users.getAuthorsByArticleCount()
+      .then((users) => {
+        res.jsonp(users)
+      })
+      .catch((err) => {
+        res.status(400).json(err)
+      })
+  })
+
   /**
   * Return current user
   */

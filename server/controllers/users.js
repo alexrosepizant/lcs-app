@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const  _ = require("lodash")
 
 const User = mongoose.model("User")
+const Notification = mongoose.model("Notification")
 
 /**
 * Request param
@@ -93,6 +94,27 @@ exports.team = () => {
     })
 }
 
+exports.getAuthorsByArticleCount = () => {
+  return Notification.aggregate([
+    {
+      $match:{
+        $or:[
+          {type: "standard"},
+          {type: "album"},
+          {type: "video"},
+        ]}},
+    {
+      $unwind: "$user",
+    }, {
+      $group: {
+        _id: "$user",
+        count: {$sum: 1},
+      },
+    }]).then((users) => {
+      return User.populate(users, {path: "_id"})
+    })
+}
+
 /**
 * Increment coins of all users (call by cron)
 ***/
@@ -110,29 +132,6 @@ exports.incrementUsersPoints = () => {
     }
   })
 }
-
-
-/**
-* Calculate popularity of users (call by cron)
-***/
-exports.calculatePopularity = () => {
-  const promises = []
-  return User.find()
-    .then((users, err) => {
-      if (err) {
-        return Promise.reject(err)
-      } else {
-        _.each(users, (user) => {
-          const newVal = "30"
-          user.popularity = newVal
-          promises.push(user.save())
-        })
-
-        return Promise.all(promises)
-      }
-    })
-}
-
 
 /**
 * Get users who have their birthday today

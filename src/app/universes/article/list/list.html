@@ -44,7 +44,7 @@
       </lcs-blog-post>
     </div>
 
-    <div class="column is-4 margin-top-10">
+    <div class="column is-4">
       <h1 class="section-title">
         <strong>Les catégories</strong>
       </h1>
@@ -61,7 +61,7 @@
           <strong>Ceux qui postent le plus</strong>
         </h1>
         <div class="section-title">
-          <div ng-repeat="user in users | orderBy: '-articles.length' | limitTo: 5 " class="columns">
+          <div ng-repeat="user in users | limitTo: 5 " class="columns">
             <div class="column is-marginless">
               <div class="image">
                 <img ng-src="{{ user.getAvatar(80, 80) }}">
@@ -116,14 +116,14 @@
   </div>
 </div>
 
-<div class="margin-top-20 bottom-10">
+<div class="margin-top-20">
   <uib-pagination
   total-items="totalItems"
   num-pages="numPages"
   ng-model="currentPage"
   ng-change="pageChanged()"
   max-size="maxSize"
-  class="pagination-sm"
+  class="pagination-sm margin-top-10 bottom-10"
   boundary-links="true"
   rotate="false"
   items-per-page="itemPerPage"
