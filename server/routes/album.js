@@ -14,10 +14,6 @@ module.exports = (app) => {
   app.post("/albums/:id", authorization.requiresLogin, albums.updateAlbum)
   app.delete("/albums/:id", authorization.requiresLogin, albums.deleteAlbum)
 
-	/** Download**/
-  app.post("/download/:id", albums.download)
-  app.get("/file/:id", albums.getZipFile)
-
 	// Finish with setting up the albumId param
   app.param("id", albums.album)
 }

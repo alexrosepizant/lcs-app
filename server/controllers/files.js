@@ -3,7 +3,11 @@
 const fs = require("fs")
 const path = require("path")
 const gm = require("gm").subClass({imageMagick: true})
+const mongoose = require("mongoose")
+const archiver = require("archiver")
 const config = require("../config")
+
+const Article = mongoose.model("Article")
 
 /**
 Utils functions
@@ -108,5 +112,62 @@ exports.handleVideoUpload = (req, res) => {
     err: null,
     location: config.uploadDirectory + req.files.file.path.split("/").pop(),
     mimeType: req.files.file.mimetype,
+  })
+}
+
+exports.download = (req, res) => {
+
+  const src = []
+  const id = req.params.id
+  const output = fs.createWriteStream(path.resolve(config.root + "/server/public/tmp/" + id + ".zip"))
+  const archive = archiver("zip")
+
+  Article.findOne({
+    _id: id,
+  }).exec((err, album) => {
+    if (err) console.log("error: " + err)
+
+    archive.pipe(output)
+
+		// add each photo of the album to the archive
+    album.photoList.forEach((entry) => {
+      src.push(entry.filepath.split("public/img/users/").pop())
+    })
+
+    archive.bulk([{
+      cwd: path.resolve(config.root + "/server/public/img/users/"),
+      src: src,
+      dest: album.name,
+      expand: true,
+    }])
+
+    archive.on("end", () => {
+      return res.json({
+        success: true,
+      })
+    })
+
+    archive.finalize()
+  })
+}
+
+exports.getZipFile = (req, res) => {
+
+  let error = false // Set a flag to check for errors in downloading the file
+  const filePath = path.resolve(config.root + "/server/public/tmp/" + req.params.id + ".zip")
+
+  const stream = fs.createReadStream(filePath, {
+    bufferSize: 64 * 1024,
+  })
+
+  stream.pipe(res)
+  stream.on("error", () => {
+    error = true
+  })
+
+  stream.on("close", () => {
+    if (!error)	{
+      fs.unlink(filePath) // Delete the archive
+    }
   })
 }
