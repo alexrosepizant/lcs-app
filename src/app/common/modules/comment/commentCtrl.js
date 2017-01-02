@@ -1,12 +1,16 @@
 import moment from "moment"
 
-export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFactory, NotificationFactory) {
+export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFactory, NotificationFactory, Comment) {
 
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser
 
-  $scope.buildComments = () => {
+  $scope.init = () => {
+    $scope.newComment = ""
     $scope.replies = {}
+    $scope.object.comments.sort((a, b) => {
+      return new Date(b.created).getTime() - new Date(a.created).getTime()
+    })
     $scope.object.comments.forEach((comment, index) => {
       $scope.replies[comment._id] = {
         active: false,
@@ -15,14 +19,8 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
       }
     })
   }
-  $scope.buildComments()
 
   $scope.showReply = (evt, commentId) => {
-    if (evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
-    }
-
     $scope.replies[commentId] = {
       active: true,
     }
@@ -45,33 +43,19 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
         created: moment(new Date()).toISOString(),
       })
 
-      let promise = null
-      switch ($scope.type) {
-      case "agenda":
-        promise = AgendaFactory.update($scope.object)
-        break
-      default:
-        promise = ArticleFactory.updateArticle($scope.object)
-        break
-      }
+      $scope.getUpdateMethod().then(({data}) => {
+        $scope.object.__v = data.__v
+        $scope.object.comments = data.comments.map((c) => new Comment(c))
+        $scope.init()
 
-      promise.then((newObject) => {
-        $scope.object.__v = newObject.__v
-        $scope.newComment = ""
-
-          // add comment object
+        // add comment object
         $scope.createCommentContent()
       })
     }
   }
 
-  $scope.addReply = (commentId) => {
+  $scope.addReply = (index, commentId) => {
     if ($scope.replies[commentId].content !== "") {
-
-      const index = $scope.replies[commentId].index
-      if (!$scope.object.comments[index].replies) {
-        $scope.object.comments[index].replies = []
-      }
 
       $scope.object.comments[index].replies.push({
         user: $scope.currentUser,
@@ -79,18 +63,11 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
         created: moment(new Date()).toISOString(),
       })
 
-      let promise = null
-      switch ($scope.type) {
-      case "agenda":
-        promise = AgendaFactory.update($scope.object)
-        break
-      default:
-        promise = ArticleFactory.updateArticle($scope.object)
-        break
-      }
+      $scope.getUpdateMethod().then(({data}) => {
+        $scope.object.__v = data.__v
+        $scope.object.comments = data.comments.map((c) => new Comment(c))
+        $scope.init()
 
-      promise.then((newObject) => {
-        $scope.object.__v = newObject.__v
         $scope.replies[commentId].content = ""
         $scope.replies[commentId].active = false
 
@@ -100,12 +77,22 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
     }
   }
 
+  $scope.getUpdateMethod = () => {
+    switch ($scope.type) {
+    case "agenda":
+      return AgendaFactory.update($scope.object)
+    default:
+      return ArticleFactory.updateArticle($scope.object)
+    }
+  }
+
   $scope.createCommentContent = () => {
     NotificationFactory.create({
       title: $scope.object.title,
       user: $scope.currentUser._id,
-      type: $scope.object.type || "userEvent",
+      type: "comment",
       contentId: $scope.object._id,
+      contentType: $scope.object.type || "userEvent",
     })
   }
 }

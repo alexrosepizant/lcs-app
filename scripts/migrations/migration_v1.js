@@ -19,8 +19,6 @@ const Chat = mongoose.model("Chat")
 const Conversation = mongoose.model("Conversation")
 const Comment = mongoose.model("Comment")
 const Notification = mongoose.model("Notification")
-const User = mongoose.model("User")
-const Vote = mongoose.model("Vote")
 const UserEvent = mongoose.model("UserEvent")
 
 const migrateAlbum = () => {
@@ -42,6 +40,7 @@ const migrateAlbum = () => {
           created: album.created,
           photoList: album.photoList,
           coverPicPath: album.coverPicPath,
+          comments: album.comments,
         })
 
         albumPromises.push(article.save((err) => {
@@ -184,106 +183,6 @@ const changeQuoteToVote = () => {
   })
 }
 
-const keepCreateContentRefOnUser = () => {
-  const userPromises = []
-  return User.find({})
-  .then((users, err) => {
-    if (err) {
-      return Promise.reject(err)
-    } else {
-
-      console.log(users.length + " to migrate")
-      _.each(users, (user) => {
-        userPromises.push(Article.find({
-          user: user._id,
-        })
-        .then((articles, err) => {
-          if (err) {
-            console.log("Error when trying to update article " + err)
-          } else {
-            if (articles.length > 0) {
-              console.log("Add " + articles.length + " articles to user")
-              return User.update({
-                "_id": user._id,
-              }, {
-                "$set": {
-                  articles: articles.map((article) => article._id),
-                },
-              })
-            } else {
-              return User.update({
-                "_id": user._id,
-              }, {
-                "$set": {
-                  articles: [],
-                },
-              })
-            }
-          }
-        }))
-
-        userPromises.push(Vote.find({
-          user: user._id,
-        })
-        .then((votes, err) => {
-          if (err) {
-            console.log("Error when trying to update vote " + err)
-          } else {
-            if (votes.length > 0) {
-              console.log("Add " + votes.length + " votes to user")
-              return User.update({
-                "_id": user._id,
-              }, {
-                "$set": {
-                  votes: votes.map((vote) => vote._id),
-                },
-              })
-            } else {
-              return User.update({
-                "_id": user._id,
-              }, {
-                "$set": {
-                  votes: [],
-                },
-              })
-            }
-          }
-        }))
-
-        userPromises.push(UserEvent.find({
-          user: user._id,
-        })
-        .then((userEvents, err) => {
-          if (err) {
-            console.log("Error when trying to update vote " + err)
-          } else {
-            if (userEvents.length > 0) {
-              console.log("Add " + userEvents.length + " userEvents to user")
-              return User.update({
-                "_id": user._id,
-              }, {
-                "$set": {
-                  userEvents: userEvents.map((userEvent) => userEvent._id),
-                },
-              })
-            } else {
-              return User.update({
-                "_id": user._id,
-              }, {
-                "$set": {
-                  userEvents: [],
-                },
-              })
-            }
-          }
-        }))
-      })
-
-      return Promise.all(userPromises)
-    }
-  })
-}
-
 const createNotificationFromScratch = () => {
   const promises = []
   return Article.find()
@@ -298,6 +197,7 @@ const createNotificationFromScratch = () => {
             contentId: article._id,
             type: article.type,
             user: article.user,
+            created: article.created,
           })
           promises.push(notification.save())
         })
@@ -314,6 +214,7 @@ const createNotificationFromScratch = () => {
             contentId: userEvent._id,
             type: "userEvent",
             user: userEvent.user,
+            created: userEvent.created,
           })
           promises.push(notification.save())
         })
@@ -330,6 +231,8 @@ const createNotificationFromScratch = () => {
             contentId: comment._id,
             type: "comment",
             user: comment.user,
+            contentType: comment.contentType,
+            created: comment.created,
           })
           promises.push(notification.save())
         })
@@ -363,10 +266,6 @@ mongoose.connect(config.db)
 .then(() => {
   utils.titleLog("Prepare to migrate video articles")
   return migrateVideoArticles()
-})
-.then(() => {
-  utils.titleLog("Prepare to migrate users to add content ref")
-  return keepCreateContentRefOnUser()
 })
 .then(() => {
   utils.titleLog("Prepare to create notifications")

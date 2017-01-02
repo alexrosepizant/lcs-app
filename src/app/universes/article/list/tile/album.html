@@ -57,7 +57,7 @@
             <span class="authorSectionTitle">
               Ils ont laissé un commentaire
             </span>
-            <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser" class="authorContent">
+            <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
               <span class="user-image">
                 <div class="user-image--image">
                   <div>

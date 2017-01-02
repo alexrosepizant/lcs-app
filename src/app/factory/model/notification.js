@@ -11,7 +11,7 @@ export default function Notification($state, User) {
       getFormattedType() {
         switch (this.type) {
         case "comment":
-          return " a laissé "
+          return " a commenté "
         default:
           return " a ajouté "
         }
@@ -37,7 +37,8 @@ export default function Notification($state, User) {
       },
 
       openLink() {
-        switch (this.type) {
+        const type = (this.type === "comment") ? this.contentType : this.type
+        switch (type) {
         case "standard":
           $state.go("standardView", {articleId: this.contentId})
           break

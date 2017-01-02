@@ -26,6 +26,7 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
       title: "Info",
       message: "C'est pour bientôt!",
     })
+    $scope.word = ""
   }
 
   $scope.$on("onNewMessage", () => {

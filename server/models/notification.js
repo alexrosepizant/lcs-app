@@ -17,6 +17,9 @@ const NotificationSchema = new Schema({
     default: "",
     trim: true,
   },
+  type: {
+    type: String,
+  },
   user: {
     type: Schema.ObjectId,
     ref: "User",
@@ -24,7 +27,7 @@ const NotificationSchema = new Schema({
   contentId: {
     type: String,
   },
-  type: {
+  contentType: {
     type: String,
   },
 })

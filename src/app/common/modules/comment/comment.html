@@ -1,4 +1,4 @@
-<div class="container commentContainer">
+<div class="container commentContainer" ng-init="init()">
   <div>
     <span class="authorSectionTitle">
       Les commentaires
@@ -13,7 +13,7 @@
       </div>
     </article>
 
-    <article class="media margin-top-20 comment" ng-repeat="comment in object.comments | orderBy:'-created'">
+    <article class="media margin-top-20 comment" ng-repeat="comment in object.comments">
       <figure class="media-left">
         <p class="user-image--image rounded">
           <img ng-src="{{ comment.user.getAvatar(40, 40) }}" width="40" height="40">
@@ -37,7 +37,7 @@
         <div class="margin-top-20" ng-show="isCurrentComment(comment._id)">
           <div class="media-content">
             <p class="control">
-              <textarea ng-enter="addReply(comment._id)" class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="replies[comment._id].content">
+              <textarea ng-enter="addReply($index, comment._id)" class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="replies[comment._id].content">
               </textarea>
             </p>
           </div>
