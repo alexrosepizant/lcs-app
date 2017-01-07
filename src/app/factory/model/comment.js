@@ -1,4 +1,6 @@
 export default function Comment(User) {
+  "ngInject"
+
   return (data) => {
     return angular.extend({
       content: "",

@@ -1,4 +1,5 @@
 export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFactory, Notification, article) {
+  "ngInject"
 
   // Retrieve params
   $scope.article = article

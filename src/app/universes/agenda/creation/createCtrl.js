@@ -1,4 +1,5 @@
 export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notification, userEvent) {
+  "ngInject"
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser

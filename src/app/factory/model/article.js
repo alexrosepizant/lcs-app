@@ -6,6 +6,8 @@ const getPreview = (content) => {
 }
 
 export default function Article($sce, User, Comment) {
+  "ngInject"
+
   return (data) => {
 
     return angular.extend({

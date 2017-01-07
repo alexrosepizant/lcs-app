@@ -1,4 +1,6 @@
 export default function Issue($sce, User) {
+  "ngInject"
+
   return (data) => {
 
     return angular.extend({

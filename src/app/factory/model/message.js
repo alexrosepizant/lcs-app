@@ -1,6 +1,8 @@
 import moment from "moment"
 
 export default () => {
+  "ngInject"
+
   return (data) => {
     return angular.extend({
       content: "",

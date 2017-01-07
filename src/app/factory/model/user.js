@@ -1,4 +1,6 @@
 export default function User(AppConstants) {
+  "ngInject"
+
   return (data) => {
     return angular.extend({
       _id:"",

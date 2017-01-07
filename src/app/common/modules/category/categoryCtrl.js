@@ -1,4 +1,5 @@
 export default function CategoryCtrl($rootScope, $scope, ParameterFactory, Notification) {
+  "ngInject"
 
   // on load
   ParameterFactory.getParameters()

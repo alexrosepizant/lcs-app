@@ -2,6 +2,8 @@ import moment from "moment"
 import "moment/locale/fr"
 
 function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider, NotificationProvider) {
+  "ngInject"
+
   $urlRouterProvider.otherwise("/article")
 
   // Configure translate provider

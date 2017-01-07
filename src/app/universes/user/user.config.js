@@ -1,4 +1,6 @@
 export default function UserConfig($stateProvider) {
+  "ngInject"
+
   $stateProvider
     .state("profile", {
       url: "/profile",

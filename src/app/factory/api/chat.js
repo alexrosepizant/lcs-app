@@ -1,4 +1,6 @@
 export default function ChatFactory($http, Message) {
+  "ngInject"
+
   return {
     findMessages() {
       return $http.get("/chat")

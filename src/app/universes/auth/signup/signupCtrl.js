@@ -1,4 +1,6 @@
 export default function SignupCtrl($rootScope, $scope, AuthFactory, $location, User) {
+  "ngInject"
+
   $scope.register = function() {
     AuthFactory.createUser({
       email: $scope.user.email,

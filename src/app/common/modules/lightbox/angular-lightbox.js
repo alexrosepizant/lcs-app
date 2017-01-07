@@ -1,13 +1,6 @@
-/**
-* Simple lightbox
-* Author: Alexandre Bodelot <alexandre.bodelot@gmail.com>
-* Usage:
-* <ANY lightbox="imageUrlArray">
-*   <ANY href="imageUrl" class="lightbox-trigger"></ANY>
-* </ANY>
-*/
-angular.module("angular-lightbox", [])
-.directive("lightbox", function($compile) {
+angular.module("angular-lightbox", []).directive("lightbox", ($compile) => {
+  "ngInject"
+
   return {
     restrict: "A",
     scope: {

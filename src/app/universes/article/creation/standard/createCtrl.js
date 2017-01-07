@@ -1,4 +1,5 @@
 export default function StandardCreationCtrl($rootScope, $scope, ArticleFactory, Notification, Upload, article) {
+  "ngInject"
 
   // Retrieve params
   $scope.article = article

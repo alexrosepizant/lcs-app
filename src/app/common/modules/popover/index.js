@@ -1,4 +1,6 @@
-angular.module("angular-popover", []).directive("angularPopover", ["$window", function($window) {
+angular.module("angular-popover", []).directive("angularPopover", ($window) => {
+  "ngInject"
+
   return {
     restrict: "A",
     transclude: true,
@@ -153,4 +155,4 @@ angular.module("angular-popover", []).directive("angularPopover", ["$window", fu
       })
     },
   }
-}])
+})

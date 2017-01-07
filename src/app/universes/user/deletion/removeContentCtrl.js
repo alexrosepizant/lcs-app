@@ -1,4 +1,6 @@
 export default function ProfileCtrl($rootScope, $scope, ArticleFactory, AgendaFactory, Notification, contentId, type) {
+  "ngInject"
+
   // retrieve variables
   $scope.contentId = contentId
   $scope.contentType = type

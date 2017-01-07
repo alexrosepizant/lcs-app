@@ -1,6 +1,8 @@
 import moment from "moment"
 
 export default function Notification($state, User) {
+  "ngInject"
+
   return (data) => {
     return angular.extend({
       created: "",

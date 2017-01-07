@@ -1,4 +1,5 @@
 export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFactory, Upload, Notification, article) {
+  "ngInject"
 
   // Retrieve params
   $scope.article = article

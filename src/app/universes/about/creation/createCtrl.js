@@ -1,4 +1,5 @@
 export default function CreateIssueCtrl($rootScope, $scope, IssueFactory, Notification, issue) {
+  "ngInject"
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser

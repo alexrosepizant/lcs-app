@@ -1,4 +1,5 @@
 export default function ChatCtrl($rootScope, $scope, User, Message, socket, UserFactory, ChatFactory) {
+  "ngInject"
 
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser

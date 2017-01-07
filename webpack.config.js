@@ -6,9 +6,10 @@ const postcssImport = require("postcss-import")
 const postcssUrl = require("postcss-url")
 const postcssCssnext = require("postcss-cssnext")
 
-const isProduction = process.env.NODE_ENV === "production"
+const isProduction = (process.env.NODE_ENV === "production")
 const host = process.env.APP_HOST || "localhost"
 const entryPath = path.resolve(__dirname, "src/app/", "app.js")
+const buildDirectory = "/dist"
 const buildPath = path.resolve(__dirname, "dist")
 
 const config = {
@@ -22,7 +23,7 @@ const config = {
     entryPath,
   ],
   devServer : {
-    publicPath: "/dist",
+    publicPath: buildDirectory,
     contentBase: "./src/",
     hot: true,
     quiet: false,
@@ -34,7 +35,7 @@ const config = {
   output: {
     path: buildPath,
     filename: "script.js",
-    publicPath: "/",
+    publicPath: (isProduction) ? buildDirectory : "/",
   },
   module: {
     loaders: [
@@ -43,9 +44,8 @@ const config = {
         test: /\.js$/,
         exclude: [
           /(node_modules|unitTest)/,
-          path.resolve(__dirname, "src/app/common/modules/ui-bootstrap/"),
         ],
-        loaders: ["babel?compact=false", "eslint"],
+        loaders: ["ng-annotate", "babel?compact=false"],
       },
       // Json
       {
@@ -95,7 +95,10 @@ const config = {
 if (isProduction) {
   config.plugins = [
     new Webpack.optimize.DedupePlugin(),
-    new Webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new Webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      mangle: false,
+    }),
     new ExtractTextPlugin("style.css"),
   ]
 } else {

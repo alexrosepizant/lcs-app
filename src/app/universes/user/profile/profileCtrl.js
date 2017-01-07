@@ -1,6 +1,8 @@
 export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $state,
                                     Upload, ArticleFactory, UserFactory, articles, userEvents, user, Notification) {
 
+  "ngInject"
+
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.articles = articles.filter((article) => article.type !== "vote")

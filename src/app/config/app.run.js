@@ -1,4 +1,5 @@
 function AppRun($rootScope, $location, AuthFactory, $uibModalStack) {
+  "ngInject"
 
   // if no currentUser and on a page that requires authorization then try to update it
   // will trigger 401s if user does not have a valid session

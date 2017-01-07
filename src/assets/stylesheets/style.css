@@ -411,6 +411,7 @@ p.title.is-bold {
   background: rgba(0, 0, 0, 0.02);
   border: 0;
   border-radius: 5px;
+  transition: box-shadow 0.2s linear, background 0.2s linear;
 }
 
 .blog:hover,
@@ -556,7 +557,7 @@ a.is-current {
   height: 43px;
 }
 
-.notificationContainer .angular-popover{
+.notificationContainer .angular-popover {
   max-width: 300px;
 }
 
@@ -842,6 +843,7 @@ span.hasMessage i {
 .chat-history {
   height: 400px;
   padding: 0 20px;
+  margin-bottom: 20px;
   overflow-y: scroll;
 }
 

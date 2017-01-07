@@ -1,4 +1,6 @@
 export default function AuthConfig($stateProvider) {
+  "ngInject"
+
   $stateProvider
     .state("login", {
       url: "/login",

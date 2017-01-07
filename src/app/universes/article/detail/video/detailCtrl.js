@@ -1,4 +1,6 @@
 export default function StandardDetailCtrl($rootScope, $scope, $state, $uibModal, article) {
+  "ngInject"
+
   // Init variables
   $scope.currentUser = $rootScope.currentUser
   $scope.article = article

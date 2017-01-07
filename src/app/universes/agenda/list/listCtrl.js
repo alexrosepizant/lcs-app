@@ -1,4 +1,6 @@
 export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFactory, events, Notification) {
+  "ngInject"
+
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.events = events

@@ -12,15 +12,11 @@ const MongoStore = require("connect-mongo")(session)
 const	config = require("./config")
 
 const router = express.Router()
-const appDirectory = __dirname + "/../src/"
-const assetDirectory = appDirectory + "assets/"
-const faviconPath = assetDirectory + "/images/favicon.ico"
 
 module.exports = (app, passport) => {
-  app.set("showStackError", true)
-
 	// Only use logger for development environment
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV !== "production") {
+    app.set("showStackError", true)
     app.use(logger("dev"))
   }
 
@@ -42,12 +38,16 @@ module.exports = (app, passport) => {
   }))
   app.use(methodOverride())
 
+  if (process.env.NODE_ENV === "production") {
+    app.use("/dist", serveStatic(__dirname + config.buildDirectory))
+  }
+
   // Assets rendering: app/users_ressources/favicon
-  app.use(serveStatic(appDirectory))
+  app.use(serveStatic(__dirname + config.appDirectory))
   app.use(serveStatic(__dirname + config.publicDirectory))
   app.use(config.publicDirectory + config.imgDirectory,
     qt.static(__dirname + config.publicDirectory + config.imgDirectory))
-  app.use(favicon(faviconPath))
+  app.use(favicon(__dirname + config.appDirectory + config.faviconPath))
 
 	// Express/Mongo session storage
   app.use(session({

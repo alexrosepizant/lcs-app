@@ -1,4 +1,6 @@
 export default function AlbumDetailCtrl($window, $rootScope, $scope, $http, $state, $uibModal, article) {
+  "ngInject"
+
   // Init variables
   $scope.currentUser = $rootScope.currentUser
   $scope.article = article
