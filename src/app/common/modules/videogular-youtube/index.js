@@ -1,4 +1,3 @@
-"use strict"
 angular.module("info.vietnamcode.nampnq.videogular.plugins.youtube", [])
 .run(["$rootScope", "$window",
   function($rootScope, $window) {

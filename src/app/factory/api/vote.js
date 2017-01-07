@@ -1,4 +1,6 @@
 export default function VoteFactory($http, Vote) {
+  "ngInject"
+
   return {
     findVotes(filter) {
       return $http.get("/votes", {

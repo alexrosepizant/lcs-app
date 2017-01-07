@@ -1,4 +1,6 @@
 export default function MatchFactory($http) {
+  "ngInject"
+
   return {
     findMatchs($scope) {
       return $http.get("/matchs")

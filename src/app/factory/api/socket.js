@@ -1,6 +1,8 @@
-import io from "socket.io-client/socket.io"
+import io from "socket.io-client/dist/socket.io"
 
 export default function SocketFactory($rootScope, AppConstants) {
+  "ngInject"
+
   const socket = io.connect("http://" + AppConstants.url + ":" + AppConstants.port)
 
   return {

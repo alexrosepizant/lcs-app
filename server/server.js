@@ -5,16 +5,15 @@ const mongoose = require("mongoose")
 const app = require("./utils").bootstrapApp()
 const config = require("./config")
 
-const proxy = httpProxy.createProxyServer()
-const isProduction = process.env.NODE_ENV === "production"
+const isProduction = (process.env.NODE_ENV === "production")
 const host = process.env.APP_HOST || "localhost"
-const port = isProduction ? 80 : 3000
 const publicPath = path.join(__dirname, "/../src/")
 
 /**
 Webpack dev server: dev only
 **/
 if (!isProduction) {
+  const proxy = httpProxy.createProxyServer()
   app.all(["/dist/*", "*.hot-update.json"], (req, res) => {
     proxy.web(req, res, {
       target: "http://" + host + ":3001",
@@ -56,8 +55,8 @@ mongoose.connect(config.db, {
   if (err) {
     console.error("Could not connect to MongoDB! " + err)
   }  else {
-    server.listen(port, () => {
-      console.log("Express app started on port " + port)
+    server.listen(config.port, () => {
+      console.log("Express app started on port " + config.port)
     })
   }
 })

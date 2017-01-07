@@ -1,6 +1,7 @@
 import moment from "moment"
 
 export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFactory, Notification) {
+  "ngInject"
 
   // Retrieve params
   $scope.vote = {

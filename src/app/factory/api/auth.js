@@ -1,4 +1,5 @@
 export default function AuthFactory($http, $rootScope, $cookieStore, $state, User) {
+  "ngInject"
 
   return {
     login(provider, user) {

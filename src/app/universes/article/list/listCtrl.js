@@ -1,5 +1,6 @@
 export default function ArticleListCtrl($scope, $state, ArticleFactory,
   articles, users, filter, currentCategory, parameters, count, page) {
+  "ngInject"
 
     /**
     Retrieve params

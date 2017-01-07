@@ -1,4 +1,6 @@
 export default function AgendaFactory($http, UserEvent) {
+  "ngInject"
+
   return {
     findUserEvents() {
       return $http.get("/userEvent")

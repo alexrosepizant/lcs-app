@@ -1,4 +1,6 @@
 export default function UserFactory($http, $rootScope, $cookieStore, User) {
+  "ngInject"
+
   return {
     findUsers() {
       return $http.get("/users")

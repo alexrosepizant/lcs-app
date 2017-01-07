@@ -1,4 +1,5 @@
 export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, Notification) {
+  "ngInject"
 
   $scope.currentUser = $rootScope.currentUser
 

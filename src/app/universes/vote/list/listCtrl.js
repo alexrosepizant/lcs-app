@@ -1,4 +1,6 @@
 export default function VoteListCtrl($rootScope, $scope, VoteFactory, Notification, votes, users, filter) {
+  "ngInject"
+
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.votes = votes

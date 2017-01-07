@@ -1,4 +1,6 @@
 export default function IssueFactory($http, Issue) {
+  "ngInject"
+
   return {
     loadIssues() {
       return $http.get("/idea")

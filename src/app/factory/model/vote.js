@@ -1,6 +1,8 @@
 import moment from "moment"
 
 export default function Vote(User) {
+  "ngInject"
+
   return (data) => {
     return angular.extend({
       content: "",

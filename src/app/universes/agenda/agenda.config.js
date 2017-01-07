@@ -1,4 +1,6 @@
 export default function AgendaConfig($stateProvider) {
+  "ngInject"
+
   $stateProvider
     .state("agenda", {
       url: "/agenda",

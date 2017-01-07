@@ -1,4 +1,5 @@
-function AppRun($rootScope, $location, AuthFactory, $uibModalStack) {
+function AppRun($rootScope, $state, $location, AuthFactory, $uibModalStack) {
+  "ngInject"
 
   // if no currentUser and on a page that requires authorization then try to update it
   // will trigger 401s if user does not have a valid session
@@ -13,7 +14,7 @@ function AppRun($rootScope, $location, AuthFactory, $uibModalStack) {
     AuthFactory.logout()
   })
 
-  // close all modal on change page
+    // close all modal on change page
   $rootScope.$on("$stateChangeSuccess", () => {
     $uibModalStack.dismissAll()
   })

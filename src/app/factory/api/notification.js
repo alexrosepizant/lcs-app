@@ -1,4 +1,6 @@
 export default function NotificationFactory($http, AppConstants, NotificationModel) {
+  "ngInject"
+
   return {
     loadNotifications() {
       return $http.get("/notification", {

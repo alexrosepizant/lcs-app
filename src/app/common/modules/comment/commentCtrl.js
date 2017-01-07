@@ -1,6 +1,7 @@
 import moment from "moment"
 
 export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFactory, NotificationFactory, Comment) {
+  "ngInject"
 
   // Retrieve currentUser
   $scope.currentUser = $rootScope.currentUser

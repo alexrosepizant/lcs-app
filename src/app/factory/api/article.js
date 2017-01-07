@@ -1,4 +1,6 @@
 export default function ArticleFactory($http, AppConstants, Article) {
+  "ngInject"
+
   return {
     findArticles(filter, page = 0) {
       return $http.get("/articles", {

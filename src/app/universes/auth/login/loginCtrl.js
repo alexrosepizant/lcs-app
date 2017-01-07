@@ -1,4 +1,5 @@
 export default function LoginCtrl($rootScope, $scope, AuthFactory) {
+  "ngInject"
 
   $scope.login = function() {
     AuthFactory.login("password", {

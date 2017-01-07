@@ -1,4 +1,6 @@
 export default function AboutConfig($stateProvider) {
+  "ngInject"
+
   $stateProvider
     .state("about", {
       url: "/about",

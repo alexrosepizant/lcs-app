@@ -1,4 +1,6 @@
 export default function ParameterFactory($http) {
+  "ngInject"
+
   return {
     getParameters() {
       return $http.get("/parameters")

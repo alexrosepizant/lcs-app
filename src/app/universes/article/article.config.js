@@ -1,4 +1,6 @@
 export default function ArticleConfig($stateProvider) {
+  "ngInject"
+
   $stateProvider
   .state("article", {
     url: "/article?filter&category&page",

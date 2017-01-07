@@ -1,4 +1,6 @@
 export default function AboutListCtrl($scope, IssueFactory, issues) {
+  "ngInject"
+
   // Retrieve params
   $scope.issues = issues
 
