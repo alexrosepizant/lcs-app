@@ -9,17 +9,14 @@ const userFields = "_id name username avatar"
  * Find one
  */
 exports.idea = (ideaId) => {
-  return Idea.findOne({
-    "_id": ideaId,
-  })
-  .populate("user", userFields)
+  return Idea.findById(ideaId)
+    .populate("user", userFields)
 }
 
 /**
  * List of idea
  */
 exports.all = (params) => {
-
   const query = (params.userId) ? {user: params.userId} : {}
 
   return Idea.find(query)

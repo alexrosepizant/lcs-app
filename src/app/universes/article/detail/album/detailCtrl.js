@@ -1,7 +1,29 @@
-export default function AlbumDetailCtrl($window, $rootScope, $scope, $http, article) {
+export default function AlbumDetailCtrl($window, $rootScope, $scope, $http, $state, $uibModal, article) {
   // Init variables
   $scope.currentUser = $rootScope.currentUser
   $scope.article = article
+
+  /** *
+    Article update and delete
+  ***/
+  $scope.updateContent = () => {
+    $state.go("article.updateAlbum", {articleId: $scope.article._id})
+  }
+
+  $scope.removeContent = () => {
+    $uibModal.open({
+      templateUrl: "app/universes/user/deletion/removeArticle.html",
+      controller: "RemoveContentCtrl",
+      resolve: {
+        contentId: () => {
+          return $scope.article._id
+        },
+        type: () => {
+          return "album"
+        },
+      },
+    })
+  }
 
   $scope.download = function(evt) {
     if (evt) {

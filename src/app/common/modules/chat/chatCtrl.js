@@ -36,6 +36,7 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
       username: "",
       content: data.username + " vient de rentrer.",
     })
+    $rootScope.$broadcast("newMessage")
   })
 
   socket.on("user:left", (data) => {
@@ -68,7 +69,7 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
   Add and save actions
   **/
   $scope.addMessage = (message) => {
-    $scope.messages.push(new Message(message))
+    $scope.messages.unshift(new Message(message))
     $scope.hasNewMessage = true
     $rootScope.$broadcast("onNewMessage")
   }

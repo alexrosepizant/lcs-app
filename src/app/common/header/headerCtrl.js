@@ -29,8 +29,8 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
     $scope.word = ""
   }
 
-  $scope.$on("onNewMessage", () => {
-    $scope.showChat = true
+  $scope.$on("newMessage", () => {
+    $scope.hasNewMessage = true
   })
 
   // Logout action

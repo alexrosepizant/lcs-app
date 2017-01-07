@@ -17,6 +17,7 @@ exports.user = (id) => {
     if (err) {
       return Promise.reject(err)
     }
+
     if (!user) {
       return Promise.reject("Failed to load User " + id)
     }
@@ -94,25 +95,30 @@ exports.team = () => {
     })
 }
 
+/**
+* Return top 5 of article authors
+*/
 exports.getAuthorsByArticleCount = () => {
-  return Notification.aggregate([
-    {
-      $match:{
-        $or:[
+  return Notification.aggregate([{
+    $match:{
+      $or:[
           {type: "standard"},
           {type: "album"},
           {type: "video"},
-        ]}},
-    {
-      $unwind: "$user",
-    }, {
-      $group: {
-        _id: "$user",
-        count: {$sum: 1},
-      },
-    }]).then((users) => {
-      return User.populate(users, {path: "_id"})
-    })
+      ]},
+  },{
+    $group: {
+      _id: "$user",
+      count: {$sum: 1},
+    },
+  },{
+    $sort : {"count": -1},
+  },{
+    $limit : 5,
+  },
+  ]).then((users) => {
+    return User.populate(users, {path: "_id"})
+  })
 }
 
 /**
@@ -121,9 +127,9 @@ exports.getAuthorsByArticleCount = () => {
 exports.incrementUsersPoints = () => {
   return User.update({}, {
     $inc: {
-      coins: 10,
+      coins: 30,
     },
-  }, (err, affectedRows) => {
+  }).then((affectedRows, err) => {
     if (err) {
       return Promise.reject(err)
     } else {

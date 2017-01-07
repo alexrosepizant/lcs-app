@@ -1,12 +1,30 @@
 <nav class="nav has-shadow">
   <div class="container">
-    <div class="nav-right">
-      <a ng-click="download()" class="nav-item is-tab button is-primary blog-add">
+    <div class="nav-left">
+      <a ng-click="download()" class="button is-primary blog-add-left">
         <span class="icon is-small">
           <i class="fa fa-download"></i>
         </span>
         <span>
           Télécharger
+        </span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon is-small">
+          <i class="fa fa-pencil"></i>
+        </span>
+        <span>
+          Modifier
+        </span>
+      </a>
+      <a ng-click="removeContent()" class="button is-danger blog-add" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon is-small">
+          <i class="fa fa-remove"></i>
+        </span>
+        <span>
+          Supprimer
         </span>
       </a>
     </div>
@@ -76,7 +94,7 @@
       </div>
     </div>
 
-    <lcs-comment update-method="updateMethod()" object="article" class="lcs-comment"></lcs-comment>
+    <lcs-comment object="article" class="lcs-comment"></lcs-comment>
   </section>
 </div>
 </div>

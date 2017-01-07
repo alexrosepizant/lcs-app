@@ -3,7 +3,7 @@
 const mongoose = require("mongoose")
 
 const Notification = mongoose.model("Notification")
-const userFields = "_id name username avatar"
+const userFields = "_id username avatar"
 
 /**
  * List of notification

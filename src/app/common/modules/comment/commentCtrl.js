@@ -8,9 +8,6 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
   $scope.init = () => {
     $scope.newComment = ""
     $scope.replies = {}
-    $scope.object.comments.sort((a, b) => {
-      return new Date(b.created).getTime() - new Date(a.created).getTime()
-    })
     $scope.object.comments.forEach((comment, index) => {
       $scope.replies[comment._id] = {
         active: false,

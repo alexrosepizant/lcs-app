@@ -9,20 +9,16 @@ const config = require("../config")
 const Files = require("./files")
 
 const Article = mongoose.model("Article")
+const userFields = "_id username avatar"
 
 /**
 * Find article by id
 */
 exports.article = (id) => {
-  return Article.findOne({
-    "_id": id,
-  })
-  .populate("user", "name username avatar")
-  .populate("comments.user", "_id name username avatar")
-  .populate("comments.replies.user", "_id name username avatar")
-  .populate("yes.user", "name username avatar")
-  .populate("no.user", "name username avatar")
-  .populate("blank.user", "name username avatar")
+  return Article.findById(id)
+    .populate("user", userFields)
+    .populate("comments.user", userFields)
+    .populate("comments.replies.user", userFields)
 }
 
 /**
@@ -54,19 +50,22 @@ exports.all = (params) => {
   }
 
   if (params.search) {
-    query.word = new RegExp(req.body.search, "i")
+    query.word = new RegExp(params.search, "i")
   }
 
   const limit = (params.perPage) ? parseInt(params.perPage) : (params.limit) ? parseInt(params.limit) : 25
   const skip = (params.page) ? parseInt(params.page * limit) : 0
 
   return Article.find(query)
-  .sort("-created")
-  .populate("user", "_id name username avatar")
-  .populate("comments.user", "_id name username avatar")
-  .populate("comments.replies.user", "_id name username avatar")
-  .limit(limit)
-  .skip(skip)
+    .sort("-created")
+    .populate("user", userFields)
+    .populate({
+      path: "comments.user",
+      select: userFields,
+      options: {limit: 5},
+    })
+    .limit(limit)
+    .skip(skip)
 }
 
 /**

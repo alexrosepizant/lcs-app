@@ -434,7 +434,11 @@ p.title.is-bold {
 }
 
 .blog-add {
-  margin: 15px 15px 0;
+  margin: 15px 15px 0 0;
+}
+
+.blog-add-left {
+  margin: 15px 0 0 15px;
 }
 
 .blog-title {
@@ -550,6 +554,10 @@ a.is-current {
   border-radius: 50% !important;
   padding: 10px;
   height: 43px;
+}
+
+.notificationContainer .angular-popover{
+  max-width: 300px;
 }
 
 .ui-notification {
@@ -798,6 +806,10 @@ textarea {
 }
 
 #live-chat i.hasMessage {
+  color: #e62727;
+}
+
+span.hasMessage i {
   color: #e62727;
 }
 

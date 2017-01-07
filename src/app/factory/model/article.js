@@ -1,13 +1,5 @@
 import moment from "moment"
 
-const formatComments = (comments, User) => {
-  const users = []
-  if (comments) {
-    comments.forEach((comment) => users.push(new User(comment.user)))
-  }
-  return users.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
-}
-
 const getPreview = (content) => {
   const imgs = angular.element("<div>" + content + "</div>").find("img")
   return (imgs.length) ? angular.element(imgs[0]).attr("src") : null
@@ -23,7 +15,7 @@ export default function Article($sce, User, Comment) {
       content: "",
       image: getPreview(data.content),
       categories: [],
-      commentsUser: formatComments(data.comments, User),
+      commentsUser: (data.comments) ? data.comments.map((comment) => new User(comment.user)) : [],
       sources: [{
         src: $sce.trustAsResourceUrl(data.url),
         type: data.mimeType,

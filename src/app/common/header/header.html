@@ -23,7 +23,7 @@
           <span class="nav-item">
             <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html">
               <a class="ng-popover-trigger">
-                <span class="icon">
+                <span class="icon" ng-class="{'hasMessage' : hasNewMessage}">
                   <i class="fa fa-commenting-o"></i>
                 </span>
               </a>
@@ -32,7 +32,7 @@
 
           <!-- Notification button -->
           <span class="nav-item">
-            <span angular-popover direction="bottom" template-url="app/common/header/popover/notification.html" close-on-mouseleave="true">
+            <span class="notificationContainer" angular-popover direction="bottom" template-url="app/common/header/popover/notification.html" close-on-mouseleave="true">
               <a class="ng-popover-trigger">
                 <span class="icon">
                   <i class="fa fa-bell-o"></i>

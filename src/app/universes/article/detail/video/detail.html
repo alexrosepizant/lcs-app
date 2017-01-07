@@ -1,3 +1,26 @@
+<nav class="nav has-shadow">
+  <div class="container">
+    <div class="nav-right">
+      <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon is-small">
+          <i class="fa fa-pencil"></i>
+        </span>
+        <span>
+          Modifier
+        </span>
+      </a>
+      <a ng-click="removeContent()" class="button is-danger blog-add" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon is-small">
+          <i class="fa fa-remove"></i>
+        </span>
+        <span>
+          Supprimer
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
 <div class="container margin-top-20">
   <div class="box bottom-50">
     <p>
@@ -88,7 +111,7 @@
         </div>
       </div>
 
-      <lcs-comment update-method="updateMethod()" object="article" class="lcs-comment"></lcs-comment>
+      <lcs-comment object="article" class="lcs-comment"></lcs-comment>
     </section>
   </div>
 </div>

@@ -4,7 +4,7 @@ export default function ProfileCtrl($rootScope, $scope, ArticleFactory, AgendaFa
   $scope.contentType = type
 
   $scope.dismiss = () => {
-    $scope.dismiss()
+    $scope.$dismiss()
   }
 
   $scope.removeContent = () => {

@@ -38,12 +38,7 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $
   /** *
     Article update and delete
   ***/
-  $scope.updateContent = (evt, content) => {
-    if (evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
-    }
-
+  $scope.updateContent = (content) => {
     switch (content.type) {
     case "standard":
       $state.go("article.update", {articleId: content._id})
@@ -60,12 +55,7 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $
     }
   }
 
-  $scope.removeContent = (evt, content) => {
-    if (evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
-    }
-
+  $scope.removeContent = (content) => {
     $uibModal.open({
       templateUrl: "app/universes/user/deletion/removeArticle.html",
       controller: "RemoveContentCtrl",
@@ -105,8 +95,8 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $
       })
       .catch(() => {
         Notification.error({
-          title: "Error",
-          message: "Erreur dans la mise à jour du profil",
+          title: "Erreur",
+          message: "L'ancien mot de passe n'est pas valide.",
         })
       })
   }

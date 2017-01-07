@@ -4,7 +4,6 @@ export default function User(AppConstants) {
       _id:"",
       avatar: "",
       username: "",
-      email: "",
 
       getAvatar(width, height) {
         const _width = width

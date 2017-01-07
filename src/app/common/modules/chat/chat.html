@@ -8,35 +8,29 @@
       class="img-chat"
       alt="Image"/>
       <h4 ng-if="(users | filterConnectedUser:this).length === 0">
-        <i ng-class="{'hasMessage' : hasNewMessage}"
-           class="fa Example of commenting-o fa-commenting-o"></i>
+        <i ng-class="{'hasMessage' : hasNewMessage}" class="fa Example of commenting-o fa-commenting-o"></i>
         Personne n'est connecté
       </h4>
     </div>
   </header>
   <section>
+    <form>
+      <p class="control has-icon has-icon-right">
+        <textarea class="textarea textareaChat" ng-model="message.content" ng-enter="sendMessage()" ng-click="$event.stopPropagation()" placeholder="Entre ton message…" autofocus>
+        </textarea>
+        <i class="fa fa-send"></i>
+      </p>
+    </form>
     <div class="chat">
-      <div scroll-glue class="chat-history">
+      <div class="chat-history">
         <div ng-repeat="message in messages" class="chat-message">
           <div ng-class="{'is-mention' : message.getMention(currentUser.username)}" class="clearfix">
-            <span class="chat-time">{{ message.created | date:'H:mm' }}</span>
+            <span class="chat-time">{{ message.getDate() }}</span>
             <strong>{{ message.getUsername() }}</strong>
             <p>{{ message.content }}</p>
           </div>
         </div>
       </div>
     </div>
-    <form>
-      <p class="control has-icon has-icon-right">
-        <textarea class="textarea textareaChat"
-        ng-model="message.content"
-        ng-enter="sendMessage()"
-        ng-click="$event.stopPropagation()"
-        placeholder="Entre ton message…"
-        autofocus>
-      </textarea>
-      <i class="fa fa-send"></i>
-    </p>
-  </form>
-</section>
+  </section>
 </div>

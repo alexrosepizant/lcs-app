@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export default () => {
   return (data) => {
     return angular.extend({
@@ -21,6 +23,14 @@ export default () => {
           if (mention === username) return mention
         }
         return false
+      },
+
+      getDate() {
+        if (moment(new Date()).isSame(this.created, "d")) {
+          return moment(this.created).format("H:mm")
+        } else {
+          return moment(this.created).fromNow()
+        }
       },
     }, data)
   }
