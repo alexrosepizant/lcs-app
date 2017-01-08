@@ -1,4 +1,4 @@
-function AppRun($rootScope, $state, $location, AuthFactory, $uibModalStack) {
+function AppRun($rootScope, $location, AuthFactory, $uibModalStack) {
   "ngInject"
 
   // if no currentUser and on a page that requires authorization then try to update it
