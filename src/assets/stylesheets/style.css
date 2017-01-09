@@ -222,9 +222,10 @@ body {
 }
 
 .section-title {
+  color: black;
   background: white;
   font-size: 20px;
-  padding: 10px 20px;
+  padding: 10px 0;
 }
 
 .dashboard-title {
@@ -354,9 +355,14 @@ body {
 }
 
 .issue {
-  border: 1px solid whitesmoke;
-  margin: 10px 0;
   padding: 10px;
+  width: 100%;
+  display: inline-block;
+}
+
+.issue>div {
+  padding: 10px;
+  border: 1px solid whitesmoke;
 }
 
 .tagline {
@@ -414,8 +420,24 @@ p.title.is-bold {
   transition: box-shadow 0.2s linear, background 0.2s linear;
 }
 
+.lcsContent {
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+}
+
+.archive {
+  padding: 20px;
+  border: 0;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.02);
+  transition: box-shadow 0.2s linear, background 0.2s linear;
+  cursor: pointer;
+}
+
 .blog:hover,
-.sideEvent:not(.active):hover .eventRight {
+.sideEvent:not(.active):hover .eventRight,
+.archive:hover {
   background: #fff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
@@ -425,6 +447,7 @@ p.title.is-bold {
   background: rgba(0, 0, 0, 0.02);
   border: 0;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .blog h2 {
@@ -667,8 +690,8 @@ a.is-current {
 }
 
 .home-title {
-  font-size: 35px;
-  margin: 10px;
+  margin: 15px 10px;
+  font-weight: 600;
 }
 
 .card-avatar {
@@ -1301,9 +1324,12 @@ figure {
   margin-right: 10px;
 }
 
-.sideEvent.active,
-.sideEvent.active .eventRight {
+.sideEvent.active {
   background: white !important;
+}
+
+.sideEvent.active .eventRight {
+  background: #eee !important;
 }
 
 .eventDateSmall .agenda-title {
@@ -1577,4 +1603,14 @@ span:not(:last-child) p.event-item {
   width: inherit;
   height: inherit;
   line-height: inherit;
+}
+
+.login > div > div,
+.signup > div > div {
+  min-width: 400px;
+}
+
+.login .section-title,
+.signup .section-title {
+  padding-left: 20px;
 }

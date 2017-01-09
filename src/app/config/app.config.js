@@ -1,11 +1,8 @@
 import moment from "moment"
 import "moment/locale/fr"
 
-function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider,
-    $qProvider, NotificationProvider) {
+function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider, NotificationProvider) {
   "ngInject"
-
-  $qProvider.errorOnUnhandledRejections(false)
 
   $urlRouterProvider.otherwise(($injector) => {
     const $state = $injector.get("$state")

@@ -5,9 +5,11 @@ export default function CreateIssueCtrl($rootScope, $scope, IssueFactory, Notifi
   $scope.currentUser = $rootScope.currentUser
   $scope.issue = issue
   $scope.categories = [{
-    value: "Bug",
+    value: "Jeux",
   },{
     value: "Amélioration",
+  },{
+    value: "Bug",
   }]
 
   $scope.addCategory = () => {

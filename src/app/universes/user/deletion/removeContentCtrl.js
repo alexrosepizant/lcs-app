@@ -1,4 +1,5 @@
-export default function ProfileCtrl($rootScope, $scope, ArticleFactory, AgendaFactory, Notification, contentId, type) {
+export default function ProfileCtrl($rootScope, $scope, $state,
+    ArticleFactory, AgendaFactory, Notification, contentId, type) {
   "ngInject"
 
   // retrieve variables
@@ -14,12 +15,14 @@ export default function ProfileCtrl($rootScope, $scope, ArticleFactory, AgendaFa
     let promise = null
     switch ($scope.contentType) {
     case "agenda":
-      labelType = "évènement"
+      labelType = "Evènement"
       promise = AgendaFactory.deleteUserEvent($scope.contentId)
       break
     default:
-      labelType = "article"
-      promise = ArticleFactory.deleteArticle($scope.contentId)
+      labelType = "Article"
+      promise = ArticleFactory.deleteArticle($scope.contentId).then(() => {
+        return $state.go("article")
+      })
       break
     }
 
@@ -29,7 +32,7 @@ export default function ProfileCtrl($rootScope, $scope, ArticleFactory, AgendaFa
         $rootScope.$broadcast("updateUserContentList")
         Notification.success({
           title: "Success",
-          message: `l'${labelType} supprimé avec succés`,
+          message: `${labelType} supprimé avec succés`,
         })
       })
       .catch((err) => {

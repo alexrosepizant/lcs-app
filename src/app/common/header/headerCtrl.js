@@ -13,8 +13,12 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
   //   name: "Recommendations",
   //   link: "recommendations",
   }, {
-    name: "...",
+    name: "Le site",
     link: "about",
+  },
+  {
+    name: "Les votes",
+    link: "vote",
   }]
 
   $scope.isCurrentPath = (item) => {

@@ -7,9 +7,6 @@
       <a class="nav-item is-tab" ui-sref="article({ filter: 'all' })" ng-class="{'is-active': filter === 'all'}">
         Tous
       </a>
-      <a class="nav-item is-tab " ui-sref="article({ filter: 'standard' })" ng-class="{'is-active': filter === 'standard'}">
-        Récits
-      </a>
       <a class="nav-item is-tab " ui-sref="article({ filter: 'video' })" ng-class="{'is-active': filter === 'video'}">
         Vidéos
       </a>
@@ -96,12 +93,12 @@
                   <img ng-src="{{blog.image}}" alt="Image">
                 </figure>
               </div>
-              <div class="media-content">
+              <div class="media-content ellipsis">
                 <div class="content">
-                  <p class="ellipsis">
+                  <p>
                     <strong>{{blog.title}}</strong>
                     <br>
-                    <a ng-href="{{blog.href}}" target="_blank">
+                    <a class="ellipsis" ng-href="{{blog.href}}" target="_blank">
                       {{blog.href}}
                     </a>
                   </p>

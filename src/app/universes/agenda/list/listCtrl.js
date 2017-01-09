@@ -77,6 +77,9 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
 
   $scope.$on("updateAgendaList", () => {
     AgendaFactory.findUserEvents()
-      .then((events) => $scope.events = events)
+      .then((events) => {
+        $scope.events = events
+        $scope.currentEvent = $scope.events[0]
+      })
   })
 }

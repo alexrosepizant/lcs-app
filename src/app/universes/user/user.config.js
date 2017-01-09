@@ -24,10 +24,10 @@ export default function UserConfig($stateProvider) {
       },
     })
     .state("publication", {
-      url: "/profile/publication",
+      url: "/publication",
       template: require("./profile/publication.html"),
       controller: "ProfileCtrl",
-      title: "Profile",
+      title: "Publications",
       resolve: {
         articles: ($rootScope, AuthFactory, ArticleFactory) => {
           return AuthFactory.updateCurrentUser()

@@ -11,6 +11,10 @@ export default function UserEvent(User, Comment) {
       startsAt: Date.now(),
       location: {},
 
+      getType() {
+        return "Evènement"
+      },
+
       getDateFrom() {
         return moment(this.created).fromNow()
       },
