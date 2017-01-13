@@ -121,6 +121,7 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
       $scope.article.url = $scope.formattedUrl
     }
 
+    $scope.article.formattedTitle()
     $scope.article.user = $rootScope.currentUser._id
     ArticleFactory.createArticle($scope.article)
       .then(() => {

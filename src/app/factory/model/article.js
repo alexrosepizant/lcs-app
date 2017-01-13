@@ -27,6 +27,10 @@ export default function Article($sce, User, Comment) {
         return this.title
       },
 
+      formattedTitle() {
+        this.title = angular.element("<div>" + this.title + "</div>").text()
+      },
+
       getType() {
         return (this.type === "standard") ? "Article" : this.type
       },

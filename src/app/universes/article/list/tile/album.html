@@ -1,11 +1,14 @@
 <div>
-  <strong>
-    <small class="pull-right margin-top-10">
-      <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
-    </small>
-  </strong>
+  <p>
+    <strong>
+      <small class="pull-right">
+        <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
+      </small>
+    </strong>
+  </p>
+
   <a ui-sref="albumView({ articleId: article._id })">
-    <div class="blog-title ellipsis">{{article.title}}</div>
+    <div class="margin-top-20 blog-title ellipsis">{{article.title}}</div>
   </a>
 
   <article class="media margin-top-10">
@@ -20,10 +23,10 @@
     </div>
   </article>
 
-  <article>
+  <article class="margin-top-20">
     <div class="media-content">
       <div class="content">
-        <div>
+        <div class="blog-category">
           <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
             {{ category }}
           </span>

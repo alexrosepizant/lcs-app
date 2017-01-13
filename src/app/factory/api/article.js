@@ -71,10 +71,16 @@ export default function ArticleFactory($http, AppConstants, Article) {
         return this.updateArticle(article)
       }
       return $http.post("/articles", article)
+        .then((article) => {
+          return new Article(article.data)
+        })
     },
 
     updateArticle(article) {
       return $http.put(`/articles/${article._id}`, article)
+        .then((article) => {
+          return new Article(article.data)
+        })
     },
 
     deleteArticle(articleId) {

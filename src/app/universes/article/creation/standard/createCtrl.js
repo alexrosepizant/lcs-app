@@ -40,6 +40,7 @@ export default function StandardCreationCtrl($rootScope, $scope, ArticleFactory,
       })
     }
 
+    $scope.article.formattedTitle()
     $scope.article.user = $rootScope.currentUser._id
     ArticleFactory.createArticle($scope.article)
       .then(() => {

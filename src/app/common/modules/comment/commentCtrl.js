@@ -41,14 +41,15 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
         created: moment(new Date()).toISOString(),
       })
 
-      $scope.getUpdateMethod().then(({data}) => {
-        $scope.object.__v = data.__v
-        $scope.object.comments = data.comments.map((c) => new Comment(c))
-        $scope.init()
+      $scope.getUpdateMethod()
+        .then((object) => {
+          $scope.object.__v = object.__v
+          $scope.object.comments = object.comments.map((c) => new Comment(c))
+          $scope.init()
 
         // add comment object
-        $scope.createCommentContent()
-      })
+          $scope.createCommentContent()
+        })
     }
   }
 
@@ -61,17 +62,18 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
         created: moment(new Date()).toISOString(),
       })
 
-      $scope.getUpdateMethod().then(({data}) => {
-        $scope.object.__v = data.__v
-        $scope.object.comments = data.comments.map((c) => new Comment(c))
-        $scope.init()
+      $scope.getUpdateMethod()
+        .then((object) => {
+          $scope.object.__v = object.__v
+          $scope.object.comments = object.comments.map((c) => new Comment(c))
+          $scope.init()
 
-        $scope.replies[commentId].content = ""
-        $scope.replies[commentId].active = false
+          $scope.replies[commentId].content = ""
+          $scope.replies[commentId].active = false
 
         // add comment object
-        $scope.createCommentContent()
-      })
+          $scope.createCommentContent()
+        })
     }
   }
 

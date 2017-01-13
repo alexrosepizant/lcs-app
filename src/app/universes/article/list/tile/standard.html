@@ -1,7 +1,7 @@
 <div>
   <p>
     <strong>
-      <small class="pull-right margin-top-10">
+      <small class="pull-right">
         <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
       </small>
     </strong>
@@ -9,7 +9,7 @@
 
   <a ui-sref="standardView({ articleId: article._id })">
     <div class="margin-top-20">
-      <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x150' }}"/>
+      <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
     </div>
 
     <div class="blog-title two-line-ellipsis">

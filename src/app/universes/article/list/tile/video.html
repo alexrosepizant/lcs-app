@@ -1,12 +1,14 @@
 <div>
-  <strong>
-    <small class="pull-right margin-top-10">
-      <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
-    </small>
-  </strong>
+  <p>
+    <strong>
+      <small class="pull-right">
+        <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
+      </small>
+    </strong>
+  </p>
 
   <a ui-sref="videoView({ articleId: article._id })">
-    <div class="blog-title ellipsis">
+    <div class="margin-top-20 blog-title ellipsis">
       {{article.title}}
     </div>
   </a>
