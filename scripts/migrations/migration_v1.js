@@ -1,6 +1,7 @@
 /**
 * Global dependencies includes db models and routes.
 */
+const moment = require("moment")
 const mongoose = require("mongoose")
 const _ = require("lodash")
 const config = require("../../server/config")
@@ -20,6 +21,8 @@ const Conversation = mongoose.model("Conversation")
 const Comment = mongoose.model("Comment")
 const Notification = mongoose.model("Notification")
 const UserEvent = mongoose.model("UserEvent")
+const Suggestion = mongoose.model("Suggestion")
+const Vote = mongoose.model("Vote")
 
 const migrateAlbum = () => {
   const albumPromises = []
@@ -170,8 +173,28 @@ const changeQuoteToVote = () => {
     }
 
     _.each(articles, (article) => {
-      article.type = "vote"
-      articlePromises.push(article.save((err) => {
+      const vote = new Vote({
+        content: article.content,user: article.user,
+        endsAt: article.created,
+        created: moment(article.created).subtract(1, "months"),
+        comments: article.comments,
+        answers: [
+          {
+            content: "ça donne",
+            users: article.yes.map((result) => result.user),
+          },
+          {
+            content: "c'est mort",
+            users: article.no.map((result) => result.user),
+          },
+          {
+            content: "ne sais pas",
+            users: article.blank.map((result) => result.user),
+          },
+        ],
+      })
+
+      articlePromises.push(vote.save((err) => {
         if (err) {
           console.warn("error when trying to save user")
         } else {
@@ -179,7 +202,56 @@ const changeQuoteToVote = () => {
         }
       }))
     })
+
     return Promise.all(articlePromises)
+  })
+}
+
+const updateVotes = () => {
+  const votePromises = []
+  return Suggestion.find().then((suggestions, err) => {
+    if (suggestions.length === 0) {
+      console.warn("Nothing to migrate")
+      return Promise.resolve()
+    }
+
+    if (err) {
+      console.warn("Error when trying to migrate suggestions suggestions")
+      return Promise.resolve()
+    }
+
+    _.each(suggestions, (suggestion) => {
+      const vote = new Vote({
+        content: suggestion.content,
+        user: suggestion.user,
+        created: suggestion.created,
+        endsAt: moment(suggestion.created).add(1, "months"),
+        answers: [
+          {
+            content: "ça donne",
+            users: suggestion.yes,
+          },
+          {
+            content: "c'est mort",
+            users: suggestion.no,
+          },
+          {
+            content: "ne sais pas",
+            users: suggestion.blank,
+          },
+        ],
+      })
+
+      votePromises.push(vote.save((err) => {
+        if (err) {
+          console.warn("error when trying to save vote")
+        } else {
+          console.warn("vote updated")
+        }
+      }))
+    })
+
+    return Promise.all(votePromises)
   })
 }
 
@@ -215,6 +287,23 @@ const createNotificationFromScratch = () => {
             type: "userEvent",
             user: userEvent.user,
             created: userEvent.created,
+          })
+          promises.push(notification.save())
+        })
+        return Vote.find()
+      }
+    }).then((votes, err) => {
+      if (err) {
+        return Promise.reject(err)
+      } else {
+        console.log(votes.length + " notifications from votes")
+        votes.forEach((vote) => {
+          const notification = new Notification({
+            title: "Nouveau vote",
+            contentId: vote._id,
+            type: "vote",
+            user: vote.user,
+            created: vote.created,
           })
           promises.push(notification.save())
         })
@@ -254,6 +343,10 @@ mongoose.connect(config.db)
 .then(() => {
   utils.titleLog("Prepare to migrate suggestion articles")
   return changeQuoteToVote()
+})
+.then(() => {
+  utils.titleLog("Prepare to migrate votes")
+  return updateVotes()
 })
 .then(() => {
   utils.titleLog("Prepare to migrate conversations")

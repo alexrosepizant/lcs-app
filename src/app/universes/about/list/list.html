@@ -1,61 +1,57 @@
+<nav class="nav has-shadow">
+  <div class="container">
+    <div class="nav-left">
+      <a class="button is-primary blog-add" ui-sref="about.create">
+        <span class="icon is-small">
+          <i class="fa fa-plus"></i>
+        </span>
+        <span>
+          Ajouter
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
   <div class="columns">
-    <div class="column is-8">
+    <div class="column is-12">
       <div class="margin-top-20 bottom-20">
-        <h1 class="section-title">
-          <strong>Les coqs soccer</strong>
-        </h1>
-        <div class="lcsContent">
-          Allez les gars à vous de proposer des idées pour les prochains jeux / défis / paris.
-        </div>
-        <hr/>
-        <div class="container margin-top-20">
+        <div class="container">
           <h1 class="section-title">
-            <strong>Idées</strong>
-            <div class="count media-number">{{issues.length}}</div>
-            <a class="nav-item is-tab button is-primary pull-right" ui-sref="about.create">
-              <span class="icon is-small">
-                <i class="fa fa-plus"></i>
-              </span>
-              <span>
-                Ajouter
-              </span>
-            </a>
+            <strong>Bugs / Idées d'amélioration</strong>
           </h1>
           <div class="lcsContent masonry margin-top-20">
-            <div class="issue" ng-repeat="issue in issues">
-              <div>
-                <p>{{ issue.description }}</p>
-                <div class="margin-top-10">
-                  <span class="tag" ng-repeat="categorie in issue.categories">
+            <div class="masonry-child" ng-repeat="idea in ideas">
+              <div class="blog">
+                <p class="margin-top-20">{{ idea.description }}</p>
+                <div class="margin-top-20">
+                  <div class="count media-number pull-right ideaLike" ng-click="addLike($index)">
+                    +{{idea.like}}
+                  </div>
+                  <span class="tag" ng-repeat="categorie in idea.categories">
                     {{ categorie }}
                   </span>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="column is-4">
-      <div class="margin-top-20">
-        <div class="margin-top-20">
-          <h1 class="section-title">
-            <strong>Les archives du site</strong>
-          </h1>
-          <div class="archive">
-            <div class="sidebar-content">
-              <div>
-                <figure class="image">
-                  <img src="/assets/images/euro/logo-euro-2016.jpg" alt="">
-                </figure>
-              </div>
-              <div class="margin-top-20">
-                <div class="media">
-                  <div class="media-left">
-                    <p class="title is-5">Les paris de l'Euro 2016</p>
+                <section class="blog-user-section margin-top-10">
+                  <div class="authorSectionContainer">
+                    <span class="authorSectionTitle">
+                      Ajouté par
+                    </span>
+                    <div class="authorContent-idea">
+                      <span class="user-image">
+                        <div class="user-image--image">
+                          <div>
+                            <img ng-src="{{ idea.user.getAvatar(40,40) }}" height="40" width="40">
+                          </div>
+                        </div>
+                      </span>
+                      <a class="authorContent-name" href="#">
+                        {{idea.user.username}}
+                      </a>
+                    </div>
                   </div>
-                </div>
+                </section>
               </div>
             </div>
           </div>

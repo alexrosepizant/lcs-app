@@ -1,4 +1,4 @@
-export default function Issue($sce, User) {
+export default function Idea($sce, User) {
   "ngInject"
 
   return (data) => {
@@ -8,6 +8,7 @@ export default function Issue($sce, User) {
       description: "",
       created: Date.now(),
       categories: [],
+      like: 0,
 
       hasCategory(category) {
         return this.categories.indexOf(category) !== -1

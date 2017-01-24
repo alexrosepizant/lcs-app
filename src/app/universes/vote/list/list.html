@@ -1,7 +1,7 @@
 <nav class="nav has-shadow">
   <div class="container">
-    <div class="nav-right">
-      <a class="nav-item is-tab button is-primary blog-add" ui-sref="vote.create">
+    <div class="nav-left">
+      <a class="button is-primary blog-add" ui-sref="vote.create">
         <span class="icon is-small">
           <i class="fa fa-plus"></i>
         </span>
@@ -15,7 +15,7 @@
 
 <div class="container">
   <div class="columns">
-    <div class="column is-12">
+    <div class="column is-9">
 
       <div class="container margin-top-20" ng-if="votes.length === 0">
         <div class="notification">
@@ -23,50 +23,113 @@
         </div>
       </div>
 
-      <div class="masonry">
-        <div ng-repeat="vote in votes | orderBy: '-created'" ng-if="votes.length > 0" class="masonry-child">
-          <div class="box">
-            <div class="voteEndDate">
-              Fin des débats {{ vote.getDays() }}
+      <div ng-repeat="vote in votes | orderBy: '-created'" ng-if="votes.length > 0" class="blog margin-top-20">
+
+        <!-- Ended votes -->
+        <div class="margin-top-20" ng-if="!vote.onGoing">
+          <h2 class="margin-top-20">
+            Résultat du vote {{vote.getDays()}}
+          </h2>
+          <div>
+            <div class="content margin-top-20">
+              <blockquote>{{ vote.content }}</blockquote>
             </div>
-            <div class="voteContainer box" ng-if="!vote.hasUserAnswered(currentUser._id)">
-              <figure class="image voteCircle">
-                <div class="mask-a">
-                  <div class="hand" ng-click="addVote(vote, 1)">
-                  </div>
-                  <div class="hand-1" ng-click="addVote(vote, 2)">
-                  </div>
-                  <div class="hand-2" ng-click="addVote(vote, 3)">
-                  </div>
-                </div>
-              </figure>
-            </div>
-            <div ng-if="vote.hasUserAnswered(currentUser._id)" class="vote_ended">
-              <img src="/assets/images/vote_ended.jpg"/>
-            </div>
-            <div class="voteCardContent">
-              <div class="content margin-top-20">
-                {{ vote.content }}
-                <br>
-              </div>
-              <div class="authorSectionContainer">
-                <span class="voteSectionTitle">
-                  Lancé par
-                </span>
-                <div class="authorContent">
+            <div class="margin-top-20">
+              <div ng-repeat="answer in vote.answers track by $index">
+                <strong>{{answer.content}} <small class="pull-right">{{vote.getPercent(answer._id)}}% ({{answer.users.length}} votes)</small></strong>
+                <progress class="progress is-primary" value="{{vote.getPercent(answer._id)}}" max="100"></progress>
+                <div ng-repeat="user in answer.users" class="user-vote">
                   <span class="user-image">
                     <div class="user-image--image">
-                      <div>
-                        <img ng-src="{{ vote.user.getAvatar(40,40) }}" height="40" width="40">
+                      <div class="vote-image">
+                        <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{user.username}}">
                       </div>
                     </div>
                   </span>
-                  <a class="authorContent-name" href="#">
-                    {{vote.user.username}}
-                  </a>
                 </div>
+                <hr ng-if="$index < vote.answers.length - 1"/>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- On-going votes -->
+        <div class="margin-top-20" ng-if="vote.onGoing">
+          <a class="button event-add pull-right" ui-sref="vote.update({voteId: vote._id})" ng-disabled="currentUser._id !== vote.user._id">
+            <span>
+              Modifier
+            </span>
+          </a>
+          <h2 class="margin-top-20">
+            Résultat du vote {{vote.getDays()}}
+          </h2>
+          <div>
+            <div class="content margin-top-20">
+              <blockquote>{{ vote.content }}</blockquote>
+            </div>
+            <div class="margin-top-20">
+              <div ng-repeat="item in vote.answers" class="margin-top-10">
+                <strong>
+                  <label class="radio">
+                    <input ng-disabled="vote.hasUserAnswered" type="radio" ng-model="options[vote._id]" value="{{item._id}}">
+                    &nbsp;{{item.content}}
+                  </label>
+                </strong>
               </div>
             </div>
+            <div class="margin-top-20" ng-if="!vote.hasUserAnswered">
+              <a class="button is-primary" ng-click="addVote(vote._id)">
+                Voter
+              </a>
+            </div>
+            <div class="margin-top-20" ng-if="vote.hasUserAnswered">
+              <a class="button disabled">
+                En attente des résultats
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20">
+          <section class="blog-user-section margin-top-20">
+            <div class="authorContent">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ vote.user.getAvatar(40,40) }}" height="40" width="40">
+                  </div>
+                </div>
+              </span>
+              <a class="authorContent-name" href="#">
+                {{vote.user.username}}
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-3 margin-top-20">
+      <h1 class="section-title">
+        <strong>Ils donnent la parole au peuple</strong>
+      </h1>
+      <div class="section-title friends">
+        <div ng-repeat="user in users | limitTo: 5 " class="columns margin-top-20">
+          <span class="media-number">{{$index + 1}}</span>
+          <div class="column is-marginless">
+            <div class="image friend">
+              <img ng-src="{{ user.getAvatar(40, 40) }}">
+            </div>
+          </div>
+          <div class="column is-9 ellipsis user-title">
+            <p class="friendName">
+              <strong>{{ user.username }}</strong>
+              <a class="is-small">
+                <span class="subtitle is-6">
+                  ({{user.count}} votes)
+                </span>
+              </a>
+            </p>
           </div>
         </div>
       </div>

@@ -75,9 +75,6 @@ const ArticleSchema = new Schema({
     type: Date,
   },
   categories: [],
-  coverPicPath: {
-    type: String,
-  },
   photoList: [new Schema({
     id: {
       type: String,

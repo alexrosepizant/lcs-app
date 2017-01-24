@@ -5,7 +5,7 @@ export default function CategoryCtrl($rootScope, $scope, ParameterFactory, Notif
   ParameterFactory.getParameters()
     .then((parameters) => {
       $scope.parameters = parameters
-      $scope.categories = parameters.articleCategories
+      $scope.categories = parameters.articleCategories.map((categorie) => categorie.value)
     })
 
   $scope.addCategory = () => {

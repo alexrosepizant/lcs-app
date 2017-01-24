@@ -27,7 +27,7 @@
     <div class="media-content">
       <div class="content">
         <div class="blog-category">
-          <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+          <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
             {{ category }}
           </span>
           <span ng-if="article.categories.length === 0" class="tag margin-top-10">

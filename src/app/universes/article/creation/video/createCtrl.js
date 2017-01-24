@@ -100,7 +100,7 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
     $scope.API.stop()
     $scope.config.sources = [{
       src: $sce.trustAsResourceUrl($scope.article.url),
-      type: $scope.article.mimeType,
+      type: "video/mp4",
     }]
   }
 

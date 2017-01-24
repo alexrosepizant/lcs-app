@@ -1,6 +1,14 @@
 <nav class="nav has-shadow">
   <div class="container">
     <div class="nav-left">
+      <a class="button is-primary blog-add" ui-sref="article.create">
+        <span class="icon is-small">
+          <i class="fa fa-plus"></i>
+        </span>
+        <span>
+          Ajouter
+        </span>
+      </a>
       <strong class="nav-item is-tab">
         Filtrer par
       </strong>
@@ -12,16 +20,6 @@
       </a>
       <a class="nav-item is-tab " ui-sref="article({ filter: 'album' })" ng-class="{'is-active': filter === 'album'}">
         Photos
-      </a>
-    </div>
-    <div class="nav-right">
-      <a class="nav-item is-tab button is-primary blog-add" ui-sref="article.create">
-        <span class="icon is-small">
-          <i class="fa fa-plus"></i>
-        </span>
-        <span>
-          Ajouter
-        </span>
       </a>
     </div>
   </div>
@@ -46,9 +44,9 @@
         <strong>Les catégories</strong>
       </h1>
       <div class="section-title">
-        <a ng-repeat="category in categories" ui-sref="article({category: category.value,filter: 'all'})">
-          <span class="tag" ng-class="{'active' : category.value === currentCategory}">
-            {{ category.value }}
+        <a ng-repeat="category in categories track by $index" ui-sref="article({category: category, filter: 'all'})">
+          <span class="tag" ng-class="{'active' : category === currentCategory}">
+            {{ category }}
           </span>
         </a>
       </div>
@@ -57,19 +55,17 @@
         <h1 class="section-title">
           <strong>Ceux qui postent le plus</strong>
         </h1>
-        <div class="section-title">
-          <div ng-repeat="user in users | limitTo: 5 " class="columns">
+        <div class="section-title friends">
+          <div ng-repeat="user in users | limitTo: 5 " class="columns margin-top-20">
+            <span class="media-number">{{$index + 1}}</span>
             <div class="column is-marginless">
-              <div class="image">
-                <img ng-src="{{ user.getAvatar(80, 80) }}">
+              <div class="image friend">
+                <img ng-src="{{ user.getAvatar(40, 40) }}">
               </div>
             </div>
-            <div class="column is-9 ellipsis">
-              <p class="user-title">
-                <span class="media-number">{{$index + 1}}</span>
-                <!-- <span angular-popover direction="bottom" template-url="app/universes/user/detail/resume.html" close-on-mouseleave="true"> -->
+            <div class="column is-9 ellipsis user-title">
+              <p class="friendName">
                 <strong>{{ user.username }}</strong>
-                <!-- </span> -->
                 <a class="is-small">
                   <span class="subtitle is-6">
                     ({{user.count}} articles)
@@ -82,7 +78,7 @@
       </div>
 
       <div>
-        <h1 class="section-title">
+        <h1 class="section-title margin-top-20">
           <strong>Les blogs des copains</strong>
         </h1>
         <div class="section-title container">
@@ -94,14 +90,15 @@
                 </figure>
               </div>
               <div class="media-content ellipsis">
-                <div class="content">
-                  <p>
+                <div>
+                  <p class="ellipsis">
                     <strong>{{blog.title}}</strong>
-                    <br>
-                    <a class="ellipsis" ng-href="{{blog.href}}" target="_blank">
+                  </p>
+                  <div class="ellipsis">
+                    <a ng-href="{{blog.href}}" target="_blank">
                       {{blog.href}}
                     </a>
-                  </p>
+                  </div>
                 </div>
               </div>
             </article>

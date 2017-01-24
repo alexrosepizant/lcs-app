@@ -1,6 +1,6 @@
 <div class="content blogCreationTagStandard">
-  <span ng-repeat="category in categories" title="{{ category }}" class="tag" ng-class="{'active': article.hasCategory(category.value)}" ng-click="article.toggleCategory(category.value)">
-    {{ category.value }}
+  <span ng-repeat="category in categories track by $index" title="{{ category }}" class="tag" ng-class="{'active': article.hasCategory(category)}" ng-click="article.toggleCategory(category)">
+    {{ category }}
   </span>
   <input type="text" ng-model="newCategory" ng-enter="addCategory()" class="input inputCategory" placeholder="Nouvelle categorie"/>
 </div>

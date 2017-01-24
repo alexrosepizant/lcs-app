@@ -5,19 +5,14 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
 
   // Main menu
   $scope.menu = [{
-    name: "Articles",
+    name: "A la une",
     link: "article",
   }, {
-    name: "Agenda",
+    name: "Les rencards",
     link: "agenda",
-  //   name: "Recommendations",
-  //   link: "recommendations",
-  }, {
-    name: "Le site",
-    link: "about",
   },
   {
-    name: "Les votes",
+    name: "L'isoloir",
     link: "vote",
   }]
 

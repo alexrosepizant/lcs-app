@@ -11,7 +11,7 @@ module.exports = {
   port: (process.env.NODE_ENV === "production") ? 80 : 3000,
   sessionSecret: "MEAN",
   sessionCollection: "sessions",
-  requestMaxSize: "5mb",
+  requestMaxSize: "50mb",
   appDirectory: "/../src/",
   buildDirectory: "/../dist/",
   publicDirectory:  "/public/",

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One');
+
 :root {
   --MainColor: #42b983;
   --AsideColor: #232b2d;
@@ -7,7 +10,7 @@
 }
 
 body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   height: 100%;
 }
 
@@ -197,6 +200,10 @@ body {
   text-transform: uppercase;
 }
 
+.header-item {
+  font-size: large;
+}
+
 .spacer {
   height: 20px;
 }
@@ -282,8 +289,6 @@ body {
   color: #2c3e50;
   outline: none;
   border-radius: 15px;
-  margin-top: 15px;
-  margin-right: 10px;
   width: 150px;
   transition: width 0.2s ease;
   background: #fff url(/assets/images/search.png) 8px 5px no-repeat;
@@ -339,11 +344,6 @@ body {
   font-weight: bold;
 }
 
-.profile-options {
-  background-color: #f1f1f1;
-  margin: -20px 0 0;
-}
-
 .profile-options .link a {
   padding: 18px;
   font-size: 18px;
@@ -354,6 +354,17 @@ body {
   padding-top: 2px;
 }
 
+.ideaLike {
+  margin-top: -5px;
+  cursor: pointer;
+  transition: box-shadow 0.2s linear, background 0.2s linear;
+}
+
+.ideaLike:hover {
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
 .issue {
   padding: 10px;
   width: 100%;
@@ -361,7 +372,7 @@ body {
 }
 
 .issue>div {
-  padding: 10px;
+  padding: 10px !important;
   border: 1px solid whitesmoke;
 }
 
@@ -384,8 +395,8 @@ body {
 }
 
 .avatar {
-  float: right;
-  margin-top: -10px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .follow {
@@ -394,9 +405,9 @@ body {
 
 .avatar img {
   border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  margin-left: 15px;
+  width: 100%;
+  max-width: 200px;
+  margin: auto;
 }
 
 p.title.is-bold {
@@ -454,8 +465,13 @@ p.title.is-bold {
   font-weight: 400;
 }
 
+.event-add {
+  margin: 5px;
+  color: black;
+}
+
 .blog-add {
-  margin: 15px 15px 0 0;
+  margin: 15px;
 }
 
 .blog-add-left {
@@ -501,7 +517,8 @@ p.title.is-bold {
 }
 
 .user-title {
-  margin: 15px 0 0;
+  display: flex;
+  align-items: center;
 }
 
 .idea {
@@ -688,6 +705,13 @@ a.is-current {
 .home-title {
   margin: 15px 10px;
   font-weight: 600;
+  align-items: center;
+  display: flex;
+}
+
+.header-center {
+  align-items: center;
+  display: flex;
 }
 
 .card-avatar {
@@ -932,7 +956,7 @@ span.hasMessage i {
   flex: 0 0 auto;
   height: 100%;
   position: relative;
-  padding: 35px 0 20px 5px;
+  padding: 35px 0 0 5px;
 }
 
 .blog-category {
@@ -965,7 +989,21 @@ span.hasMessage i {
   margin-bottom: 10px;
 }
 
-.authorContent img {
+.authorContent-idea {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  margin-right: 20px;
+  margin-top: 15px;
+}
+
+.authorContent img,
+.authorContent-idea img {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -973,11 +1011,45 @@ span.hasMessage i {
 
 .authorContent-name {
   font-weight: 700;
+  color: #000 !important;
+  margin: 10px;
+}
+
+.user-vote {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.voteContent-name {
+  font-weight: 700;
   line-height: 40px;
   font-size: 14px;
   color: #000 !important;
   margin: 0;
-  margin-left: 10px;
+}
+
+.vote-image img {
+  border-radius: 50%;
+}
+
+.friend img {
+  height: 40px;
+  width: 40px;
+  max-width: 40px;
+  margin-top: -15px;
+  border-radius: 50%;
+}
+
+.friendName {
+  margin-top: -15px;
+}
+
+.friends {
+  padding: 0;
+}
+
+.friends > div {
+  margin-left: 0;
 }
 
 .blogCommentSection {
@@ -991,7 +1063,7 @@ span.hasMessage i {
   flex: 0 0 auto;
   height: 100%;
   position: relative;
-  padding: 35px 0 20px 10px;
+  padding: 35px 0 0 10px;
 }
 
 .user-tag {
@@ -1023,13 +1095,8 @@ span.hasMessage i {
     VOTE
 =======================================================================================
 */
-
 .voteContainer {
-  height: 260px;
   text-align: center;
-  background: #f2f2f2;
-  padding-top: 0;
-  margin-bottom: 60px !important;
 }
 
 .voteEndDate {
@@ -1059,7 +1126,7 @@ span.hasMessage i {
 }
 
 .voteCircle {
-  margin-top: 20px;
+  overflow: hidden;
   cursor: pointer;
   width: 215px;
   height: 215px;
@@ -1312,6 +1379,10 @@ figure {
   font-size: -webkit-xxx-large;
 }
 
+.center {
+  text-align: center;
+}
+
 .agendaTag:first-child {
   margin-top: 10px;
 }
@@ -1321,11 +1392,7 @@ figure {
 }
 
 .sideEvent.active {
-  background: white !important;
-}
-
-.sideEvent.active .eventRight {
-  background: #eee !important;
+  background: white;
 }
 
 .eventDateSmall .agenda-title {
@@ -1411,10 +1478,6 @@ span:not(:last-child) p.event-item {
   height: 100%;
 }
 
-.eventDate a {
-  color: white;
-}
-
 .sideEvent.active .eventDateSmall {
   padding: 10px;
   text-align: center;
@@ -1422,6 +1485,7 @@ span:not(:last-child) p.event-item {
   background: white;
   color: var(--MainColor);
   margin-right: 20px;
+  border: 1px solid;
 }
 
 .eventDateSmall {
@@ -1434,7 +1498,17 @@ span:not(:last-child) p.event-item {
 }
 
 .eventDay {
-  font-size: 35px;
+  font-size: 25px;
+  color: white;
+  padding: 0;
+}
+
+.eventDay i {
+  margin: 10px 10px 0 0;
+}
+
+.eventDay strong{
+  font-size: 30px;
   text-transform: uppercase;
   font-weight: 600;
   color: white;
@@ -1443,6 +1517,7 @@ span:not(:last-child) p.event-item {
 
 .eventDateLong {
   font-size: 25px;
+  font-weight: 700;
 }
 
 .sideEvent:not(.active) .eventYear,
@@ -1496,6 +1571,10 @@ span:not(:last-child) p.event-item {
   float: right;
   padding-top: 7px;
   color: #ccc;
+}
+
+.title {
+  font: 40px/75px 'Alfa Slab One', cursive, sans-serif;
 }
 
 .items .box .title {
@@ -1621,4 +1700,66 @@ span:not(:last-child) p.event-item {
 .login .section-title,
 .signup .section-title {
   padding-left: 20px;
+}
+
+.youtube-player {
+  position: relative;
+  padding-bottom: 56.23%;
+  /* Use 75% for 4:3 videos */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  background: #000;
+  margin: 5px;
+}
+
+.youtube-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: transparent;
+}
+
+.youtube-player img {
+  bottom: 0;
+  display: block;
+  left: 0;
+  margin: auto;
+  max-width: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  height: auto;
+  cursor: pointer;
+  -webkit-transition: .4s all;
+  -moz-transition: .4s all;
+  transition: .4s all;
+}
+
+.youtube-player img:hover {
+  -webkit-filter: brightness(75%);
+}
+
+.youtube-player .play {
+  height: 72px;
+  width: 72px;
+  left: 50%;
+  top: 50%;
+  margin-left: -36px;
+  margin-top: -36px;
+  position: absolute;
+  background: url("//i.imgur.com/TxzC70f.png") no-repeat;
+  cursor: pointer;
+}
+
+.imageLogin {
+  margin: auto;
+  max-width: 600px;
+  display: block;
+  margin-bottom: 10px;
 }

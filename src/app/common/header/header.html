@@ -2,26 +2,36 @@
   <div class="hero-head">
     <div class="container">
       <nav class="nav">
+
         <div class="nav-left">
-          <!-- Title -->
-          <p ui-sref="article" class="title home-title">
-            Les coqs soccer
-          </p>
+          <!-- Logo -->
+          <a ui-sref="article">
+            <img src="assets/images/logo.png" class="logo"/>
+          </a>
         </div>
 
-        <div class="nav-center">
+        <div class="nav-center header-center">
           <!-- Search bar -->
-          <input type="text" class="search-query" ng-enter="search()" ng-model="word">
+          <!-- <input type="text" class="search-query" ng-enter="search()" ng-model="word"> -->
         </div>
 
         <div class="nav-right nav-menu">
 
           <!-- Menu items -->
-          <a class="nav-item" ui-sref="{{item.link}}" ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">{{item.name}}</a>
+          <a class="nav-item header-item" ui-sref="{{item.link}}" ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">{{item.name}}</a>
+
+          <!-- Site button -->
+          <span class="nav-item">
+            <span angular-popover direction="bottom" template-url="app/common/header/popover/site.html" close-on-mouseleave="true" mode="mouseover">
+              <span class="icon">
+                <i class="fa fa-cog"></i>
+              </span>
+            </span>
+          </span>
 
           <!-- Chat button -->
           <span class="nav-item">
-            <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html">
+            <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html" mode="mouseover">
               <a class="ng-popover-trigger">
                 <span class="icon" ng-class="{'hasMessage' : hasNewMessage}">
                   <i class="fa fa-commenting-o"></i>
@@ -32,7 +42,7 @@
 
           <!-- Notification button -->
           <span class="nav-item">
-            <span class="notificationContainer" angular-popover direction="bottom" template-url="app/common/header/popover/notification.html" close-on-mouseleave="true">
+            <span class="notificationContainer" angular-popover direction="bottom" template-url="app/common/header/popover/notification.html" close-on-mouseleave="true" mode="mouseover">
               <a class="ng-popover-trigger">
                 <span class="icon">
                   <i class="fa fa-bell-o"></i>
@@ -43,7 +53,7 @@
 
           <!-- Profil button -->
           <span class="nav-item">
-            <span angular-popover direction="bottom" template-url="app/common/header/popover/user.html" close-on-mouseleave="true">
+            <span angular-popover direction="bottom" template-url="app/common/header/popover/user.html" close-on-mouseleave="true" mode="mouseover">
               <a class="ng-popover-trigger profilButton">
                 <span>
                   <img ng-src="{{ currentUser.getAvatar(40, 40) }}" class="avatar-photo-square avatar-header">

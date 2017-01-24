@@ -52,6 +52,7 @@ import "./universes/auth"
 import "./universes/user"
 import "./universes/article"
 import "./universes/agenda"
+import "./universes/archive"
 import "./universes/vote"
 
 // Create and bootstrap application
@@ -77,6 +78,7 @@ const requires = [
   "app.about",
   "app.auth",
   "app.agenda",
+  "app.archive",
   "app.article",
   "app.category",
   "app.chat",

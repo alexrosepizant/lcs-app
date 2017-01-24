@@ -20,8 +20,9 @@ export default function Article($sce, User, Comment) {
       commentsUser: (data.comments) ? data.comments.map((comment) => new User(comment.user)) : [],
       sources: [{
         src: $sce.trustAsResourceUrl(data.url),
-        type: data.mimeType,
+        type: "video/mp4",
       }],
+      isYoutubeLink: data.url && data.url.includes("youtube"),
 
       getTitle() {
         return this.title
@@ -49,6 +50,10 @@ export default function Article($sce, User, Comment) {
 
       getVideoLink() {
         return $sce.trustAsResourceUrl(this.url)
+      },
+
+      getYoutubeLink() {
+        return this.url.split("embed/")[1]
       },
 
       getSuggestionAnswerLength(vote, option) {

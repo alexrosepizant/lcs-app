@@ -1,15 +1,15 @@
-export default function CreateIssueCtrl($rootScope, $scope, IssueFactory, Notification, issue) {
+export default function CreateIssueCtrl($rootScope, $scope, IdeaFactory, Notification, issue) {
   "ngInject"
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.issue = issue
   $scope.categories = [{
-    value: "Jeux",
-  },{
     value: "Amélioration",
   },{
     value: "Bug",
+  }, {
+    value: "Jeux",
   }]
 
   $scope.addCategory = () => {
@@ -45,7 +45,7 @@ export default function CreateIssueCtrl($rootScope, $scope, IssueFactory, Notifi
       })
     }
 
-    IssueFactory.createIssue($scope.issue)
+    IdeaFactory.createIdea($scope.issue)
       .then(() => {
         $rootScope.$broadcast("updateIssueList")
         $scope.$close(true)

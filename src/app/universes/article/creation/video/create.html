@@ -31,7 +31,7 @@
     </h1>
 
     <lcs-category article="article"></lcs-category>
-    
+
     <p class="control">
       <textarea ng-model="article.description"
                 class="textarea textareaChat"
@@ -60,6 +60,9 @@
 				<div class="button margin-top-10" ngf-select="upload()" ng-model="file" ngf-multiple="false" accept="video/*,">
 					Uploader une vidéo
 				</div>
+        <div>
+        (limité à 50mo pour l'instant)
+      </div>
         <div class="progress" ng-show="file.progress > 0">
           <progress class="progress is-primary" value="{{ file.progress || 0}}" max="100"></progress>
         </div>

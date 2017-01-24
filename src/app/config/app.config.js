@@ -19,7 +19,7 @@ function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $trans
 
   // Configure notifications
   NotificationProvider.setOptions({
-    delay: 5000,
+    delay: 4000,
     startTop: 30,
     verticalSpacing: 20,
     horizontalSpacing: 20,

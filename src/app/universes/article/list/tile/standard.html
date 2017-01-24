@@ -21,7 +21,7 @@
     <div class="media-content">
       <div class="content">
         <div class="content">
-          <div class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky">
+          <div class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky:'_blank'">
             {{ article.getFormattedContent() }}
           </div>
         </div>
@@ -35,7 +35,7 @@
     <div class="content">
       <div class="blog-category">
         <div>
-          <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+          <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
             {{ category }}
           </span>
           <span ng-if="article.categories.length === 0" class="tag margin-top-10">

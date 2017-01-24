@@ -9,9 +9,7 @@
           Télécharger
         </span>
       </a>
-    </div>
-    <div class="nav-right">
-      <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
+      <a ng-click="updateContent()" class="button blog-add blog-add-left" ng-disabled="article.user._id !== currentUser._id">
         <span class="icon is-small">
           <i class="fa fa-pencil"></i>
         </span>
@@ -19,7 +17,7 @@
           Modifier
         </span>
       </a>
-      <a ng-click="removeContent()" class="button is-danger blog-add" ng-disabled="article.user._id !== currentUser._id">
+      <a ng-click="removeContent()" class="button is-danger blog-add blog-add-left" ng-disabled="article.user._id !== currentUser._id">
         <span class="icon is-small">
           <i class="fa fa-remove"></i>
         </span>
@@ -42,7 +40,7 @@
     <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
     <div class="blog-title-detail ellipsis">{{article.title}}</div>
 
-    <div class="margin-top-20">
+    <div>
       {{article.description}}
     </div>
 
@@ -50,11 +48,8 @@
       <div class="media-content">
         <div>
           <div>
-            <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+            <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
               {{ category }}
-            </span>
-            <span ng-if="article.categories.length === 0" class="tag">
-              Aucune catégorie associée
             </span>
           </div>
 

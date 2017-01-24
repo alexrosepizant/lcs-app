@@ -1,28 +1,24 @@
 <nav class="container profile">
-  <a>
-    <div class="columns">
-      <div class="column is-2">
-        <div class="image is-128x128 avatar">
-          <img ng-src="{{ user.getAvatar(300,300) }}" alt="Image"/>
-        </div>
-      </div>
-      <div class="column is-4 name">
-        <p>
-          <span class="title is-bold">{{ user.username }}</span>
-        </p>
-        <p class="tagline">{{ user.presentation }}</p>
-      </div>
-      <div class="column is-3 following has-text-centered">
-        <p class="stat-val">{{ user.articles.length }}</p>
-        <p class="stat-key">Articles</p>
-      </div>
-      <div class="column is-3 following has-text-centered">
-        <p class="stat-val">{{ user.userEvents.length }}</p>
-        <p class="stat-key">Evènements</p>
-      </div>
-    </div>
+  <div class="section profile-heading">
+   <div class="columns">
+     <div class="column is-2">
+       <div class="image is-128x128 avatar">
+         <img ng-src="{{ user.getAvatar(300,300) }}" alt="Image"/>
+         <div class="spacer"></div>
+         <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
+           Changer la photo
+         </div>
+       </div>
+     </div>
+     <div class="column is-2 name">
+       <p>
+         <span class="title is-bold">{{ user.username }}</span>
+       </p>
+       <p class="tagline">{{ user.presentation || "Rentre un petit mot de présentation pour les copaings" }}</p>
+     </div>
+   </div>
+ </div>
     <div>
       Dernière connection le {{ user.lastConnectionDate }}
     </span>
-  </a>
 </nav>

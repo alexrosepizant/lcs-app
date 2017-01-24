@@ -1,11 +1,16 @@
-export default function AboutListCtrl($scope, IssueFactory, issues) {
+export default function AboutListCtrl($scope, IdeaFactory, ideas) {
   "ngInject"
 
   // Retrieve params
-  $scope.issues = issues
+  $scope.ideas = ideas
+
+  $scope.addLike = (idx) => {
+    $scope.ideas[idx].like += 1
+    IdeaFactory.updateIdea($scope.ideas[idx])
+  }
 
   $scope.$on("updateIssueList", () => {
-    IssueFactory.loadIssues()
-      .then((issues) => $scope.issues = issues)
+    IdeaFactory.loadIdeas()
+      .then((ideas) => $scope.ideas = ideas)
   })
 }

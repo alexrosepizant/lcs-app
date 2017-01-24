@@ -1,30 +1,30 @@
-export default function IssueFactory($http, Issue) {
+export default function IdeaFactory($http, Idea) {
   "ngInject"
 
   return {
-    loadIssues() {
+    loadIdeas() {
       return $http.get("/idea")
         .then((response) => {
-          return response.data.map((idea) => new Issue(idea))
+          return response.data.map((idea) => new Idea(idea))
         })
     },
 
-    getIssue(ideaId) {
+    getIdea(ideaId) {
       return $http.get(`/idea/${ideaId}`)
         .then((response) => {
-          return new Issue(response.data)
+          return new Idea(response.data)
         })
     },
 
-    createIssue(idea) {
+    createIdea(idea) {
       return $http.post("/idea", idea)
     },
 
-    updateIssue(idea) {
+    updateIdea(idea) {
       return $http.put(`/idea/${idea._id}`, idea)
     },
 
-    deleteIssue(ideaId) {
+    deleteIdea(ideaId) {
       return $http.delete(`/idea/${ideaId}`)
     },
   }

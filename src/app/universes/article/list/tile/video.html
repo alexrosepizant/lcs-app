@@ -15,9 +15,11 @@
 
   <div class="margin-top-10">
 
+    <div ng-if="article.isYoutubeLink" class="youtube-player" data-id="{{article.getYoutubeLink()}}"></div>
+
     <!-- Include iframe of video -->
     <iframe ng-src="{{ article.getVideoLink() }}"
-    ng-if="article.isEmbed"
+    ng-if="article.isEmbed && !article.isYoutubeLink"
     width="100%"
     height="auto"
     class="videoTileFrame"
@@ -65,7 +67,7 @@
     <div class="content">
       <div class="blog-category">
         <div>
-          <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+          <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
             {{ category }}
           </span>
           <span ng-if="article.categories.length === 0" class="tag margin-top-10">

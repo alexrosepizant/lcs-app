@@ -1,7 +1,7 @@
 <nav class="nav has-shadow">
   <div class="container">
-    <div class="nav-right">
-      <a class="nav-item is-tab button is-primary blog-add" ui-sref="agenda.create">
+    <div class="nav-left">
+      <a class="button is-primary blog-add" ui-sref="agenda.create">
         <span class="icon is-small">
           <i class="fa fa-plus"></i>
         </span>
@@ -27,13 +27,12 @@
         <div class="eventDate">
           <div>
             <div class="eventDay" ng-if="currentEvent.subType !== 'euroMatch'">
-              {{ currentEvent.getDay() }}
-            </div>
-            <div class="eventDateLong">
-              {{ currentEvent.startsAt | date:"dd MMM. yyyy" }}
-            </div>
-            <div class="eventYear">
-              {{ event.startsAt | date:"yyyy" }}
+              <i class="fa fa-calendar-o"></i> <strong>{{ currentEvent.getDay() }}</strong> {{ currentEvent.startsAt | date:"dd MMMM yyyy" }}
+              <a class="button event-add pull-right" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
+                <span>
+                  Modifier
+                </span>
+              </a>
             </div>
           </div>
         </div>

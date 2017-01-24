@@ -1,16 +1,10 @@
 import moment from "moment"
 
-export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFactory, Notification) {
+export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFactory, Notification, vote) {
   "ngInject"
 
   // Retrieve params
-  $scope.vote = {
-    title: "",
-    content: "",
-    yes: [],
-    no: [],
-    blank: [],
-  }
+  $scope.vote = vote
 
   /**
   Flatpick config
@@ -22,11 +16,18 @@ export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFact
     altFormat: "j F Y",
   }
 
-  $scope.dismiss = function() {
+  $scope.addItem = () => {
+    $scope.vote.answers.push({
+      content:"",
+      users: [],
+    })
+  }
+
+  $scope.dismiss = () => {
     $scope.$dismiss()
   }
 
-  $scope.create = function() {
+  $scope.create = () => {
     if (!$scope.vote.content || !$scope.vote.endsAt) {
       return Notification.warning({
         title: "Info",
@@ -34,7 +35,23 @@ export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFact
       })
     }
 
-    VoteFactory.createVote($scope)
+    if ($scope.vote.answers.length < 2) {
+      return Notification.warning({
+        title: "Info",
+        message: "Il faut au moins 2 propositions, dictateur va!",
+      })
+    }
+
+    for (const answer of $scope.vote.answers) {
+      if (answer.content === "") {
+        return Notification.warning({
+          title: "Info",
+          message: "Tu as laissé une proposition vide",
+        })
+      }
+    }
+
+    VoteFactory.createVote($scope.vote)
       .then(() => {
         $rootScope.$broadcast("updateVoteList")
         $scope.$close(true)

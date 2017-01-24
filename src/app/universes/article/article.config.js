@@ -135,6 +135,7 @@ export default function ArticleConfig($stateProvider) {
             return new Article({
               type: "album",
               user: $rootScope.currentUser._id,
+              photoList: [],
             })
           },
         },

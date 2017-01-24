@@ -9,7 +9,7 @@
     <p class="control">
       <textarea ng-model="vote.content"
                 class="textarea"
-                placeholder="Proposition...">
+                placeholder="Contenu...">
       </textarea>
     </p>
     <label class="label">Fin du vote</label>
@@ -23,6 +23,15 @@
              fp-on-setup="datePostSetup(fpItem)"
              data-enabletime="true">
     </p>
+    <label class="label">Ajouter les propositions de vote</label>
+    <div ng-repeat="item in vote.answers track by $index" class="margin-top-10">
+      <input type="text" ng-model="item.content" class="input"/>
+    </div>
+    <div class="margin-top-10">
+      <a class="button is-primary" ng-click="addItem()">
+        Ajouter une proposition
+      </a>
+    </div>
   </section>
 
   <footer class="modal-card-foot">

@@ -8,8 +8,8 @@ export default function AboutConfig($stateProvider) {
       controller: "AboutListCtrl",
       title: "About",
       resolve: {
-        issues: (IssueFactory) => {
-          return IssueFactory.loadIssues()
+        ideas: (IdeaFactory) => {
+          return IdeaFactory.loadIdeas()
         },
       },
     })
@@ -22,8 +22,8 @@ export default function AboutConfig($stateProvider) {
           controller: "CreateIssueCtrl",
           backdrop: "static",
           resolve: {
-            issue: ($rootScope, Issue) => {
-              return new Issue({
+            issue: ($rootScope, Idea) => {
+              return new Idea({
                 user: $rootScope.currentUser,
               })
             },

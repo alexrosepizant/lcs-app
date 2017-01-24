@@ -24,9 +24,44 @@ const VoteSchema = new Schema({
   endsAt: {
     type: Date,
   },
-  yes: [],
-  no: [],
-  blank: [],
+  answers: [new Schema({
+    content: {
+      type: String,
+      default: "",
+    },
+    users: [{
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    }],
+  })],
+  comments: [new Schema({
+    created: {
+      type: Date,
+      default: Date.now,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    content: {
+      type: String,
+      default: "",
+    },
+    replies: [new Schema({
+      created: {
+        type: Date,
+        default: Date.now,
+      },
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+      content: {
+        type: String,
+        default: "",
+      },
+    })],
+  })],
 })
 
 /**

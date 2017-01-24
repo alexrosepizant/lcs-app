@@ -3,34 +3,36 @@ export default function VoteFactory($http, Vote) {
 
   return {
     findVotes(filter) {
-      return $http.get("/votes", {
+      return $http.get("/vote", {
         params: {
           "type": filter,
         },
-      }).then((votes) => {
-        return votes.data.map((vote) => {
-          return new Vote(vote)
-        })
+      }).then((vote) => {
+        return vote.data.map((vote) => new Vote(vote))
       })
     },
 
     getVote(voteId) {
-      return $http.get(`/votes/${voteId}`)
+      return $http.get(`/vote/${voteId}`)
         .then((vote) => {
-          return new Vote(vote)
+          return new Vote(vote.data)
         })
     },
 
-    createVote($scope) {
-      return $http.post("/votes", $scope.vote)
+    createVote(vote) {
+      if (vote._id) {
+        return this.updateVote(vote)
+      }
+
+      return $http.post("/vote", vote)
     },
 
     updateVote(vote) {
-      return $http.put(`/votes/${vote._id}`, vote)
+      return $http.put(`/vote/${vote._id}`, vote)
     },
 
     deleteVote(vote) {
-      return $http.delete(`/votes/${vote._id}`)
+      return $http.delete(`/vote/${vote._id}`)
     },
   }
 }

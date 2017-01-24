@@ -16,6 +16,9 @@ const IdeaSchema = new Schema({
     type: String,
   },
   categories: [],
+  like: {
+    type: Number,
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",

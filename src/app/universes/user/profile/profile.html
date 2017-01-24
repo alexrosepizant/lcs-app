@@ -1,31 +1,4 @@
-<div class="container profile">
-  <div class="section profile-heading">
-    <div class="columns">
-      <div class="column is-2">
-        <div class="image is-128x128 avatar">
-          <img ng-src="{{ user.getAvatar(300,300) }}" alt="Image"/>
-          <div class="spacer"></div>
-          <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
-            Changer la photo
-          </div>
-        </div>
-      </div>
-      <div class="column is-4 name">
-        <p>
-          <span class="title is-bold">{{ user.username }}</span>
-        </p>
-        <p class="tagline">{{ user.presentation || "Rentre un petit mot de présentation pour les copaings" }}</p>
-      </div>
-      <div class="column is-3 following has-text-centered">
-        <p class="stat-val">{{ user.articles.length }}</p>
-        <p class="stat-key">Articles</p>
-      </div>
-      <div class="column is-3 following has-text-centered">
-        <p class="stat-val">{{ user.userEvents.length }}</p>
-        <p class="stat-key">Coqs</p>
-      </div>
-    </div>
-  </div>
+<div class="container profile margin-top-20">
   <div class="profile-options">
     <div class="tabs is-fullwidth">
       <ul>
@@ -47,10 +20,19 @@
 
   <div class="container section bottom-50">
     <div class="columns">
-      <div class="column is-6">
+      <div class="column is-4">
+        <div class="image avatar">
+          <img ng-src="{{ user.getAvatar(200,200) }}" alt="Image"/>
+          <div class="spacer"></div>
+          <div class="button is-primary is-outlined" ngf-select="upload(files)" ng-model="file" ngf-multiple="false" accept="image/*,">
+            Changer la photo
+          </div>
+        </div>
+      </div>
+      <div class="column is-8">
         <div>
           <h1 class="title">
-            Mes infos de compte
+            Infos du compte
           </h1>
         </div>
         <div class="margin-top-20">
@@ -72,16 +54,12 @@
 
           <label class="label">Le petit mot aux copaings</label>
           <p class="control">
-            <textarea class="textarea"
-            type="text"
-            placeholder="Le petit mot aux copaings"
-            ng-model="user.presentation">
-          </textarea>
+            <textarea class="textarea" type="text" placeholder="Le petit mot aux copaings" ng-model="user.presentation">
+            </textarea>
           </p>
         </div>
-      </div>
-      <div class="column is-6">
-        <div>
+
+        <div class="margin-top-20">
           <h1 class="title">
             Changer de mot de passe
           </h1>
@@ -104,10 +82,13 @@
             ng-model="user.newPassword">
           </p>
         </div>
+
+        <div class="margin-top-20">
+          <span class="button is-primary" ng-click="update()">
+            Sauvegarder
+          </span>
+        </div>
       </div>
     </div>
-    <span class="pull-rigth button is-primary" ng-click="update()">
-      Sauvegarder
-    </span>
   </div>
 </div>

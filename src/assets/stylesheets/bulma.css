@@ -2129,7 +2129,7 @@ a.box:active {
 }
 
 .progress:not(:last-child) {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .progress::-webkit-progress-bar {
@@ -3912,7 +3912,8 @@ a.nav-item.is-tab {
 }
 
 .nav-item a.is-tab.is-active,
-a.nav-item.is-tab.is-active {
+a.nav-item.is-tab.is-active,
+a.nav-item.is-tab:hover {
   border-bottom: 3px solid #42b983;
   border-top: 3px solid transparent;
   color: #42b983;
@@ -4215,10 +4216,6 @@ a.panel-block:hover {
   overflow: hidden;
   overflow-x: auto;
   white-space: nowrap;
-}
-
-.tabs:not(:last-child) {
-  margin-bottom: 20px;
 }
 
 .tabs a {

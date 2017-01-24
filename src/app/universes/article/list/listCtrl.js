@@ -9,7 +9,7 @@ export default function ArticleListCtrl($scope, $state, ArticleFactory,
   $scope.users = users
   $scope.filter = filter
   $scope.currentCategory = currentCategory
-  $scope.categories = (parameters) ? parameters.articleCategories : []
+  $scope.categories = (parameters) ? parameters.articleCategories.map((categorie) => categorie.value) : []
 
     /**
     Pagination
@@ -32,9 +32,9 @@ export default function ArticleListCtrl($scope, $state, ArticleFactory,
       .then((articles) => $scope.articles = articles)
   })
 
-  /**
-  Other blogs
-  **/
+    /**
+    Other blogs
+    **/
   $scope.blogs = [{
     title: "Deux noix au pays des kiwis",
     image: "http://3.bp.blogspot.com/-orcYUEeVfM0/Ub-k8bmG82I/AAAAAAAAEaE/wWcST2FFK5I/s320/IMGP6398.JPG",
@@ -52,4 +52,32 @@ export default function ArticleListCtrl($scope, $state, ArticleFactory,
     image: "http://placehold.it/128x128",
     href: "Adresse expirée?!",
   }]
+
+  $scope.labnolThumb = (id) => {
+    const thumb = "<img src=\"https://i.ytimg.com/vi/ID/hqdefault.jpg\">"
+    const play = "<div class=\"play\"></div>"
+    return thumb.replace("ID", id) + play
+  }
+
+  $scope.labnolIframe = function() {
+    const iframe = document.createElement("iframe")
+    const embed = "https://www.youtube.com/embed/ID?autoplay=1"
+    iframe.setAttribute("src", embed.replace("ID", this.dataset.id))
+    iframe.setAttribute("frameborder", "0")
+    iframe.setAttribute("allowfullscreen", "1")
+    this.parentNode.replaceChild(iframe, this)
+  }
+
+  angular.element(document).ready(() => {
+    let div
+    let n
+    const v = document.getElementsByClassName("youtube-player")
+    for (n = 0; n < v.length; n++) {
+      div = document.createElement("div")
+      div.setAttribute("data-id", v[n].dataset.id)
+      div.innerHTML = $scope.labnolThumb(v[n].dataset.id)
+      div.onclick = $scope.labnolIframe
+      v[n].appendChild(div)
+    }
+  })
 }

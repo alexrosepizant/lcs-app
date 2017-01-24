@@ -22,6 +22,17 @@ export default function UserFactory($http, $rootScope, $cookieStore, User) {
         })
     },
 
+    findUsersByVoteCount() {
+      return $http.get("/users/getAuthorsByVoteCount")
+        .then((users) => {
+          return users.data.map((user) => {
+            return new User(Object.assign({count: user.count}, user._id))
+          }).sort((a, b) => {
+            return b.count - a.count
+          })
+        })
+    },
+
     getUser(userId) {
       return $http.get(`/users/${userId}`)
         .then((user) => {

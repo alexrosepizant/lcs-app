@@ -125,6 +125,16 @@ module.exports = (app) => {
       })
   })
 
+  app.get("/users/getAuthorsByVoteCount", (req, res) => {
+    users.getAuthorsByVoteCount()
+      .then((users) => {
+        res.jsonp(users)
+      })
+      .catch((err) => {
+        res.status(400).json(err)
+      })
+  })
+
   /**
   * Return current user
   */

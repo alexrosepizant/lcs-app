@@ -8,11 +8,8 @@ export default function UserConfig($stateProvider) {
       controller: "ProfileCtrl",
       title: "Profile",
       resolve: {
-        articles: ($rootScope, AuthFactory, ArticleFactory) => {
-          return AuthFactory.updateCurrentUser()
-           .then(() => {
-             return ArticleFactory.getArticlesByUser($rootScope.currentUser._id)
-           })
+        articles: ($rootScope, ArticleFactory) => {
+          return ArticleFactory.getArticlesByUser($rootScope.currentUser._id)
         },
         userEvents: ($rootScope, AgendaFactory) => {
           return AgendaFactory.findUserEventsByUser($rootScope.currentUser._id)
@@ -29,11 +26,8 @@ export default function UserConfig($stateProvider) {
       controller: "ProfileCtrl",
       title: "Publications",
       resolve: {
-        articles: ($rootScope, AuthFactory, ArticleFactory) => {
-          return AuthFactory.updateCurrentUser()
-           .then(() => {
-             return ArticleFactory.getArticlesByUser($rootScope.currentUser._id)
-           })
+        articles: ($rootScope, ArticleFactory) => {
+          return ArticleFactory.getArticlesByUser($rootScope.currentUser._id)
         },
         userEvents: ($rootScope, AgendaFactory) => {
           return AgendaFactory.findUserEventsByUser($rootScope.currentUser._id)

@@ -122,6 +122,29 @@ exports.getAuthorsByArticleCount = () => {
 }
 
 /**
+* Return top 5 of article authors
+*/
+exports.getAuthorsByVoteCount = () => {
+  return Notification.aggregate([{
+    $match:{
+      type: "vote",
+    },
+  },{
+    $group: {
+      _id: "$user",
+      count: {$sum: 1},
+    },
+  },{
+    $sort : {"count": -1},
+  },{
+    $limit : 5,
+  },
+  ]).then((users) => {
+    return User.populate(users, {path: "_id"})
+  })
+}
+
+/**
 * Increment coins of all users (call by cron)
 ***/
 exports.incrementUsersPoints = () => {

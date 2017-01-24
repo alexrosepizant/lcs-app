@@ -1,7 +1,7 @@
 <nav class="nav has-shadow">
   <div class="container">
-    <div class="nav-right">
-      <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
+    <div class="nav-left">
+      <a ng-click="updateContent()" class="button blog-add-left" ng-disabled="article.user._id !== currentUser._id">
         <span class="icon is-small">
           <i class="fa fa-pencil"></i>
         </span>
@@ -9,7 +9,7 @@
           Modifier
         </span>
       </a>
-      <a ng-click="removeContent()" class="button is-danger blog-add" ng-disabled="article.user._id !== currentUser._id">
+      <a ng-click="removeContent()" class="button is-danger blog-add-left" ng-disabled="article.user._id !== currentUser._id">
         <span class="icon is-small">
           <i class="fa fa-remove"></i>
         </span>
@@ -34,11 +34,8 @@
       <div class="media-content">
         <div>
           <div class="content">
-            <span ng-repeat="category in article.categories" title="{{ category }}" class="tag articleTag">
+            <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
               {{ category }}
-            </span>
-            <span ng-if="article.categories.length === 0" class="tag">
-              Aucune catégorie associée
             </span>
           </div>
 
