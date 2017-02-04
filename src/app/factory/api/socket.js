@@ -1,9 +1,9 @@
 import io from "socket.io-client"
 
-export default function SocketFactory($rootScope, AppConstants) {
+export default function SocketFactory($rootScope) {
   "ngInject"
 
-  const socket = io.connect("http://" + AppConstants.url + ":" + AppConstants.port)
+  const socket = io.connect()
 
   return {
     on(eventName, callback) {

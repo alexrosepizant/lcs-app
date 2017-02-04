@@ -28,7 +28,7 @@ if (!isProduction) {
 Socket server
 **/
 const server = http.Server(app)
-const io = require("socket.io")(server) // eslint-disable-line
+const io = require("socket.io").listen(server) // eslint-disable-line
 const socket = require("./routes/socket.js")
 
 io.sockets.on("connection", socket)
