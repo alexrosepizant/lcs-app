@@ -1,5 +1,6 @@
 const path = require("path")
 const Webpack = require("webpack")
+const DashboardPlugin = require("webpack-dashboard/plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const postcssImport = require("postcss-import")
 const postcssUrl = require("postcss-url")
@@ -109,11 +110,13 @@ if (isProduction) {
       mangle: false,
     }),
     new ExtractTextPlugin("style.css"),
+    new DashboardPlugin(),
   ]
 } else {
   config.plugins = [
     new ExtractTextPlugin("style.css", {disable: !isProduction}),
     new Webpack.HotModuleReplacementPlugin(),
+    new DashboardPlugin(),
   ]
 }
 

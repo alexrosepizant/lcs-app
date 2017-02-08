@@ -6,7 +6,7 @@
     "analyze": "webpack --json | webpack-bundle-size-analyzer",
     "clean": "rimraf -- dist & npm prune clean",
     "start": "webpack-dev-server --hot --port 3001 & nodemon -q server/server.js",
-    "build:prod": "NODE_ENV=production webpack -p --progress --config webpack.config.js",
+    "build:prod": "NODE_ENV=production webpack-dashboard -- webpack -p --progress --config webpack.config.js",
     "server:prod": "NODE_ENV=production forever start server/server.js"
   },
   "keywords": [
@@ -95,6 +95,7 @@
     "stylelint-webpack-plugin": "0.4.0",
     "webpack": "^1.13.3",
     "webpack-bundle-size-analyzer": "^2.3.0",
+    "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "^1.16.2"
   }
 }
