@@ -37,68 +37,61 @@
     <button class="delete close" ng-click="dismiss()"></button>
   </header>
   <section class="modal-card-body content">
-    <h1 ng-model="article.title"
-        medium-editor
-        data-placeholder="Titre de l'article">
+    <h1 ng-model="article.title" medium-editor data-placeholder="Titre de l'album">
     </h1>
 
     <lcs-category article="article"></lcs-category>
 
     <p class="control">
-      <textarea ng-model="article.description"
-                class="textarea textareaChat"
-                placeholder="Description">
+      <textarea ng-model="article.description" class="textarea" placeholder="Description">
       </textarea>
     </p>
     <hr>
+
     <form>
-      <div class="button"
-           ngf-select='upload(files)'
-           ng-model='files'
-           ngf-multiple='true'
-           accept='image/*,'>
-           Ajouter des photos
+      <div class="button" ngf-select='upload(files)' ng-model='files' ngf-multiple='true' accept='image/*,'>
+        Ajouter des photos
       </div>
       <table class="table margin-top-20" ng-if="files.length > 0">
-  			<thead>
-  				<tr>
-  					<th>Nom</th>
-  					<th>Taille</th>
-  					<th>Progression</th>
-  					<th>Compression</th>
-  				</tr>
-  			</thead>
-  			<tbody>
-  				<tr ng-repeat="file in files">
-  					<td>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Taille</th>
+            <th>Progression</th>
+            <th>Compression</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="file in files">
+            <td>
               <strong>{{ file.name }}</strong>
             </td>
-  					<td>
+            <td>
               {{ file.size/1024/1024|number:2 }} MB
             </td>
-  					<td>
-  						<div class="progress">
-  							<progress class="progress is-primary" value="{{ file.progress || 0}}" max="100"></progress>
-  						</div>
-  					</td>
-  					<td class="text-center">
+            <td>
+              <div class="progress">
+                <progress class="progress is-primary" value="{{ file.progress || 0}}" max="100"></progress>
+              </div>
+            </td>
+            <td class="text-center">
               <a class="button is-loading" ng-show="file.state === 'progress'">
               </a>
-  						<span ng-show="file.state === 'success'">
-  						<i class="fa fa-check-circle"></i>
-  						</span>
-  						<span ng-show="file.state === 'error'">
-  						<i class="fa fa-ban"></i>
-  						</span>
-  					</td>
-  				</tr>
-  			</tbody>
-  		</table>
-  		<div>
-  			<div class="progress" style="">
-  				<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-  			</div>
-  		</div>
+              <span ng-show="file.state === 'success'">
+                <i class="fa fa-check-circle"></i>
+              </span>
+              <span ng-show="file.state === 'error'">
+                <i class="fa fa-ban"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="progress" style="">
+          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
     </form>
   </section>
   <footer class="modal-card-foot">

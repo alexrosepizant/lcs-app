@@ -21,12 +21,10 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
     $scope.API = API
   }
 
-  $scope.onError = (evt) => {
-    console.warn("onError", evt)
+  $scope.onError = () => {
   }
 
-  $scope.testVideo = () => {
-    $scope.API.stop()
+  $scope.onVideoDownloaded = () => {
     $scope.config.sources = [{
       src: $sce.trustAsResourceUrl($scope.article.url),
       type: "video/mp4",
@@ -60,52 +58,54 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
   }
 
   /**
-  Utils
+  Embed videos
   **/
-  // Embed videos: youtube, daylimotion, vimeo...
+  $scope.currentVideoIsEmbed = () => {
+    $scope.article.isEmbed = true
+    $scope.formattedUrl = $sce.trustAsResourceUrl($scope.article.url)
+  }
+
   $scope.cleanVideoUrl = () => {
-    if ($scope.article.url.toLowerCase().indexOf("iframe") !== -1
-    || $scope.article.url.toLowerCase().indexOf("embed") !== -1) {
-      const src = angular.element($scope.article.url)
-      $scope.formattedUrl = $sce.trustAsResourceUrl(src.attr("src"))
-      $scope.isEmbed = true
-    } else {
-      $scope.isEmbed = false
-      $scope.formattedUrl = null
+    if ($scope.article.url.toLowerCase().includes("iframe")) {
+      const iframeElt = angular.element("<div>" + $scope.article.url + "</div>").find("iframe")
+      $scope.article.url = angular.element(iframeElt[0]).attr("src")
     }
   }
 
   // Special case: facebook videos
   $scope.formatFacebookUrl = () => {
-    if ($scope.article.url.indexOf("facebook") !== -1) {
+    if ($scope.article.url.toLowerCase().includes("facebook")) {
       $scope.article.url = "http://www.facebook.com/video/embed?video_id=" + $scope.article.url.split("videos/").pop()
-      $scope.isEmbed = true
-      $scope.formattedUrl = $sce.trustAsResourceUrl($scope.article.url)
+    }
+  }
+
+  // Special case: facebook videos
+  $scope.formatYoutubeUrl = () => {
+    if ($scope.article.url.toLowerCase().includes("youtube")) {
+      const youtubeReg = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+      const id = $scope.article.url.match(youtubeReg)[2]
+      $scope.article.url = "https://www.youtube.com/embed/" + id
     }
   }
 
   /**
-  Save / Test / Cancel actions
+  Cancel / Test / Save actions
   **/
-  $scope.testVideo = () => {
-    $scope.cleanVideoUrl()
-    $scope.formatFacebookUrl()
-
-    if (!$scope.isEmbed) {
-      $scope.onVideoDownloaded()
-    }
-  }
-
-  $scope.onVideoDownloaded = () => {
-    $scope.API.stop()
-    $scope.config.sources = [{
-      src: $sce.trustAsResourceUrl($scope.article.url),
-      type: "video/mp4",
-    }]
-  }
-
   $scope.dismiss = () => {
     $scope.$dismiss()
+  }
+
+  $scope.testVideo = () => {
+    // TODO: Vidéo uplodaded by user, find best way to detect it
+    if ($scope.article.url.includes("tmp/")) {
+      $scope.onVideoDownloaded()
+    } else {
+      $scope.cleanVideoUrl()
+      $scope.formatFacebookUrl()
+      $scope.formatYoutubeUrl()
+      $scope.currentVideoIsEmbed()
+    }
+    $scope.isTested = true
   }
 
   $scope.create = () => {
@@ -116,9 +116,11 @@ export default function VideoCreationCtrl($rootScope, $scope, $sce, ArticleFacto
       })
     }
 
-    if ($scope.isEmbed) {
-      $scope.article.isEmbed = true
-      $scope.article.url = $scope.formattedUrl
+    if (!$scope.isTested) {
+      return Notification.warning({
+        title: "Info",
+        message: "Test d'abord, on sait jamais!",
+      })
     }
 
     $scope.article.formattedTitle()

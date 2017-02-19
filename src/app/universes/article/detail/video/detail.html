@@ -49,67 +49,61 @@
           <div class="margin-top-10">
 
             <!-- Include iframe of video -->
-            <iframe ng-src="{{ article.getVideoLink() }}"
-            ng-if="article.isEmbed"
-            width="auto"
-            height="auto"
-            frameborder="0"
-            webkitallowfullscreen="true"
-            mozallowfullscreen="true"
-            allowfullscreen="true">
-          </iframe>
-
-          <!-- OR video uploaded by user -->
-          <videogular ng-if="!article.isEmbed" class="videogularFullWidth">
-            <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
-            </vg-media>
-            <vg-controls>
-              <vg-play-pause-button></vg-play-pause-button>
-              <vg-time-display>
-                {{ currentTime | date:'HH:mm:ss':'+0000' }}
-              </vg-time-display>
-              <vg-scrub-bar>
-                <vg-scrub-bar-current-time>
-                </vg-scrub-bar-current-time>
-              </vg-scrub-bar>
-              <vg-time-display>
-                {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
-              </vg-time-display>
-              <vg-volume>
-                <vg-mute-button>
-                </vg-mute-button>
-                <vg-volume-bar>
-                </vg-volume-bar>
-              </vg-volume>
-              <vg-fullscreen-button>
-              </vg-fullscreen-button>
-            </vg-controls>
-            <vg-overlay-play></vg-overlay-play>
-          </videogular>
-        </div>
-      </div>
-    </article>
-
-    <section class="blog-user-section margin-top-20">
-      <div class="authorSectionContainer">
-        <span class="authorSectionTitle">
-          Créé par
-        </span>
-        <div class="authorContent small-margin-top">
-          <span class="user-image">
-            <div class="user-image--image">
-              <div>
-                <img ng-src="{{ article.user.getAvatar(40,40) }}" width="40" height="40">
-              </div>
+            <div class="aspect-ratio" ng-if="article.isEmbed">
+              <iframe ng-src="{{ article.getVideoLink() }}" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true">
+              </iframe>
             </div>
-          </span>
-          <a class="authorContent-name" href="#">
-            {{article.user.username}}
-          </a>
-        </div>
-      </div>
 
-      <lcs-comment object="article" class="lcs-comment"></lcs-comment>
-    </section>
+            <!-- OR video uploaded by user -->
+            <videogular ng-if="!article.isEmbed" class="videogularFullWidth">
+              <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
+              </vg-media>
+              <vg-controls>
+                <vg-play-pause-button></vg-play-pause-button>
+                <vg-time-display>
+                  {{ currentTime | date:'HH:mm:ss':'+0000' }}
+                </vg-time-display>
+                <vg-scrub-bar>
+                  <vg-scrub-bar-current-time>
+                  </vg-scrub-bar-current-time>
+                </vg-scrub-bar>
+                <vg-time-display>
+                  {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
+                </vg-time-display>
+                <vg-volume>
+                  <vg-mute-button>
+                  </vg-mute-button>
+                  <vg-volume-bar>
+                  </vg-volume-bar>
+                </vg-volume>
+                <vg-fullscreen-button>
+                </vg-fullscreen-button>
+              </vg-controls>
+              <vg-overlay-play></vg-overlay-play>
+            </videogular>
+          </div>
+        </div>
+      </article>
+
+      <section class="blog-user-section margin-top-20">
+        <div class="authorSectionContainer">
+          <span class="authorSectionTitle">
+            Créé par
+          </span>
+          <div class="authorContent small-margin-top">
+            <span class="user-image">
+              <div class="user-image--image">
+                <div>
+                  <img ng-src="{{ article.user.getAvatar(40,40) }}" width="40" height="40">
+                </div>
+              </div>
+            </span>
+            <a class="authorContent-name" href="#">
+              {{article.user.username}}
+            </a>
+          </div>
+        </div>
+        <lcs-comment object="article" class="lcs-comment"></lcs-comment>
+      </section>
+    </div>
   </div>
-</div>

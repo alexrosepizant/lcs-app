@@ -25,101 +25,93 @@
     <button class="delete close" ng-click="dismiss()"></button>
   </header>
   <section class="modal-card-body content">
-    <h1 ng-model="article.title"
-        medium-editor
-        data-placeholder="Titre de l'article">
+    <h1 ng-model="article.title" medium-editor data-placeholder="Titre de la vidéo">
     </h1>
 
     <lcs-category article="article"></lcs-category>
 
     <p class="control">
-      <textarea ng-model="article.description"
-                class="textarea textareaChat"
-                placeholder="Description">
+      <textarea ng-model="article.description" class="textarea" placeholder="Description">
       </textarea>
     </p>
     <hr>
 
-		<div class="columns">
-			<div class="column is-6">
+    <div class="columns">
+      <div class="column is-6">
 
-				<label class="label">URL de la vidéo</label>
-				<p class="control has-icon has-icon-right">
-					<input class="input"
-                 type="text"
-                 placeholder="Lien de la vidéo (url, embed, lien youtube....)"
-                 ng-model="article.url">
-					<i class="fa fa-warning ng-hide" ng-show="showError"></i>
-					<span class="help is-danger ng-hide" ng-show="showError">
-						Ca marche pas
-					</span>
-				</p>
-				<div>
-					ou
-				</div>
-				<div class="button margin-top-10" ngf-select="upload()" ng-model="file" ngf-multiple="false" accept="video/*,">
-					Uploader une vidéo
-				</div>
+        <label class="label">URL de la vidéo</label>
+        <p class="control has-icon has-icon-right">
+          <input class="input"
+          type="text"
+          placeholder="Lien de la vidéo (url, embed, lien youtube....)"
+          ng-model="article.url">
+          <i class="fa fa-warning ng-hide" ng-show="showError"></i>
+          <span class="help is-danger ng-hide" ng-show="showError">
+            Ca marche pas
+          </span>
+        </p>
         <div>
-        (limité à 50mo pour l'instant)
-      </div>
+          ou
+        </div>
+        <div class="button margin-top-10" ngf-select="upload()" ng-model="file" ngf-multiple="false" accept="video/*,">
+          Uploader une vidéo
+        </div>
+        <div>
+          <p class="margin-top-10">
+            (limité à 50mo pour l'instant)
+          </p>
+        </div>
         <div class="progress" ng-show="file.progress > 0">
           <progress class="progress is-primary" value="{{ file.progress || 0}}" max="100"></progress>
         </div>
-			</div>
+      </div>
 
-			<div class="column is-6">
-        <iframe ng-src="{{ formattedUrl }}"
-          ng-if="isEmbed"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-          allowfullscreen="true">
-        </iframe>
+      <div class="column is-6">
 
-				<videogular ng-if="!isEmbed"
-          vg-player-ready="onPlayerReady($API)"
-          vg-error="onError($event)">
-					<vg-media vg-src="config.sources" vg-tracks="config.tracks" vg-youtube="rel=1;showinfo=1">
-					</vg-media>
-					<vg-controls>
-						<vg-play-pause-button></vg-play-pause-button>
-						<vg-time-display>
-							{{ currentTime | date:'HH:mm:ss':'+0000' }}
-						</vg-time-display>
-						<vg-scrub-bar>
-							<vg-scrub-bar-current-time>
+        <div class="aspect-ratio" ng-if="article.isEmbed && isTested">
+          <iframe ng-src="{{ formattedUrl }}" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true">
+          </iframe>
+        </div>
+
+        <videogular ng-if="!article.isEmbed && isTested" vg-player-ready="onPlayerReady($API)" vg-error="onError($event)">
+          <vg-media vg-src="config.sources" vg-tracks="config.tracks" vg-youtube="rel=1;showinfo=1">
+          </vg-media>
+          <vg-controls>
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-time-display>
+              {{ currentTime | date:'HH:mm:ss':'+0000' }}
+            </vg-time-display>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time>
               </vg-scrub-bar-current-time>
-						</vg-scrub-bar>
-						<vg-time-display>
-							{{ timeLeft | date:'HH:mm:ss':'+0000' }}
-						</vg-time-display>
-						<vg-volume>
-							<vg-mute-button>
-							</vg-mute-button>
-							<vg-volume-bar>
-							</vg-volume-bar>
-						</vg-volume>
-						<vg-fullscreen-button>
-						</vg-fullscreen-button>
-					</vg-controls>
-					<vg-overlay-play></vg-overlay-play>
-				</videogular>
-			</div>
-		</div>
+            </vg-scrub-bar>
+            <vg-time-display>
+              {{ timeLeft | date:'HH:mm:ss':'+0000' }}
+            </vg-time-display>
+            <vg-volume>
+              <vg-mute-button>
+              </vg-mute-button>
+              <vg-volume-bar>
+              </vg-volume-bar>
+            </vg-volume>
+            <vg-fullscreen-button>
+            </vg-fullscreen-button>
+          </vg-controls>
+          <vg-overlay-play></vg-overlay-play>
+        </videogular>
+      </div>
+    </div>
   </section>
 
   <footer class="modal-card-foot">
     <a class="button is-primary" ng-click="create()">
-			Sauvegarder
-		</a>
-		<button class="button" ng-click="testVideo()" ng-disabled="url.length === 0">
-			Tester la vidéo
-		</button>
-		<a class="button is-link" ng-click="dismiss()">
-			Annuler
-		</a>
+      Sauvegarder
+    </a>
+    <button class="button" ng-click="testVideo()" ng-disabled="url.length === 0">
+      Tester la vidéo
+    </button>
+    <a class="button is-link" ng-click="dismiss()">
+      Annuler
+    </a>
   </footer>
 </div>

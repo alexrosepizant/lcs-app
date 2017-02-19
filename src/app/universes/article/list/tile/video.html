@@ -15,111 +15,105 @@
 
   <div class="margin-top-10">
 
-    <div ng-if="article.isYoutubeLink" class="youtube-player" data-id="{{article.getYoutubeLink()}}"></div>
+    <div ng-if="article.isYoutubeLink" class="youtube-player" data-id="{{article.getYoutubeLink()}}">
+    </div>
 
     <!-- Include iframe of video -->
-    <iframe ng-src="{{ article.getVideoLink() }}"
-    ng-if="article.isEmbed && !article.isYoutubeLink"
-    width="100%"
-    height="auto"
-    class="videoTileFrame"
-    frameborder="0"
-    webkitallowfullscreen="true"
-    mozallowfullscreen="true"
-    allowfullscreen="true">
-  </iframe>
-
-  <!-- OR video uploaded by user -->
-  <videogular ng-if="!article.isEmbed">
-    <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
-    </vg-media>
-    <vg-controls>
-      <vg-play-pause-button></vg-play-pause-button>
-      <vg-time-display>
-        {{ currentTime | date:'HH:mm:ss':'+0000' }}
-      </vg-time-display>
-      <vg-scrub-bar>
-        <vg-scrub-bar-current-time>
-        </vg-scrub-bar-current-time>
-      </vg-scrub-bar>
-      <vg-time-display>
-        {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
-      </vg-time-display>
-      <vg-volume>
-        <vg-mute-button>
-        </vg-mute-button>
-        <vg-volume-bar>
-        </vg-volume-bar>
-      </vg-volume>
-      <vg-fullscreen-button>
-      </vg-fullscreen-button>
-    </vg-controls>
-    <vg-overlay-play></vg-overlay-play>
-  </videogular>
-</div>
-
-<p class="three-line-ellipsis margin-top-20" ng-if="article.description">
-  {{article.description}}
-</p>
-
-<article class="media margin-top-20">
-  <div class="media-content">
-    <div class="content">
-      <div class="blog-category">
-        <div>
-          <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
-            {{ category }}
-          </span>
-          <span ng-if="article.categories.length === 0" class="tag margin-top-10">
-            Aucune catégorie associée
-          </span>
-          <a ui-sref="videoView({ articleId: article._id })" class="pull-right margin-top-10">
-            Voir plus
-          </a>
-        </div>
-      </div>
-
-      <section class="blog-user-section">
-        <div class="authorSectionContainer">
-          <span class="authorSectionTitle">
-            Créé par
-          </span>
-          <div class="authorContent">
-            <span class="user-image">
-              <div class="user-image--image">
-                <div>
-                  <img ng-src="{{ article.user.getAvatar(40,40) }}" height="40" width="40">
-                </div>
-              </div>
-            </span>
-            <a class="authorContent-name" href="#">
-              {{article.user.username}}
-            </a>
-          </div>
-        </div>
-        <div class="blogCommentSection">
-          <span class="authorSectionTitle">
-            Ils ont laissé un commentaire
-          </span>
-          <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
-            <span class="user-image">
-              <div class="user-image--image">
-                <div>
-                  <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
-                </div>
-              </div>
-            </span>
-            <a class="authorContent-name" href="#">
-              {{user.username}}
-            </a>
-          </div>
-          <div ng-if="article.commentsUser.length === 0" class="margin-top-25">
-            <strong>Pas encore de commentaire</strong>
-          </div>
-        </div>
-      </section>
+    <div class="aspect-ratio" ng-if="article.isEmbed && !article.isYoutubeLink">
+      <iframe ng-src="{{ article.getVideoLink() }}" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true">
+      </iframe>
     </div>
-  </section>
-</div>
-</article>
+
+    <!-- OR video uploaded by user -->
+    <videogular ng-if="!article.isEmbed">
+      <vg-media vg-src="article.sources" vg-youtube="rel=1;showinfo=1">
+      </vg-media>
+      <vg-controls>
+        <vg-play-pause-button></vg-play-pause-button>
+        <vg-time-display>
+          {{ currentTime | date:'HH:mm:ss':'+0000' }}
+        </vg-time-display>
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time>
+          </vg-scrub-bar-current-time>
+        </vg-scrub-bar>
+        <vg-time-display>
+          {{ API.totalTime | date:'HH:mm:ss':'+0000' }}
+        </vg-time-display>
+        <vg-volume>
+          <vg-mute-button>
+          </vg-mute-button>
+          <vg-volume-bar>
+          </vg-volume-bar>
+        </vg-volume>
+        <vg-fullscreen-button>
+        </vg-fullscreen-button>
+      </vg-controls>
+      <vg-overlay-play></vg-overlay-play>
+    </videogular>
+  </div>
+
+  <p class="three-line-ellipsis margin-top-20" ng-if="article.description">
+    {{article.description}}
+  </p>
+
+  <article class="media margin-top-20">
+    <div class="media-content">
+      <div class="content">
+        <div class="blog-category">
+          <div>
+            <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
+              {{ category }}
+            </span>
+            <span ng-if="article.categories.length === 0" class="tag margin-top-10">
+              Aucune catégorie associée
+            </span>
+            <a ui-sref="videoView({ articleId: article._id })" class="pull-right margin-top-10">
+              Voir plus
+            </a>
+          </div>
+        </div>
+
+        <section class="blog-user-section">
+          <div class="authorSectionContainer">
+            <span class="authorSectionTitle">
+              Créé par
+            </span>
+            <div class="authorContent">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ article.user.getAvatar(40,40) }}" height="40" width="40">
+                  </div>
+                </div>
+              </span>
+              <a class="authorContent-name" href="#">
+                {{article.user.username}}
+              </a>
+            </div>
+          </div>
+          <div class="blogCommentSection">
+            <span class="authorSectionTitle">
+              Ils ont laissé un commentaire
+            </span>
+            <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
+                  </div>
+                </div>
+              </span>
+              <a class="authorContent-name" href="#">
+                {{user.username}}
+              </a>
+            </div>
+            <div ng-if="article.commentsUser.length === 0" class="margin-top-25">
+              <strong>Pas encore de commentaire</strong>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </article>
 </div>
