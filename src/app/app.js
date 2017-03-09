@@ -24,35 +24,38 @@ import "ng-file-upload"
 import "videogular"
 import "videogular-controls"
 import "videogular-buffering"
-import "./common/modules/videogular-youtube/index"
-import "./common/modules/lightbox/angular-lightbox"
-import "./common/modules/deckgrid/angular-deckgrid"
-import "./common/modules/flatpickr"
-import "./common/modules/medium-editor/angular-medium-editor"
-import "./common/modules/popover"
-import "./common/modules/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
-import "./common/modules/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
-import "./common/modules/utils"
-import "./common/modules/category"
-import "./common/modules/chat"
-import "./common/modules/notification"
-import "./common/modules/comment"
-import "./common/modules/countdown"
+
+// Import externals libs
+import "./libs/videogular-youtube/index"
+import "./libs/lightbox/angular-lightbox"
+import "./libs/deckgrid/angular-deckgrid"
+import "./libs/flatpickr"
+import "./libs/medium-editor/angular-medium-editor"
+import "./libs/popover"
+import "./libs/ui-bootstrap/ui-bootstrap-custom-1.3.3.min"
+import "./libs/ui-bootstrap/ui-bootstrap-custom-tpls-1.3.3"
 
 // Import our app config files
-import constants  from "./config/app.constants"
-import appConfig  from "./config/app.config"
-import appRun     from "./config/app.run"
+import constants  from "./app.constants"
+import appConfig  from "./app.config"
+import appRun     from "./app.run"
 import HeaderCtrl from "./common/header/headerCtrl"
 
-// Import app component
-import "./universes/about"
-import "./universes/auth"
-import "./universes/user"
-import "./universes/article"
-import "./universes/agenda"
-import "./universes/archive"
-import "./universes/vote"
+// Import app common modules
+import "./common/utils"
+import "./common/chat"
+import "./common/notification"
+import "./common/comment"
+
+// Import app features
+import "./features/about"
+import "./features/auth"
+import "./features/user"
+import "./features/article"
+import "./features/article/category"
+import "./features/agenda"
+import "./features/archive"
+import "./features/vote"
 
 // Create and bootstrap application
 const requires = [
@@ -82,7 +85,6 @@ const requires = [
   "app.category",
   "app.chat",
   "app.comment",
-  "app.countdown",
   "app.notification",
   "app.user",
   "app.utils",
