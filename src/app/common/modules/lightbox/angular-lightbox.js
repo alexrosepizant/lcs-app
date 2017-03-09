@@ -92,7 +92,7 @@ angular.module("angular-lightbox", []).directive("lightbox", ($compile) => {
         if (scope.currentIndex - 1 > -1) {
           scope.currentIndex --
           scope.loadImageAt(scope.currentIndex,
-            angular.element(element.parent().parent().find("a")[scope.currentIndex]).attr("href"))
+            angular.element(element.parent().parent().parent().find("a")[scope.currentIndex]).attr("href"))
         }
       }
 
@@ -103,7 +103,7 @@ angular.module("angular-lightbox", []).directive("lightbox", ($compile) => {
         if (scope.currentIndex + 1 < scope.itemCount) {
           scope.currentIndex ++
           scope.loadImageAt(scope.currentIndex,
-          angular.element(element.parent().parent().find("a")[scope.currentIndex + 3]).attr("href"))
+          angular.element(element.parent().parent().parent().find("a")[scope.currentIndex + 3]).attr("href"))
         }
       }
 
@@ -112,7 +112,7 @@ angular.module("angular-lightbox", []).directive("lightbox", ($compile) => {
       }
 
       scope.getItemCount = () => {
-        scope.itemCount = angular.element(element.parent().parent().find("a")).length - 3
+        scope.itemCount = angular.element(element.parent().parent().parent().find("a")).length - 3
       }
     },
   }

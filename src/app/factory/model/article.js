@@ -62,21 +62,15 @@ export default function Article($sce, User, Comment) {
       },
 
       hasCategory(category) {
-        return this.categories.indexOf(category) !== -1
-      },
-
-      addCategory(category) {
-        if (this.hasCategory()) {
-          return false
-        }
-        return this.categories.push(category)
+        return this.categories.includes(category)
       },
 
       toggleCategory(category) {
-        if (this.addCategory(category)) {
-          return
+        if (this.categories.includes(category)) {
+          this.categories.splice(this.categories.indexOf(category), 1)
+        } else {
+          this.categories.push(category)
         }
-        this.categories.splice(this.categories.indexOf(category), 1)
       },
     }, data, {
       user: new User(data.user),

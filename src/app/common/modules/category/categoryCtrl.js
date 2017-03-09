@@ -20,11 +20,9 @@ export default function CategoryCtrl($rootScope, $scope, ParameterFactory, Notif
         message: "La categorie existe déjà.",
       })
     } else {
-      $scope.parameters.articleCategories.push({
-        value: $scope.newCategory,
-      })
+      $scope.categories.push($scope.newCategory)
       ParameterFactory.updateParameters($scope.parameters).then(() => {
-        $scope.article.addCategory($scope.newCategory)
+        $scope.article.toggleCategory($scope.newCategory)
         $scope.newCategory = ""
       })
     }
