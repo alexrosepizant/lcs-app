@@ -43,7 +43,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/create",
     onEnter: ($state, $uibModal) => {
       $uibModal.open({
-        templateUrl: "./creation/standard/create.html",
+        template : require("./creation/standard/create.html"),
         controller: "StandardCreationCtrl",
         backdrop: "static",
         animation: false,
@@ -65,7 +65,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/update?articleId",
     onEnter: ($state, $stateParams, $uibModal) => {
       $uibModal.open({
-        templateUrl: "./creation/standard/create.html",
+        template : require("./creation/standard/create.html"),
         controller: "StandardCreationCtrl",
         backdrop: "static",
         animation: false,
@@ -84,7 +84,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/create/video",
     onEnter: ($state, $uibModal) => {
       $uibModal.open({
-        templateUrl: "./creation/video/create.html",
+        template : require("./creation/video/create.html"),
         controller: "VideoCreationCtrl",
         backdrop: "static",
         animation: false,
@@ -107,7 +107,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/update/video?articleId",
     onEnter: ($state, $stateParams, $uibModal) => {
       $uibModal.open({
-        templateUrl: "./creation/video/create.html",
+        template : require("./creation/video/create.html"),
         controller: "VideoCreationCtrl",
         backdrop: "static",
         animation: false,
@@ -126,7 +126,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/create/album",
     onEnter: ($state, $uibModal) => {
       $uibModal.open({
-        templateUrl: "./creation/album/create.html",
+        template : require("./creation/album/create.html"),
         controller: "AlbumCreationCtrl",
         backdrop: "static",
         animation: false,
@@ -149,7 +149,7 @@ export default function ArticleConfig($stateProvider) {
     url: "/update/album?articleId",
     onEnter: ($state, $stateParams, $uibModal) => {
       $uibModal.open({
-        templateUrl: "./creation/album/create.html",
+        template : require("./creation/album/create.html"),
         controller: "AlbumCreationCtrl",
         backdrop: "static",
         animation: false,

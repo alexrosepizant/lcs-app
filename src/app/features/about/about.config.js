@@ -18,7 +18,7 @@ export default function AboutConfig($stateProvider) {
       url: "/create",
       onEnter: ($state, $uibModal) => {
         $uibModal.open({
-          templateUrl: "./creation/create.html",
+          template: require("./creation/create.html"),
           controller: "CreateIssueCtrl",
           backdrop: "static",
           resolve: {

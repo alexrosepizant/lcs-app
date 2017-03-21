@@ -18,7 +18,7 @@ export default function AgendaConfig($stateProvider) {
       url: "/create",
       onEnter: ($state, $uibModal) => {
         $uibModal.open({
-          templateUrl: "./creation/create.html",
+          template : require("./creation/create.html"),
           controller: "CreateEventCtrl",
           backdrop: "static",
           resolve: {
@@ -38,7 +38,7 @@ export default function AgendaConfig($stateProvider) {
       url: "/update?userEventId",
       onEnter: ($state, $stateParams, $uibModal) => {
         $uibModal.open({
-          templateUrl: "./creation/create.html",
+          template : require("./creation/create.html"),
           controller: "CreateEventCtrl",
           backdrop: "static",
           resolve: {

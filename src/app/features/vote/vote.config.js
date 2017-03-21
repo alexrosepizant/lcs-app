@@ -22,7 +22,7 @@ export default function AgendaConfig($stateProvider) {
       url: "/create",
       onEnter: ($state, $uibModal) => {
         $uibModal.open({
-          templateUrl: "./creation/create.html",
+          template : require("./creation/create.html"),
           controller: "VoteCreationCtrl",
           backdrop: "static",
           animation: false,
@@ -43,7 +43,7 @@ export default function AgendaConfig($stateProvider) {
       url: "/update?voteId",
       onEnter: ($state, $stateParams, $uibModal) => {
         $uibModal.open({
-          templateUrl: "./creation/create.html",
+          template : require("./creation/create.html"),
           controller: "VoteCreationCtrl",
           backdrop: "static",
           animation: false,
