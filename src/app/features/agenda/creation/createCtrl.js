@@ -19,7 +19,7 @@ export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notif
     altFormat: "j F Y",
   }
 
-  $scope.dismiss = function() {
+  $scope.dismiss = () => {
     $scope.$dismiss()
   }
 

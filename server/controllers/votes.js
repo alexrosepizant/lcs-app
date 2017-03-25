@@ -38,8 +38,7 @@ exports.all = (params) => {
  * Create a vote
  */
 exports.create = (vote) => {
-  const _vote = new Vote(vote)
-  return _vote.save()
+  return new Vote(vote).save()
 }
 
 /**

@@ -1,14 +1,15 @@
 <div class="container commentContainer" ng-init="init()">
-  <div>
-    <span class="authorSectionTitle">
+  <div class="margin-top-20">
+    <h2>
       Les commentaires
-    </span>
+    </h2>
 
-    <article class="media margin-top-40">
+    <article class="media margin-top-20">
       <div class="media-content bottom-20">
         <p class="control">
           <textarea ng-enter="addComment()" class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="newComment">
           </textarea>
+          <input type="button" class="button margin-top-10 pull-right" value="Ajouter" ng-click="addComment()"/>
         </p>
       </div>
     </article>

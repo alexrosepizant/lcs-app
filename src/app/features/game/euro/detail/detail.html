@@ -1,0 +1,68 @@
+<div class="modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Fiche du match</p>
+    <button class="delete close" ng-click="$dismiss()"></button>
+  </header>
+
+  <section class="modal-card-body content">
+    <div class="container">
+      <div class="bottom-50">
+        <div class="matchDetail center">
+          <p>
+            <strong>
+              {{ MatchFactory.getFormattedType(match.type)}}
+            </strong>
+          </p>
+          <h2>
+            {{ match.startsAt | date:"dd MMM yyyy, à HH'h'mm" }}
+          </h2>
+
+          <div class="columns center margin-top-20">
+            <span class="column is-6">
+              <img ng-src="/assets/euro/flags/{{ match.home }}.png"/>
+              <p class="margin-top-10">{{ MatchFactory.getTeamName(match.home) }}</p>
+              <input ng-value="match.scoreHome" class="margin-top-10 input center" type="number" min="0" placeholder="0" disabled/>
+            </span>
+
+            <span class="column is-6">
+              <img ng-src="/assets/euro/flags/{{ match.away }}.png"/>
+              <p class="margin-top-10">{{ MatchFactory.getTeamName(match.away) }}</p>
+              <input ng-model="match.scoreAway" class="margin-top-10 input center" type="number" min="0" placeholder="0" disabled/>
+            </span>
+          </div>
+        </div>
+
+        <div deckgrid class="deckgrid deckgrid3" source="match.bets" style="display: -webkit-box;">
+          <div class="match blog">
+            <div class="center margin-top-20">
+              <div class="small-margin-top center">
+                <span class="user-image">
+                  <div class="user-image--image">
+                    <div>
+                      <img ng-src="{{ card.user.getAvatar(40,40) }}" width="40" height="40" class="avatar-header">
+                    </div>
+                  </div>
+                </span>
+                <a class="authorContent-name">
+                  {{card.user.username}} marque <b>{{card.userPoints}} points</b>
+                </a>
+              </div>
+            </div>
+
+            <div class="columns center bottom-20">
+              <span class="column is-6">
+                <input class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-value="{{card.homeScore}}" disabled/>
+              </span>
+
+              <span class="column is-6">
+                <input class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-value="{{card.awayScore}}" disabled/>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <lcs-comment type="'match'" object="match" class="lcs-comment"></lcs-comment>
+      </div>
+    </div>
+  </section>
+</div>

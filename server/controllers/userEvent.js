@@ -10,14 +10,12 @@ const userFields = "_id name username avatar"
  * Find one
  */
 exports.userEvent = (userEventId) => {
-  return UserEvent.findOne({
-    "_id": userEventId,
-  })
-  .populate("user", userFields)
-  .populate("guest", userFields)
-  .populate("guestUnavailable", userFields)
-  .populate("comments.user", userFields)
-  .populate("comments.replies.user", userFields)
+  return UserEvent.findById(userEventId)
+    .populate("user", userFields)
+    .populate("guest", userFields)
+    .populate("guestUnavailable", userFields)
+    .populate("comments.user", userFields)
+    .populate("comments.replies.user", userFields)
 }
 
 /**

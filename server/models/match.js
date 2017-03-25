@@ -47,6 +47,9 @@ const MatchSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    userPoints: {
+      type: Number,
+    },
   })],
   comments: [new Schema({
     created: {

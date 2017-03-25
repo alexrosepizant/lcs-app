@@ -76,6 +76,7 @@ UserSchema
       "email": this.email,
       "avatar": this.avatar,
       "lastConnectionDate": this.lastConnectionDate,
+      "favoriteEuroTeam": this.favoriteEuroTeam,
     }
   })
 

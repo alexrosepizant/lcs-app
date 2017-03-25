@@ -28,8 +28,7 @@ exports.all = (params) => {
  * Create a idea
  */
 exports.create = (idea) => {
-  const _idea = new Idea(idea)
-  return _idea.save()
+  return new Idea(idea).save()
 }
 
 /**

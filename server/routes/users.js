@@ -108,7 +108,7 @@ module.exports = (app) => {
   app.put("/users/:userId", (req, res) => {
     users.update(req.body)
       .then((user) => {
-        res.jsonp(user)
+        res.jsonp(user.user_info)
       })
       .catch((err) => {
         res.status(400).json(err)
