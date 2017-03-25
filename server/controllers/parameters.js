@@ -22,15 +22,8 @@ exports.getAllParameters = (req, res) => {
 /**
  * Create parameters
  */
-exports.create = (_parameter) => {
-  const parameter = new Parameters(_parameter)
-  parameter.save((err) => {
-    if (err) {
-      console.warn("Error when adding params: " + err)
-    } else {
-      console.warn("Successfuly add params")
-    }
-  })
+exports.create = (parameter) => {
+  return new Parameters(parameter).save()
 }
 
 /**

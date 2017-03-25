@@ -1,31 +1,55 @@
-export default function MatchFactory($http) {
+import euroRessources from "../../assets/euro/euroRessources.json"
+
+export default function MatchFactory($http, Match) {
   "ngInject"
 
+  const BASE_URL = "match"
+
   return {
-    findMatchs($scope) {
-      return $http.get("/matchs")
-        .then((match) => {
-          $scope.match = match
+    teams: euroRessources.teams,
+    types: euroRessources.types,
+
+    findMatchs() {
+      return $http.get(`/${BASE_URL}`)
+        .then((matchs) => {
+          return matchs.data.map((match) => new Match(match))
         })
     },
 
     getMatch(matchId) {
-      return $http.get(`/matchs/${matchId}`)
+      return $http.get(`/${BASE_URL}/${matchId}`)
         .then((match) => {
-          return match
+          return new Match(match.data)
         })
     },
 
     createMatch(match) {
-      return $http.post("/matchs", match)
+      return $http.post(`/${BASE_URL}`, match)
     },
 
-    updateMatch($scope, match) {
-      return $http.put(`/matchs/${match._id}`, match)
+    update(match) {
+      return $http.put(`/${BASE_URL}/${match._id}`, match)
+        .then((match) => {
+          return new Match(match.data)
+        })
     },
 
-    deleteMatch($scope, match) {
-      return $http.delete(`/matchs/${match._id}`)
+    deleteMatch(match) {
+      return $http.delete(`/${BASE_URL}/${match._id}`)
+    },
+
+    getTeamName(code) {
+      if (!code) {
+        return ""
+      }
+      return this.teams.find((country) => country.code === code).name
+    },
+
+    getFormattedType(code) {
+      if (!code) {
+        return ""
+      }
+      return this.types.find((country) => country.code === code).name
     },
   }
 }

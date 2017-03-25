@@ -1,8 +1,6 @@
 "use strict"
 
-const moment = require("moment")
 const mongoose = require("mongoose")
-const  _ = require("lodash")
 
 const User = mongoose.model("User")
 const Notification = mongoose.model("Notification")
@@ -11,19 +9,18 @@ const Notification = mongoose.model("Notification")
 * Request param
 */
 exports.user = (id) => {
-  return User.findOne({
-    _id: id,
-  }).then((user, err) => {
-    if (err) {
-      return Promise.reject(err)
-    }
+  return User.findById(id)
+    .then((user, err) => {
+      if (err) {
+        return Promise.reject(err)
+      }
 
-    if (!user) {
-      return Promise.reject("Failed to load User " + id)
-    }
+      if (!user) {
+        return Promise.reject("Failed to load User " + id)
+      }
 
-    return user
-  })
+      return user
+    })
 }
 
 /**
@@ -160,24 +157,4 @@ exports.incrementUsersPoints = () => {
       return Promise.resolve()
     }
   })
-}
-
-/**
-* Get users who have their birthday today
-***/
-exports.getUsersWithBirthday = () => {
-  return User.find()
-    .then((users, err) => {
-      if (err) {
-        return Promise.reject(err)
-      } else {
-        const today = moment()
-        _.each(users, (user) => {
-          if (user.birthday && today.diff(user.birthday, "days") === 0) {
-            users.push(user)
-          }
-        })
-        return users
-      }
-    })
 }

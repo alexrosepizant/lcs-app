@@ -1,0 +1,40 @@
+<div class="modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Classement des parieurs</p>
+    <button class="delete close" ng-click="$dismiss()"></button>
+  </header>
+
+  <section class="modal-card-body modal-euro-rank">
+    <div class="container">
+      <div deckgrid class="deckgrid deckgrid3" source="users">
+        <div class="card-content blog">
+          <a class="card-avatar">
+            <img ng-src="{{card.getAvatar(40,40)}}" class="card-avatar-img">
+          </a>
+
+          <div class="card-user">
+            <div class="card-user-name">
+              <a href="#">{{card.username}}</a>
+              <br>
+              <a>
+                <span class="card-stats-key font-large">{{ card.euroPoints }} Points</span>
+                <!-- <span class="card-stats-val"><strong>{{ card.euroPoints }}</strong></span> -->
+              </a>
+            </div>
+          </div>
+
+          <div class="card-stats">
+            <ul class="card-stats-list">
+              <li class="card-stats-item">
+                <a>
+                  <span class="card-stats-key">Classement</span>
+                  <span class="card-stats-val">{{ card.$index + 1}}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

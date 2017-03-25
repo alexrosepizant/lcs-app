@@ -6,9 +6,7 @@ const _ = require("lodash")
 const Comment = mongoose.model("Comment")
 
 exports.comment = (req, res, next) => {
-  return Comment.findOne({
-    _id: req.params.id,
-  })
+  return Comment.findById(req.params.id)
 	.populate("user")
   .then((comment, err) => {
     if (err) return next(err)

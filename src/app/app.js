@@ -54,7 +54,7 @@ import "./features/user"
 import "./features/article"
 import "./features/article/category"
 import "./features/agenda"
-import "./features/archive"
+import "./features/game"
 import "./features/vote"
 
 // Create and bootstrap application
@@ -80,11 +80,11 @@ const requires = [
   "app.about",
   "app.auth",
   "app.agenda",
-  "app.archive",
   "app.article",
   "app.category",
   "app.chat",
   "app.comment",
+  "app.game",
   "app.notification",
   "app.user",
   "app.utils",
