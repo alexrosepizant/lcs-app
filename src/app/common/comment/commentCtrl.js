@@ -90,12 +90,25 @@ export default function CommentCtrl($rootScope, $scope,
   }
 
   $scope.createCommentContent = () => {
+    let type
+    switch ($scope.type) {
+    case "agenda":
+      type = "userEvent"
+      break
+    case "match":
+      type = "match"
+      break
+    default:
+      type = $scope.object.type
+      break
+    }
+
     NotificationFactory.create({
       title: $scope.object.title,
       user: $scope.currentUser._id,
       type: "comment",
       contentId: $scope.object._id,
-      contentType: $scope.object.type || "userEvent",
+      contentType: type,
     })
   }
 }

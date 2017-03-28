@@ -1,61 +1,78 @@
-<nav class="nav has-shadow">
-  <div class="container">
-    <div class="nav-left">
-      <a class="button is-primary blog-add" ui-sref="about.create">
-        <span class="icon is-small">
-          <i class="fa fa-plus"></i>
-        </span>
-        <span>
-          Ajouter
-        </span>
-      </a>
-    </div>
-  </div>
-</nav>
-
-<div class="container">
+<section class="container">
   <div class="columns">
-    <div class="column is-12">
+    <div class="column is-3 margin-top-20">
+      <aside class="menu">
+        <p class="menu-label">
+          Le site
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a class="is-active">Les bugs</a>
+          </li>
+          <li>
+            <a>Changements de versions</a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="column is-9">
       <div class="margin-top-20 bottom-20">
         <div class="container">
-          <h1 class="section-title">
-            <strong>Bugs / Idées d'amélioration</strong>
-          </h1>
-          <div class="lcsContent masonry margin-top-20">
-            <div class="masonry-child" ng-repeat="idea in ideas">
-              <div class="blog">
-                <p class="margin-top-20">{{ idea.description }}</p>
-                <div class="margin-top-20">
-                  <div class="count media-number pull-right ideaLike" ng-click="addLike($index)">
-                    +{{idea.like}}
-                  </div>
-                  <span class="tag" ng-repeat="categorie in idea.categories">
+          <div style="text-align:right;">
+            <button class="button is-primary" ui-sref="about.create">
+              <span class="icon is-small">
+                <i class="fa fa-plus"></i>
+              </span>
+              &nbsp;Ajouter
+            </button>
+          </div>
+          <br>
+
+          <table class="table is-bordered is-striped">
+            <thead>
+              <tr>
+                <th>
+                  <abbr title="Score">Auteur</abbr>
+                </th>
+                <th>
+                  <abbr title="Score">Type</abbr>
+                </th>
+                <th>
+                  <abbr title="Date">Description</abbr>
+                </th>
+                <th>
+                  <abbr title="Match">Pour</abbr>
+                </th>
+                <th>
+                  <abbr title="Match">Statut</abbr>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="idea in ideas | orderBy: '-created'">
+                <th>
+                  <img class="margin-top-10" ng-src="{{ idea.user.getAvatar(40,40) }}" height="40" width="40">
+                </th>
+                <th>
+                  <span class="tag margin-top-10" ng-repeat="categorie in idea.categories">
                     {{ categorie }}
                   </span>
-                </div>
-                <section class="blog-user-section margin-top-10">
-                  <div class="authorSectionContainer">
-                    <span class="authorSectionTitle">
-                      Ajouté par
-                    </span>
-                    <div class="authorContent-idea">
-                      <span class="user-image">
-                        <div class="user-image--image">
-                          <div>
-                            <img ng-src="{{ idea.user.getAvatar(40,40) }}" height="40" width="40">
-                          </div>
-                        </div>
-                      </span>
-                      <a class="authorContent-name" href="#">
-                        {{idea.user.username}}
-                      </a>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-          </div>
+                </th>
+                <th>
+                  {{ idea.description }}
+                </th>
+                <th>
+                  <a ng-click="addLike(ideas.length - $index - 1)">+{{idea.like}}</a>
+                </th>
+                <th>
+                  {{ idea.status || 'En cours' }}
+                </th>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
+</section>

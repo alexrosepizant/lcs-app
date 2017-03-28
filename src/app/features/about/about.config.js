@@ -6,7 +6,6 @@ export default function AboutConfig($stateProvider) {
       url: "/about",
       template: require("./list/list.html"),
       controller: "AboutListCtrl",
-      title: "About",
       resolve: {
         ideas: (IdeaFactory) => {
           return IdeaFactory.loadIdeas()

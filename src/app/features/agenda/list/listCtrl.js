@@ -1,10 +1,13 @@
-export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFactory, events, Notification) {
+export default function AgendaListCtrl($rootScope, $scope, $uibModal,
+  AgendaFactory, pastEvents, onGoingEvents, Notification) {
   "ngInject"
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
-  $scope.events = events
-  $scope.currentEvent = $scope.events[0]
+  $scope.pastEvents = pastEvents
+  $scope.onGoingEvents = onGoingEvents
+
+  $scope.currentEvent = $scope.onGoingEvents[0]
 
   /**
   Utilities
@@ -35,7 +38,7 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
     $scope.addUserToArray("guest")
     $scope.removeUserOfArray("guestUnavailable")
     $scope.updateEvent({
-      title: "Success",
+      title: "Grand success",
       message: "On t'attends!!",
     })
   }
@@ -44,7 +47,7 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
     $scope.addUserToArray("guestUnavailable")
     $scope.removeUserOfArray("guest")
     $scope.updateEvent({
-      title: "Success",
+      title: "Grand success",
       message: "Personne voulait que tu vienne de toute façon :)",
     })
   }
@@ -62,7 +65,7 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
 
   $scope.remove = (userEventId) => {
     $uibModal.open({
-      templateUrl: "app/features/user/deletion/removeArticle.html",
+      templateUrl: "app/features/user/deletion/removeContent.html",
       controller: "RemoveContentCtrl",
       resolve: {
         contentId: () => {
@@ -76,10 +79,14 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal, AgendaFact
   }
 
   $scope.$on("updateAgendaList", () => {
-    AgendaFactory.findUserEvents()
-      .then((events) => {
-        $scope.events = events
-        $scope.currentEvent = $scope.events[0]
+    AgendaFactory.findOnGoingUserEvents()
+      .then((onGoingEvents) => {
+        $scope.onGoingEvents = onGoingEvents
+        $scope.currentEvent = $scope.onGoingEvents[0]
+        return AgendaFactory.findPastUserEvents()
+      })
+      .then((pastEvents) => {
+        $scope.pastEvents = pastEvents
       })
   })
 }

@@ -6,7 +6,7 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
   // Main menu
   $scope.menu = [{
     name: "A la une",
-    link: "article",
+    link: "blog",
   }, {
     name: "Les rencards",
     link: "agenda",
@@ -14,6 +14,14 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
   {
     name: "L'isoloir",
     link: "vote",
+  },
+  {
+    name: "Les jeux",
+    link: "games",
+  },
+  {
+    name: "Les bugs",
+    link: "about",
   }]
 
   $scope.isCurrentPath = (item) => {

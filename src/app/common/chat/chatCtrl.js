@@ -1,4 +1,4 @@
-export default function ChatCtrl($rootScope, $scope, User, Message, socket, UserFactory, ChatFactory) {
+export default function ChatCtrl($rootScope, $scope, User, Message, socket, UserFactory, ChatFactory, Notification) {
   "ngInject"
 
   // Retrieve currentUser
@@ -71,8 +71,13 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
   **/
   $scope.addMessage = (message) => {
     $scope.messages.unshift(new Message(message))
-    $scope.hasNewMessage = true
     $rootScope.$broadcast("onNewMessage")
+    $scope.hasNewMessage = true
+
+    Notification.info({
+      title: `Nouveau message de ${message.username}`,
+      message: `${message.username} : ${message.content}`,
+    })
   }
 
   $scope.sendMessage = () => {

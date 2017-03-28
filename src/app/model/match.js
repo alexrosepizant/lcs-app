@@ -33,11 +33,6 @@ export default function Match($rootScope, User, Comment, Bet) {
           bet.created = Date.now()
         }
       },
-
-      setScore(scoreHome, scoreAway) {
-        this.scoreHome = scoreHome
-        this.scoreAway = scoreAway
-      },
     }, data,
       {
         user: new User(data.user),

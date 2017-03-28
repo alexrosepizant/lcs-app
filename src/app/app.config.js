@@ -6,7 +6,7 @@ function AppConfig($stateProvider, $locationProvider, $urlRouterProvider, $trans
 
   $urlRouterProvider.otherwise(($injector) => {
     const $state = $injector.get("$state")
-    $state.go("article")
+    $state.go("blog")
   })
 
   // Configure translate provider

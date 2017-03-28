@@ -11,9 +11,4 @@ export default function EuroListCtrl($rootScope, $scope, UserFactory, MatchFacto
     $scope.currentUser.favoriteEuroTeam = teamCode
     UserFactory.updateUser($scope.currentUser)
   }
-
-  $scope.updateBet = (match) => {
-    match.updateBet()
-    MatchFactory.update(match)
-  }
 }

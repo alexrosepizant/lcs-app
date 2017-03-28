@@ -1,129 +1,60 @@
-<nav class="nav has-shadow">
-  <div class="container">
-    <div class="nav-left">
-      <a class="button is-primary blog-add" ui-sref="article.create">
-        <span class="icon is-small">
-          <i class="fa fa-plus"></i>
-        </span>
-        <span>
-          Ajouter
-        </span>
-      </a>
-      <strong class="nav-item is-tab">
-        Filtrer par
-      </strong>
-      <a class="nav-item is-tab" ui-sref="article({ filter: 'all' })" ng-class="{'is-active': filter === 'all'}">
-        Tous
-      </a>
-      <a class="nav-item is-tab " ui-sref="article({ filter: 'video' })" ng-class="{'is-active': filter === 'video'}">
-        Vidéos
-      </a>
-      <a class="nav-item is-tab " ui-sref="article({ filter: 'album' })" ng-class="{'is-active': filter === 'album'}">
-        Photos
-      </a>
+<section class="margin-top-20">
+  <div class="container margin-top-20" ng-if="articles.length === 0">
+    <div class="notification">
+      Il n'y a aucun article.
     </div>
   </div>
-</nav>
 
-<div class="container">
-  <div class="columns margin-top-10">
-    <div class="column is-8">
+  <section class="addButton" style="position: absolute; right: 0;">
+    <button class="button is-primary pull-right" ui-sref="article.create">
+      <span class="icon is-small">
+        <i class="fa fa-plus"></i>
+      </span>
+      <span>
+        Ajouter
+      </span>
+    </button>
+  </section>
 
-      <div class="container margin-top-20" ng-if="articles.length === 0">
-        <div class="notification">
-          Il n'y a aucun article.
-        </div>
-      </div>
+  <div class="tabs is-medium is-boxed bottom-20">
+    <ul>
+      <li ng-class="{'is-active': filter === 'all'}">
+        <a ui-sref="article.list({ filter: 'all' })">Tous</a>
+      </li>
+      <li ng-class="{'is-active': filter === 'video'}">
+        <a ui-sref="article.list({ filter: 'video' })">Vidéos</a>
+      </li>
+      <li ng-class="{'is-active': filter === 'album'}">
+        <a ui-sref="article.list({ filter: 'album' })">Photos</a>
+      </li>
+    </ul>
+  </div>
 
-      <lcs-blog-post ng-repeat="article in articles" ng-if="articles.length > 0" type="{{ article.type || 'standard' }}" class="box blog">
+  <section class="columns" ng-repeat="article in articles" ng-if="articles.length > 0" style="padding-left: 20px;">
+    <div class="blogUser column is-1">
+      <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+    </div>
+    <div  class="column is-11">
+      <lcs-blog-post type="{{ article.type || 'standard' }}" class="box blog">
       </lcs-blog-post>
     </div>
+  </section>
 
-    <div class="column is-4">
-      <h1 class="section-title">
-        <strong>Les catégories</strong>
-      </h1>
-      <div class="section-title">
-        <a ng-repeat="category in categories track by $index" ui-sref="article({category: category, filter: 'all'})">
-          <span class="tag" ng-class="{'active' : category === currentCategory}">
-            {{ category }}
-          </span>
-        </a>
-      </div>
-
-      <div>
-        <h1 class="section-title">
-          <strong>Ceux qui postent le plus</strong>
-        </h1>
-        <div class="section-title friends">
-          <div ng-repeat="user in users | limitTo: 5 " class="columns margin-top-20">
-            <span class="media-number">{{$index + 1}}</span>
-            <div class="column is-marginless">
-              <div class="image friend">
-                <img ng-src="{{ user.getAvatar(40, 40) }}">
-              </div>
-            </div>
-            <div class="column is-9 ellipsis user-title">
-              <p class="friendName">
-                <strong>{{ user.username }}</strong>
-                <a class="is-small">
-                  <span class="subtitle is-6">
-                    ({{user.count}} articles)
-                  </span>
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h1 class="section-title margin-top-20">
-          <strong>Les blogs des copains</strong>
-        </h1>
-        <div class="section-title container">
-          <div ng-repeat="blog in blogs">
-            <article class="media">
-              <div class="media-left">
-                <figure class="image is-64">
-                  <img ng-src="{{blog.image}}" alt="Image">
-                </figure>
-              </div>
-              <div class="media-content ellipsis">
-                <div>
-                  <p class="ellipsis">
-                    <strong>{{blog.title}}</strong>
-                  </p>
-                  <div class="ellipsis">
-                    <a ng-href="{{blog.href}}" target="_blank">
-                      {{blog.href}}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </article>
-            <hr ng-if="$index !== blogs.length - 1">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="margin-top-20">
+    <uib-pagination
+    total-items="totalItems"
+    num-pages="numPages"
+    ng-model="currentPage"
+    ng-change="pageChanged()"
+    max-size="maxSize"
+    class="pagination-sm margin-top-10 bottom-10"
+    boundary-links="true"
+    rotate="false"
+    items-per-page="itemPerPage"
+    previous-text="&lsaquo;"
+    next-text="&rsaquo;"
+    first-text="&laquo;"
+    last-text="&raquo;">
+  </uib-pagination>
 </div>
-
-<div class="margin-top-20">
-  <uib-pagination
-  total-items="totalItems"
-  num-pages="numPages"
-  ng-model="currentPage"
-  ng-change="pageChanged()"
-  max-size="maxSize"
-  class="pagination-sm margin-top-10 bottom-10"
-  boundary-links="true"
-  rotate="false"
-  items-per-page="itemPerPage"
-  previous-text="&lsaquo;"
-  next-text="&rsaquo;"
-  first-text="&laquo;"
-  last-text="&raquo;">
-</uib-pagination>
-</div>
+</section>
