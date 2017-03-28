@@ -14,8 +14,9 @@ exports.match = (matchId) => {
     .populate("comments.replies.user", userFields)
 }
 
-exports.all = (endedMatch) => {
-  const query = (endedMatch === "true") ? {
+exports.all = (params) => {
+  const endedMatch = (params.endedMatch === "true")
+  const query = (endedMatch) ? {
     startsAt: {
       "$lt": new Date(),
     },
@@ -116,11 +117,8 @@ const updateScores = () => {
     $and: [
       {
         $or:[
-          {
-            scoresUpdated: false},
-          {
-            scoresUpdated: {$exists:false},
-          },
+          {scoresUpdated: false},
+          {scoresUpdated: {$exists:false}},
         ],
       },
     ],

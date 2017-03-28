@@ -1,93 +1,65 @@
-<div>
-  <p>
-    <strong>
-      <small class="pull-right">
-        <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
-      </small>
-    </strong>
-  </p>
+<article>
 
-  <a ui-sref="standardView({ articleId: article._id })">
-    <div class="margin-top-20">
-      <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
-    </div>
+  <section>
+    <a ui-sref="article.standardView({ articleId: article._id })">
+      <div class="margin-top-10">
+        <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
+      </div>
+      <div class="blog-title ellipsis">
+        {{article.title}}
+      </div>
+    </a>
+    <h2 class="blog-subtitle margin-top-20">
+      <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
+    </h2>
+  </section>
 
-    <div class="blog-title two-line-ellipsis">
-      {{article.title}}
-    </div>
-  </a>
+  <section class="margin-top-10">
+    <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
+      {{ category }}
+    </span>
+  </section>
 
-  <article class="media margin-top-10 articleContent">
+  <section class="media margin-top-10 articleContent">
     <div class="media-content">
       <div class="content">
-        <div class="content">
-          <div class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky:'_blank'">
-            {{ article.getFormattedContent() }}
-          </div>
+        <div class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky:'_blank'">
+          {{ article.getFormattedContent() }}
         </div>
       </div>
-    </div>
-  </div>
-</article>
-
-<article class="margin-top-20">
-  <div class="media-content">
-    <div class="content">
-      <div class="blog-category">
-        <div>
-          <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
-            {{ category }}
-          </span>
-          <span ng-if="article.categories.length === 0" class="tag margin-top-10">
-            Aucune catégorie associée
-          </span>
-          <a ui-sref="standardView({ articleId: article._id })" class="pull-right margin-top-10">
-            Voir plus
-          </a>
-        </div>
-      </div>
-
-      <section class="blog-user-section">
-        <div class="authorSectionContainer">
-          <span class="authorSectionTitle">
-            Créé par
-          </span>
-          <div class="authorContent">
-            <span class="user-image">
-              <div class="user-image--image">
-                <div>
-                  <img ng-src="{{ article.user.getAvatar(40,40) }}" height="40" width="40">
-                </div>
-              </div>
-            </span>
-            <a class="authorContent-name" href="#">
-              {{article.user.username}}
-            </a>
-          </div>
-        </div>
-        <div class="blogCommentSection">
-          <span class="authorSectionTitle">
-            Ils ont laissé un commentaire
-          </span>
-          <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
-            <span class="user-image">
-              <div class="user-image--image">
-                <div>
-                  <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
-                </div>
-              </div>
-            </span>
-            <a class="authorContent-name" href="#">
-              {{user.username}}
-            </a>
-          </div>
-          <div ng-if="article.commentsUser.length === 0" class="margin-top-25">
-            <strong>Pas encore de commentaire</strong>
-          </div>
-        </div>
-      </section>
     </div>
   </section>
-</div>
+
+  <section class="margin-top-20">
+    <div class="media-content">
+      <div class="content">
+        <a ui-sref="article.standardView({ articleId: article._id })" class="button is-primary">
+          Voir plus
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog-user-section margin-top-20">
+    <div class="blogCommentSection">
+      <span class="authorSectionTitle">
+        Ils ont laissé un commentaire
+      </span>
+      <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
+        <span class="user-image">
+          <div class="user-image--image">
+            <div>
+              <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
+            </div>
+          </div>
+        </span>
+        <a class="authorContent-name" href="#">
+          {{user.username}}
+        </a>
+      </div>
+      <div ng-if="article.commentsUser.length === 0" class="margin-top-25">
+        <strong>Pas encore de commentaire</strong>
+      </div>
+    </div>
+  </section>
 </article>
-</div>

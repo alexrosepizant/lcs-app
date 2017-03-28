@@ -14,7 +14,7 @@ export default function AlbumDetailCtrl($window, $rootScope, $scope, $http, $sta
 
   $scope.removeContent = () => {
     $uibModal.open({
-      templateUrl: "app/features/user/deletion/removeArticle.html",
+      templateUrl: "app/features/user/deletion/removeContent.html",
       controller: "RemoveContentCtrl",
       resolve: {
         contentId: () => {

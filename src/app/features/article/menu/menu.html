@@ -1,0 +1,44 @@
+<aside class="menu">
+  <nav class="panel">
+    <p class="panel-heading">
+      Filtrer par:
+    </p>
+    <p class="panel-tabs">
+      <a ui-sref="article.list({ filter: 'all' })" ng-class="{'is-active': filter === 'all'}">Tous</a>
+      <a ui-sref="article.list({ filter: 'video' })" ng-class="{'is-active': filter === 'video'}">Vidéos</a>
+      <a ui-sref="article.list({ filter: 'album' })" ng-class="{'is-active': filter === 'album'}">Photos</a>
+    </p>
+  </nav>
+
+  <p class="menu-label">
+    Dernièrement
+  </p>
+  <lcs-notification></lcs-notification>
+
+  <p class="menu-label">
+    Les blogs des copains
+  </p>
+  <section class="margin-top-20">
+    <article class="media" ng-repeat="blog in blogs">
+      <div class="media-left">
+        <figure class="image is-64">
+          <img ng-src="{{blog.image}}" alt="Image">
+        </figure>
+      </div>
+      <div class="media-content ellipsis">
+        <div>
+          <p class="ellipsis">
+            <strong>{{blog.title}}</strong>
+          </p>
+          <div class="ellipsis">
+            <a ng-href="{{blog.href}}" target="_blank">
+              {{blog.href}}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <hr ng-if="$index !== blogs.length - 1">
+    </article>
+  </section>
+</aside>

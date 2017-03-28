@@ -2,10 +2,18 @@ export default function AboutConfig($stateProvider) {
   "ngInject"
 
   $stateProvider
+    .state("games", {
+      redirectTo: "euro.team",
+    })
     .state("euro", {
-      url: "/euro",
-      template: require("./euro/list/list.html"),
-      controller: "EuroListCtrl",
+      url: "/games/euro",
+      abstract: true,
+      template: require("./euro/euro.html"),
+    })
+    .state("euro.team", {
+      url: "/team",
+      template: require("./euro/team/list.html"),
+      controller: "EuroTeamCtrl",
       resolve: {
         matchs: (MatchFactory) => {
           return MatchFactory.findMatchs()
@@ -15,25 +23,48 @@ export default function AboutConfig($stateProvider) {
         },
       },
     })
-    .state("euro.rules", {
-      parent: "euro",
-      url: "/rules",
-      onEnter: ($state, $uibModal) => {
-        $uibModal.open({
-          template : require("./euro/rules/rules.html"),
-          controller: "EuroRulesCtrl",
-          backdrop: "static",
-        }).result.finally(() => {
-          $state.go("^")
-        })
+    .state("euro.match", {
+      url: "/match",
+      template : require("./euro/match/list/list.html"),
+      controller: "EuroMatchCtrl",
+      resolve: {
+        matchs: (MatchFactory) => {
+          return MatchFactory.findMatchs()
+        },
+        users: (UserFactory) => {
+          return UserFactory.findUsers()
+        },
+      },
+    })
+    .state("euro.rank", {
+      url: "/rank",
+      template : require("./euro/rank/rank.html"),
+      controller: "EuroRankCtrl",
+      resolve: {
+        users: (UserFactory) => {
+          return UserFactory.findUsers()
+        },
+      },
+    })
+    .state("euro.score", {
+      url: "/score",
+      template: require("./euro/score/score.html"),
+      controller: "EuroScoreCtrl",
+      resolve: {
+        matchs: (MatchFactory) => {
+          return MatchFactory.findEndedMatchs()
+        },
+        users: (UserFactory) => {
+          return UserFactory.findUsers()
+        },
       },
     })
     .state("euro.bets", {
-      parent: "euro",
+      parent: "euro.match",
       url: "/bets?matchId",
       onEnter: ($state, $stateParams, $uibModal) => {
         $uibModal.open({
-          template : require("./euro/detail/detail.html"),
+          template : require("./euro/match/detail/detail.html"),
           controller: "EuroDetailCtrl",
           backdrop: "static",
           resolve: {
@@ -44,34 +75,6 @@ export default function AboutConfig($stateProvider) {
         }).result.finally(() => {
           $state.go("^")
         })
-      },
-    })
-    .state("rank", {
-      parent:"euro",
-      url: "/rank",
-      onEnter: ($state, $stateParams, $uibModal) => {
-        $uibModal.open({
-          template : require("./euro/rank/rank.html"),
-          controller: "EuroRankCtrl",
-          backdrop: "static",
-          resolve: {
-            users: (UserFactory) => {
-              return UserFactory.findUsers()
-            },
-          },
-        }).result.finally(() => {
-          $state.go("^")
-        })
-      },
-    })
-    .state("score", {
-      url: "/score",
-      template: require("./euro/score/score.html"),
-      controller: "EuroScoreCtrl",
-      resolve: {
-        matchs: (MatchFactory) => {
-          return MatchFactory.findMatchs()
-        },
       },
     })
 }

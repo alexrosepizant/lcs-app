@@ -7,7 +7,7 @@
     <article class="media margin-top-20">
       <div class="media-content bottom-20">
         <p class="control">
-          <textarea ng-enter="addComment()" class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="newComment">
+          <textarea class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="newComment">
           </textarea>
           <input type="button" class="button margin-top-10 pull-right" value="Ajouter" ng-click="addComment()"/>
         </p>
@@ -38,8 +38,9 @@
         <div class="margin-top-20" ng-show="isCurrentComment(comment._id)">
           <div class="media-content">
             <p class="control">
-              <textarea ng-enter="addReply($index, comment._id)" class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="replies[comment._id].content">
+              <textarea class="textarea textareaChat" placeholder="Ajouter un commentaire..." ng-model="replies[comment._id].content">
               </textarea>
+              <input type="button" class="button margin-top-10 pull-right" value="Ajouter" ng-click="addReply($index, comment._id)"/>
             </p>
           </div>
         </div>

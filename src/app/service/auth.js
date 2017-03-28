@@ -34,7 +34,7 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $state, Use
 
     authenticateUser() {
       this.updateCurrentUser()
-        .then(() => $state.go("article"))
+        .then(() => $state.go("blog"))
     },
   }
 }

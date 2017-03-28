@@ -42,13 +42,13 @@ export default function Notification($state, User) {
         const type = (this.type === "comment") ? this.contentType : this.type
         switch (type) {
         case "standard":
-          $state.go("standardView", {articleId: this.contentId})
+          $state.go("article.standardView", {articleId: this.contentId})
           break
         case "album":
-          $state.go("albumView", {articleId: this.contentId})
+          $state.go("article.albumView", {articleId: this.contentId})
           break
         case "video":
-          $state.go("videoView", {articleId: this.contentId})
+          $state.go("article.videoView", {articleId: this.contentId})
           break
         case "vote":
           $state.go("vote")

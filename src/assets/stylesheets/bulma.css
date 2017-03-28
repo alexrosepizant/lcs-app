@@ -210,7 +210,6 @@ table {
 table td,
 table th {
   text-align: left;
-  vertical-align: top;
 }
 
 table th {
@@ -2240,7 +2239,6 @@ a.box:active {
   border: 1px solid #dbdbdb;
   border-width: 0 0 1px;
   padding: 8px 10px;
-  vertical-align: top;
 }
 
 .table td.is-icon,
@@ -3306,12 +3304,12 @@ a.box:active {
   background-color: whitesmoke;
   border-radius: 290486px;
   display: inline-block;
-  font-size: 14px;
-  height: 32px;
-  line-height: 24px;
+  font-size: 18px;
+  height: 40px;
+  line-height: 30px;
   margin-right: 10px;
-  min-width: 32px;
-  padding: 4px 8px;
+  min-width: 40px;
+  padding: 4px;
   text-align: center;
 }
 
@@ -4154,7 +4152,6 @@ a.nav-item.is-tab:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-size: 11px;
   padding: 5px 10px 0;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -4312,7 +4309,7 @@ a.panel-block:hover {
 .tabs.is-boxed a {
   border: 1px solid transparent;
   border-radius: 3px 3px 0 0;
-  padding: 5px 20px;
+  padding: 10px 20px;
 }
 
 .tabs.is-boxed a:hover {

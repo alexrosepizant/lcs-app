@@ -6,23 +6,34 @@ export default function ProfileCtrl($rootScope, $scope, $state,
   $scope.contentId = contentId
   $scope.contentType = type
 
+  switch ($scope.contentType) {
+  case "agenda":
+    $scope.labelType = "l'evènement"
+    break
+  default:
+    $scope.labelType = "l'article"
+    break
+  }
+
   $scope.dismiss = () => {
     $scope.$dismiss()
   }
 
   $scope.removeContent = () => {
-    let labelType= ""
     let promise = null
     switch ($scope.contentType) {
     case "agenda":
-      labelType = "Evènement"
       promise = AgendaFactory.deleteUserEvent($scope.contentId)
+        .then(() => {
+          $rootScope.$broadcast("updateAgendaList")
+          return $state.go("agenda")
+        })
       break
     default:
-      labelType = "Article"
-      promise = ArticleFactory.deleteArticle($scope.contentId).then(() => {
-        return $state.go("article")
-      })
+      promise = ArticleFactory.deleteArticle($scope.contentId)
+        .then(() => {
+          return $state.go("blog")
+        })
       break
     }
 
@@ -32,7 +43,7 @@ export default function ProfileCtrl($rootScope, $scope, $state,
         $rootScope.$broadcast("updateUserContentList")
         Notification.success({
           title: "Success",
-          message: `${labelType} supprimé avec succés`,
+          message: `${$scope.labelType} supprimé avec succés`,
         })
       })
       .catch((err) => {

@@ -1,4 +1,4 @@
-function AppRun($rootScope, $location, AuthFactory, $uibModalStack) {
+function AppRun($rootScope, $state, $location, AuthFactory, $uibModalStack) {
   "ngInject"
 
   // if no currentUser and on a page that requires authorization then try to update it
@@ -14,7 +14,15 @@ function AppRun($rootScope, $location, AuthFactory, $uibModalStack) {
     AuthFactory.logout()
   })
 
-    // close all modal on change page
+  // Add redirectTo option to states
+  $rootScope.$on("$stateChangeStart", (evt, to, params) => {
+    if (to.redirectTo) {
+      evt.preventDefault()
+      $state.go(to.redirectTo, params, {location: "replace"})
+    }
+  })
+
+  // close all modal on change page
   $rootScope.$on("$stateChangeSuccess", () => {
     $uibModalStack.dismissAll()
   })

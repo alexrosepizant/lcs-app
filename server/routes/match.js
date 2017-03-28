@@ -1,6 +1,7 @@
 "use strict"
 
 // Articles routes use articles controller
+const _ = require("lodash")
 const matchs = require("../controllers/match")
 const authorization = require("./middlewares/authorization")
 
@@ -31,7 +32,7 @@ module.exports = (app) => {
 
   // READ ALL: GET match
   app.get("/match", (req, res) => {
-    matchs.all(req.query.endedMatch)
+    matchs.all(req.query)
       .then((matchs) => {
         res.jsonp(matchs)
       }).catch((err) => {

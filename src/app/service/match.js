@@ -16,6 +16,16 @@ export default function MatchFactory($http, Match) {
         })
     },
 
+    findEndedMatchs() {
+      return $http.get(`/${BASE_URL}`, {
+        params: {
+          endedMatch: true,
+        },
+      }).then((matchs) => {
+        return matchs.data.map((match) => new Match(match))
+      })
+    },
+
     getMatch(matchId) {
       return $http.get(`/${BASE_URL}/${matchId}`)
         .then((match) => {
