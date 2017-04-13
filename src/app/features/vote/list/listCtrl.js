@@ -1,9 +1,10 @@
-export default function VoteListCtrl($rootScope, $scope, VoteFactory, Vote, Notification, votes, users) {
+export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory, Vote, Notification, votes, users) {
   "ngInject"
 
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.votes = votes
+  $scope.currentVote = votes[0]
   $scope.users = users
   $scope.options = {}
 
@@ -12,6 +13,10 @@ export default function VoteListCtrl($rootScope, $scope, VoteFactory, Vote, Noti
       $scope.options[vote._id] = vote.getAnswerOfCurrentUser()
     }
   })
+
+  $scope.setCurrent = (vote) => {
+    $scope.currentVote = vote
+  }
 
   $scope.addVote = (voteId) => {
     const vote = $scope.votes.find((vote) => vote._id === voteId)
@@ -34,11 +39,27 @@ export default function VoteListCtrl($rootScope, $scope, VoteFactory, Vote, Noti
       })
   }
 
+  $scope.remove = (voteId) => {
+    $uibModal.open({
+      templateUrl: "app/features/user/deletion/removeContent.html",
+      controller: "RemoveContentCtrl",
+      resolve: {
+        contentId: () => {
+          return voteId
+        },
+        type: () => {
+          return "vote"
+        },
+      },
+    })
+  }
+
   // Update vote list when add one
   $scope.$on("updateVoteList", () => {
     VoteFactory.findVotes("all")
     .then((votes) => {
       $scope.votes = votes.map((vote) => new Vote(vote))
+      $scope.currentVote = votes[0]
     })
   })
 }

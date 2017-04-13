@@ -9,9 +9,9 @@
     <div class="column is-3">
       <aside class="menu margin-top-20">
 
-        <p class="menu-label">
+        <h1 class="section-title">
           Prochainement
-        </p>
+        </h1>
         <ul class="menu-list">
           <li>
             <a ng-repeat="event in onGoingEvents" class="sideEvent" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
@@ -54,22 +54,8 @@
     </div>
 
     <div class="column is-9 margin-top-20">
-      <div>
-        <button class="button is-primary event-add pull-right" ui-sref="agenda.create">
-          <span class="icon is-small">
-            <i class="fa fa-plus"></i>
-          </span>
-          &nbsp;Ajouter
-        </button>
-        <a class="button is-danger event-add pull-right" ng-click="remove(currentEvent._id)" ng-disabled="currentUser._id !== currentEvent.user._id">
-          <span class="icon is-small">
-            <i class="fa fa-remove"></i>
-          </span>
-          <span>
-            Supprimer
-          </span>
-        </a>
-        <a class="button event-add pull-right" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
+      <section class="addButton">
+        <a class="action event-add" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
@@ -77,10 +63,24 @@
             Modifier
           </span>
         </a>
-      </div>
+        <a class="action event-add" ng-click="remove(currentEvent._id)" ng-disabled="currentUser._id !== currentEvent.user._id">
+          <span class="icon is-small">
+            <i class="fa fa-remove"></i>
+          </span>
+          <span>
+            Supprimer
+          </span>
+        </a>
+        <button class="button is-primary event-add" ui-sref="agenda.create">
+          <span class="icon is-small">
+            <i class="fa fa-plus"></i>
+          </span>
+          &nbsp;Ajouter
+        </button>
+      </section>
 
-      <div class="bottom-20 margin-top-50">
-        <div class="box margin-top-10">
+      <div class="margin-top-20">
+        <div class="box">
           <h1 class="blog-subtitle-detail font-xlarge margin-top-20">
             <i class="fa fa-calendar-o"></i> <strong>{{ currentEvent.getDay() }}</strong>
             <p>{{ currentEvent.startsAt | date:"dd MMMM yyyy" }}</p>

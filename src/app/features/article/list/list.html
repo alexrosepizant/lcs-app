@@ -30,7 +30,7 @@
     </ul>
   </div>
 
-  <section class="columns" ng-repeat="article in articles" ng-if="articles.length > 0" style="padding-left: 20px;">
+  <section class="columns" style="padding-left: 20px" ng-repeat="article in articles" ng-if="articles.length > 0">
     <div class="blogUser column is-1">
       <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
     </div>

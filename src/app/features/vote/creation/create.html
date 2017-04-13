@@ -5,6 +5,11 @@
   </header>
 
   <section class="modal-card-body content">
+    <label class="label">Titre</label>
+    <p class="control">
+      <input ng-model="vote.title" class="input" placeholder="Titre">
+    </p>
+
     <label class="label">Contenu</label>
     <p class="control">
       <textarea ng-model="vote.content"
@@ -12,6 +17,7 @@
                 placeholder="Contenu...">
       </textarea>
     </p>
+
     <label class="label">Fin du vote</label>
     <p class="control">
       <input ng-model="vote.endsAt"

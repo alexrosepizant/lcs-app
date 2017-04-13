@@ -17,6 +17,7 @@ export default function Vote($rootScope, User) {
 
   return (data) => {
     return angular.extend({
+      title: "",
       content: "",
       created: Date.now(),
       endsAt: "",

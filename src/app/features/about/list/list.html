@@ -2,9 +2,9 @@
   <div class="columns">
     <div class="column is-3 margin-top-20">
       <aside class="menu">
-        <p class="menu-label">
+        <h1 class="section-title">
           Le site
-        </p>
+        </h1>
         <ul class="menu-list">
           <li>
             <a class="is-active">Les bugs</a>
@@ -63,7 +63,7 @@
                   {{ idea.description }}
                 </th>
                 <th>
-                  <a ng-click="addLike(ideas.length - $index - 1)">+{{idea.like}}</a>
+                  <a ng-click="addLike($index)">+{{idea.like}}</a>
                 </th>
                 <th>
                   {{ idea.status || 'En cours' }}

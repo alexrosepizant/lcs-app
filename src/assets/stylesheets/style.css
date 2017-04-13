@@ -256,9 +256,9 @@ body {
 }
 
 .section-title {
-  color: black;
-  background: white;
+  color: #4a4a4a;
   font-size: 20px;
+  font-weight: bolder;
   padding: 10px 0;
 }
 
@@ -544,9 +544,34 @@ h2 {
   color: black;
 }
 
+.vote-add {
+  margin-right: 15px;
+  color: black;
+}
+
+.voteDateLong {
+  font-size: 10px;
+  font-weight: 700;
+  max-width: 70px;
+}
+
+.onGoingVote {
+  padding: 10px 5px;
+}
+
+.is-active .onGoingVote * {
+  color: white;
+}
+
 .addButton {
   text-align: right;
   margin-bottom: 20px;
+}
+
+.addButton a {
+  margin-top: 7px;
+  display: inline-block;
+  color: var(--MainColor);
 }
 
 .blog-add {

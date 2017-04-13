@@ -31,8 +31,8 @@ export default function VoteFactory($http, Vote) {
       return $http.put(`/vote/${vote._id}`, vote)
     },
 
-    deleteVote(vote) {
-      return $http.delete(`/vote/${vote._id}`)
+    deleteVote(voteId) {
+      return $http.delete(`/vote/${voteId}`)
     },
   }
 }

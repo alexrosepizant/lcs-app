@@ -12,6 +12,9 @@ const VoteSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  title: {
+    type: String,
+  },
   content: {
     type: String,
     default: "",

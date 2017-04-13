@@ -15,6 +15,8 @@ export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, arti
   $scope.currentPage = page
   $scope.itemPerPage = 20
 
+  $rootScope.$broadcast("articleFilterChange")
+
   $scope.pageChanged = () => {
     ArticleFactory.findArticles($scope.filter, $scope.currentPage - 1)
       .then((articles) => $scope.articles = articles)

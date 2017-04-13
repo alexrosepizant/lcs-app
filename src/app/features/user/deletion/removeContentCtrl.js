@@ -1,5 +1,5 @@
 export default function ProfileCtrl($rootScope, $scope, $state,
-    ArticleFactory, AgendaFactory, Notification, contentId, type) {
+    ArticleFactory, AgendaFactory, VoteFactory, Notification, contentId, type) {
   "ngInject"
 
   // retrieve variables
@@ -9,6 +9,9 @@ export default function ProfileCtrl($rootScope, $scope, $state,
   switch ($scope.contentType) {
   case "agenda":
     $scope.labelType = "l'evènement"
+    break
+  case "vote":
+    $scope.labelType = "le vote"
     break
   default:
     $scope.labelType = "l'article"
@@ -28,6 +31,13 @@ export default function ProfileCtrl($rootScope, $scope, $state,
           $rootScope.$broadcast("updateAgendaList")
           return $state.go("agenda")
         })
+      break
+    case "vote":
+      promise = VoteFactory.deleteVote($scope.contentId)
+          .then(() => {
+            $rootScope.$broadcast("updateVoteList")
+            return $state.go("vote")
+          })
       break
     default:
       promise = ArticleFactory.deleteArticle($scope.contentId)
