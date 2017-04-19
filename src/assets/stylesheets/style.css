@@ -213,17 +213,15 @@ body {
 }
 
 .fix-to-top {
+  display: block;
   position: fixed;
   width: 100%;
   z-index: 2;
   top: 0;
 }
 
-.fix-to-top-menu {
-  position: fixed;
-  width: 100%;
-  z-index: 2;
-  top: 55px;
+.fix-to-top-hide:not(.fix-to-top) {
+  display: none;
 }
 
 .spacer {
@@ -544,6 +542,10 @@ h2 {
   color: black;
 }
 
+.voteButtons {
+  text-align: right;
+}
+
 .vote-add {
   margin-right: 15px;
   color: black;
@@ -746,6 +748,10 @@ a.is-current {
 
 .notificationContainer .angular-popover {
   max-width: 300px;
+}
+
+.notification-date {
+  font-weight: bold;
 }
 
 .ui-notification {
@@ -1517,8 +1523,12 @@ figure {
 
 .icon-item-type i {
   font-size: 12px;
-  padding: 6px 15px;
+  padding: 5px 2px;
   color: #bbb;
+}
+
+.icon-action {
+  margin-top: 2px;
 }
 
 .agenda-container {
@@ -1578,10 +1588,6 @@ figure {
 .agenda-content {
   margin: 10px 0;
   font-size: 1.5em;
-}
-
-.agendaComment {
-  margin: 0 -20px;
 }
 
 .agendaGuestUnavailable {

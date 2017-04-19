@@ -10,7 +10,7 @@ const offset = (elm) => {
   const scrollY = window.pageYOffset || body.scrollTop
 
   _x = rawDom.getBoundingClientRect().left + scrollX - rawDom.clientWidth
-  _y = rawDom.getBoundingClientRect().top + scrollY - rawDom.clientHeight + 105
+  _y = rawDom.getBoundingClientRect().top + scrollY - rawDom.clientHeight + 160
   return {left: _x, top: _y}
 }
 

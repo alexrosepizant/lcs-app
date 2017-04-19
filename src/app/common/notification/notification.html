@@ -1,6 +1,6 @@
 <section>
   <span ng-repeat="content in notifications | orderBy:'-created'">
-    <small class="pull-right">
+    <small class="notification-date">
       {{content.getDateFrom()}}
     </small>
 

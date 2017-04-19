@@ -7,6 +7,7 @@ export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory,
   $scope.currentVote = votes[0]
   $scope.users = users
   $scope.options = {}
+  $scope.onGoingEvents = votes.filter((item) => item.onGoing)
 
   $scope.votes.forEach((vote) => {
     if (vote.hasUserAnswered) {
@@ -23,7 +24,7 @@ export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory,
     const answerId = $scope.options[voteId]
 
     vote.answers.find((item) => item._id === answerId).users.push($rootScope.currentUser._id)
-    VoteFactory.updateVote(vote)
+    VoteFactory.update(vote)
       .then(() => {
         vote.hasUserAnswered = true
         Notification.success({
@@ -59,6 +60,7 @@ export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory,
     VoteFactory.findVotes("all")
     .then((votes) => {
       $scope.votes = votes.map((vote) => new Vote(vote))
+      $scope.onGoingEvents = votes.filter((item) => item.onGoing)
       $scope.currentVote = votes[0]
     })
   })

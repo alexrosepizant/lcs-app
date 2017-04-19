@@ -46,9 +46,7 @@ exports.create = (vote) => {
  */
 exports.update = (vote) => {
   return vote.save()
-    .then((vote) => {
-      return this.vote(vote._id)
-    })
+    .then((vote) => this.vote(vote._id))
 }
 
 /**

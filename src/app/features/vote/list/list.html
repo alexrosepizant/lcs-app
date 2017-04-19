@@ -5,24 +5,28 @@
         <h1 class="section-title">
           Les votes en cours
         </h1>
-        <ul class="menu-list" ng-if="votes.length > 0">
+        <ul class="menu-list">
           <li>
-            <a ng-repeat="vote in votes | orderBy: '-created' | filter:{onGoing: true}" class="sideEvent" ng-class="{'is-active' : vote._id === currentVote._id}" ng-click="setCurrent(vote)">
+            <a ng-repeat="vote in votes | orderBy: '-created' | filter:{onGoing: true}" class="sideEvent" ng-class="{'is-active' : vote._id === currentVote._id, 'margin-top-10': $index > 0}" ng-click="setCurrent(vote)">
               <article class="media onGoingVote">
                 <div class="media-content" style="overflow: hidden;">
-                  <div class="content">
-                    <span class="icon is-small">
-                      <i class="fa fa-clock-o"></i>
-                    </span>{{ 'Fin ' + vote.getDays() }}
-                    <p class="three-line-ellipsis">
-                      <strong>{{ vote.title || vote.content }}</strong>
-                    </p>
-                  </div>
+                  <p class="three-line-ellipsis">
+                    <strong>{{ vote.title || vote.content }}</strong>
+                  </p>
+                  <span class="icon is-small">
+                    <i class="fa fa-clock-o icon-action"></i>
+                  </span>{{ 'Fin ' + vote.getDays() }}
                 </div>
               </article>
             </a>
           </li>
         </ul>
+
+        <div class="container" ng-if="onGoingEvents.length === 0">
+          <div class="notification">
+            Il n'y a aucun vote en ce moment.
+          </div>
+        </div>
 
         <h1 class="section-title">
           Les derniers votes
@@ -38,14 +42,8 @@
     </div>
 
     <div class="column is-9">
-      <div class="container margin-top-20" ng-if="votes.length === 0">
-        <div class="notification">
-          Il n'y a aucun vote en ce moment.
-        </div>
-      </div>
-
-      <section class="addButton margin-top-20">
-        <a class="action vote-add" ui-sref="vote.update({voteId: currentVote._id})" ng-disabled="currentUser._id !== currentVote.user._id">
+      <section class="voteButtons margin-top-20">
+        <a class="button action vote-add" ui-sref="vote.update({voteId: currentVote._id})" ng-disabled="currentUser._id !== currentVote.user._id && currentVote.onGoing">
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
@@ -54,7 +52,7 @@
           </span>
         </a>
 
-        <a class="vote-add" ng-click="remove(currentVote._id)" ng-disabled="currentUser._id !== currentVote.user._id">
+        <a class="button vote-add" ng-click="remove(currentVote._id)" ng-disabled="currentUser._id !== currentVote.user._id && currentVote.onGoing">
           <span class="icon is-small">
             <i class="fa fa-remove"></i>
           </span>
@@ -80,13 +78,32 @@
           <h2 class="margin-top-20">
             {{ currentVote.title || 'Résultat du vote ' + currentVote.getDays() }}
           </h2>
+
+          <section class="margin-top-20">
+            <div class="authorContent">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ currentVote.user.getAvatar(40,40) }}" height="40" width="40">
+                  </div>
+                </div>
+              </span>
+              <a class="authorContent-name" href="#">
+                {{currentVote.user.username}} demande à l'assemblée des coqs
+              </a>
+            </div>
+          </section>
+
           <div>
             <div class="content margin-top-20">
               <blockquote>{{ currentVote.content }}</blockquote>
             </div>
+
             <div class="margin-top-20">
               <div ng-repeat="answer in currentVote.answers track by $index" class="margin-top-20">
-                <strong>{{answer.content}} <small class="pull-right">{{currentVote.getPercent(answer._id)}}% ({{answer.users.length}} votes)</small></strong>
+                <strong>{{answer.content}}
+                  <small class="pull-right">{{currentVote.getPercent(answer._id)}}% ({{answer.users.length}} votes)</small>
+                </strong>
                 <progress class="progress is-primary" value="{{currentVote.getPercent(answer._id)}}" max="100"></progress>
                 <div ng-repeat="user in answer.users" class="user-vote">
                   <span class="user-image">
@@ -108,6 +125,22 @@
           <h2 class="margin-top-20">
             {{ currentVote.title || 'Résultat du vote' + currentVote.getDays() }}
           </h2>
+
+          <section class="margin-top-20">
+            <div class="authorContent">
+              <span class="user-image">
+                <div class="user-image--image">
+                  <div>
+                    <img ng-src="{{ currentVote.user.getAvatar(40,40) }}" height="40" width="40">
+                  </div>
+                </div>
+              </span>
+              <a class="authorContent-name" href="#">
+                {{currentVote.user.username}} demande à l'assemblée des coqs
+              </a>
+            </div>
+          </section>
+
           <div>
             <div class="content margin-top-20">
               <blockquote>{{ currentVote.content }}</blockquote>
@@ -134,22 +167,10 @@
             </div>
           </div>
         </div>
-        <div class="margin-top-20">
-          <section class="blog-user-section margin-top-20">
-            <div class="authorContent">
-              <span class="user-image">
-                <div class="user-image--image">
-                  <div>
-                    <img ng-src="{{ currentVote.user.getAvatar(40,40) }}" height="40" width="40">
-                  </div>
-                </div>
-              </span>
-              <a class="authorContent-name" href="#">
-                {{currentVote.user.username}}
-              </a>
-            </div>
-          </section>
-        </div>
+
+        <section class="blog-user-section margin-top-20 bottom-20">
+          <lcs-comment type="'vote'" object="currentVote" class="lcs-comment"></lcs-comment>
+        </section>
       </div>
     </div>
   </div>

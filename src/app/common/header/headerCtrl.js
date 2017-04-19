@@ -20,7 +20,7 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
     link: "games",
   },
   {
-    name: "Les bugs",
+    name: "Site / Bugs",
     link: "about",
   }]
 

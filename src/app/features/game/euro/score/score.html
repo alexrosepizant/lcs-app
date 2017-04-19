@@ -19,7 +19,7 @@
     <tbody>
       <tr ng-repeat="match in matchs | orderBy: '-startsAt'">
         <th>
-          {{match.startsAt | date:"dd MMM yyyy, HH'h'mm"}}
+          {{match.startsAt | amDateFormat:"DD MMM YYYY, HH:mm"}}
         </th>
         <th>
           <img ng-src="/assets/euro/flags/{{ match.home }}.png" class="flagScore"/>

@@ -1,5 +1,5 @@
-<div class="addButton margin-top-20">
-  <a ng-click="download()" class="blog-add">
+<div class="voteButtons">
+  <a ng-click="download()" class="button blog-add">
     <span class="icon is-small">
       <i class="fa fa-download"></i>
     </span>
@@ -7,7 +7,7 @@
       Télécharger
     </span>
   </a>
-  <a ng-click="updateContent()" class="blog-add" ng-disabled="article.user._id !== currentUser._id">
+  <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
     <span class="icon is-small">
       <i class="fa fa-pencil"></i>
     </span>
@@ -15,7 +15,7 @@
       Modifier
     </span>
   </a>
-  <a ng-click="removeContent()" class="blog-add" ng-disabled="article.user._id !== currentUser._id">
+  <a ng-click="removeContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
     <span class="icon is-small">
       <i class="fa fa-remove"></i>
     </span>
@@ -25,7 +25,7 @@
   </a>
 </div>
 
-<article class="container">
+<article class="container margin-top-20">
   <div class="box bottom-50">
     <button class="delete pull-right" ui-sref="article.list"></button>
 

@@ -12,6 +12,7 @@
         <h1 class="section-title">
           Prochainement
         </h1>
+
         <ul class="menu-list">
           <li>
             <a ng-repeat="event in onGoingEvents" class="sideEvent" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
@@ -19,17 +20,19 @@
                 <div class="media-left">
                   <div class="eventDateSmall pull-left">
                     <div class="eventDateLong">
-                      {{ event.startsAt | date:"dd MMM" }}
+                      {{ event.startsAt | amDateFormat:"DD MMM" }}
                     </div>
                     <div class="eventYear">
-                      {{ event.startsAt | date:"yyyy" }}
+                      {{ event.startsAt | amDateFormat:"YYYY" }}
                     </div>
                   </div>
                 </div>
                 <div class="media-content" style="overflow: hidden;">
                   <div class="content">
                     <p class="three-line-ellipsis">
-                      <strong>{{event.title}}</strong>
+                      <strong class="margin-top-10">
+                        {{event.title}}
+                      </strong>
                       <br>
                       {{event.content}}
                     </p>
@@ -46,7 +49,7 @@
         <ul class="menu-list">
           <li>
             <a ng-repeat="event in pastEvents" ng-class="{'is-active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
-              <p class="ellipsis">{{ event.startsAt | date:"dd MMM yyyy" }}, <strong>{{event.title}}</strong></p>
+              <p class="ellipsis">{{ event.startsAt | amDateFormat:"DD MMM YYYY" }}, <strong>{{event.title}}</strong></p>
             </a>
           </li>
         </ul>
@@ -54,8 +57,8 @@
     </div>
 
     <div class="column is-9 margin-top-20">
-      <section class="addButton">
-        <a class="action event-add" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
+      <section class="voteButtons">
+        <a class="button action event-add" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
@@ -63,7 +66,8 @@
             Modifier
           </span>
         </a>
-        <a class="action event-add" ng-click="remove(currentEvent._id)" ng-disabled="currentUser._id !== currentEvent.user._id">
+
+        <a class="button action event-add" ng-click="remove(currentEvent._id)" ng-disabled="currentUser._id !== currentEvent.user._id">
           <span class="icon is-small">
             <i class="fa fa-remove"></i>
           </span>
@@ -71,6 +75,7 @@
             Supprimer
           </span>
         </a>
+
         <button class="button is-primary event-add" ui-sref="agenda.create">
           <span class="icon is-small">
             <i class="fa fa-plus"></i>
@@ -83,7 +88,7 @@
         <div class="box">
           <h1 class="blog-subtitle-detail font-xlarge margin-top-20">
             <i class="fa fa-calendar-o"></i> <strong>{{ currentEvent.getDay() }}</strong>
-            <p>{{ currentEvent.startsAt | date:"dd MMMM yyyy" }}</p>
+            <p>{{ currentEvent.startsAt | amDateFormat:"DD MMMM YYYY" }}</p>
           </h1>
           <a>
             <div class="blog-title-detail">
@@ -97,9 +102,15 @@
           <section class="margin-top-20">
             <div class="eventInfos">
               <div class="agendaTag">
-                <span class="tag" ng-if="currentEvent.price"><strong>Prix</strong>{{currentEvent.price}} €</span>
-                <span class="tag" ng-if="currentEvent.location.adress"><strong>Lieu</strong>{{currentEvent.location.adress}}</span>
-                <span class="tag" ng-if="currentEvent.link" ng-bind-html="currentEvent.link | linky"><strong>Lien</strong>{{currentEvent.link}}</span>
+                <span class="tag" ng-if="currentEvent.price">
+                  <strong>Prix</strong>{{currentEvent.price}} €
+                </span>
+                <span class="tag" ng-if="currentEvent.location.adress">
+                  <strong>Lieu</strong>{{currentEvent.location.adress}}
+                </span>
+                <span class="tag" ng-if="currentEvent.link" ng-bind-html="currentEvent.link | linky">
+                  <strong>Lien</strong>{{currentEvent.link}}
+                </span>
               </div>
             </div>
 
@@ -164,7 +175,7 @@
           <div class="clearfix">
           </div>
 
-          <section class="blog-user-section margin-top-10 agendaComment">
+          <section class="blog-user-section margin-top-10">
             <lcs-comment type="'agenda'" object="currentEvent" class="lcs-comment"></lcs-comment>
           </section>
         </div>

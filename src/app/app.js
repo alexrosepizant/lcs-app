@@ -16,6 +16,7 @@ import "angular-cookies"
 import "angular-http-auth"
 import "angular-resource"
 import "angular-sanitize"
+import "angular-moment"
 import "angular-translate"
 import "angular-translate-loader-static-files"
 import "angular-ui-notification"
@@ -65,6 +66,7 @@ const requires = [
   "ngResource",
   "ngSanitize",
   "ngAnimate",
+  "angularMoment",
   "pascalprecht.translate",
   "ngFileUpload",
   "ui.bootstrap",

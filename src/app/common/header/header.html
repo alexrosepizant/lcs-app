@@ -43,7 +43,21 @@
     </div>
   </div>
 
-  <section class="hero is-primary" set-class-when-at-top="fix-to-top">
+  <section class="hero is-primary">
+    <div class="hero-foot padding-top-10">
+      <div class="container">
+        <nav class="tabs is-boxed">
+          <ul>
+            <li ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">
+              <a ui-sref="{{item.link}}">{{item.name}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-primary fix-to-top-hide" set-class-when-at-top="fix-to-top">
     <div class="hero-foot padding-top-10">
       <div class="container">
         <nav class="tabs is-boxed">

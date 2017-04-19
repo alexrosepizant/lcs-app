@@ -30,7 +30,7 @@
             <br>
             <small>
               <a ng-click="showReply($event, comment._id)">Répondre</a>
-              · {{comment.created | date:dateFormat}}
+              · {{comment.created | amDateFormat:"DD MMM YYYY"}}
             </small>
           </p>
         </div>
@@ -59,7 +59,7 @@
                   <br>
                   {{reply.content}}
                   <br>
-                  <small>{{reply.created | date:dateFormat}}</small>
+                  <small>{{reply.created | amDateFormat:"DD MMM YYYY"}}</small>
                 </p>
               </div>
             </div>

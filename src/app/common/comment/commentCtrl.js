@@ -1,7 +1,7 @@
 import moment from "moment"
 
 export default function CommentCtrl($rootScope, $scope,
-    AgendaFactory, ArticleFactory, NotificationFactory, MatchFactory, Comment) {
+    AgendaFactory, ArticleFactory, NotificationFactory, MatchFactory, VoteFactory, Comment) {
   "ngInject"
 
   // Retrieve currentUser
@@ -82,6 +82,8 @@ export default function CommentCtrl($rootScope, $scope,
     switch ($scope.type) {
     case "agenda":
       return AgendaFactory.update($scope.object)
+    case "vote":
+      return VoteFactory.update($scope.object)
     case "match":
       return MatchFactory.update($scope.object)
     default:
@@ -94,6 +96,9 @@ export default function CommentCtrl($rootScope, $scope,
     switch ($scope.type) {
     case "agenda":
       type = "userEvent"
+      break
+    case "vote":
+      type = "vote"
       break
     case "match":
       type = "match"

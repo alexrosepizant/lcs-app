@@ -21,14 +21,17 @@ export default function VoteFactory($http, Vote) {
 
     createVote(vote) {
       if (vote._id) {
-        return this.updateVote(vote)
+        return this.update(vote)
       }
 
       return $http.post("/vote", vote)
     },
 
-    updateVote(vote) {
+    update(vote) {
       return $http.put(`/vote/${vote._id}`, vote)
+        .then((response) => {
+          return new Vote(response.data)
+        })
     },
 
     deleteVote(voteId) {
