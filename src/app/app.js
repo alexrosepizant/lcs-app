@@ -16,6 +16,7 @@ import "angular-cookies"
 import "angular-http-auth"
 import "angular-resource"
 import "angular-sanitize"
+import "angular-moment"
 import "angular-translate"
 import "angular-translate-loader-static-files"
 import "angular-ui-notification"
@@ -54,7 +55,7 @@ import "./features/user"
 import "./features/article"
 import "./features/article/category"
 import "./features/agenda"
-import "./features/archive"
+import "./features/game"
 import "./features/vote"
 
 // Create and bootstrap application
@@ -65,6 +66,7 @@ const requires = [
   "ngResource",
   "ngSanitize",
   "ngAnimate",
+  "angularMoment",
   "pascalprecht.translate",
   "ngFileUpload",
   "ui.bootstrap",
@@ -80,11 +82,11 @@ const requires = [
   "app.about",
   "app.auth",
   "app.agenda",
-  "app.archive",
   "app.article",
   "app.category",
   "app.chat",
   "app.comment",
+  "app.game",
   "app.notification",
   "app.user",
   "app.utils",

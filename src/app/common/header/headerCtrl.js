@@ -6,19 +6,28 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
   // Main menu
   $scope.menu = [{
     name: "A la une",
-    link: "article",
+    link: "blog",
+    routePath: "article",
   }, {
     name: "Les rencards",
     link: "agenda",
+    routePath: "agenda",
   },
   {
     name: "L'isoloir",
     link: "vote",
+    routePath: "vote",
+  },
+  {
+    name: "Les jeux",
+    link: "games.euro.team",
+    routePath: "games.*.*",
+  },
+  {
+    name: "Site / Bugs",
+    link: "about.issue",
+    routePath: "about",
   }]
-
-  $scope.isCurrentPath = (item) => {
-    return $location.path().indexOf(item.link) !== -1
-  }
 
   // Search
   $scope.search = () => {

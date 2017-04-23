@@ -1,17 +1,29 @@
-<div>
-  <p>
-    <strong>
-      <small class="pull-right">
-        <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
-      </small>
-    </strong>
-  </p>
+<article>
 
-  <a ui-sref="albumView({ articleId: article._id })">
-    <div class="margin-top-20 blog-title ellipsis">{{article.title}}</div>
-  </a>
+  <section class="margin-top-20 bottom-20">
+    <!-- Article title -->
+    <a ui-sref="article.albumView({ articleId: article._id })">
+      <div class="blog-title ellipsis">
+        {{article.title}}
+      </div>
+    </a>
 
-  <article class="media margin-top-10">
+    <!-- Article subtitle -->
+    <h2 class="blog-subtitle margin-top-20">
+      <i class="fa fa-clock-o font-small icon-action"></i>
+      {{ article.getDateFrom() }}
+    </h2>
+  </section>
+
+  <!-- Article categories -->
+  <section class="bottom-20">
+    <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
+      {{ category }}
+    </span>
+  </section>
+
+  <!-- Album thumbnails -->
+  <section class="media bottom-20">
     <div class="media-content">
       <div class="blog-album">
         <span ng-repeat="photo in article.photoList | limitTo:6">
@@ -21,63 +33,49 @@
         </span>
       </div>
     </div>
-  </article>
+  </section>
 
-  <article class="margin-top-20">
+  <!-- Album description -->
+  <section class="media bottom-20 articleContent" ng-if="article.content">
     <div class="media-content">
       <div class="content">
-        <div class="blog-category">
-          <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
-            {{ category }}
-          </span>
-          <span ng-if="article.categories.length === 0" class="tag margin-top-10">
-            Aucune catégorie associée
-          </span>
-          <a ui-sref="albumView({ articleId: article._id })" class="pull-right margin-top-10">
-            Voir plus
-          </a>
+        <div class="content">
+          <div class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky:'_blank'">
+            {{ article.getFormattedContent() }}
+          </div>
         </div>
-
-        <section class="blog-user-section">
-          <div class="authorSectionContainer">
-            <span class="authorSectionTitle">
-              Créé par
-            </span>
-            <div class="authorContent">
-              <span class="user-image">
-                <div class="user-image--image">
-                  <div>
-                    <img ng-src="{{ article.user.getAvatar(40,40) }}" height="40" width="40">
-                  </div>
-                </div>
-              </span>
-              <a class="authorContent-name" href="#">
-                {{article.user.username}}
-              </a>
-            </div>
-          </div>
-          <div class="blogCommentSection">
-            <span class="authorSectionTitle">
-              Ils ont laissé un commentaire
-            </span>
-            <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
-              <span class="user-image">
-                <div class="user-image--image">
-                  <div>
-                    <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
-                  </div>
-                </div>
-              </span>
-              <a class="authorContent-name" href="#">
-                {{user.username}}
-              </a>
-            </div>
-            <div ng-if="article.commentsUser.length === 0" class="margin-top-25">
-              <strong>Pas encore de commentaire</strong>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
-  </article>
-</div>
+  </section>
+
+  <section class="bottom-20">
+    <div class="media-content">
+      <div class="content">
+        <a ui-sref="article.albumView({ articleId: article._id })" class="button is-primary">
+          Voir plus
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Album comments -->
+  <section class="blog-user-section bottom-20" ng-if="article.commentsUser.length > 0">
+    <div class="blogCommentSection">
+      <span class="authorSectionTitle">
+        Ils ont laissé un commentaire
+      </span>
+      <div ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
+        <span class="user-image">
+          <div class="user-image--image">
+            <div>
+              <img ng-src="{{ user.getAvatar(80,80) }}" height="80" width="80">
+            </div>
+          </div>
+        </span>
+        <a class="authorContent-name" href="#">
+          {{user.username}}
+        </a>
+      </div>
+    </div>
+  </section>
+</article>

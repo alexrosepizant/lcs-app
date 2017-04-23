@@ -1,0 +1,40 @@
+<article class="bottom-20 margin-top-20 container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          <abbr title="Date">Date</abbr>
+        </th>
+        <th>
+          <abbr title="Match">Match</abbr>
+        </th>
+        <th>
+          <abbr title="Score">Score</abbr>
+        </th>
+        <th>
+          <abbr title="Score">Actions</abbr>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="match in matchs | orderBy: '-startsAt'">
+        <th>
+          {{match.startsAt | amDateFormat:"DD MMM YYYY, HH:mm"}}
+        </th>
+        <th>
+          <img ng-src="/assets/euro/flags/{{ match.home }}.png" class="flagScore"/>
+          {{MatchFactory.getTeamName(match.home) }} -
+          <img ng-src="/assets/euro/flags/{{ match.away }}.png" class="flagScore"/>
+          {{MatchFactory.getTeamName(match.away) }}
+        </th>
+        <th>
+          <input type="number" class="input inputScore" min="0" ng-model="match.scoreHome"/>
+          <input type="number" class="input inputScore" min="0" ng-model="match.scoreAway"/>
+        </th>
+        <th>
+          <input type="button" class="button" value="Sauvegarder" ng-click="updateScore(match)"/>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</article>

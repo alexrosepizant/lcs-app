@@ -2,13 +2,28 @@ export default function AgendaFactory($http, UserEvent) {
   "ngInject"
 
   return {
-    findUserEvents() {
-      return $http.get("/userEvent")
-        .then((userEvents) => {
-          return userEvents.data.map((userEvent) => {
-            return new UserEvent(userEvent)
-          })
+    findOnGoingUserEvents() {
+      return $http.get("/userEvent",{
+        params: {
+          ongoing: true,
+        },
+      }).then((userEvents) => {
+        return userEvents.data.map((userEvent) => {
+          return new UserEvent(userEvent)
         })
+      })
+    },
+
+    findPastUserEvents() {
+      return $http.get("/userEvent", {
+        params: {
+          past: true,
+        },
+      }).then((userEvents) => {
+        return userEvents.data.map((userEvent) => {
+          return new UserEvent(userEvent)
+        })
+      })
     },
 
     findUserEventsByUser(userId) {

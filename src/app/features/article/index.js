@@ -16,6 +16,10 @@ import AlbumDetailCtrl from "./detail/album/detailCtrl"
 import StandardDetailCtrl from "./detail/standard/detailCtrl"
 import VideoDetailCtrl from "./detail/video/detailCtrl"
 
+// Menu
+import ArticleMenuCtrl from "./menu/menuCtrl"
+import lcsArticleSidebar from "./menu/sideMenuDirective"
+
 // Create the module where our functionality can attach to
 const articleModule = angular.module("app.article", [])
 articleModule.config(ArticleConfig)
@@ -33,5 +37,8 @@ articleModule.controller("AlbumCreationCtrl", AlbumCreationCtrl)
 articleModule.controller("AlbumDetailCtrl", AlbumDetailCtrl)
 articleModule.controller("StandardDetailCtrl", StandardDetailCtrl)
 articleModule.controller("VideoDetailCtrl", VideoDetailCtrl)
+
+articleModule.controller("ArticleMenuCtrl", ArticleMenuCtrl)
+articleModule.directive("lcsArticleSidebar", lcsArticleSidebar)
 
 export default articleModule

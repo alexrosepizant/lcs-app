@@ -59,7 +59,7 @@ export default function ProfileCtrl($rootScope, $scope, $translate, $uibModal, $
 
   $scope.removeContent = (content) => {
     $uibModal.open({
-      templateUrl: "app/features/user/deletion/removeArticle.html",
+      templateUrl: "app/features/user/deletion/removeContent.html",
       controller: "RemoveContentCtrl",
       resolve: {
         contentId: () => {

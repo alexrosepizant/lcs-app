@@ -41,7 +41,7 @@ module.exports = (app) => {
 
   // READ ALL: GET userEvent
   app.get("/userEvent", (req, res) => {
-    userEvents.all(req.params)
+    userEvents.all(req.query)
       .then((userEvents) => {
         res.jsonp(userEvents)
       }).catch((err) => {

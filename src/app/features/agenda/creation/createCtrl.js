@@ -19,7 +19,7 @@ export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notif
     altFormat: "j F Y",
   }
 
-  $scope.dismiss = function() {
+  $scope.dismiss = () => {
     $scope.$dismiss()
   }
 
@@ -37,7 +37,7 @@ export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notif
         $rootScope.$broadcast("updateAgendaList")
         $scope.$close(true)
         Notification.success({
-          title: "Success",
+          title: "Grand success",
           message: "Evènement créé avec succés",
         })
       })

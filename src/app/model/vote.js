@@ -1,6 +1,6 @@
 import moment from "moment"
 
-export default function Vote($rootScope, User) {
+export default function Vote($rootScope, User, Comment) {
   "ngInject"
 
   const applatir = (arr) => {
@@ -17,12 +17,14 @@ export default function Vote($rootScope, User) {
 
   return (data) => {
     return angular.extend({
+      title: "",
       content: "",
       created: Date.now(),
-      endsAt: "",
+      endsAt: moment().add(1, "weeks").toString(),
       answers: [],
       hasUserAnswered: hasUserAnswered(data.answers),
       onGoing: moment(data.endsAt).isAfter(new Date()),
+      comments: [],
 
       getAnswerOfCurrentUser() {
         let answerId = null
@@ -49,6 +51,9 @@ export default function Vote($rootScope, User) {
           answer.users = answer.users.map((user) => new User(user))
           return answer
         }) : [],
+      },
+      {
+        comments: (data.comments) ? data.comments.map((comment) => new Comment(comment)) : [],
       },
       {
         user: new User(data.user),

@@ -10,14 +10,12 @@ const userFields = "_id name username avatar"
  * Find one
  */
 exports.userEvent = (userEventId) => {
-  return UserEvent.findOne({
-    "_id": userEventId,
-  })
-  .populate("user", userFields)
-  .populate("guest", userFields)
-  .populate("guestUnavailable", userFields)
-  .populate("comments.user", userFields)
-  .populate("comments.replies.user", userFields)
+  return UserEvent.findById(userEventId)
+    .populate("user", userFields)
+    .populate("guest", userFields)
+    .populate("guestUnavailable", userFields)
+    .populate("comments.user", userFields)
+    .populate("comments.replies.user", userFields)
 }
 
 /**
@@ -26,14 +24,25 @@ exports.userEvent = (userEventId) => {
 exports.all = (params) => {
 
   const query = (params.userId) ? {user: params.userId} : {}
+  let sort = "startsAt"
 
   // Filter on-going events
-  query.startsAt = {
-    "$gte": moment().startOf("day"),
+  if (params.ongoing) {
+    query.startsAt = {
+      "$gte": moment().startOf("day"),
+    }
+  }
+
+  if (params.past) {
+    query.startsAt = {
+      "$lt": moment().startOf("day"),
+    }
+    sort = "-startsAt"
   }
 
   return UserEvent.find(query)
-    .sort("startsAt")
+    .sort(sort)
+    .limit(20)
     .populate("user", userFields)
     .populate("guest", userFields)
     .populate("guestUnavailable", userFields)

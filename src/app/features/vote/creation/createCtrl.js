@@ -1,5 +1,3 @@
-import moment from "moment"
-
 export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFactory, Notification, vote) {
   "ngInject"
 
@@ -11,9 +9,10 @@ export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFact
   **/
   $scope.dateOpts = {
     utc: true,
-    minDate: moment().add(1, "weeks").toString(),
+    minDate: Date.now(),
     altInput: true,
     altFormat: "j F Y",
+    defaultDate: vote.endsAt,
   }
 
   $scope.addItem = () => {

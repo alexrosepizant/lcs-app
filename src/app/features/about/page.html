@@ -1,0 +1,27 @@
+<section class="container">
+  <div class="columns">
+    <div class="column is-3 margin-top-20">
+      <aside class="menu">
+        <h1 class="section-title">
+          Le site
+        </h1>
+        <ul class="menu-list">
+          <li>
+            <a ui-sref-active="{'is-active': 'about.issue.*'}" ui-sref="about.issue">
+              Les bugs
+            </a>
+          </li>
+          <li>
+            <a ui-sref-active="{'is-active': 'about.changelog'}" ui-sref="about.changelog">
+              Changements de versions
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="column is-9">
+       <div class="margin-top-20 bottom-20 withoutAnim" ui-view>
+    </div>
+  </div>
+</section>

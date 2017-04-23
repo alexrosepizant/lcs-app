@@ -1,85 +1,129 @@
-<nav class="nav has-shadow">
-  <div class="container">
-    <div class="nav-left">
-      <a class="button is-primary blog-add" ui-sref="agenda.create">
-        <span class="icon is-small">
-          <i class="fa fa-plus"></i>
-        </span>
-        <span>
-          Ajouter
-        </span>
-      </a>
-    </div>
-  </div>
-</nav>
-
 <div class="container">
-  <div class="container margin-top-20" ng-if="events.length === 0">
+  <div class="container margin-top-20" ng-if="onGoingEvents.length === 0">
     <div class="notification">
       Pas d'évènement à venir.
     </div>
   </div>
 
-  <div class="columns bottom-50 margin-top-10" ng-if="events.length > 0">
-    <div class="column is-8">
-      <div class="bottom-20">
+  <div class="columns bottom-50">
+    <div class="column is-3">
+      <aside class="menu margin-top-20">
 
-        <div class="eventDate">
-          <div>
-            <div class="eventDay" ng-if="currentEvent.subType !== 'euroMatch'">
-              <i class="fa fa-calendar-o"></i> <strong>{{ currentEvent.getDay() }}</strong> {{ currentEvent.startsAt | date:"dd MMMM yyyy" }}
-              <a class="button event-add pull-right" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
-                <span>
-                  Modifier
-                </span>
-              </a>
-            </div>
+        <h1 class="section-title">
+          Prochainement
+        </h1>
+
+        <ul class="menu-list">
+          <li>
+            <a ng-repeat="event in onGoingEvents" class="sideEvent" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
+              <article class="media">
+                <div class="media-left">
+                  <div class="eventDateSmall pull-left">
+                    <div class="eventDateLong">
+                      {{ event.startsAt | amDateFormat:"DD MMM" }}
+                    </div>
+                    <div class="eventYear">
+                      {{ event.startsAt | amDateFormat:"YYYY" }}
+                    </div>
+                  </div>
+                </div>
+                <div class="media-content" style="overflow: hidden;">
+                  <div class="content">
+                    <p class="three-line-ellipsis">
+                      <strong class="margin-top-10">
+                        {{event.title}}
+                      </strong>
+                      <br>
+                      {{event.content}}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </a>
+          </li>
+        </ul>
+
+        <div class="container" ng-if="onGoingEvents.length === 0">
+          <div class="notification">
+            Pas d'évènement à venir.
           </div>
         </div>
 
-        <div class="box">
-          <div>
-            <a ui-sref="#">
-              <div class="agenda-title ellipsis">{{currentEvent.title}}</div>
+        <p class="menu-label">
+          Evènements passés
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a ng-repeat="event in pastEvents" ng-class="{'is-active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
+              <p class="ellipsis">{{ event.startsAt | amDateFormat:"DD MMM YYYY" }} <strong>{{event.title}}</strong></p>
             </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="column is-9 margin-top-20">
+      <section class="voteButtons">
+        <a class="button action event-add" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
+          <span class="icon is-small">
+            <i class="fa fa-pencil"></i>
+          </span>
+          <span>
+            Modifier
+          </span>
+        </a>
+
+        <a class="button action event-add" ng-click="remove(currentEvent._id)" ng-disabled="currentUser._id !== currentEvent.user._id">
+          <span class="icon is-small">
+            <i class="fa fa-remove"></i>
+          </span>
+          <span>
+            Supprimer
+          </span>
+        </a>
+
+        <button class="button is-primary event-add" ui-sref="agenda.create">
+          <span class="icon is-small">
+            <i class="fa fa-plus"></i>
+          </span>
+          &nbsp;Ajouter
+        </button>
+      </section>
+
+      <div class="margin-top-20">
+        <div class="box">
+          <h1 class="blog-subtitle-detail font-xlarge margin-top-20">
+            <i class="fa fa-calendar-o"></i> <strong>{{ currentEvent.getDay() }}</strong>
+            <p>{{ currentEvent.startsAt | amDateFormat:"DD MMMM YYYY" }}</p>
+          </h1>
+          <a>
+            <div class="blog-title-detail">
+              {{currentEvent.title}}
+            </div>
+          </a>
+          <div class="blogUserDetail center margin-top-10" ng-if="currentEvent.subType !== 'euroMatch'">
+            <img ng-src="{{ currentEvent.user.getAvatar(80, 80) }}" title="{{ currentEvent.user.username }}">
           </div>
 
-          <div>
+          <section class="margin-top-20">
             <div class="eventInfos">
               <div class="agendaTag">
-                <span class="tag" ng-if="currentEvent.price"><strong>Prix</strong>{{currentEvent.price}} €</span>
-                <span class="tag" ng-if="currentEvent.location.adress"><strong>Lieu</strong>{{currentEvent.location.adress}}</span>
-                <span class="tag" ng-if="currentEvent.link" ng-bind-html="currentEvent.link | linky"><strong>Lien</strong>{{currentEvent.link}}</span>
+                <span class="tag" ng-if="currentEvent.price">
+                  <strong>Prix</strong>{{currentEvent.price}} €
+                </span>
+                <span class="tag" ng-if="currentEvent.location.adress">
+                  <strong>Lieu</strong>{{currentEvent.location.adress}}
+                </span>
+                <span class="tag" ng-if="currentEvent.link" ng-bind-html="currentEvent.link | linky">
+                  <strong>Lien</strong>{{currentEvent.link}}
+                </span>
               </div>
             </div>
 
             <div class="agenda-content">
               {{currentEvent.content}}
-              <br>
             </div>
-          </div>
 
-          <div class="clearfix">
-          </div>
-
-          <section class="blog-user-section margin-top-20">
-            <div class="agendaUserSection">
-              <div class="authorContent">
-                <span class="user-image">
-                  <div class="user-image--image">
-                    <div>
-                      <img ng-src="{{ currentEvent.user.getAvatar(30,30) }}" title="{{currentEvent.user.username}}" height="30" width="30">
-                    </div>
-                  </div>
-                </span>
-                <a class="authorContent-name margin-top-20" href="#">
-                  {{currentEvent.user.username}}
-                </a>
-                <span class="agendaSectionTitle">
-                  <span class="media-number event-counter">+ {{currentEvent.guest.length}}</span>
-                </span>
-              </div>
-            </div>
             <div class="content agendaAnswer margin-top-20">
               <button class="button is-success" ng-click="isAvailableForEvent()" ng-disabled="currentEvent.user._id === currentUser._id">
                 <span class="icon is-small">
@@ -100,22 +144,24 @@
             </div>
           </section>
 
-          <div class="agendaGuest" ng-if="currentEvent.guest.length > 0">
-            <div ng-repeat="user in currentEvent.guest" class="authorContent pull-left">
-              <span class="user-image">
-                <div class="user-image--image">
-                  <div>
-                    <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{ user.username }}">
+          <div class="blog-user-section margin-top-20">
+            <section class="margin-top-10" ng-if="currentEvent.guest.length > 0">
+              <div ng-repeat="user in currentEvent.guest" class="authorContent pull-left">
+                <span class="user-image">
+                  <div class="user-image--image">
+                    <div>
+                      <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{ user.username }}">
+                    </div>
                   </div>
-                </div>
-              </span>
-              <a class="authorContent-name" href="#">
-                {{user.username}}
-              </a>
-            </div>
+                </span>
+                <a class="authorContent-name" href="#">
+                  {{user.username}}
+                </a>
+              </div>
+            </section>
           </div>
 
-          <div class="agendaGuest" ng-if="currentEvent.guestUnavailable.length > 0">
+          <section class="agendaGuestUnavailable" ng-if="currentEvent.guestUnavailable.length > 0">
             <div ng-repeat="user in currentEvent.guestUnavailable" class="authorContent pull-left">
               <span class="user-image">
                 <div class="user-image--image">
@@ -130,46 +176,14 @@
                 {{user.username}}
               </a>
             </div>
-          </div>
+          </section>
 
           <div class="clearfix">
           </div>
 
-          <section class="blog-user-section margin-top-10 agendaComment">
+          <section class="blog-user-section margin-top-10">
             <lcs-comment type="'agenda'" object="currentEvent" class="lcs-comment"></lcs-comment>
           </section>
-        </div>
-      </div>
-    </div>
-
-    <div class="column is-4">
-      <h1 class="section-title">
-        <strong>Prochainement</strong>
-      </h1>
-
-      <div ng-if="events.length > 0" ng-repeat="event in events" class="sideEvent margin-top-10" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
-        <div class="eventRight">
-          <article class="media">
-            <div class="media-left">
-              <div class="eventDateSmall pull-left">
-                <div class="eventDateLong">
-                  {{ event.startsAt | date:"dd MMM" }}
-                </div>
-                <div class="eventYear">
-                  {{ event.startsAt | date:"yyyy" }}
-                </div>
-              </div>
-            </div>
-            <div class="media-content" style="overflow: hidden;">
-              <div class="content">
-                <p class="three-line-ellipsis">
-                  <strong>{{event.title}}</strong>
-                  <br>
-                  {{event.content}}
-                </p>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </div>

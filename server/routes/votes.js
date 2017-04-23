@@ -28,7 +28,7 @@ module.exports = (app) => {
       user: req.user,
     })).then((vote) => {
       notifications.create({
-        title: "Nouveau vote",
+        title: vote.title || "Nouveau vote",
         contentId: vote._id,
         type: "vote",
         user: vote.user,

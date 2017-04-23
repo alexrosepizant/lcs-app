@@ -22,6 +22,5 @@ exports.all = (params) => {
  * Create a notification
  */
 exports.create = (notification) => {
-  const _notification = new Notification(notification)
-  return _notification.save()
+  return new Notification(notification).save()
 }

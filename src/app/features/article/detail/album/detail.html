@@ -1,95 +1,71 @@
-<nav class="nav has-shadow">
-  <div class="container">
-    <div class="nav-left">
-      <a ng-click="download()" class="button is-primary blog-add-left">
-        <span class="icon is-small">
-          <i class="fa fa-download"></i>
-        </span>
-        <span>
-          Télécharger
-        </span>
-      </a>
-      <a ng-click="updateContent()" class="button blog-add blog-add-left" ng-disabled="article.user._id !== currentUser._id">
-        <span class="icon is-small">
-          <i class="fa fa-pencil"></i>
-        </span>
-        <span>
-          Modifier
-        </span>
-      </a>
-      <a ng-click="removeContent()" class="button is-danger blog-add blog-add-left" ng-disabled="article.user._id !== currentUser._id">
-        <span class="icon is-small">
-          <i class="fa fa-remove"></i>
-        </span>
-        <span>
-          Supprimer
-        </span>
-      </a>
-    </div>
-  </div>
-</nav>
+<div class="voteButtons">
+  <a ng-click="download()" class="button blog-add">
+    <span class="icon is-small">
+      <i class="fa fa-download"></i>
+    </span>
+    <span>
+      Télécharger
+    </span>
+  </a>
+  <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
+    <span class="icon is-small">
+      <i class="fa fa-pencil"></i>
+    </span>
+    <span>
+      Modifier
+    </span>
+  </a>
+  <a ng-click="removeContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
+    <span class="icon is-small">
+      <i class="fa fa-remove"></i>
+    </span>
+    <span>
+      Supprimer
+    </span>
+  </a>
+</div>
 
-
-<div class="container margin-top-20">
+<article class="container margin-top-20">
   <div class="box bottom-50">
-    <p>
-      <strong>
-        <i class="fa fa-clock-o font-small pull-left"></i> <small class="pull-left">{{ article.getDateFrom() }}</small>
-      </strong>
-    </p>
-    <button class="delete pull-right" ui-sref="article({ filter: article.type })"></button>
-    <div class="blog-title-detail ellipsis">{{article.title}}</div>
+    <button class="delete pull-right" ui-sref="article.list"></button>
 
-    <div>
-      {{article.description}}
-    </div>
+    <section>
+      <a>
+        <div class="margin-top-10">
+          <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
+        </div>
+        <div class="blog-title-detail">
+          {{article.title}}
+        </div>
+      </a>
+      <h2 class="blog-subtitle-detail margin-top-20">
+        <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
+      </h2>
+      <div class="blogUserDetail center margin-top-10">
+        <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+      </div>
+    </section>
 
-    <article class="media margin-top-10">
+    <section class="media margin-top-20">
       <div class="media-content">
-        <div>
-          <div>
-            <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
-              {{ category }}
-            </span>
-          </div>
+        <div class="content">
+          <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
+            {{ category }}
+          </span>
+        </div>
 
-          <div class="blog-album margin-top-20">
-            <div deckgrid class="deckgrid" source="article.photoList">
-              <a ng-href="{{ card.filepath }}"
-              class="lightbox-trigger"
-              title="{{ card.name }}"
-              lightbox
-              index="{{$index}}">
+        <div class="blog-album margin-top-20">
+          <div deckgrid class="deckgrid deckgrid4" source="article.photoList">
+            <a ng-href="{{ card.filepath }}" class="lightbox-trigger" title="{{ card.name }}" lightbox index="{{$index}}">
               <img ng-src="{{ card.filepath }}?dim=300"/>
             </a>
           </div>
         </div>
       </div>
-    </div>
-  </article>
-  <div class="spacer">
+    </section>
+
+    <section class="blog-user-section margin-top-20">
+      <lcs-comment object="article" class="lcs-comment"></lcs-comment>
+    </section>
   </div>
-
-  <section class="blog-user-section margin-top-20">
-    <div class="authorSectionContainer">
-      <span class="authorSectionTitle">
-        Créé par
-      </span>
-      <div class="authorContent small-margin-top">
-        <span class="user-image">
-          <div class="user-image--image">
-            <div>
-              <img ng-src="{{ article.user.getAvatar(40,40) }}" width="40" height="40">
-            </div>
-          </div>
-        </span>
-        <a class="authorContent-name" href="#">
-          {{article.user.username}}
-        </a>
-      </div>
-    </div>
-
-    <lcs-comment object="article" class="lcs-comment"></lcs-comment>
-  </section>
-</div>
-</div>
+</article>

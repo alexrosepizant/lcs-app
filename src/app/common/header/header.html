@@ -1,4 +1,4 @@
-<section class="top-header" ng-controller="HeaderCtrl" ng-if="currentUser">
+<section ng-controller="HeaderCtrl" ng-if="currentUser">
   <div class="hero-head">
     <div class="container">
       <nav class="nav">
@@ -10,42 +10,19 @@
           </a>
         </div>
 
-        <div class="nav-center header-center">
-          <!-- Search bar -->
-          <!-- <input type="text" class="search-query" ng-enter="search()" ng-model="word"> -->
-        </div>
-
         <div class="nav-right nav-menu">
 
-          <!-- Menu items -->
-          <a class="nav-item header-item" ui-sref="{{item.link}}" ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">{{item.name}}</a>
-
-          <!-- Site button -->
+          <!-- Search bar -->
           <span class="nav-item">
-            <span angular-popover direction="bottom" template-url="app/common/header/popover/site.html" close-on-mouseleave="true" mode="mouseover">
-              <span class="icon">
-                <i class="fa fa-cog"></i>
-              </span>
-            </span>
+            <input type="text" class="search-query" ng-enter="search()" ng-model="word">
           </span>
 
           <!-- Chat button -->
-          <span class="nav-item">
+          <span class="nav-item" ng-mouseover="hasNewMessage = false">
             <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html" mode="mouseover">
               <a class="ng-popover-trigger">
-                <span class="icon" ng-class="{'hasMessage' : hasNewMessage}">
+                <span class="icon chatIcon" ng-class="{'hasMessage' : hasNewMessage}">
                   <i class="fa fa-commenting-o"></i>
-                </span>
-              </a>
-            </span>
-          </span>
-
-          <!-- Notification button -->
-          <span class="nav-item">
-            <span class="notificationContainer" angular-popover direction="bottom" template-url="app/common/header/popover/notification.html" close-on-mouseleave="true" mode="mouseover">
-              <a class="ng-popover-trigger">
-                <span class="icon">
-                  <i class="fa fa-bell-o"></i>
                 </span>
               </a>
             </span>
@@ -65,4 +42,32 @@
       </nav>
     </div>
   </div>
+
+  <section class="hero is-primary">
+    <div class="hero-foot padding-top-10">
+      <div class="container">
+        <nav class="tabs is-boxed">
+          <ul>
+            <li ng-repeat="item in menu" ui-sref-active="{'is-active': item.routePath}">
+              <a ui-sref="{{item.link}}">{{item.name}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-primary fix-to-top-hide" set-class-when-at-top="fix-to-top">
+    <div class="hero-foot padding-top-10">
+      <div class="container">
+        <nav class="tabs is-boxed">
+          <ul>
+            <li ng-repeat="item in menu" ui-sref-active="{'is-active': item.routePath}">
+              <a ui-sref="{{item.link}}">{{item.name}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
 </section>

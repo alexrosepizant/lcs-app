@@ -8,8 +8,11 @@ export default function AgendaConfig($stateProvider) {
       controller: "AgendaListCtrl",
       title: "Agenda",
       resolve: {
-        events: (AgendaFactory) => {
-          return AgendaFactory.findUserEvents()
+        onGoingEvents: (AgendaFactory) => {
+          return AgendaFactory.findOnGoingUserEvents()
+        },
+        pastEvents: (AgendaFactory) => {
+          return AgendaFactory.findPastUserEvents()
         },
       },
     })

@@ -1,0 +1,8 @@
+<div class="bottom-20 winnerContainer">
+  <div deckgrid class="deckgrid deckgrid6" source="MatchFactory.teams">
+    <div class="blog teamSelection" ng-click="mother.selectTeam(card.code)" ng-class="{'active': card.code === mother.currentUser.favoriteEuroTeam}">
+      <img ng-src="/assets/euro/flags/{{ card.code }}.png"/>
+      <p class="margin-top-10 ellipsis">{{ mother.MatchFactory.getTeamName(card.code) }}</p>
+    </div>
+  </div>
+</div>

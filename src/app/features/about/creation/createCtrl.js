@@ -50,7 +50,7 @@ export default function CreateIssueCtrl($rootScope, $scope, IdeaFactory, Notific
         $rootScope.$broadcast("updateIssueList")
         $scope.$close(true)
         Notification.success({
-          title: "Success",
+          title: "Grand success",
           message: "Idée ajoutée avec succés",
         })
       })

@@ -1,6 +1,7 @@
 import moment from "moment"
 
-export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFactory, NotificationFactory, Comment) {
+export default function CommentCtrl($rootScope, $scope,
+    AgendaFactory, ArticleFactory, NotificationFactory, MatchFactory, VoteFactory, Comment) {
   "ngInject"
 
   // Retrieve currentUser
@@ -47,7 +48,7 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
           $scope.object.comments = object.comments.map((c) => new Comment(c))
           $scope.init()
 
-        // add comment object
+          // add comment object
           $scope.createCommentContent()
         })
     }
@@ -81,18 +82,38 @@ export default function CommentCtrl($rootScope, $scope, AgendaFactory, ArticleFa
     switch ($scope.type) {
     case "agenda":
       return AgendaFactory.update($scope.object)
+    case "vote":
+      return VoteFactory.update($scope.object)
+    case "match":
+      return MatchFactory.update($scope.object)
     default:
       return ArticleFactory.updateArticle($scope.object)
     }
   }
 
   $scope.createCommentContent = () => {
+    let type
+    switch ($scope.type) {
+    case "agenda":
+      type = "userEvent"
+      break
+    case "vote":
+      type = "vote"
+      break
+    case "match":
+      type = "match"
+      break
+    default:
+      type = $scope.object.type
+      break
+    }
+
     NotificationFactory.create({
       title: $scope.object.title,
       user: $scope.currentUser._id,
       type: "comment",
       contentId: $scope.object._id,
-      contentType: $scope.object.type || "userEvent",
+      contentType: type,
     })
   }
 }

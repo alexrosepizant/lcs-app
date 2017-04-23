@@ -5,7 +5,7 @@ export default function AboutListCtrl($scope, IdeaFactory, ideas) {
   $scope.ideas = ideas
 
   $scope.addLike = (idx) => {
-    $scope.ideas[idx].like += 1
+    $scope.ideas[$scope.ideas.length - idx - 1].like += 1
     IdeaFactory.updateIdea($scope.ideas[idx])
   }
 

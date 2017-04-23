@@ -1,12 +1,15 @@
-<div class="home-contents">
-  <span ng-repeat="content in notifications | orderBy:'-created'">
-    <small class="pull-right margin-top-10">{{content.getDateFrom()}}</small>
-    <p class="event-item ellipsis">
-      <span class="icon-item-type">
-        <i class="fa" ng-class="content.getIcon()"></i>
-      </span>
-      <a href="#">{{content.user.username}}</a> {{content.getFormattedType()}}
-      <a ng-click="content.openLink()">{{content.title || 'un commentaire'}}</a>
-    </p>
-  </span>
-</div>
+<section>
+  <ul class="menu-list">
+    <li>
+      <a ng-repeat="content in notifications | orderBy:'-created'" ng-click="content.openLink()">
+        <p class="ellipsis">
+          <span class="icon-item-type">
+            <i class="fa" ng-class="content.getIcon()"></i>
+          </span>
+          {{content.getDateFrom()}}, <strong>{{content.user.username}} {{content.getFormattedType()}}
+          {{content.title || 'un commentaire'}}</strong>
+        </p>
+      </a>
+    </li>
+  </ul>
+</section>

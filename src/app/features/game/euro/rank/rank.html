@@ -1,0 +1,28 @@
+<div deckgrid class="deckgrid deckgrid3" source="users">
+  <div class="card-content blog">
+    <a class="card-avatar">
+      <img ng-src="{{card.getAvatar(40,40)}}" class="card-avatar-img">
+    </a>
+
+    <div class="card-user">
+      <div class="card-user-name">
+        <a href="#">{{card.username}}</a>
+        <br>
+        <a>
+          <span class="card-stats-key font-large">{{ card.euroPoints }} Points</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card-stats">
+      <ul class="card-stats-list">
+        <li class="card-stats-item">
+          <a>
+            <span class="card-stats-key">Classement</span>
+            <span class="card-stats-val">{{ card.$index + 1}}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

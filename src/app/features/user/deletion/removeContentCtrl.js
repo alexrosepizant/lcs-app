@@ -1,28 +1,49 @@
 export default function ProfileCtrl($rootScope, $scope, $state,
-    ArticleFactory, AgendaFactory, Notification, contentId, type) {
+    ArticleFactory, AgendaFactory, VoteFactory, Notification, contentId, type) {
   "ngInject"
 
   // retrieve variables
   $scope.contentId = contentId
   $scope.contentType = type
 
+  switch ($scope.contentType) {
+  case "agenda":
+    $scope.labelType = "l'evènement"
+    break
+  case "vote":
+    $scope.labelType = "le vote"
+    break
+  default:
+    $scope.labelType = "l'article"
+    break
+  }
+
   $scope.dismiss = () => {
     $scope.$dismiss()
   }
 
   $scope.removeContent = () => {
-    let labelType= ""
     let promise = null
     switch ($scope.contentType) {
     case "agenda":
-      labelType = "Evènement"
       promise = AgendaFactory.deleteUserEvent($scope.contentId)
+        .then(() => {
+          $rootScope.$broadcast("updateAgendaList")
+          return $state.go("agenda")
+        })
+      break
+    case "vote":
+      promise = VoteFactory.deleteVote($scope.contentId)
+          .then(() => {
+            $rootScope.$broadcast("updateVoteList")
+            return $state.go("vote")
+          })
       break
     default:
-      labelType = "Article"
-      promise = ArticleFactory.deleteArticle($scope.contentId).then(() => {
-        return $state.go("article")
-      })
+      promise = ArticleFactory.deleteArticle($scope.contentId)
+        .then(() => {
+          return $state.go("blog")
+        })
       break
     }
 
@@ -32,7 +53,7 @@ export default function ProfileCtrl($rootScope, $scope, $state,
         $rootScope.$broadcast("updateUserContentList")
         Notification.success({
           title: "Success",
-          message: `${labelType} supprimé avec succés`,
+          message: `${$scope.labelType} supprimé avec succés`,
         })
       })
       .catch((err) => {
