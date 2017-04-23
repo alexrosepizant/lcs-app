@@ -1,6 +1,22 @@
-# angular-1.5-express-webpack-boilerplate
+# `Les coqs soccer application`
 
-A comprehensive boilerplate for express+angular application that uses webpack. It works in both production and development modes and provides automatic rebundling and restaring while developing.
+Lite social network to share articles, videos, and fun between friends. Contains a calendar to organise events, a "vote" feature and different small games...
+
+Build with angular 1.5 (component), ES6 and Webpack.
+
+## Prerequisites
+* Node.js - Download and Install [Node.js](http://www.nodejs.org/download/).
+* MongoDB - Download and Install [MongoDB](http://docs.mongodb.org/manual/installation/) - Make sure `mongod` is running on the default port (27017).
+
+### Tools Prerequisites
+* NPM - Node.js package manage; should be installed when you install node.js.
+
+## Additional Packages
+* Express - Defined as npm module in the [package.json](package.json) file.
+* Mongoose - Defined as npm module in the [package.json](package.json) file.
+* Passport - Defined as npm module in the [package.json](package.json) file.
+* AngularJS - Defined as npm module in the [package.json](package.json) file.
+* [Bulma css framework](http://bulma.io/)
 
 This webpack configuration has several predefined loaders:
 * [babel-loader](https://github.com/babel/babel-loader) for *.es6.js files
@@ -9,20 +25,13 @@ This webpack configuration has several predefined loaders:
 * [file-loader](https://github.com/webpack/file-loader) and [image-loader](https://github.com/novoda/image-loader) for *.jpeg, *.png, *.gif and *.svg files
 * [postcss-loader](https://github.com/postcss/postcss-loader) for css postprocessing (autoprefixer + csswring)
 
-...and plugins:
-* extract-text-webpack-plugin for external css bundle in production mode
-* stats-webpack-pluginto for [analyse](http://webpack.github.io/analyse/)
-
-Default angular app has [angular-ui-router](https://github.com/angular-ui/ui-router) module.
-Based on the great article: [The ultimate webpack setup](http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup)
-
 ### installation
 
 Clone the repo:
 
 ```bash
-$ git clone git@github.com:alexrosepizant/webpack-express-boilerplate.git my-project
-$ cd my-project
+$ git clone git@github.com:alexrosepizant/lcs-app.git lcs-app
+$ cd lcs-app
 ```
 
 Install dependencies:
@@ -44,16 +53,25 @@ Run server with:
 $ npm start
 ```
 
-It runs express server on localhost on port 3000 and webpack-dev-server on port 3001 with proxing requests from the first one to the second one.
+### production
 
-You can specify host of the application:
+Build application with:
 
 ```bash
-$ APP_HOST=appdomain.com npm start
+$ npm run build:prod
 ```
 
-Application has two separate directory `frontend` and `backend`. The entry point for frontend is `frontend/app.es6.js` file and for backend it is `backend/server.js`.
+and run it with:
 
-Do not forget to specify your app domain in `server.js` for production mode!
+```bash
+$ npm run server:prod
+```
+
+It runs express server on localhost on port 3000 and webpack-dev-server on port 3001 with proxing requests from the first one to the second one.
+
+Application has two separate directory `src` and `server`. The entry point for frontend is `src/app/app.js` file and for backend it is `server/server.js`.
 
 ### Have fun!
+
+## License
+MIT
