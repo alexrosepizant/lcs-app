@@ -3386,12 +3386,10 @@ a.box:active {
 
 .menu-list a:hover {
   background-color: whitesmoke;
-  color: #42b983;
 }
 
 .menu-list a.is-active {
   background-color: #42b983;
-  color: white;
 }
 
 .menu-list li ul {

@@ -18,7 +18,7 @@
           </span>
 
           <!-- Chat button -->
-          <span class="nav-item">
+          <span class="nav-item" ng-mouseover="hasNewMessage = false">
             <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html" mode="mouseover">
               <a class="ng-popover-trigger">
                 <span class="icon chatIcon" ng-class="{'hasMessage' : hasNewMessage}">
@@ -48,7 +48,7 @@
       <div class="container">
         <nav class="tabs is-boxed">
           <ul>
-            <li ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">
+            <li ng-repeat="item in menu" ui-sref-active="{'is-active': item.routePath}">
               <a ui-sref="{{item.link}}">{{item.name}}</a>
             </li>
           </ul>
@@ -62,7 +62,7 @@
       <div class="container">
         <nav class="tabs is-boxed">
           <ul>
-            <li ng-repeat="item in menu" ng-class="{'is-active' : isCurrentPath(item)}">
+            <li ng-repeat="item in menu" ui-sref-active="{'is-active': item.routePath}">
               <a ui-sref="{{item.link}}">{{item.name}}</a>
             </li>
           </ul>

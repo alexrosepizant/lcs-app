@@ -10,7 +10,7 @@
       </div>
     </a>
     <h2 class="blog-subtitle margin-top-20">
-      <i class="fa fa-clock-o font-small icon-action"></i> 
+      <i class="fa fa-clock-o font-small icon-action"></i>
       {{ article.getDateFrom() }}
     </h2>
   </section>
@@ -31,7 +31,7 @@
     </div>
   </section>
 
-  <section class="margin-top-20">
+  <section class="margin-top-20 bottom-20">
     <div class="media-content">
       <div class="content">
         <a ui-sref="article.standardView({ articleId: article._id })" class="button is-primary">
@@ -41,25 +41,22 @@
     </div>
   </section>
 
-  <section class="blog-user-section margin-top-20">
+  <section class="blog-user-section" ng-if="article.commentsUser.length > 0">
     <div class="blogCommentSection">
       <span class="authorSectionTitle">
         Ils ont laissé un commentaire
       </span>
-      <div ng-if="article.commentsUser.length > 0" ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
+      <div ng-repeat="user in article.commentsUser | limitTo: 5" class="authorContent">
         <span class="user-image">
           <div class="user-image--image">
             <div>
-              <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30">
+              <img ng-src="{{ user.getAvatar(80,80) }}" height="80" width="80">
             </div>
           </div>
         </span>
         <a class="authorContent-name" href="#">
           {{user.username}}
         </a>
-      </div>
-      <div ng-if="article.commentsUser.length === 0" class="margin-top-25">
-        <strong>Pas encore de commentaire</strong>
       </div>
     </div>
   </section>

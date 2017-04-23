@@ -44,7 +44,6 @@ exports.delete = (match) => {
 Score calculation
 */
 const getPointsFromMatch = (match, user) => {
-
   /* Winner code:
   1 for home team
   2 for away team
@@ -56,7 +55,11 @@ const getPointsFromMatch = (match, user) => {
   const ACCEPTED_GOAL_DIFFERENCE = 1
 
   let points = 0
-  const userBet = match.bets.find((bet) => bet.user._id === user._id)
+  const userBet = match.bets.reverse().find((bet) => bet.user._id === user._id)
+
+  if (!userBet) {
+    return 0
+  }
 
   // Get real match results
   const scoreHome = match.scoreHome
@@ -98,17 +101,34 @@ const getPointsFromMatch = (match, user) => {
 */
 const updateBets = (match) => {
   match.bets.forEach((bet) => {
-    console.warn("New bet of " + bet.user.username)
     bet.userPoints = getPointsFromMatch(match, bet.user)
   })
   return match
+}
+
+const updateUserBet = (match) => {
+  const promises = []
+  match.bets.forEach((bet) => {
+    const points = getPointsFromMatch(match, bet.user)
+
+    console.warn(bet.user.username + " scored " + points)
+    promises.push(User.findByIdAndUpdate(bet.user._id, {
+      $inc: {
+        euroPoints: points,
+      }}, {
+        upsert: true,
+      })
+    )
+  })
+
+  return promises
 }
 
 /*
   Calcul and store scores for each ended match
 */
 const updateScores = () => {
-  const promises = []
+  let promises = []
 
   return Match.find({
     startsAt: {
@@ -130,10 +150,12 @@ const updateScores = () => {
     } else {
       console.warn("Count of matchs to udpate: " + matchs.length)
       matchs.forEach((match) => {
+
         console.warn("")
         console.warn("------- New match ------")
         match = updateBets(match)
         promises.push(match.save())
+        promises = promises.concat(updateUserBet(match))
       })
 
       return Promise.all(promises)

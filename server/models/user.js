@@ -77,6 +77,7 @@ UserSchema
       "avatar": this.avatar,
       "lastConnectionDate": this.lastConnectionDate,
       "favoriteEuroTeam": this.favoriteEuroTeam,
+      "isEuroAdmin": this.isEuroAdmin,
     }
   })
 

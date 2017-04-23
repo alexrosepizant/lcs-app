@@ -1,9 +1,7 @@
-export default function SideMenuCtrl($scope, $location, $uibModal) {
+export default function SideMenuCtrl($rootScope, $scope, $location, $uibModal) {
   "ngInject"
 
-  $scope.isCurrentPath = (item) => {
-    return $location.path().split("/").pop() === item
-  }
+  $scope.currentUser = $rootScope.currentUser
 
   $scope.showRules = () => {
     $uibModal.open({

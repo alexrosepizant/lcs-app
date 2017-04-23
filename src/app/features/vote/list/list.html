@@ -22,9 +22,9 @@
           </li>
         </ul>
 
-        <div class="container" ng-if="onGoingEvents.length === 0">
+        <div class="container" ng-if="onGoingVotes.length === 0">
           <div class="notification">
-            Il n'y a aucun vote en ce moment.
+            Pas de vote en ce moment.
           </div>
         </div>
 
@@ -43,7 +43,7 @@
 
     <div class="column is-9">
       <section class="voteButtons margin-top-20">
-        <a class="button action vote-add" ui-sref="vote.update({voteId: currentVote._id})" ng-disabled="currentUser._id !== currentVote.user._id && currentVote.onGoing">
+        <a class="button action vote-add" ui-sref="vote.update({voteId: currentVote._id})" ng-disabled="currentUser._id !== currentVote.user._id || !currentVote.onGoing">
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
@@ -52,7 +52,7 @@
           </span>
         </a>
 
-        <a class="button vote-add" ng-click="remove(currentVote._id)" ng-disabled="currentUser._id !== currentVote.user._id && currentVote.onGoing">
+        <a class="button vote-add" ng-click="remove(currentVote._id)" ng-disabled="currentUser._id !== currentVote.user._id || !currentVote.onGoing">
           <span class="icon is-small">
             <i class="fa fa-remove"></i>
           </span>

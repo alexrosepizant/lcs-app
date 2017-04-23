@@ -3,14 +3,16 @@ export default function AboutConfig($stateProvider) {
 
   $stateProvider
     .state("games", {
-      redirectTo: "euro.team",
+      url: "/games",
+      abstract: true,
+      template:"<div ui-view></div>",
     })
-    .state("euro", {
-      url: "/games/euro",
+    .state("games.euro", {
+      url: "/euro",
       abstract: true,
       template: require("./euro/euro.html"),
     })
-    .state("euro.team", {
+    .state("games.euro.team", {
       url: "/team",
       template: require("./euro/team/list.html"),
       controller: "EuroTeamCtrl",
@@ -23,7 +25,7 @@ export default function AboutConfig($stateProvider) {
         },
       },
     })
-    .state("euro.match", {
+    .state("games.euro.match", {
       url: "/match",
       template : require("./euro/match/list/list.html"),
       controller: "EuroMatchCtrl",
@@ -36,7 +38,7 @@ export default function AboutConfig($stateProvider) {
         },
       },
     })
-    .state("euro.rank", {
+    .state("games.euro.rank", {
       url: "/rank",
       template : require("./euro/rank/rank.html"),
       controller: "EuroRankCtrl",
@@ -46,7 +48,7 @@ export default function AboutConfig($stateProvider) {
         },
       },
     })
-    .state("euro.score", {
+    .state("games.euro.score", {
       url: "/score",
       template: require("./euro/score/score.html"),
       controller: "EuroScoreCtrl",
@@ -59,8 +61,8 @@ export default function AboutConfig($stateProvider) {
         },
       },
     })
-    .state("euro.bets", {
-      parent: "euro.match",
+    .state("games.euro.bets", {
+      parent: "games.euro.match",
       url: "/bets?matchId",
       onEnter: ($state, $stateParams, $uibModal) => {
         $uibModal.open({

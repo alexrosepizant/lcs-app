@@ -4,10 +4,14 @@
   </p>
   <ul class="menu-list">
     <li>
-      <a ng-class="{'is-active' : isCurrentPath('team')}" ui-sref="euro.team">Le vainqueur final</a>
+      <a ui-sref-active="{'is-active': 'games.euro.team'}" ui-sref="games.euro.team">
+        Le vainqueur final
+      </a>
     </li>
     <li>
-      <a ng-class="{'is-active' : isCurrentPath('match')}" ui-sref="euro.match">Les matchs</a>
+      <a ui-sref-active="{'is-active': 'games.euro.match'}" ui-sref="games.euro.match">
+        Les matchs
+      </a>
     </li>
   </ul>
   <p class="menu-label">
@@ -15,15 +19,19 @@
   </p>
   <ul class="menu-list">
     <li>
-      <a ng-class="{'is-active' : isCurrentPath('rank')}" ui-sref="euro.rank">Le classement</a>
+      <a ui-sref-active="{'is-active': 'games.euro.rank'}" ui-sref="games.euro.rank">
+        Le classement
+      </a>
     </li>
   </ul>
-  <p class="menu-label">
+  <p class="menu-label" ng-if="currentUser.isEuroAdmin">
     Administration
   </p>
   <ul class="menu-list">
     <li>
-      <a ng-class="{'is-active' : isCurrentPath('score')}" ui-sref="euro.score">La rentrée des scores</a>
+      <a ui-sref-active="{'is-active': 'games.euro.score'}" ui-sref="games.euro.score">
+        La rentrée des scores
+      </a>
     </li>
   </ul>
   <p class="menu-label">
@@ -31,7 +39,9 @@
   </p>
   <ul class="menu-list">
     <li>
-      <a ng-click="showRules()">Les règles</a>
+      <a ng-click="showRules()">
+        Les règles
+      </a>
     </li>
   </ul>
 </aside>

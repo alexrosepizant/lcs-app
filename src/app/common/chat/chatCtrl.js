@@ -58,14 +58,6 @@ export default function ChatCtrl($rootScope, $scope, User, Message, socket, User
     $scope.message.content += "@" + name + " "
   }
 
-  $scope.toggleChat = () => {
-    $scope.showChat = !$scope.showChat
-
-    if ($scope.showChat) {
-      $scope.hasNewMessage = false
-    }
-  }
-
   /**
   Add and save actions
   **/

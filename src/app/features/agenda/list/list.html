@@ -43,13 +43,19 @@
           </li>
         </ul>
 
+        <div class="container" ng-if="onGoingEvents.length === 0">
+          <div class="notification">
+            Pas d'évènement à venir.
+          </div>
+        </div>
+
         <p class="menu-label">
           Evènements passés
         </p>
         <ul class="menu-list">
           <li>
             <a ng-repeat="event in pastEvents" ng-class="{'is-active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
-              <p class="ellipsis">{{ event.startsAt | amDateFormat:"DD MMM YYYY" }}, <strong>{{event.title}}</strong></p>
+              <p class="ellipsis">{{ event.startsAt | amDateFormat:"DD MMM YYYY" }} <strong>{{event.title}}</strong></p>
             </a>
           </li>
         </ul>

@@ -490,7 +490,6 @@ p.title.is-bold {
 }
 
 .blog:hover,
-.sideEvent:not(.active):hover .eventRight,
 .archive:hover {
   background: #fff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
@@ -1006,8 +1005,12 @@ textarea {
   color: #e62727;
 }
 
+span.hasMessage {
+  background: #e62727;
+}
+
 span.hasMessage i {
-  color: #e62727;
+  color: #fff;
 }
 
 .chat-message-counter {
@@ -1531,6 +1534,10 @@ figure {
   margin-top: 2px;
 }
 
+.icon-action-m {
+  margin-top: 4px;
+}
+
 .agenda-container {
   margin-bottom: -20px;
 }
@@ -1577,8 +1584,13 @@ figure {
   margin-right: 10px;
 }
 
-.sideEvent.active {
+.sideEvent {
+  padding: 10px !important;
   background: white;
+}
+
+.sideEvent.active {
+  background: var(--MainColor) !important;
 }
 
 .eventDateSmall .agenda-title {
@@ -1652,21 +1664,13 @@ span:not(:last-child) p.event-item {
   height: 100%;
 }
 
-.sideEvent.active .eventDateSmall {
+.eventDateSmall {
   padding: 10px;
   text-align: center;
   font-size: 2em;
   background: white;
   color: var(--MainColor);
   border: 1px solid;
-}
-
-.eventDateSmall {
-  padding: 10px;
-  text-align: center;
-  font-size: 2em;
-  background: #ccc;
-  color: white;
 }
 
 .eventDay {
@@ -1690,11 +1694,6 @@ span:not(:last-child) p.event-item {
 .eventDateLong {
   font-size: 25px;
   font-weight: 700;
-}
-
-.sideEvent:not(.active) .eventYear,
- .sideEvent:not(.active) .eventDateLong{
-  color: white;
 }
 
 .eventYear {

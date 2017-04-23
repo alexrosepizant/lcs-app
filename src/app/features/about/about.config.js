@@ -4,6 +4,11 @@ export default function AboutConfig($stateProvider) {
   $stateProvider
     .state("about", {
       url: "/about",
+      abstract: true,
+      template: require("./page.html"),
+    })
+    .state("about.issue", {
+      url: "/issue",
       template: require("./list/list.html"),
       controller: "AboutListCtrl",
       resolve: {
@@ -12,8 +17,8 @@ export default function AboutConfig($stateProvider) {
         },
       },
     })
-    .state("about.create", {
-      parent: "about",
+    .state("about.issue.create", {
+      parent: "about.issue",
       url: "/create",
       onEnter: ($state, $uibModal) => {
         $uibModal.open({
@@ -31,5 +36,9 @@ export default function AboutConfig($stateProvider) {
           $state.go("^")
         })
       },
+    })
+    .state("about.changelog", {
+      url: "/changelog",
+      template: require("./changelog/changelog.html"),
     })
 }
