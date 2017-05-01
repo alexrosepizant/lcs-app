@@ -1,41 +1,49 @@
 export default function UserFactory($http, $rootScope, $cookieStore, User) {
   "ngInject"
 
+  const BASE_URL = "user"
+
   return {
+    // Utils
+    sortUsers(users) {
+      return users.data
+        .map((user) => new User(Object.assign({count: user.count}, user._id)))
+        .sort((a, b) => b.count - a.count)
+    },
+
+    /*
+      ENDPOINTS
+    */
     findUsers() {
-      return $http.get("/users")
+      return $http.get(`/${BASE_URL}`)
         .then((users) => {
           return users.data.map((user) => new User(user))
         })
     },
 
     findUsersByArticleCount() {
-      return $http.get("/users/getAuthorsByArticleCount")
+      return $http.get(`/${BASE_URL}/getAuthorsByArticleCount`)
         .then((users) => {
-          return users.data
-            .map((user) => new User(Object.assign({count: user.count}, user._id)))
-            .sort((a, b) => b.count - a.count)
+          return this.sortUsers(users)
         })
     },
 
     findUsersByVoteCount() {
-      return $http.get("/users/getAuthorsByVoteCount")
+      return $http.get(`/${BASE_URL}/getAuthorsByVoteCount`)
         .then((users) => {
-          return users.data
-            .map((user) => new User(Object.assign({count: user.count}, user._id)))
-            .sort((a, b) => b.count - a.count)
+          return this.sortUsers(users)
         })
     },
 
     getUser(userId) {
-      return $http.get(`/users/${userId}`)
+      return $http.get(`/${BASE_URL}/${userId}`)
         .then((user) => {
           return new User(user)
         })
     },
 
     updateUser(user) {
-      return $http.put(`/users/${user._id}`, user)
+      return $http.put(`/${BASE_URL}/${user._id}`, user)
         .then((response) => {
           const _user = response.data
           $rootScope.currentUser = _user
@@ -45,7 +53,7 @@ export default function UserFactory($http, $rootScope, $cookieStore, User) {
     },
 
     deleteUser(userId) {
-      return $http.delete(`/users/${userId}`)
+      return $http.delete(`/${BASE_URL}/${userId}`)
     },
   }
 }

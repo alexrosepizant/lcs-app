@@ -7,11 +7,13 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal,
   $scope.pastEvents = pastEvents
   $scope.onGoingEvents = onGoingEvents
 
-  $scope.currentEvent = $scope.onGoingEvents[0]
-
   /**
   Utilities
   **/
+  $scope.selectFistEvent = () => {
+    $scope.currentEvent = $scope.onGoingEvents[0] || $scope.pastEvents[0]
+  }
+
   $scope.setCurrentEvent = (userEvent) => {
     $scope.currentEvent = userEvent
   }
@@ -82,11 +84,15 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal,
     AgendaFactory.findOnGoingUserEvents()
       .then((onGoingEvents) => {
         $scope.onGoingEvents = onGoingEvents
-        $scope.currentEvent = $scope.onGoingEvents[0]
         return AgendaFactory.findPastUserEvents()
       })
       .then((pastEvents) => {
         $scope.pastEvents = pastEvents
       })
+      .then(() => {
+        $scope.selectFistEvent()
+      })
   })
+
+  $scope.selectFistEvent()
 }

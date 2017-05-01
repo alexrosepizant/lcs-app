@@ -88,6 +88,7 @@ exports.create = (articleData) => {
       })
   } else {
     return article.save()
+      .then((article) => this.article(article._id))
   }
 }
 
@@ -96,6 +97,7 @@ exports.create = (articleData) => {
 */
 exports.update = (article) => {
   return article.save()
+    .then((article) => this.article(article._id))
 }
 
 /**

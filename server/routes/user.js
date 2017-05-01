@@ -2,7 +2,7 @@
 
 // User routes use users controller
 const passport = require("passport")
-const users = require("../controllers/users")
+const users = require("../controllers/user")
 const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
@@ -58,7 +58,7 @@ module.exports = (app) => {
   /**
   * Create user
   */
-  app.post("/auth/users", (req, res, next) => {
+  app.post("/auth/user", (req, res, next) => {
     users.create(req.body)
     .then((newUser) => {
       req.logIn(newUser, (err) => {
@@ -88,7 +88,7 @@ module.exports = (app) => {
   })
 
   // CRUD endPoints
-  app.get("/users", (req, res) => {
+  app.get("/user", (req, res) => {
     users.team()
     .then((users) => {
       res.jsonp(users)
@@ -101,11 +101,11 @@ module.exports = (app) => {
   /**
   * Send User
   */
-  app.get("/users/me", (req, res) => {
+  app.get("/user/me", (req, res) => {
     res.jsonp(req.user || null)
   })
 
-  app.put("/users/:userId", (req, res) => {
+  app.put("/user/:userId", (req, res) => {
     users.update(req.body)
       .then((user) => {
         res.jsonp(user.user_info)
@@ -115,7 +115,7 @@ module.exports = (app) => {
       })
   })
 
-  app.get("/users/getAuthorsByArticleCount", (req, res) => {
+  app.get("/user/getAuthorsByArticleCount", (req, res) => {
     users.getAuthorsByArticleCount()
       .then((users) => {
         res.jsonp(users)
@@ -125,7 +125,7 @@ module.exports = (app) => {
       })
   })
 
-  app.get("/users/getAuthorsByVoteCount", (req, res) => {
+  app.get("/user/getAuthorsByVoteCount", (req, res) => {
     users.getAuthorsByVoteCount()
       .then((users) => {
         res.jsonp(users)
@@ -138,7 +138,7 @@ module.exports = (app) => {
   /**
   * Return current user
   */
-  app.get("/users/:userId", (req, res) => {
+  app.get("/user/:userId", (req, res) => {
     res.jsonp(req.profile)
   })
 

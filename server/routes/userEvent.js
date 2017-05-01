@@ -27,12 +27,22 @@ module.exports = (app) => {
     userEvents.create(Object.assign(req.body, {
       user: req.user,
     })).then((userEvent) => {
+      // create notification
       notifications.create({
         title: userEvent.title,
         contentId: userEvent._id,
         type: "userEvent",
         user: userEvent.user,
       })
+
+      // send mail
+      mail.sendToAll("userEventMail", {
+        subject : userEvent.user.username + " a créé un nouvel évènement.",
+        html : "Viens dire si tu peux venir à <b>" + userEvent.title + "</b>. "
+          + "<b><a href='http://localhost:3000/#/agenda'><br/><br/>"
+          + "C'est par ici :)</a></b>",
+      })
+
       res.jsonp(userEvent)
     }).catch((err) => {
       res.status(400).json(err)

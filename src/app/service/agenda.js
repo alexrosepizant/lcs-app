@@ -1,9 +1,11 @@
 export default function AgendaFactory($http, UserEvent) {
   "ngInject"
 
+  const BASE_URL = "userEvent"
+
   return {
     findOnGoingUserEvents() {
-      return $http.get("/userEvent",{
+      return $http.get(`/${BASE_URL}`,{
         params: {
           ongoing: true,
         },
@@ -15,7 +17,7 @@ export default function AgendaFactory($http, UserEvent) {
     },
 
     findPastUserEvents() {
-      return $http.get("/userEvent", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           past: true,
         },
@@ -27,7 +29,7 @@ export default function AgendaFactory($http, UserEvent) {
     },
 
     findUserEventsByUser(userId) {
-      return $http.get("/userEvent", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           userId: userId,
         },
@@ -39,7 +41,7 @@ export default function AgendaFactory($http, UserEvent) {
     },
 
     findOne(userEventId) {
-      return $http.get(`/userEvent/${userEventId}`)
+      return $http.get(`/${BASE_URL}/${userEventId}`)
         .then((response) => {
           return new UserEvent(response.data)
         })
@@ -49,18 +51,18 @@ export default function AgendaFactory($http, UserEvent) {
       if (userEvent._id) {
         return this.update(userEvent)
       }
-      return $http.post("/userEvent", userEvent)
+      return $http.post(`/${BASE_URL}`, userEvent)
     },
 
     update(userEvent) {
-      return $http.put(`/userEvent/${userEvent._id}`, userEvent)
+      return $http.put(`/${BASE_URL}/${userEvent._id}`, userEvent)
         .then((userEvent) => {
           return new UserEvent(userEvent.data)
         })
     },
 
     deleteUserEvent(userEventId) {
-      return $http.delete(`/userEvent/${userEventId}`)
+      return $http.delete(`/${BASE_URL}/${userEventId}`)
     },
   }
 }

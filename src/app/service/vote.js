@@ -1,9 +1,11 @@
 export default function VoteFactory($http, Vote) {
   "ngInject"
 
+  const BASE_URL = "vote"
+
   return {
     findVotes(filter) {
-      return $http.get("/vote", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           "type": filter,
         },
@@ -13,7 +15,7 @@ export default function VoteFactory($http, Vote) {
     },
 
     getVote(voteId) {
-      return $http.get(`/vote/${voteId}`)
+      return $http.get(`/${BASE_URL}/${voteId}`)
         .then((vote) => {
           return new Vote(vote.data)
         })
@@ -24,18 +26,18 @@ export default function VoteFactory($http, Vote) {
         return this.update(vote)
       }
 
-      return $http.post("/vote", vote)
+      return $http.post(`/${BASE_URL}`, vote)
     },
 
     update(vote) {
-      return $http.put(`/vote/${vote._id}`, vote)
+      return $http.put(`/${BASE_URL}/${vote._id}`, vote)
         .then((response) => {
           return new Vote(response.data)
         })
     },
 
     deleteVote(voteId) {
-      return $http.delete(`/vote/${voteId}`)
+      return $http.delete(`/${BASE_URL}/${voteId}`)
     },
   }
 }

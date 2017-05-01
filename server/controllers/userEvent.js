@@ -23,21 +23,22 @@ exports.userEvent = (userEventId) => {
  */
 exports.all = (params) => {
 
+  const today = moment().startOf("day")
   const query = (params.userId) ? {user: params.userId} : {}
-  let sort = "startsAt"
+  const sort = (params.past) ? "-startsAt" : "startsAt"
 
   // Filter on-going events
   if (params.ongoing) {
     query.startsAt = {
-      "$gte": moment().startOf("day"),
+      "$gte": today,
     }
   }
 
+  // Filter past events
   if (params.past) {
     query.startsAt = {
-      "$lt": moment().startOf("day"),
+      "$lt": today,
     }
-    sort = "-startsAt"
   }
 
   return UserEvent.find(query)
@@ -55,6 +56,7 @@ exports.all = (params) => {
  */
 exports.create = (userEvent) => {
   return new UserEvent(userEvent).save()
+    .then((userEvent) => this.userEvent(userEvent._id))
 }
 
 /**

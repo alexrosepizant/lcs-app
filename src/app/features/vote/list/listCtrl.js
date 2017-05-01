@@ -4,16 +4,19 @@ export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory,
   // Retrieve params
   $scope.currentUser = $rootScope.currentUser
   $scope.votes = votes
-  $scope.currentVote = votes[0]
   $scope.users = users
-  $scope.options = {}
-  $scope.onGoingVotes = votes.filter((item) => item.onGoing)
 
-  $scope.votes.forEach((vote) => {
-    if (vote.hasUserAnswered) {
-      $scope.options[vote._id] = vote.getAnswerOfCurrentUser()
-    }
-  })
+  $scope.init = () => {
+    $scope.onGoingVotes = $scope.votes.filter((item) => item.onGoing)
+    $scope.currentVote = $scope.votes[0]
+
+    $scope.options = {}
+    $scope.votes.forEach((vote) => {
+      if (vote.hasUserAnswered) {
+        $scope.options[vote._id] = vote.getAnswerOfCurrentUser()
+      }
+    })
+  }
 
   $scope.setCurrent = (vote) => {
     $scope.currentVote = vote
@@ -60,8 +63,9 @@ export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory,
     VoteFactory.findVotes("all")
     .then((votes) => {
       $scope.votes = votes.map((vote) => new Vote(vote))
-      $scope.onGoingVotes = votes.filter((item) => item.onGoing)
-      $scope.currentVote = votes[0]
+      $scope.init()
     })
   })
+
+  $scope.init()
 }

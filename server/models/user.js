@@ -17,41 +17,51 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  avatar: String,
-  username: {
-    type: String,
-    unique: true,
-  },
-  presentation: String,
   email: {
     type: String,
     unique: true,
   },
-  birthday :{
-    type: Date,
+  username: {
+    type: String,
+    unique: true,
   },
-  hashed_password: String,
+
+  // Connexion attributes
   salt: String,
   provider: String,
+  hashed_password: String,
+  hashedPassword: String,
   exclude: Boolean,
-  articles: [{
-    type : mongoose.Schema.ObjectId, ref : "Article",
-  }],
-  votes: [{
-    type : mongoose.Schema.ObjectId, ref : "Vote",
-  }],
-  userEvents: [{
-    type : mongoose.Schema.ObjectId, ref : "UserEvent",
-  }],
-  favoriteEuroTeam: {
-    type: String,
+
+  // User infos
+  avatar: String,
+  presentation: String,
+  birthday: Date,
+
+  // User settings
+  settings: {
+    allMail: {
+      type: Boolean,
+      default: true,
+    },
+    articleMail:{
+      type: Boolean,
+      default: true,
+    },
+    userEventMail: {
+      type: Boolean,
+      default: true,
+    },
+    voteMail: {
+      type: Boolean,
+      default: true,
+    },
   },
-  euroPoints: {
-    type: Number,
-  },
-  isEuroAdmin: {
-    type: Boolean,
-  },
+
+  // App attributes
+  favoriteEuroTeam: String,
+  euroPoints: Number,
+  isEuroAdmin: Boolean,
 })
 
 /**
@@ -62,7 +72,7 @@ UserSchema
   .set(function(password) {
     this._password = password
     this.salt = this.makeSalt()
-    this.hashed_password = this.encryptPassword(password)
+    this.hashedPassword = this.encryptPassword(password)
   }).get(function() {
     return this._password
   })
@@ -136,7 +146,7 @@ UserSchema.methods = {
 	 * @api public
 	 */
   authenticate(plainText) {
-    return this.encryptPassword(plainText) === this.hashed_password
+    return this.encryptPassword(plainText) === this.hashedPassword
   },
 
 	/**

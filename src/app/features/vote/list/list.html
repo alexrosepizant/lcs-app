@@ -7,7 +7,7 @@
         </h1>
         <ul class="menu-list">
           <li>
-            <a ng-repeat="vote in votes | orderBy: '-created' | filter:{onGoing: true}" class="sideEvent" ng-class="{'is-active' : vote._id === currentVote._id, 'margin-top-10': $index > 0}" ng-click="setCurrent(vote)">
+            <a ng-repeat="vote in onGoingVotes | orderBy: '-created'" class="sideEvent" ng-class="{'is-active' : vote._id === currentVote._id, 'margin-top-10': $index > 0}" ng-click="setCurrent(vote)">
               <article class="media onGoingVote">
                 <div class="media-content" style="overflow: hidden;">
                   <p class="three-line-ellipsis">
@@ -24,13 +24,13 @@
 
         <div class="container" ng-if="onGoingVotes.length === 0">
           <div class="notification">
-            Pas de vote en ce moment.
+            Aucun vote en ce moment.
           </div>
         </div>
 
-        <h1 class="section-title">
-          Les derniers votes
-        </h1>
+        <p class="menu-label">
+          Votes terminés
+        </p>
         <ul class="menu-list">
           <li>
             <a ng-repeat="vote in votes | orderBy: '-created' | filter:{onGoing: false}" ng-class="{'is-active' : vote._id === currentVote._id}" ng-click="setCurrent(vote)">

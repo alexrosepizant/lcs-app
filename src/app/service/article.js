@@ -1,9 +1,11 @@
 export default function ArticleFactory($http, AppConstants, Article) {
   "ngInject"
 
+  const BASE_URL = "article"
+
   return {
     findArticles(filter, page = 0) {
-      return $http.get("/articles", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           type: filter,
           perPage: AppConstants.aticlePerPage,
@@ -17,7 +19,7 @@ export default function ArticleFactory($http, AppConstants, Article) {
     },
 
     getArticlesByCategory(category, page = 0) {
-      return $http.get("/articles", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           categories: category,
           perPage: AppConstants.aticlePerPage,
@@ -31,7 +33,7 @@ export default function ArticleFactory($http, AppConstants, Article) {
     },
 
     getArticlesByUser(userId) {
-      return $http.get("/articles", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           userId: userId,
         },
@@ -43,24 +45,14 @@ export default function ArticleFactory($http, AppConstants, Article) {
     },
 
     getArticleCount() {
-      return $http.get("/articles/count")
+      return $http.get(`/${BASE_URL}/count`)
         .then((result) => {
           return result.data
         })
     },
 
-    getLastArticle() {
-      return $http.get("/articles", {
-        params: {
-          limit: 1,
-        },
-      }).then((article) => {
-        return new Article(article.data[0])
-      })
-    },
-
     getArticle(articleId) {
-      return $http.get(`/articles/${articleId}`)
+      return $http.get(`/${BASE_URL}/${articleId}`)
         .then((article) => {
           return new Article(article.data)
         })
@@ -70,21 +62,21 @@ export default function ArticleFactory($http, AppConstants, Article) {
       if (article._id) {
         return this.updateArticle(article)
       }
-      return $http.post("/articles", article)
+      return $http.post(`/${BASE_URL}`, article)
         .then((article) => {
           return new Article(article.data)
         })
     },
 
     updateArticle(article) {
-      return $http.put(`/articles/${article._id}`, article)
+      return $http.put(`/${BASE_URL}/${article._id}`, article)
         .then((article) => {
           return new Article(article.data)
         })
     },
 
     deleteArticle(articleId) {
-      return $http.delete(`/articles/${articleId}`)
+      return $http.delete(`/${BASE_URL}/${articleId}`)
     },
   }
 }
