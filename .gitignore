@@ -1,17 +1,18 @@
 .DS_Store
 .idea
 npm-debug.log
+node_modules
+dist
+stats.json
 
 server/public/video/*
 server/public/img/users/*
 server/public/img/.cache/
 server/public/tmp/*
-node_modules
-scripts/production
-dist
-stats.json
-
 # exception to the rule
 !server/public/video/.gitkeep
 !server/public/img/users/.gitkeep
 !server/public/tmp/.gitkeep
+
+scripts/production
+server/credentials.js

@@ -1,9 +1,11 @@
 export default function NotificationFactory($http, AppConstants, NotificationModel) {
   "ngInject"
 
+  const BASE_URL = "notification"
+
   return {
     loadNotifications() {
-      return $http.get("/notification", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           limit: AppConstants.notificationCount,
         },
@@ -15,7 +17,7 @@ export default function NotificationFactory($http, AppConstants, NotificationMod
     },
 
     loadNotificationsByUserId(userId) {
-      return $http.get("/notification", {
+      return $http.get(`/${BASE_URL}`, {
         params: {
           userId: userId,
           limit: AppConstants.notificationCount,
@@ -28,7 +30,7 @@ export default function NotificationFactory($http, AppConstants, NotificationMod
     },
 
     create(notification) {
-      return $http.post("/notification", notification)
+      return $http.post(`/${BASE_URL}`, notification)
     },
   }
 }

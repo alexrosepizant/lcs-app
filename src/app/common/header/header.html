@@ -8,6 +8,16 @@
           <a ui-sref="article">
             <img src="assets/images/logo.png" class="logo"/>
           </a>
+
+          <span class="nav-item header-tablet">
+            <span angular-popover direction="bottom" template-url="app/common/header/popover/user.html" close-on-mouseleave="true" mode="mouseover">
+              <a class="ng-popover-trigger profilButton">
+                <span>
+                  <img ng-src="{{ currentUser.getAvatar(40, 40) }}" class="avatar-photo-square avatar-header">
+                </span>
+              </a>
+            </span>
+          </span>
         </div>
 
         <div class="nav-right nav-menu">

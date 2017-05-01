@@ -1,9 +1,11 @@
 export default function AuthFactory($http, $rootScope, $cookieStore, $state, User) {
   "ngInject"
 
+  const BASE_URL = "auth"
+
   return {
     login(provider, user) {
-      return $http.post("/auth/session", {
+      return $http.post(`/${BASE_URL}/session`, {
         provider: provider,
         email: user.email,
         password: user.password,
@@ -12,7 +14,7 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $state, Use
     },
 
     logout() {
-      return $http.delete("/auth/session")
+      return $http.delete(`/${BASE_URL}/session`)
         .then(() => this.redirectToLogin())
         .catch(() => this.redirectToLogin())
     },
@@ -24,11 +26,11 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $state, Use
     },
 
     createUser(userinfo) {
-      return $http.post("/auth/users", userinfo)
+      return $http.post(`/${BASE_URL}/users`, userinfo)
     },
 
     updateCurrentUser() {
-      return $http.get("/auth/session")
+      return $http.get(`/${BASE_URL}/session`)
         .then((result) => $rootScope.currentUser = new User(result.data))
     },
 

@@ -2,7 +2,7 @@
 
 // Articles routes use suggestions controller
 const _ = require("lodash")
-const votes = require("../controllers/votes")
+const votes = require("../controllers/vote")
 const notifications = require("../controllers/notification")
 const authorization = require("./middlewares/authorization")
 
@@ -27,12 +27,24 @@ module.exports = (app) => {
     votes.create(Object.assign(req.body, {
       user: req.user,
     })).then((vote) => {
+
+      // create notification
       notifications.create({
         title: vote.title || "Nouveau vote",
         contentId: vote._id,
         type: "vote",
         user: vote.user,
       })
+
+      // send mail
+      mail.sendToAll("voteMail", {
+        subject : vote.user.username + " a ajouté un nouveau vote.",
+        html : "Viens donner ton avis pour <b>" + vote.title
+          + "</b> en exclusivité sur les coqs soccer. "
+          + "<b><a href='http://localhost:3000/#/vote'><br/><br/>"
+          + "C'est par ici :)</a></b>",
+      })
+
       res.jsonp(vote)
     }).catch((err) => {
       res.status(400).json(err)

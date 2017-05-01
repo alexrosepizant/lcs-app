@@ -61,34 +61,75 @@
 
         <div class="margin-top-20">
           <h1 class="title">
-            Changer de mot de passe
+            Notifications par mail
           </h1>
         </div>
-
         <div class="margin-top-20">
-          <label class="label">Ancien mot de passe</label>
-          <p class="control">
-            <input class="input"
-            type="password"
-            placeholder="●●●●●●●"
-            ng-model="user.password">
-          </p>
 
-          <label class="label">Nouveau mot de passe</label>
           <p class="control">
-            <input class="input"
-            type="password"
-            placeholder="●●●●●●●"
-            ng-model="user.newPassword">
-          </p>
-        </div>
+            <label class="label">
+              <input class="checkbox"
+              type="checkbox"
+              ng-model="user.settings.allMail">
+              Tous les emails</label>
+            </p>
 
-        <div class="margin-top-20">
-          <span class="button is-primary" ng-click="update()">
-            Sauvegarder
-          </span>
+            <p class="control">
+              <label class="label">
+                <input class="checkbox"
+                type="checkbox"
+                ng-model="user.settings.articleMail">
+                Nouveaux articles</label>
+              </p>
+
+              <p class="control">
+                <label class="label">
+                  <input class="checkbox"
+                  type="checkbox"
+                  ng-model="user.settings.userEventMail">
+                  Nouveaux évènements
+                </label>
+              </p>
+
+              <p class="control">
+                <label class="label">
+                  <input class="checkbox"
+                  type="checkbox"
+                  ng-model="user.settings.voteMail">
+                  Nouveaux votes</label>
+                </p>
+              </div>
+
+              <div class="margin-top-20">
+                <h1 class="title">
+                  Changer de mot de passe
+                </h1>
+              </div>
+
+              <div class="margin-top-20">
+                <label class="label">Ancien mot de passe</label>
+                <p class="control">
+                  <input class="input"
+                  type="password"
+                  placeholder="●●●●●●●"
+                  ng-model="user.password">
+                </p>
+
+                <label class="label">Nouveau mot de passe</label>
+                <p class="control">
+                  <input class="input"
+                  type="password"
+                  placeholder="●●●●●●●"
+                  ng-model="user.newPassword">
+                </p>
+              </div>
+
+              <div class="margin-top-20">
+                <span class="button is-primary" ng-click="update()">
+                  Sauvegarder
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>

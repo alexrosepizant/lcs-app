@@ -17,7 +17,7 @@ module.exports = (passport) => {
   passport.deserializeUser((id, done) => {
     User.findOne({
       _id: id,
-    }, "-salt -hashed_password", (err, user) => {
+    }, "-salt -hashedPassword", (err, user) => {
       done(err, user)
     })
   })

@@ -82,7 +82,7 @@ exports.update = (user) => {
 * Return all users
 */
 exports.team = () => {
-  return User.find({}, "-password -salt -hashed_password -__v -provider")
+  return User.find({}, "-password -salt -hashedPassword -__v -provider")
     .then((users, err) => {
       if (err) {
         return Promise.reject(err)

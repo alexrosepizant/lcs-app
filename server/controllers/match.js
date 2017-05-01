@@ -31,11 +31,6 @@ exports.create = (match) => {
   return new Match(match).save()
 }
 
-exports.update = (match) => {
-  return match.save()
-    .then((match) => this.match(match._id))
-}
-
 exports.delete = (match) => {
   return match.remove()
 }

@@ -39,6 +39,7 @@ exports.all = (params) => {
  */
 exports.create = (vote) => {
   return new Vote(vote).save()
+    .then((vote) => this.vote(vote._id))
 }
 
 /**
