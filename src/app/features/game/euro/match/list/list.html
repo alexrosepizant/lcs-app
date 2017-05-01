@@ -1,41 +1,39 @@
 
-<div class="bottom-20 winnerContainer">
-  <div class="container">
-    <div deckgrid class="deckgrid deckgrid2" source="matchs">
-      <div class="match blog">
-        <p class="center margin-top-20">
-          <strong>
-            {{ mother.MatchFactory.getFormattedType(card.type)}}
-          </strong>
-        </p>
-        <h2>
-          {{ card.startsAt | amDateFormat:"DD MMM YYYY, à HH:mm" }}
-        </h2>
+<div class="bottom-20 winnerContainer margin-top-20">
+  <div deckgrid class="deckgrid deckgrid2" source="matchs">
+    <div class="match blog">
+      <p class="center margin-top-20">
+        <strong>
+          {{ mother.MatchFactory.getFormattedType(card.type)}}
+        </strong>
+      </p>
+      <h2>
+        {{ card.startsAt | amDateFormat:"DD MMM YYYY, à HH:mm" }}
+      </h2>
 
-        <div class="columns center margin-top-10">
-          <span class="column is-half">
-            <img ng-src="/assets/euro/flags/{{ card.home }}.png"/>
-            <p class="margin-top-10 ellipsis">{{ mother.MatchFactory.getTeamName(card.home) }}</p>
-            <input ng-model="card.currentBet.homeScore" class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-disabled="!card.isBetAuthorize"/>
-          </span>
+      <div class="columns center margin-top-10">
+        <span class="column is-half matchTeam">
+          <img ng-src="/assets/euro/flags/{{ card.home }}.png"/>
+          <p class="margin-top-10 ellipsis">{{ mother.MatchFactory.getTeamName(card.home) }}</p>
+          <input ng-model="card.currentBet.homeScore" class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-disabled="!card.isBetAuthorize"/>
+        </span>
 
-          <span class="column is-half">
-            <img ng-src="/assets/euro/flags/{{ card.away }}.png"/>
-            <p class="margin-top-10 ellipsis">{{ mother.MatchFactory.getTeamName(card.away) }}</p>
-            <input ng-model="card.currentBet.awayScore" class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-disabled="!card.isBetAuthorize"/>
-          </span>
-        </div>
+        <span class="column is-half matchTeam">
+          <img ng-src="/assets/euro/flags/{{ card.away }}.png"/>
+          <p class="margin-top-10 ellipsis">{{ mother.MatchFactory.getTeamName(card.away) }}</p>
+          <input ng-model="card.currentBet.awayScore" class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-disabled="!card.isBetAuthorize"/>
+        </span>
+      </div>
 
-        <div class="center bottom-20">
-          <a ng-show="card.hasResults" ui-sref="games.euro.bets({matchId: card._id})" class="button">
-            Voir la fiche du match
-          </a>
+      <div class="center bottom-20">
+        <a ng-show="card.hasResults" ui-sref="games.euro.bets({matchId: card._id})" class="button">
+          Voir la fiche du match
+        </a>
 
-          <input ng-show="card.isBetAuthorize" value="Mettre à jour le pari" type="button" class="button" ng-click="mother.updateBet(card)"/>
+        <input ng-show="card.isBetAuthorize" value="Mettre à jour le pari" type="button" class="button" ng-click="mother.updateBet(card)"/>
 
-          <input ng-show="!card.isBetAuthorize && !card.hasResults" value="En attente des résultats" type="button" class="button" disabled />
-        </div>
+        <input ng-show="!card.isBetAuthorize && !card.hasResults" value="En attente des résultats" type="button" class="button" disabled />
       </div>
     </div>
-  </div>
+ </div>
 </div>
