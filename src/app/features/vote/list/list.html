@@ -28,10 +28,10 @@
           </div>
         </div>
 
-        <p class="menu-label">
+        <p class="menu-label is-block-tablet">
           Votes terminés
         </p>
-        <ul class="menu-list">
+        <ul class="menu-list is-block-tablet">
           <li>
             <a ng-repeat="vote in votes | orderBy: '-created' | filter:{onGoing: false}" ng-class="{'is-active' : vote._id === currentVote._id}" ng-click="setCurrent(vote)">
               <p class="ellipsis"><strong>{{ vote.title || vote.content }}</strong></p>

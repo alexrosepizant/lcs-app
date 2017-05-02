@@ -55,7 +55,7 @@ module.exports = (app) => {
             subject : article.user.username + " a ajouté un article.",
             html : "Viens voir <b>" + article.title
               + "</b> en exclusivité sur les coqs soccer. "
-              + "<b><a href='http://localhost:3000/#/blog/article/list'><br/><br/>"
+              + "<b><a href='http://lescoqssoccer.fr/#/blog/article/list'><br/><br/>"
               + "C'est par ici :)</a></b>",
           })
 

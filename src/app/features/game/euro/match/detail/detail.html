@@ -6,9 +6,9 @@
 
   <section class="modal-card-body content">
     <div class="container">
-      <div class="bottom-50">
-        <div class="matchDetail center">
-          <p>
+      <div class="bottom-50 deckgrid">
+        <div class="center">
+          <p class="margin-top-20">
             <strong>
               {{ MatchFactory.getFormattedType(match.type)}}
             </strong>
@@ -18,13 +18,13 @@
           </h2>
 
           <div class="columns center margin-top-20">
-            <span class="column is-6">
+            <span class="column is-half matchTeam">
               <img ng-src="/assets/euro/flags/{{ match.home }}.png"/>
               <p class="margin-top-10">{{ MatchFactory.getTeamName(match.home) }}</p>
               <input ng-value="match.scoreHome" class="margin-top-10 input center" type="number" min="0" placeholder="0" disabled/>
             </span>
 
-            <span class="column is-6">
+            <span class="column is-half matchTeam">
               <img ng-src="/assets/euro/flags/{{ match.away }}.png"/>
               <p class="margin-top-10">{{ MatchFactory.getTeamName(match.away) }}</p>
               <input ng-model="match.scoreAway" class="margin-top-10 input center" type="number" min="0" placeholder="0" disabled/>
@@ -49,7 +49,7 @@
               </div>
             </div>
 
-            <div class="columns center bottom-20">
+            <div class="columns center bottom-20 mobile-hide">
               <span class="column is-6">
                 <input class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-value="{{card.homeScore}}" disabled/>
               </span>

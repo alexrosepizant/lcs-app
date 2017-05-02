@@ -56,7 +56,6 @@ exports.all = (params) => {
  */
 exports.create = (userEvent) => {
   return new UserEvent(userEvent).save()
-    .then((userEvent) => this.userEvent(userEvent._id))
 }
 
 /**

@@ -43,10 +43,10 @@
           </div>
         </div>
 
-        <p class="menu-label">
+        <p class="menu-label is-block-tablet">
           Evènements passés
         </p>
-        <ul class="menu-list">
+        <ul class="menu-list is-block-tablet">
           <li>
             <a ng-repeat="event in pastEvents" ng-class="{'is-active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
               <p class="ellipsis">{{ event.startsAt | amDateFormat:"DD MMM YYYY" }} <strong>{{event.title}}</strong></p>

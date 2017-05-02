@@ -4,6 +4,7 @@
 const _ = require("lodash")
 const userEvents = require("../controllers/userEvent")
 const notifications = require("../controllers/notification")
+const mail = require("../controllers/mail")
 const authorization = require("./middlewares/authorization")
 
 module.exports = (app) => {
@@ -39,7 +40,7 @@ module.exports = (app) => {
       mail.sendToAll("userEventMail", {
         subject : userEvent.user.username + " a créé un nouvel évènement.",
         html : "Viens dire si tu peux venir à <b>" + userEvent.title + "</b>. "
-          + "<b><a href='http://localhost:3000/#/agenda'><br/><br/>"
+          + "<b><a href='http://lescoqssoccer.fr/#/agenda'><br/><br/>"
           + "C'est par ici :)</a></b>",
       })
 

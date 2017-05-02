@@ -13,10 +13,10 @@
     <table class="table is-bordered is-striped">
       <thead>
         <tr>
-          <th>
+          <th class="mobile-hide">
             <abbr title="Score">Auteur</abbr>
           </th>
-          <th>
+          <th class="mobile-hide">
             <abbr title="Score">Type</abbr>
           </th>
           <th>
@@ -32,10 +32,10 @@
       </thead>
       <tbody>
         <tr ng-repeat="idea in ideas | orderBy: '-created'">
-          <th>
+          <th class="mobile-hide">
             <img class="margin-top-10" ng-src="{{ idea.user.getAvatar(40,40) }}" height="40" width="40">
           </th>
-          <th>
+          <th class="mobile-hide">
             <span class="tag margin-top-10" ng-repeat="categorie in idea.categories">
               {{ categorie }}
             </span>
