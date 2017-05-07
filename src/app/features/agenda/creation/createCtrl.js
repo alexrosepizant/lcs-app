@@ -1,4 +1,4 @@
-export default function CreateEventCtrl($rootScope, $scope, $state, AgendaFactory, Notification, userEvent) {
+export default function CreateEventCtrl($rootScope, $scope, AgendaFactory, Notification, userEvent) {
   "ngInject"
 
   // Retrieve params
@@ -34,7 +34,7 @@ export default function CreateEventCtrl($rootScope, $scope, $state, AgendaFactor
 
     AgendaFactory.createUserEvent($scope.userEvent)
       .then(() => {
-        $state.go("agenda.view")
+        $rootScope.$broadcast("updateAgendaList")
         $scope.$close(true)
         Notification.success({
           title: "Grand success",

@@ -24,7 +24,7 @@ export default function AgendaConfig($stateProvider) {
       },
     })
     .state("vote.create", {
-      parent: "vote",
+      parent: "vote.view",
       url: "/create",
       onEnter: ($state, $uibModal) => {
         $uibModal.open({

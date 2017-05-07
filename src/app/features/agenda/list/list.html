@@ -76,12 +76,14 @@
           </span>
         </a>
 
-        <button class="button is-primary event-add" ui-sref="agenda.create">
+        <a class="button is-primary event-add" ui-sref="agenda.create">
           <span class="icon is-small">
             <i class="fa fa-plus"></i>
           </span>
-          &nbsp;Ajouter
-        </button>
+          <span>
+            Ajouter
+          </span>
+        </a>
       </section>
 
       <div class="margin-top-20">
@@ -119,27 +121,27 @@
             </div>
 
             <div class="content agendaAnswer margin-top-20">
-              <button class="button is-success" ng-click="isAvailableForEvent()">
+              <a class="button is-success" ng-click="isAvailableForEvent()">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
                 <span>
                   Je viens
                 </span>
-              </button>
-              <button class="button is-danger" ng-click="isUnavailableForEvent()">
+              </a>
+              <a class="button is-danger" ng-click="isUnavailableForEvent()">
                 <span class="icon is-small">
                   <i class="fa fa-remove"></i>
                 </span>
                 <span>
                   Je peux pas
                 </span>
-              </button>
+              </a>
             </div>
           </section>
 
-          <div class="blog-user-section margin-top-20">
-            <section class="margin-top-10" ng-if="currentEvent.guest.length > 0">
+          <div class="blog-user-section margin-top-20" ng-if="currentEvent.guest.length > 0 || currentEvent.guestUnavailable.length > 0">
+            <section class="margin-top-20">
               <div ng-repeat="user in currentEvent.guest" class="authorContent pull-left">
                 <span class="user-image">
                   <div class="user-image--image">
@@ -175,7 +177,7 @@
           <div class="clearfix">
           </div>
 
-          <section class="blog-user-section margin-top-10">
+          <section class="blog-user-section margin-top-20">
             <lcs-comment type="'agenda'" object="currentEvent" class="lcs-comment"></lcs-comment>
           </section>
         </div>

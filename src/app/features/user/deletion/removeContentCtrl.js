@@ -29,14 +29,14 @@ export default function ProfileCtrl($rootScope, $scope, $state,
       promise = AgendaFactory.deleteUserEvent($scope.contentId)
         .then(() => {
           $rootScope.$broadcast("updateAgendaList")
-          return $state.go("agenda")
+          return $state.go("agenda.view")
         })
       break
     case "vote":
       promise = VoteFactory.deleteVote($scope.contentId)
           .then(() => {
             $rootScope.$broadcast("updateVoteList")
-            return $state.go("vote")
+            return $state.go("vote.view")
           })
       break
     default:

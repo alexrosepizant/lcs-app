@@ -47,7 +47,13 @@
             <a ng-click="addLike($index)">+{{idea.like}}</a>
           </th>
           <th>
-            {{ idea.status || 'En cours' }}
+            <span class="select">
+              <select ng-model="idea.status">
+                <option value="A traiter">A traiter</option>
+                <option value="En cours">En cours</option>
+                <option value="Fait">Fait</option>
+              </select>
+            </span>
           </th>
         </tr>
       </tbody>
