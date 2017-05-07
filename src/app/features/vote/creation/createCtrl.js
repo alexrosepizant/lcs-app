@@ -1,4 +1,4 @@
-export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFactory, Notification, vote) {
+export default function VoteCreationCtrl($rootScope, $scope, $state, $location, VoteFactory, Notification, vote) {
   "ngInject"
 
   // Retrieve params
@@ -52,6 +52,7 @@ export default function VoteCreationCtrl($rootScope, $scope, $location, VoteFact
 
     VoteFactory.createVote($scope.vote)
       .then(() => {
+        $state.go("vote.view")
         $rootScope.$broadcast("updateVoteList")
         $scope.$close(true)
         Notification.success({
