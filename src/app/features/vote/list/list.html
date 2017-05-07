@@ -34,7 +34,9 @@
         <ul class="menu-list is-block-tablet">
           <li>
             <a ng-repeat="vote in votes | orderBy: '-created' | filter:{onGoing: false}" ng-class="{'is-active' : vote._id === currentVote._id}" ng-click="setCurrent(vote)">
-              <p class="ellipsis"><strong>{{ vote.title || vote.content }}</strong></p>
+              <p class="ellipsis">
+                <strong>{{ vote.title || vote.content }}</strong>
+              </p>
             </a>
           </li>
         </ul>
@@ -84,7 +86,7 @@
               <span class="user-image">
                 <div class="user-image--image">
                   <div>
-                    <img ng-src="{{ currentVote.user.getAvatar(40,40) }}" height="40" width="40">
+                    <img ng-src="{{ currentVote.user.getAvatar(80,80) }}" height="40" width="40">
                   </div>
                 </div>
               </span>
@@ -109,7 +111,7 @@
                   <span class="user-image">
                     <div class="user-image--image">
                       <div class="vote-image">
-                        <img ng-src="{{ user.getAvatar(30,30) }}" height="30" width="30" title="{{user.username}}">
+                        <img ng-src="{{ user.getAvatar(40,40) }}" height="30" width="30" title="{{user.username}}">
                       </div>
                     </div>
                   </span>

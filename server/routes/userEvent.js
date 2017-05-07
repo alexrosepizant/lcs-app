@@ -38,9 +38,9 @@ module.exports = (app) => {
 
       // send mail
       mail.sendToAll("userEventMail", {
-        subject : userEvent.user.username + " a créé un nouvel évènement.",
+        subject : userEvent.user.username + " a créé un nouvel évènement, " + userEvent.title,
         html : "Viens dire si tu peux venir à <b>" + userEvent.title + "</b>. "
-          + "<b><a href='http://lescoqssoccer.fr/#/agenda'><br/><br/>"
+          + "<b><a href='http://lescoqssoccer.fr/#/agenda/" + userEvent._id + "'><br/><br/>"
           + "C'est par ici :)</a></b>",
       })
 

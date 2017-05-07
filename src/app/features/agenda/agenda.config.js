@@ -4,6 +4,11 @@ export default function AgendaConfig($stateProvider) {
   $stateProvider
     .state("agenda", {
       url: "/agenda",
+      abstract: "true",
+      template: "<div ui-view></div>",
+    })
+    .state("agenda.view", {
+      url: "/view?userEventId",
       template: require("./list/list.html"),
       controller: "AgendaListCtrl",
       title: "Agenda",
@@ -13,6 +18,9 @@ export default function AgendaConfig($stateProvider) {
         },
         pastEvents: (AgendaFactory) => {
           return AgendaFactory.findPastUserEvents()
+        },
+        userEvent: ($stateParams, AgendaFactory) => {
+          return ($stateParams.userEventId) ? AgendaFactory.findOne($stateParams.userEventId) : null
         },
       },
     })

@@ -77,6 +77,7 @@ body {
   color: #545454;
   font-weight: 400;
   font-size: initial;
+  max-height: 4.2em;
 }
 
 .top-menu-container {

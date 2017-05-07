@@ -1,4 +1,5 @@
-export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory, Vote, Notification, votes, users) {
+export default function VoteListCtrl($rootScope, $scope, $uibModal,
+  VoteFactory, Vote, Notification, votes, users, currentVote) {
   "ngInject"
 
   // Retrieve params
@@ -8,7 +9,7 @@ export default function VoteListCtrl($rootScope, $scope, $uibModal, VoteFactory,
 
   $scope.init = () => {
     $scope.onGoingVotes = $scope.votes.filter((item) => item.onGoing)
-    $scope.currentVote = $scope.votes[0]
+    $scope.currentVote = (currentVote) ? currentVote : $scope.votes[0]
 
     $scope.options = {}
     $scope.votes.forEach((vote) => {

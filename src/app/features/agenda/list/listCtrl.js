@@ -1,5 +1,5 @@
 export default function AgendaListCtrl($rootScope, $scope, $uibModal,
-  AgendaFactory, pastEvents, onGoingEvents, Notification) {
+  AgendaFactory, pastEvents, onGoingEvents, userEvent, Notification) {
   "ngInject"
 
   // Retrieve params
@@ -11,7 +11,7 @@ export default function AgendaListCtrl($rootScope, $scope, $uibModal,
   Utilities
   **/
   $scope.selectFistEvent = () => {
-    $scope.currentEvent = $scope.onGoingEvents[0] || $scope.pastEvents[0]
+    $scope.currentEvent = userEvent || $scope.onGoingEvents[0] || $scope.pastEvents[0]
   }
 
   $scope.setCurrentEvent = (userEvent) => {

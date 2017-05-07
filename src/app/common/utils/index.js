@@ -1,3 +1,4 @@
+import modalService from "../modal/modalService"
 import ngEnter from "./ngEnter"
 import setClassWhenAtTop from "./setClassAtTop"
 
@@ -5,5 +6,6 @@ import setClassWhenAtTop from "./setClassAtTop"
 const utilsModule = angular.module("app.utils", [])
 utilsModule.directive("ngEnter", ngEnter)
 utilsModule.directive("setClassWhenAtTop", setClassWhenAtTop)
+utilsModule.service("modalService", modalService)
 
 export default utilsModule

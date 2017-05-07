@@ -31,7 +31,8 @@
         </div>
       </a>
       <h2 class="blog-subtitle-detail margin-top-20">
-        <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
+        <i class="fa fa-clock-o font-small"></i>
+        {{ article.getDateFrom() }}
       </h2>
       <div class="blogUserDetail center margin-top-10">
         <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">

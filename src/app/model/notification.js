@@ -51,10 +51,10 @@ export default function Notification($state, User) {
           $state.go("article.videoView", {articleId: this.contentId})
           break
         case "vote":
-          $state.go("vote")
+          $state.go("vote.view", {voteId: this.contentId})
           break
         case "userEvent":
-          $state.go("agenda", {eventId: this.contentId})
+          $state.go("agenda.view", {userEventId: this.contentId})
           break
         default:
           return "article"

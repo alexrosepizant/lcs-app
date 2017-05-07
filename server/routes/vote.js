@@ -39,10 +39,10 @@ module.exports = (app) => {
 
       // send mail
       mail.sendToAll("voteMail", {
-        subject : vote.user.username + " a ajouté un nouveau vote.",
+        subject : vote.user.username + " a ajouté un nouveau vote, " + vote.title,
         html : "Viens donner ton avis pour <b>" + vote.title
           + "</b> en exclusivité sur les coqs soccer. "
-          + "<b><a href='http://lescoqssoccer.fr/#/vote'><br/><br/>"
+          + "<b><a href='http://lescoqssoccer.fr/#/vote/" + vote._id + "'><br/><br/>"
           + "C'est par ici :)</a></b>",
       })
 

@@ -10,12 +10,12 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
     routePath: "article",
   }, {
     name: "Les rencards",
-    link: "agenda",
+    link: "agenda.view",
     routePath: "agenda",
   },
   {
     name: "L'isoloir",
-    link: "vote",
+    link: "vote.view",
     routePath: "vote",
   },
   {

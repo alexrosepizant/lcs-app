@@ -3,17 +3,23 @@ export default function AgendaConfig($stateProvider) {
 
   $stateProvider
     .state("vote", {
-      url: "/vote?filter",
+      url: "/vote",
+      abstract: "true",
+      template: "<div ui-view></div>",
+    })
+    .state("vote.view", {
+      url: "/view?voteId",
       template: require("./list/list.html"),
       controller: "VoteListCtrl",
-      title: "Vote",
       resolve: {
         votes: ($stateParams, VoteFactory) => {
-          const filter = ($stateParams.filter) ? $stateParams.filter : "all"
-          return VoteFactory.findVotes(filter)
+          return VoteFactory.findVotes("all")
         },
         users: (UserFactory) => {
           return UserFactory.findUsersByVoteCount()
+        },
+        currentVote: ($stateParams, VoteFactory) => {
+          return ($stateParams.voteId) ? VoteFactory.getVote($stateParams.voteId) : null
         },
       },
     })
