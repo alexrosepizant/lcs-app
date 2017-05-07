@@ -1,13 +1,18 @@
 <div class="margin-top-20 bottom-20">
-  <div class="container">
-    <div style="text-align:right;">
-      <button class="button is-primary" ui-sref="about.issue.create">
+  <div class="container margin-top-20">
+    <div class="pull-right">
+      <a class="button is-primary" ui-sref="about.issue.create">
         <span class="icon is-small">
           <i class="fa fa-plus"></i>
         </span>
         &nbsp;Ajouter
-      </button>
+      </a>
     </div>
+    <p>Si vous voulez allez voir le code et l'historique des bugs corrigés c'est par ici:<br/>
+      <a href="https://github.com/alexrosepizant/lcs-app" target="_blank">
+        https://github.com/alexrosepizant/lcs-app
+      </a>
+    </p>
     <br>
 
     <table class="table is-bordered is-striped">
@@ -48,10 +53,10 @@
           </th>
           <th>
             <span class="select">
-              <select ng-model="idea.status">
-                <option value="A traiter">A traiter</option>
-                <option value="En cours">En cours</option>
-                <option value="Fait">Fait</option>
+              <select
+              ng-model="idea.status"
+              ng-change="updateIdea(idea);"
+              ng-options="option.id as option.name for option in options">
               </select>
             </span>
           </th>

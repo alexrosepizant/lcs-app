@@ -20,7 +20,7 @@ const IdeaSchema = new Schema({
     type: Number,
   },
   status: {
-    type: String,
+    type: Number,
   },
   user: {
     type: mongoose.Schema.ObjectId,

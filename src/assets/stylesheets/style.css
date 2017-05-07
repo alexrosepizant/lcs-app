@@ -562,10 +562,6 @@ h2 {
   padding: 10px 5px;
 }
 
-.is-active .onGoingVote * {
-  color: white;
-}
-
 .addButton {
   text-align: right;
   margin-bottom: 20px;
@@ -1628,7 +1624,11 @@ figure {
 }
 
 .sideEvent.active {
-  background: var(--MainColor) !important;
+  background: whitesmoke !important;
+}
+
+.vote.active {
+  background: whitesmoke !important;
 }
 
 .eventDateSmall .agenda-title {
@@ -2011,6 +2011,10 @@ span:not(:last-child) p.event-item {
 
 .header-tablet {
   display: none;
+}
+
+.logo {
+  max-height: 120px;
 }
 
 @media screen and (max-width: 768px) {
