@@ -29,7 +29,6 @@ const UserSchema = new Schema({
   // Connexion attributes
   salt: String,
   provider: String,
-  hashed_password: String,
   hashedPassword: String,
   exclude: Boolean,
 

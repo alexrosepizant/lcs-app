@@ -9,31 +9,25 @@
 
         <ul class="menu-list">
           <li>
-            <a ng-repeat="event in onGoingEvents" class="sideEvent" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
-              <article class="media">
-                <div class="media-left">
-                  <div class="eventDateSmall pull-left">
+            <div class="sideEvent" ng-repeat="event in onGoingEvents" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
+              <div class="media">
+                <div class="media-content">
+                  <div class="eventDateSmall">
                     <div class="eventDateLong">
-                      {{ event.startsAt | amDateFormat:"DD MMM" }}
-                    </div>
-                    <div class="eventYear">
-                      {{ event.startsAt | amDateFormat:"YYYY" }}
+                      {{ event.getDay() }} {{ event.startsAt | amDateFormat:"DD MMM YYYY" }}
                     </div>
                   </div>
-                </div>
-                <div class="media-content" style="overflow: hidden;">
-                  <div class="content">
-                    <p class="three-line-ellipsis">
-                      <strong class="margin-top-10">
-                        {{event.title}}
-                      </strong>
-                      <br>
-                      {{event.content}}
-                    </p>
+
+                  <div class="margin-top-10 ellipsis">
+                    <strong>{{event.title}}</strong>
+                  </div>
+
+                  <div class="three-line-ellipsis">
+                    {{ event.content }}
                   </div>
                 </div>
-              </article>
-            </a>
+              </div>
+            </div>
           </li>
         </ul>
 
@@ -89,7 +83,8 @@
       <div class="margin-top-20">
         <div class="box">
           <h1 class="blog-subtitle-detail font-xlarge margin-top-20">
-            <i class="fa fa-calendar-o"></i> <strong>{{ currentEvent.getDay() }}</strong>
+            <i class="fa fa-calendar-o" style="margin-top: 3px;"></i>
+            <strong>{{ currentEvent.getDay() }}</strong>
             <p>{{ currentEvent.startsAt | amDateFormat:"DD MMMM YYYY" }}</p>
           </h1>
           <a>
@@ -98,7 +93,7 @@
             </div>
           </a>
           <div class="blogUserDetail center margin-top-10" ng-if="currentEvent.subType !== 'euroMatch'">
-            <img ng-src="{{ currentEvent.user.getAvatar(80, 80) }}" title="{{ currentEvent.user.username }}">
+            <img ng-src="{{ currentEvent.user.getAvatar(80, 80) }}" title="{{ currentEvent.user.username }}" />
           </div>
 
           <section class="margin-top-20">

@@ -7,18 +7,25 @@
         </h1>
         <ul class="menu-list">
           <li>
-            <a ng-repeat="vote in onGoingVotes | orderBy: '-created'" ng-class="{'vote active' : vote._id === currentVote._id, 'margin-top-10': $index > 0}" ng-click="setCurrent(vote)">
-              <article class="media onGoingVote">
-                <div class="media-content" style="overflow: hidden;">
-                  <p class="three-line-ellipsis">
+            <div class="sideEvent" ng-repeat="vote in onGoingVotes | orderBy: '-created'" ng-class="{'active' : vote._id === currentVote._id, 'margin-top-10': $index > 0}" ng-click="setCurrent(vote)">
+              <div class="media">
+                <div class="media-content">
+                  <div class="eventDateSmall">
+                    <div class="eventDateLong">
+                      Fin  {{ vote.getDays() }}
+                    </div>
+                  </div>
+
+                  <div class="margin-top-10 ellipsis">
                     <strong>{{ vote.title || vote.content }}</strong>
-                  </p>
-                  <span class="icon is-small">
-                    <i class="fa fa-clock-o icon-action"></i>
-                  </span>{{ 'Fin ' + vote.getDays() }}
+                  </div>
+
+                  <div class="three-line-ellipsis">
+                    {{ vote.content }}
+                  </div>
                 </div>
-              </article>
-            </a>
+              </div>
+            </div>
           </li>
         </ul>
 
