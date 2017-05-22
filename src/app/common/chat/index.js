@@ -2,7 +2,7 @@ import Message from "../../model/message"
 import ChatFactory from "../../service/chat"
 import SocketFactory from "../../service/socket"
 import ChatFilter from "./filter"
-import ChatCtrl from "./chatCtrl"
+import {ChatCtrl} from "./chatCtrl"
 import chatDirective from "./lcsChat"
 
 // Create the module where our functionality can attach to

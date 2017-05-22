@@ -1,32 +1,44 @@
 <div id="live-chat">
   <header class="clearfix">
     <div class="user-chat-container">
-      <img ng-repeat="user in (filteredUsers = users | filterConnectedUser:this | limitTo: 6)"
+      <img ng-repeat="user in (filteredUsers = vm.users | filterConnectedUser:vm | limitTo: 6)"
       ng-src="{{ user.getAvatar(30,30)}}"
       title="{{ user.username }}"
       class="img-chat"
       alt="Image"/>
-      <h4 ng-if="(users | filterConnectedUser:this).length === 0">
+      <h4 ng-if="(vm.users | filterConnectedUser:vm).length === 0">
         <i ng-class="{'hasMessage' : hasNewMessage}" class="fa Example of commenting-o fa-commenting-o"></i>
         Personne n'est connecté
       </h4>
     </div>
   </header>
   <section>
-    <form>
+    <form name="messageForm">
       <p class="control has-icon has-icon-right">
-        <textarea class="textarea textareaChat" ng-model="message.content" ng-enter="sendMessage()" ng-click="$event.stopPropagation()" placeholder="Entre ton message…" autofocus>
+        <textarea
+        class="textarea textareaChat"
+        ng-model="vm.message.content"
+        ng-enter="vm.sendMessage()"
+        ng-click="$event.stopPropagation()"
+        placeholder="Entre ton message…"
+        autofocus>
         </textarea>
         <i class="fa fa-send"></i>
       </p>
     </form>
     <div class="chat">
       <div class="chat-history">
-        <div ng-repeat="message in messages" class="chat-message">
+        <div ng-repeat="message in vm.messages" class="chat-message">
           <div ng-class="{'is-mention' : message.getMention(currentUser.username)}" class="clearfix">
-            <span class="chat-time">{{ message.getDate() }}</span>
-            <strong>{{ message.getUsername() }}</strong>
-            <p>{{ message.content }}</p>
+            <span class="chat-time">
+              {{ message.getDate() }}
+            </span>
+            <strong>
+              {{ message.getUsername() }}
+            </strong>
+            <p>
+              {{ message.content }}
+            </p>
           </div>
         </div>
       </div>

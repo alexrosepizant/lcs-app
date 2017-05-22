@@ -2,6 +2,7 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
   "ngInject"
 
   $scope.currentUser = $rootScope.currentUser
+  $scope.hasNewMessage = true
 
   // Main menu
   $scope.menu = [{

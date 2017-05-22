@@ -1,85 +1,88 @@
-export default function ChatCtrl($rootScope, $scope, User, Message, socket, UserFactory, ChatFactory, Notification) {
-  "ngInject"
+export class ChatCtrl {
 
-  // Retrieve currentUser
-  $scope.currentUser = $rootScope.currentUser
+  constructor($rootScope, $scope, Message, socket, UserFactory, ChatFactory) {
+    "ngInject"
 
-  // Retrieve others params and init
-  UserFactory.findUsers()
-    .then((users) => $scope.users = users)
+    this.$rootScope = $rootScope
+    this.socket = socket
+    this.Message = Message
 
-  ChatFactory.findMessages()
-    .then((messages) => $scope.messages = messages)
+    this.currentUser = $rootScope.currentUser
 
-  $scope.connectedUsers = []
-  $scope.message = {
-    content: "",
-    username: $scope.currentUser.username,
+    // Retrieve others params and init
+    UserFactory.findUsers()
+      .then((users) => {
+        this.users = users
+      })
+
+    ChatFactory.findMessages()
+      .then((messages) => this.messages = messages)
+
+    this.connectedUsers = []
+    this.message = {
+      content: "",
+      username: this.currentUser.username,
+    }
+
+    /**
+    Socket events
+    **/
+    socket.on("init", (data) => {
+      this.connectedUsers = data.connectedUsers
+      socket.emit("user:entry", {
+        username: this.currentUser.username,
+      })
+    })
+
+    socket.on("send:message", (message) => {
+      this.addMessage(message)
+    })
+
+    socket.on("user:join", (data) => {
+      this.connectedUsers = data.connectedUsers
+      this.addMessage({
+        username: "",
+        content: data.username + " vient de rentrer.",
+      })
+      $rootScope.$broadcast("newMessage")
+    })
+
+    socket.on("user:left", (data) => {
+      this.connectedUsers = data.connectedUsers
+      this.addMessage({
+        username: "",
+        content: data.username + " est partie.",
+      })
+    })
   }
-
-  /**
-  Socket events
-  **/
-  socket.on("init", (data) => {
-    $scope.connectedUsers = data.connectedUsers
-    socket.emit("user:entry", {
-      username: $scope.currentUser.username,
-    })
-  })
-
-  socket.on("send:message", (message) => {
-    $scope.addMessage(message)
-  })
-
-  socket.on("user:join", (data) => {
-    $scope.connectedUsers = data.connectedUsers
-    $scope.addMessage({
-      username: "",
-      content: data.username + " vient de rentrer.",
-    })
-    $rootScope.$broadcast("newMessage")
-  })
-
-  socket.on("user:left", (data) => {
-    $scope.connectedUsers = data.connectedUsers
-    $scope.addMessage({
-      username: "",
-      content: data.username + " est partie.",
-    })
-  })
 
   /**
   Others events
   **/
-  $scope.mention = (name) => {
-    if ($scope.message.content.length > 0) {
-      $scope.message.content += " "
+  mention(name) {
+    if (this.message.content.length > 0) {
+      this.message.content += " "
     }
-    $scope.message.content += "@" + name + " "
+    this.message.content += "@" + name + " "
   }
 
   /**
   Add and save actions
   **/
-  $scope.addMessage = (message) => {
-    $scope.messages.unshift(new Message(message))
-    $rootScope.$broadcast("onNewMessage")
-    $scope.hasNewMessage = true
-
-    Notification.info({
-      title: `Nouveau message de ${message.username}`,
-      message: `${message.username} : ${message.content}`,
-    })
+  addMessage(message) {
+    this.messages.unshift(new this.Message(message))
+    this.$rootScope.$broadcast("onNewMessage")
+    this.hasNewMessage = true
   }
 
-  $scope.sendMessage = () => {
-    if ($scope.message.content.length > 0) {
-      $scope.addMessage($scope.message)
-      socket.emit("send:message", $scope.message)
+  sendMessage() {
+    if (this.message.content.length > 0) {
+      this.addMessage(this.message)
+      this.socket.emit("send:message", this.message)
 
       // Reset content value
-      $scope.message.content = ""
-      $scope.hasNewMessage = false
+      this.message.content = ""
+      this.hasNewMessage = false
     }
   }
 }

@@ -4,5 +4,6 @@ export default () => {
     replace: true,
     template: require("./chat.html"),
     controller: "ChatCtrl",
+    controllerAs: "vm",
   }
 }

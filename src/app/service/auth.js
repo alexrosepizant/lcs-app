@@ -1,4 +1,4 @@
-export default function AuthFactory($http, $rootScope, $cookieStore, $state, User) {
+export default function AuthFactory($http, $rootScope, $state, User) {
   "ngInject"
 
   const BASE_URL = "auth"
@@ -21,12 +21,11 @@ export default function AuthFactory($http, $rootScope, $cookieStore, $state, Use
 
     redirectToLogin() {
       $rootScope.currentUser = null
-      $cookieStore.remove("user")
       $state.go("login")
     },
 
     createUser(userinfo) {
-      return $http.post(`/${BASE_URL}/users`, userinfo)
+      return $http.post(`/${BASE_URL}/user`, userinfo)
     },
 
     updateCurrentUser() {
