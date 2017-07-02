@@ -615,11 +615,11 @@ h2 {
   margin: 0;
   text-align: center;
   text-transform: uppercase;
-  font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 }
 
 .blogContent {
-  font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   margin-bottom: 1em;
   color: #383838;
@@ -1241,6 +1241,11 @@ span.hasMessage i {
 .tag:hover,
 .tag.active {
   background-color: var(--MainColor);
+}
+
+.tag:hover a,
+.tag.active a {
+  color: white;
 }
 
 .videoTileFrame {

@@ -9,7 +9,12 @@
 
         <ul class="menu-list">
           <li>
-            <div class="sideEvent" ng-repeat="event in onGoingEvents" ng-class="{'active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
+            <div
+            class="sideEvent"
+            ng-repeat="event in onGoingEvents"
+            ng-class="{'active' : event._id === currentEvent._id}"
+            ng-click="setCurrentEvent(event)">
+
               <div class="media">
                 <div class="media-content">
                   <div class="eventDateSmall">
@@ -42,8 +47,14 @@
         </p>
         <ul class="menu-list is-block-tablet">
           <li>
-            <a ng-repeat="event in pastEvents" ng-class="{'is-active' : event._id === currentEvent._id}" ng-click="setCurrentEvent(event)">
-              <p class="ellipsis">{{ event.startsAt | amDateFormat:"DD MMM YYYY" }} <strong>{{event.title}}</strong></p>
+            <a
+            ng-repeat="event in pastEvents"
+            ng-class="{'is-active' : event._id === currentEvent._id}"
+            ng-click="setCurrentEvent(event)">
+
+              <p class="ellipsis">{{ event.startsAt | amDateFormat:"DD MMM YYYY" }}
+                  <strong>{{event.title}}</strong>
+              </p>
             </a>
           </li>
         </ul>
@@ -52,7 +63,11 @@
 
     <div class="column is-9 margin-top-20">
       <section class="voteButtons">
-        <a class="button action event-add" ui-sref="agenda.update({userEventId: currentEvent._id})" ng-disabled="currentUser._id !== currentEvent.user._id">
+        <a
+        class="button action event-add"
+        ui-sref="agenda.update({userEventId: currentEvent._id})"
+        ng-disabled="currentUser._id !== currentEvent.user._id">
+
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
@@ -61,7 +76,10 @@
           </span>
         </a>
 
-        <a class="button action event-add" ng-click="remove(currentEvent._id)" ng-disabled="currentUser._id !== currentEvent.user._id">
+        <a class="button action event-add"
+        ng-click="remove(currentEvent._id)"
+        ng-disabled="currentUser._id !== currentEvent.user._id">
+
           <span class="icon is-small">
             <i class="fa fa-remove"></i>
           </span>
@@ -100,13 +118,18 @@
             <div class="eventInfos">
               <div class="agendaTag">
                 <span class="tag" ng-if="currentEvent.price">
-                  <strong>Prix</strong>{{currentEvent.price}} €
+                  <strong>Prix</strong>
+                  {{currentEvent.price}} €
                 </span>
                 <span class="tag" ng-if="currentEvent.location.adress">
-                  <strong>Lieu</strong>{{currentEvent.location.adress}}
+                  <strong>Lieu</strong>
+                  {{currentEvent.location.adress}}
                 </span>
-                <span class="tag" ng-if="currentEvent.link" ng-bind-html="currentEvent.link | linky">
-                  <strong>Lien</strong>{{currentEvent.link}}
+                <span class="tag" ng-if="currentEvent.link">
+                  <strong>Lien</strong>
+                  <a ng-href="{{currentEvent.link}}" target="_blank">
+                      {{currentEvent.link}}
+                  </a>
                 </span>
               </div>
             </div>
