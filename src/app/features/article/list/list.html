@@ -1,60 +1,101 @@
 <section class="margin-top-20">
-  <div class="container margin-top-20" ng-if="articles.length === 0">
-    <div class="notification">
-      Il n'y a aucun article.
+    <div class="container margin-top-20" ng-if="articles.length === 0">
+        <div class="notification">
+            Il n'y a aucun article.
+        </div>
     </div>
-  </div>
 
-  <section style="position: absolute; right: 0;">
-    <a class="button is-primary pull-right" ui-sref="article.create">
-      <span class="icon is-small">
-        <i class="fa fa-plus"></i>
-      </span>
-      <span>
-        Ajouter
-      </span>
-    </a>
-  </section>
+    <!-- <div>
+        <span class="pull-right">
+          <input type="text" class="search-query" ng-enter="search()" ng-model="word">
+        </span>
+        <div class="title">Articles</div>
+    </div> -->
 
-  <div class="tabs is-medium is-boxed bottom-20">
-    <ul>
-      <li ng-class="{'is-active': filter === 'all'}">
-        <a ui-sref="article.list({ filter: 'all' })">Tous</a>
-      </li>
-      <li ng-class="{'is-active': filter === 'video'}">
-        <a ui-sref="article.list({ filter: 'video' })">Vidéos</a>
-      </li>
-      <li ng-class="{'is-active': filter === 'album'}">
-        <a ui-sref="article.list({ filter: 'album' })">Photos</a>
-      </li>
-    </ul>
-  </div>
-
-  <section class="columns " ng-repeat="article in articles" ng-if="articles.length > 0">
-    <div class="blogUser column is-1 is-block-tablet">
-      <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+    <div class="nav menu margin-top-20">
+        <div class="container">
+            <!-- <div class="nav-left">
+                <a class="nav-item is-tab is-active">
+                    <span class="icon-btn">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                </a>
+                <a class="nav-item is-tab">
+                    <span class="icon-btn">
+                        <i class="fa fa-print"></i>
+                    </span>
+                </a>
+                <a class="nav-item is-tab">
+                    <span class="icon-btn thin">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </a>
+                <a class="nav-item is-tab">
+                    <span class="icon-btn">
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </a>
+            </div> -->
+            <div class="nav-left">
+                <a
+                style="padding-top: 15px;"
+                ui-sref="article.create">
+                    <span class="button is-primary">
+                        <i class="fa fa-plus icon is-small"></i>
+                         &nbsp;Ajouter
+                    </span>
+                </a>
+            </div>
+            <div class="nav-right is-hidden-mobile">
+                <a
+                    ng-class="{'is-active': filter === 'all'}"
+                    ui-sref="article.list({ filter: 'all' })"
+                    class="nav-item is-tab">
+                    Tous
+                </a>
+                <a
+                    ng-class="{'is-active': filter === 'video'}"
+                    ui-sref="article.list({ filter: 'video' })"
+                    class="nav-item is-tab">
+                    Vidéos
+                </a>
+                <a
+                    ng-class="{'is-active': filter === 'album'}"
+                    ui-sref="article.list({ filter: 'album' })"
+                    class="nav-item is-tab">
+                    Photos
+                </a>
+            </div>
+        </div>
     </div>
-    <div  class="column is-11">
-      <lcs-blog-post type="{{ article.type || 'standard' }}" class="box blog">
-      </lcs-blog-post>
-    </div>
-  </section>
 
-  <div class="margin-top-20">
-    <uib-pagination
-    total-items="totalItems"
-    num-pages="numPages"
-    ng-model="currentPage"
-    ng-change="pageChanged()"
-    max-size="maxSize"
-    class="pagination-sm margin-top-10 bottom-10"
-    boundary-links="true"
-    rotate="false"
-    items-per-page="itemPerPage"
-    previous-text="&lsaquo;"
-    next-text="&rsaquo;"
-    first-text="&laquo;"
-    last-text="&raquo;">
-  </uib-pagination>
+    <div class="margin-top-20">
+        <section class="columns" ng-repeat="article in articles" ng-if="articles.length > 0">
+            <div class="blogUser column is-1 is-block-tablet">
+                <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+            </div>
+            <div  class="column is-11">
+                <lcs-blog-post type="{{ article.type || 'standard' }}" class="blog">
+                </lcs-blog-post>
+            </div>
+        </section>
+    </div>
+
+    <div class="margin-top-20">
+        <uib-pagination
+        total-items="totalItems"
+        num-pages="numPages"
+        ng-model="currentPage"
+        ng-change="pageChanged()"
+        max-size="maxSize"
+        class="pagination-sm margin-top-10 bottom-10"
+        boundary-links="true"
+        rotate="false"
+        items-per-page="itemPerPage"
+        previous-text="&lsaquo;"
+        next-text="&rsaquo;"
+        first-text="&laquo;"
+        last-text="&raquo;">
+    </uib-pagination>
 </div>
 </section>

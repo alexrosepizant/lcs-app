@@ -1,10 +1,5 @@
 import moment from "moment"
 
-const getPreview = (content) => {
-  const imgs = angular.element("<div>" + content + "</div>").find("img")
-  return (imgs.length) ? angular.element(imgs[0]).attr("src") : null
-}
-
 export default function Article($sce, User, Comment) {
   "ngInject"
 
@@ -15,7 +10,7 @@ export default function Article($sce, User, Comment) {
       description: "",
       content: "",
       content: "",
-      image: getPreview(data.content),
+      hasPreview: (angular.element("<div>" + data.content + "</div>").find("img").length > 0),
       categories: [],
       commentsUser: (data.comments) ? data.comments.map((comment) => new User(comment.user)) : [],
       sources: [{
@@ -26,6 +21,11 @@ export default function Article($sce, User, Comment) {
 
       getTitle() {
         return this.title
+      },
+
+      getPreview() {
+        const imgs = angular.element("<div>" + this.content + "</div>").find("img")
+        return (imgs.length > 0) ? angular.element(imgs[0]).attr("src") : null
       },
 
       formattedTitle() {

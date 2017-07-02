@@ -1,11 +1,12 @@
-<article>
+<article class="bottom-20">
 
   <section>
     <a ui-sref="article.standardView({ articleId: article._id })">
-      <div class="margin-top-10">
-        <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
+      <div class="margin-top-20" ng-if="article.hasPreview">
+        <img alt="{{ article.title }}" ng-src="{{ article.getPreview() + '?dim=800x250' }}"/>
       </div>
-      <div class="blog-title ellipsis">
+
+      <div class="blog-title ellipsis margin-top-10">
         {{article.title}}
       </div>
     </a>
@@ -31,17 +32,7 @@
     </div>
   </section>
 
-  <section class="margin-top-20 bottom-20">
-    <div class="media-content">
-      <div class="content">
-        <a ui-sref="article.standardView({ articleId: article._id })" class="button is-primary">
-          Voir plus
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="blog-user-section" ng-if="article.commentsUser.length > 0">
+  <section class="blog-user-section margin-top-20" ng-if="article.commentsUser.length > 0">
     <div class="blogCommentSection">
       <span class="authorSectionTitle">
         Ils ont laissé un commentaire

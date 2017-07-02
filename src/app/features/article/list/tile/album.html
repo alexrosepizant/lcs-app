@@ -1,6 +1,6 @@
 <article>
 
-  <section class="margin-top-20 bottom-20">
+  <section class="margin-top-10 bottom-20">
     <!-- Article title -->
     <a ui-sref="article.albumView({ articleId: article._id })">
       <div class="blog-title ellipsis">
@@ -16,8 +16,8 @@
   </section>
 
   <!-- Article categories -->
-  <section class="bottom-20">
-    <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
+  <section class="bottom-10">
+    <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag">
       {{ category }}
     </span>
   </section>
@@ -44,16 +44,6 @@
             {{ article.getFormattedContent() }}
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bottom-20">
-    <div class="media-content">
-      <div class="content">
-        <a ui-sref="article.albumView({ articleId: article._id })" class="button is-primary">
-          Voir plus
-        </a>
       </div>
     </div>
   </section>

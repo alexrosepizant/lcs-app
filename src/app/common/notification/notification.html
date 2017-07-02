@@ -1,15 +1,18 @@
-<section>
-  <ul class="menu-list">
-    <li>
-      <a ng-repeat="content in notifications | orderBy:'-created'" ng-click="content.openLink()">
-        <p class="ellipsis">
-          <span class="icon-item-type">
+<div>
+    <div class="notification blog"
+    style="padding: 15px 20px !important;" 
+    ng-repeat="content in notifications | orderBy:'-created'"
+    ng-click="content.openLink()">
+        <button class="delete"></button>
+        <span class="icon-item-type">
             <i class="fa" ng-class="content.getIcon()"></i>
-          </span>
-          {{content.getDateFrom()}}, <strong>{{content.user.username}} {{content.getFormattedType()}}
-          {{content.title || 'un commentaire'}}</strong>
-        </p>
-      </a>
-    </li>
-  </ul>
-</section>
+        </span>
+        <strong>
+            {{content.title || 'un commentaire'}}
+        </strong>
+        <br>
+        <small>
+            {{content.getDateFrom()}} | par : {{content.user.username}}
+        </small>
+    </div>
+</div>
