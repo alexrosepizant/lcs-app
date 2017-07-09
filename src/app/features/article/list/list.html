@@ -1,49 +1,12 @@
 <section class="margin-top-20">
-    <div class="container margin-top-20" ng-if="articles.length === 0">
-        <div class="notification">
-            Il n'y a aucun article.
-        </div>
-    </div>
-
-    <!-- <div>
-        <span class="pull-right">
-          <input type="text" class="search-query" ng-enter="search()" ng-model="word">
-        </span>
-        <div class="title">Articles</div>
-    </div> -->
-
     <div class="nav menu margin-top-20">
         <div class="container">
-            <!-- <div class="nav-left">
-                <a class="nav-item is-tab is-active">
+            <div class="nav-left">
+                <a ui-sref="article.create" class="nav-item is-tab is-action">
                     <span class="icon-btn">
                         <i class="fa fa-plus"></i>
                     </span>
-                </a>
-                <a class="nav-item is-tab">
-                    <span class="icon-btn">
-                        <i class="fa fa-print"></i>
-                    </span>
-                </a>
-                <a class="nav-item is-tab">
-                    <span class="icon-btn thin">
-                        <i class="fa fa-lock"></i>
-                    </span>
-                </a>
-                <a class="nav-item is-tab">
-                    <span class="icon-btn">
-                        <i class="fa fa-trash"></i>
-                    </span>
-                </a>
-            </div> -->
-            <div class="nav-left">
-                <a
-                style="padding-top: 15px;"
-                ui-sref="article.create">
-                    <span class="button is-primary">
-                        <i class="fa fa-plus icon is-small"></i>
-                         &nbsp;Ajouter
-                    </span>
+                    &nbsp;Ajouter
                 </a>
             </div>
             <div class="nav-right is-hidden-mobile">
@@ -81,7 +44,13 @@
         </section>
     </div>
 
-    <div class="margin-top-20">
+    <div class="container margin-top-20" ng-if="articles.length === 0">
+        <div class="notification">
+            Désolé, pas d'article correspondant à la recherche.
+        </div>
+    </div>
+
+    <div class="margin-top-20" ng-if="articles.length > maxSize">
         <uib-pagination
         total-items="totalItems"
         num-pages="numPages"

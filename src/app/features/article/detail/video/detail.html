@@ -1,20 +1,18 @@
-<div class="voteButtons">
-  <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
-    <span class="icon is-small">
-      <i class="fa fa-pencil"></i>
-    </span>
-    <span>
-      Modifier
-    </span>
-  </a>
-  <a ng-click="removeContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
-    <span class="icon is-small">
-      <i class="fa fa-remove"></i>
-    </span>
-    <span>
-      Supprimer
-    </span>
-  </a>
+<div class="voteButtons nav menu margin-top-20">
+    <a ng-click="updateContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon-btn">
+            <i class="fa fa-pencil"></i>
+        </span>
+        &nbsp;
+        Modifier
+    </a>
+
+    <a ng-click="removeContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon-btn">
+            <i class="fa fa-trash"></i>
+        </span>
+        &nbsp;Supprimer
+    </a>
 </div>
 
 <article class="container margin-top-20">
@@ -39,16 +37,12 @@
       </div>
     </section>
 
-    <section class="media margin-top-20">
-      <div class="media-content">
+    <section class="media">
+      <div class="media-content center">
         <div class="content">
           <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
             {{ category }}
           </span>
-        </div>
-
-        <div class="content blogContent">
-          <div ng-bind-html="article.getContent()"></div>
         </div>
       </div>
     </section>
@@ -88,6 +82,12 @@
         </vg-controls>
         <vg-overlay-play></vg-overlay-play>
       </videogular>
+    </section>
+
+    <section class="margin-top-20" ng-if="article.description">
+      <p>
+        {{article.description}}
+      </p>
     </section>
 
     <section class="blog-user-section margin-top-20">

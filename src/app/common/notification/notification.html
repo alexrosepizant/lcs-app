@@ -1,6 +1,6 @@
 <div>
     <div class="notification blog"
-    style="padding: 15px 20px !important;" 
+    style="padding: 15px 20px !important;"
     ng-repeat="content in notifications | orderBy:'-created'"
     ng-click="content.openLink()">
         <button class="delete"></button>
@@ -12,7 +12,7 @@
         </strong>
         <br>
         <small>
-            {{content.getDateFrom()}} | par : {{content.user.username}}
+            {{content.getDateFrom()}}, par {{content.user.username}}
         </small>
     </div>
 </div>

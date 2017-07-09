@@ -19,7 +19,13 @@ export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, arti
 
   $scope.pageChanged = () => {
     ArticleFactory.findArticles($scope.filter, $scope.currentPage - 1)
-      .then((articles) => $scope.articles = articles)
+      .then((articles) => {
+        $scope.articles = articles
+        return ArticleFactory.getArticleCount()
+      })
+      .then((count) => {
+        $scope.totalItems = count
+      })
   }
 
     /**

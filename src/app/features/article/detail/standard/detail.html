@@ -1,31 +1,27 @@
-<div class="voteButtons">
-  <a ng-click="updateContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
-    <span class="icon is-small">
-      <i class="fa fa-pencil"></i>
-    </span>
-    <span>
-      Modifier
-    </span>
-  </a>
-  <a ng-click="removeContent()" class="button blog-add" ng-disabled="article.user._id !== currentUser._id">
-    <span class="icon is-small">
-      <i class="fa fa-remove"></i>
-    </span>
-    <span>
-      Supprimer
-    </span>
-  </a>
+<div class="voteButtons nav menu margin-top-20">
+    <a ng-click="updateContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon-btn">
+            <i class="fa fa-pencil"></i>
+        </span>
+        &nbsp;
+        Modifier
+    </a>
+
+    <a ng-click="removeContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
+        <span class="icon-btn">
+            <i class="fa fa-trash"></i>
+        </span>
+        &nbsp;Supprimer
+    </a>
 </div>
 
 <article class="container margin-top-20">
   <div class="box bottom-50">
+
     <button class="delete pull-right" ui-sref="article.list"></button>
 
     <section>
       <a>
-        <div class="margin-top-10">
-          <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
-        </div>
         <div class="blog-title-detail">
           {{article.title}}
         </div>

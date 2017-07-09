@@ -22,11 +22,6 @@
 
         <div class="nav-right nav-menu">
 
-          <!-- Search bar -->
-          <span class="nav-item">
-            <input type="text" class="search-query" ng-enter="search()" ng-model="word">
-          </span>
-
           <!-- Chat button -->
           <span class="nav-item" ng-mouseover="hasNewMessage = false">
             <span angular-popover direction="bottom" template-url="app/common/header/popover/chat.html" mode="mouseover">
@@ -62,6 +57,9 @@
               <a ui-sref="{{item.link}}">{{item.name}}</a>
             </li>
           </ul>
+          <span class="pull-right" ng-swho="$state.includes('article')">
+            <input type="text" class="search-query" ng-change="search()" ng-model="word">
+          </span>
         </nav>
       </div>
     </div>
@@ -76,6 +74,9 @@
               <a ui-sref="{{item.link}}">{{item.name}}</a>
             </li>
           </ul>
+          <span class="pull-right" ng-show="$state.includes('article')">
+            <input type="text" class="search-query" ng-change="search()" ng-model="word">
+          </span>
         </nav>
       </div>
     </div>

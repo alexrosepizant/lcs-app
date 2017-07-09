@@ -1,7 +1,8 @@
-export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, Notification) {
+export default function HeaderCtrl($rootScope, $scope, $state, AuthFactory, ArticleFactory) {
   "ngInject"
 
   $scope.currentUser = $rootScope.currentUser
+  $scope.$state = $state
 
   // Main menu
   $scope.menu = [{
@@ -31,11 +32,7 @@ export default function HeaderCtrl($rootScope, $scope, AuthFactory, $location, N
 
   // Search
   $scope.search = () => {
-    Notification.info({
-      title: "Info",
-      message: "C'est pour bientôt!",
-    })
-    $scope.word = ""
+    ArticleFactory.search($scope.word)
   }
 
   $scope.$on("newMessage", () => {

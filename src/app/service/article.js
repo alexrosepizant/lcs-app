@@ -1,15 +1,23 @@
-export default function ArticleFactory($http, AppConstants, Article) {
+export default function ArticleFactory($http, $rootScope, AppConstants, Article) {
   "ngInject"
 
   const BASE_URL = "lcs-api/article"
 
+  this.currentSearch = ""
+
   return {
+    search(inputSearch) {
+      this.currentSearch = inputSearch
+      $rootScope.$broadcast("updateArticleList")
+    },
+
     findArticles(filter, page = 0) {
       return $http.get(`/${BASE_URL}`, {
         params: {
           type: filter,
           perPage: AppConstants.aticlePerPage,
           page: page,
+          word: this.currentSearch,
         },
       }).then((articles) => {
         return articles.data.map((article) => {
