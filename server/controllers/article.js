@@ -40,7 +40,6 @@ exports.count = () => {
 */
 exports.all = (params) => {
   const query = (params.userId) ? {user: params.userId} : {}
-  let search = null
 
   if (params.type && params.type !== "all") {
     query.type = params.type
@@ -51,17 +50,15 @@ exports.all = (params) => {
   }
 
   if (params.word) {
-    search = {
-      $text : {
-        "$search": params.word,
-      },
+    query.$text = {
+      "$search": params.word,
     }
   }
 
   const limit = (params.perPage) ? parseInt(params.perPage) : (params.limit) ? parseInt(params.limit) : 25
   const skip = (params.page) ? parseInt(params.page * limit) : 0
 
-  return Article.find(search, query)
+  return Article.find(query)
     .sort("-created")
     .populate("user", userFields)
     .populate({

@@ -10,7 +10,7 @@ const userFields = "_id username avatar"
  */
 exports.all = (params) => {
   const query = (params.userId) ? {user: params.userId} : {}
-  const limit = (params.limit) ? parseInt(params.limit) : 25
+  const limit = (params.limit) ? parseInt(params.limit) : 10
 
   return Notification.find(query)
     .sort("-created")

@@ -1,15 +1,17 @@
 <div>
     <div class="notification blog"
     style="padding: 15px 20px !important;"
-    ng-repeat="content in notifications | orderBy:'-created'"
-    ng-click="content.openLink()">
-        <button class="delete"></button>
+    ng-repeat="content in notifications | orderBy:'-created'">
+        <button class="delete" ng-click="hideNotification(content)">
+        </button>
         <span class="icon-item-type">
             <i class="fa" ng-class="content.getIcon()"></i>
         </span>
-        <strong>
-            {{content.title || 'un commentaire'}}
-        </strong>
+        <a ng-click="content.openLink()">
+            <strong>
+                {{content.title || 'un commentaire'}}
+            </strong>
+        </a>
         <br>
         <small>
             {{content.getDateFrom()}}, par {{content.user.username}}

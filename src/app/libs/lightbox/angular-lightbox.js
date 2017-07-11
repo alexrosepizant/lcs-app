@@ -19,13 +19,14 @@ angular.module("angular-lightbox", []).directive("lightbox", ($compile) => {
 
           // Build DOM
           const dom = $compile(
-            "<div class=\"angular-lightbox-overlay\">" +
-            "<span class=\"angular-lightbox-inner\">" +
+            "<div class=\"angular-lightbox-overlay\"><div class=\"angular-lightbox-inner\">" +
+            "<span>" +
             "<a href class=\"previous\" title=\"Previous\" ng-click=\"showPrevious()\">«</a>" +
             "<img src=\"\" />" +
             "<a href class=\"next\" title=\"Next\" ng-click=\"showNext()\">»</a>" +
             "<a href class=\"close\" title=\"Close\" ng-click=\"close()\">×</a>" +
             "</span>" +
+            "</div>" +
             "</div>"
           )(scope)
 

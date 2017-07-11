@@ -33,7 +33,13 @@ export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, arti
     **/
   $scope.$on("updateArticleList", () => {
     ArticleFactory.findArticles($scope.filter)
-      .then((articles) => $scope.articles = articles)
+        .then((articles) => {
+          $scope.articles = articles
+          return ArticleFactory.getArticleCount()
+        })
+        .then((count) => {
+          $scope.totalItems = count
+        })
   })
 
   $scope.labnolThumb = (id) => {
