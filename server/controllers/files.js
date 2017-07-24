@@ -22,6 +22,7 @@ const guid = (() => {
 })()
 
 const uploadSuccess = (res, location, originalName) => {
+  console.warn(location)
   res.jsonp({
     err: null,
     location: location,
@@ -79,7 +80,7 @@ exports.handlePhotoUpload = (req, res) => {
   const params = req.files
 
   if (isInvalidImage(params.file)) {
-    return uploadFailure(res, "Wrong file type")
+    return this.handleVideoUpload(req, res)
   }
 
   const oldImage = params.file || params.image

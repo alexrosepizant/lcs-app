@@ -22,7 +22,13 @@ export default function StandardCreationCtrl($rootScope, $scope, ArticleFactory,
             file: file,
           },
         }).then((resp) => {
-          $scope.article.content += "<img src='" + resp.data.location + "'/>"
+          if (!resp.data.mimeType) {
+            $scope.article.content += "<img src='" + resp.data.location + "?dim=80'/>"
+          } else {
+            $scope.article.content += "<a href='/" + resp.data.location
+            + "' target=\"_blank\"><i class=\"fa fa-file\">&nbsp;" + resp.data.location.split("/").pop()
+            + "</i></>"
+          }
         })
       }
     }
