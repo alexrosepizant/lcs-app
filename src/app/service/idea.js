@@ -1,7 +1,7 @@
 export default function IdeaFactory($http, Idea) {
   "ngInject"
 
-  const BASE_URL = "idea"
+  const BASE_URL = "lcs-api/idea"
 
   return {
     loadIdeas() {

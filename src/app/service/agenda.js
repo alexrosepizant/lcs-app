@@ -1,7 +1,7 @@
 export default function AgendaFactory($http, UserEvent) {
   "ngInject"
 
-  const BASE_URL = "userEvent"
+  const BASE_URL = "lcs-api/userEvent"
 
   return {
     findOnGoingUserEvents() {

@@ -1,7 +1,7 @@
 export default function AuthFactory($http, $rootScope, $state, User) {
   "ngInject"
 
-  const BASE_URL = "auth"
+  const BASE_URL = "lcs-api/auth"
 
   return {
     login(provider, user) {

@@ -1,7 +1,7 @@
 export default function NotificationFactory($http, AppConstants, NotificationModel) {
   "ngInject"
 
-  const BASE_URL = "notification"
+  const BASE_URL = "lcs-api/notification"
 
   return {
     loadNotifications() {

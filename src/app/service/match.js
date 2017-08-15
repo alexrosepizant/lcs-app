@@ -3,7 +3,7 @@ import euroRessources from "../../assets/euro/euroRessources.json"
 export default function MatchFactory($http, Match) {
   "ngInject"
 
-  const BASE_URL = "match"
+  const BASE_URL = "lcs-api/match"
 
   return {
     teams: euroRessources.teams,

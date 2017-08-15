@@ -1,7 +1,7 @@
 export default function ChatFactory($http, Message) {
   "ngInject"
 
-  const BASE_URL = "chat"
+  const BASE_URL = "lcs-api/chat"
 
   return {
     findMessages() {

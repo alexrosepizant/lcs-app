@@ -1,7 +1,7 @@
 export default function VoteFactory($http, Vote) {
   "ngInject"
 
-  const BASE_URL = "vote"
+  const BASE_URL = "lcs-api/vote"
 
   return {
     findVotes(filter) {

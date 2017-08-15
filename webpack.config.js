@@ -31,6 +31,17 @@ const config = {
     stats: {
       colors: true,
     },
+    proxy: {
+      "/lcs-api": {
+        target: "http://localhost:3000",
+        pathRewrite: {"^/lcs-api" : ""},
+        secure: false,
+      },
+      "/public": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+    },
   },
   output: {
     path: buildPath,

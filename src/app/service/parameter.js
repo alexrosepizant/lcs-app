@@ -1,7 +1,7 @@
 export default function ParameterFactory($http) {
   "ngInject"
 
-  const BASE_URL = "parameter"
+  const BASE_URL = "lcs-api/parameter"
 
   return {
     getParameters() {

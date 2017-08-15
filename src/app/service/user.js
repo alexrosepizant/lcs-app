@@ -1,7 +1,7 @@
 export default function UserFactory($http, $rootScope, $cookieStore, User) {
   "ngInject"
 
-  const BASE_URL = "user"
+  const BASE_URL = "lcs-api/user"
 
   return {
     // Utils

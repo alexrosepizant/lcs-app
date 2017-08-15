@@ -1,7 +1,7 @@
 export default function ArticleFactory($http, AppConstants, Article) {
   "ngInject"
 
-  const BASE_URL = "article"
+  const BASE_URL = "lcs-api/article"
 
   return {
     findArticles(filter, page = 0) {

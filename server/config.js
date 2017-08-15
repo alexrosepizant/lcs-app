@@ -8,7 +8,7 @@ module.exports = {
   },
   db: "mongodb://localhost/mean-dev",
   root: path.normalize(__dirname + "/../"),
-  port: (process.env.NODE_ENV === "production") ? 80 : 3000,
+  port: 3000,
   sessionSecret: "MEAN",
   sessionCollection: "sessions",
   requestMaxSize: "50mb",
