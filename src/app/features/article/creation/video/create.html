@@ -28,14 +28,6 @@
     <h1 ng-model="article.title" medium-editor data-placeholder="Titre de la vidéo">
     </h1>
 
-    <lcs-category article="article"></lcs-category>
-
-    <p class="control">
-      <textarea ng-model="article.description" class="textarea" placeholder="Description">
-      </textarea>
-    </p>
-    <hr>
-
     <div class="columns">
       <div class="column is-6">
 
@@ -101,6 +93,15 @@
         </videogular>
       </div>
     </div>
+
+    <hr>
+
+    <lcs-category article="article"></lcs-category>
+
+    <p class="control">
+      <textarea ng-model="article.description" class="textarea" placeholder="Description">
+      </textarea>
+    </p>
   </section>
 
   <footer class="modal-card-foot">

@@ -1,11 +1,37 @@
+<nav class="nav has-shadow menu">
+  <div class="container">
+
+    <div class="nav-right">
+        <a
+            ng-class="{'is-active': filter === 'all'}"
+            ui-sref="article.list({ filter: 'all' })"
+            class="nav-item is-tab">
+            Tous
+        </a>
+        <a
+            ng-class="{'is-active': filter === 'video'}"
+            ui-sref="article.list({ filter: 'video' })"
+            class="nav-item is-tab">
+            Vidéos
+        </a>
+        <a  style="margin-right: 10px;"
+            ng-class="{'is-active': filter === 'album'}"
+            ui-sref="article.list({ filter: 'album' })"
+            class="nav-item is-tab">
+            Photos
+        </a>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
   <div class="columns">
+      <div class="column is-3 margin-top-20 is-block-tablet sidebar-scroll">
+        <lcs-article-sidebar></lcs-article-sidebar>
+      </div>
+
     <div class="column is-9 layout">
       <div ui-view="" class="withoutAnim"></div>
-    </div>
-
-    <div class="column is-3 margin-top-20 is-block-tablet sidebar-scroll">
-      <lcs-article-sidebar></lcs-article-sidebar>
     </div>
   </div>
 </div>

@@ -1,64 +1,32 @@
 <section class="margin-top-20">
-    <div class="nav menu margin-top-20">
-        <div class="container">
-            <div class="nav-left">
-                <a ui-sref="article.create" class="nav-item is-tab is-action">
-                    <span class="icon-btn">
-                        <i class="fa fa-plus"></i>
-                    </span>
-                    &nbsp;Ajouter
-                </a>
-            </div>
-            <div class="nav-right is-hidden-mobile">
-                <a
-                    ng-class="{'is-active': filter === 'all'}"
-                    ui-sref="article.list({ filter: 'all' })"
-                    class="nav-item is-tab">
-                    Tous
-                </a>
-                <a
-                    ng-class="{'is-active': filter === 'video'}"
-                    ui-sref="article.list({ filter: 'video' })"
-                    class="nav-item is-tab">
-                    Vidéos
-                </a>
-                <a
-                    ng-class="{'is-active': filter === 'album'}"
-                    ui-sref="article.list({ filter: 'album' })"
-                    class="nav-item is-tab">
-                    Photos
-                </a>
+    <a class="button is-primary" ui-sref="article.create" style="margin-top: 15px;">
+        <span class="icon is-small">
+            <i class="fa fa-plus"></i>
+        </span>
+        <span>
+            Ajouter
+        </span>
+    </a>
+
+    <div class="field pull-right" style="margin-top: 15px; margin-left: 20px;">
+        <div class="control">
+            <div class="select is-primary">
+                <select>
+                    <option>Trier par date de création</option>
+                    <option>With options</option>
+                </select>
             </div>
         </div>
     </div>
 
-    <div class="margin-top-20">
-        <section class="columns" ng-repeat="article in articles" ng-if="articles.length > 0">
-            <div class="blogUser column is-1 is-block-tablet">
-                <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
-            </div>
-            <div  class="column is-11">
-                <lcs-blog-post type="{{ article.type || 'standard' }}" class="blog">
-                </lcs-blog-post>
-            </div>
-        </section>
-    </div>
-
-    <div class="container margin-top-20" ng-if="articles.length === 0">
-        <div class="notification">
-            Désolé, pas d'article correspondant à la recherche.
-        </div>
-    </div>
-
-    <div class="margin-top-20" ng-if="articles.length > maxSize">
+    <div class="pull-right" style="margin-top: 15px;">
         <uib-pagination
         total-items="totalItems"
         num-pages="numPages"
         ng-model="currentPage"
         ng-change="pageChanged()"
         max-size="maxSize"
-        class="pagination-sm margin-top-10 bottom-10"
-        boundary-links="true"
+        class="pagination-sm"
         rotate="false"
         items-per-page="itemPerPage"
         previous-text="&lsaquo;"
@@ -66,5 +34,23 @@
         first-text="&laquo;"
         last-text="&raquo;">
     </uib-pagination>
+</div>
+
+<div class="margin-top-20">
+    <section class="columns" ng-repeat="article in articles" ng-if="articles.length > 0">
+        <div class="blogUser column is-1 is-block-tablet">
+            <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+        </div>
+        <div  class="column is-11">
+            <lcs-blog-post type="{{ article.type || 'standard' }}" class="blog">
+            </lcs-blog-post>
+        </div>
+    </section>
+</div>
+
+<div class="container margin-top-20" ng-if="articles.length === 0">
+    <div class="notification">
+        Désolé, pas d'article correspondant à la recherche.
+    </div>
 </div>
 </section>

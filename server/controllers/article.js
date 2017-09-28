@@ -24,8 +24,9 @@ exports.article = (id) => {
 /**
 * Count articles
 */
-exports.count = () => {
-  return Article.count({})
+exports.count = (params) => {
+  const query = (params.type && params.type !== "all") ? {type: params.type} : {}
+  return Article.count(query)
     .then((count, err) => {
       if (err) {
         return Promise.reject(err)

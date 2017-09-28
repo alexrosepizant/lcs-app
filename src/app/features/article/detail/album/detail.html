@@ -1,29 +1,29 @@
-<div class="voteButtons nav menu margin-top-20">
-  <a ng-click="download()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
-      <span class="icon-btn">
-          <i class="fa fa-download"></i>
-      </span>
-      &nbsp;
-      Télécharger
-  </a>
-
-  <a ng-click="updateContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
-      <span class="icon-btn">
-          <i class="fa fa-pencil"></i>
-      </span>
-      &nbsp;
-      Modifier
-  </a>
-
-  <a ng-click="removeContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
-      <span class="icon-btn">
-          <i class="fa fa-trash"></i>
-      </span>
-      &nbsp;Supprimer
-  </a>
-</div>
-
 <article class="container margin-top-20">
+    <div class="menu pull-left">
+      <a ng-click="download()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
+          <span class="icon-btn">
+              <i class="fa fa-download"></i>
+          </span>
+          &nbsp;
+          Télécharger
+      </a>
+
+      <a ng-click="updateContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
+          <span class="icon-btn">
+              <i class="fa fa-pencil"></i>
+          </span>
+          &nbsp;
+          Modifier
+      </a>
+
+      <a ng-click="removeContent()" class="nav-item is-tab is-action" ng-disabled="article.user._id !== currentUser._id">
+          <span class="icon-btn">
+              <i class="fa fa-trash"></i>
+          </span>
+          &nbsp;Supprimer
+      </a>
+    </div>
+
   <div class="box bottom-50">
     <button class="delete pull-right" ui-sref="article.list"></button>
 

@@ -52,11 +52,14 @@ export default function ArticleFactory($http, $rootScope, AppConstants, Article)
       })
     },
 
-    getArticleCount() {
-      return $http.get(`/${BASE_URL}/count`)
-        .then((result) => {
-          return result.data
-        })
+    getArticleCount(filter) {
+      return $http.get(`/${BASE_URL}/count`, {
+        params: {
+          type: filter,
+        },
+      }).then((result) => {
+        return result.data
+      })
     },
 
     getArticle(articleId) {

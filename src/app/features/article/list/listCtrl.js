@@ -1,4 +1,5 @@
-export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, articles, users, filter, count, page) {
+export default function ArticleListCtrl($rootScope, $scope, AppConstants, ArticleFactory,
+    articles, users, filter, count, page) {
   "ngInject"
 
     /**
@@ -10,10 +11,10 @@ export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, arti
     /**
     Pagination
     **/
-  $scope.maxSize = 5
+  $scope.maxSize = 4
   $scope.totalItems = count
-  $scope.currentPage = page
-  $scope.itemPerPage = 20
+  $scope.currentPage = (page + 1)
+  $scope.itemPerPage = AppConstants.aticlePerPage
 
   $rootScope.$broadcast("articleFilterChange")
 
@@ -21,7 +22,7 @@ export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, arti
     ArticleFactory.findArticles($scope.filter, $scope.currentPage - 1)
       .then((articles) => {
         $scope.articles = articles
-        return ArticleFactory.getArticleCount()
+        return ArticleFactory.getArticleCount($scope.filter)
       })
       .then((count) => {
         $scope.totalItems = count

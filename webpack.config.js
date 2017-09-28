@@ -41,6 +41,18 @@ const config = {
         target: "http://localhost:3000",
         secure: false,
       },
+      "/socket.io": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+      "/upload": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+      "/download": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
     },
   },
   output: {

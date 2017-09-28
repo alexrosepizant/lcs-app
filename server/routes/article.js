@@ -23,7 +23,7 @@ module.exports = (app) => {
    * Count articles
    */
   app.get("/article/count", (req, res) => {
-    articles.count()
+    articles.count(req.query)
       .then((count) => {
         res.jsonp(count)
       }).catch((err) => {
