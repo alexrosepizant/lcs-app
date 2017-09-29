@@ -52,18 +52,6 @@
     </h2>
   </section>
 
-  <section class="margin-top-10">
-    <span ng-repeat="category in article.categories track by $index" title="{{ category }}" class="tag articleTag">
-      {{ category }}
-    </span>
-  </section>
-
-  <section class="margin-top-10" ng-if="article.description">
-    <p class="three-line-ellipsis">
-      {{article.description}}
-    </p>
-  </section>
-
   <section class="margin-top-20 bottom-20">
     <div class="media-content">
       <div class="content">

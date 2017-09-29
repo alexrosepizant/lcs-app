@@ -10,7 +10,7 @@ const userFields = "_id username avatar"
  */
 exports.all = (params) => {
   const query = (params.userId) ? {user: params.userId} : {}
-  const limit = (params.limit) ? parseInt(params.limit) : 25
+  const limit = (params.limit) ? parseInt(params.limit) : 10
 
   return Notification.find(query)
     .sort("-created")
@@ -23,4 +23,12 @@ exports.all = (params) => {
  */
 exports.create = (notification) => {
   return new Notification(notification).save()
+}
+
+exports.destroy = (contentId) => {
+  return Notification.find({
+    contentId: contentId,
+  }).then((notifications) => {
+    return Promise.all(notifications.map((notification) => notification.remove()))
+  })
 }

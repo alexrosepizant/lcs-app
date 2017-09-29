@@ -3381,6 +3381,8 @@ a.box:active {
   color: #4a4a4a;
   display: block;
   padding: 5px 10px;
+  padding: 5px 0;
+  font-size: small;
 }
 
 .menu-list a:hover {
@@ -3399,7 +3401,7 @@ a.box:active {
 
 .menu-label {
   color: #7a7a7a;
-  font-size: 11px;
+  font-size: 18px;
   letter-spacing: 1px;
   margin-bottom: 5px;
   text-transform: uppercase;

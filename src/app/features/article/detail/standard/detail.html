@@ -23,9 +23,6 @@
 
     <section>
       <a>
-        <div class="margin-top-10">
-          <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
-        </div>
         <div class="blog-title-detail">
           {{article.title}}
         </div>
@@ -34,9 +31,6 @@
         <i class="fa fa-clock-o font-small"></i>
         {{ article.getDateFrom() }}
       </h2>
-      <div class="blogUserDetail center margin-top-10">
-        <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
-      </div>
     </section>
 
     <section class="media margin-top-20">
@@ -52,6 +46,11 @@
         </div>
       </div>
     </section>
+
+    <div class="blogUserDetail">
+      <img ng-src="{{ article.user.getAvatar(40, 40) }}" title="{{ article.user.username }}">
+      <span class="author">ajouté par <strong>{{article.user.username}}</strong></span>
+    </div>
 
     <section class="blog-user-section margin-top-20">
       <lcs-comment object="article" class="lcs-comment"></lcs-comment>

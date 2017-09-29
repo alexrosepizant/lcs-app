@@ -23,7 +23,7 @@ module.exports = (app) => {
    * Count articles
    */
   app.get("/article/count", (req, res) => {
-    articles.count()
+    articles.count(req.query)
       .then((count) => {
         res.jsonp(count)
       }).catch((err) => {
@@ -96,12 +96,15 @@ module.exports = (app) => {
 
   // DELETE: DELETE articles/articleId
   app.delete("/article/:articleId", authorization.requiresLogin, (req, res) => {
+    const contentId = req.article._id
     articles.destroy(req.article)
       .then((article, err) => {
         if (err) {
           res.status(400).json(err)
         } else {
-          res.jsonp(article)
+          notifications.destroy(contentId)
+          .then(() => res.jsonp(article))
+          .catch(() => res.jsonp(article))
         }
       })
   })

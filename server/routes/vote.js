@@ -87,9 +87,12 @@ module.exports = (app) => {
 
   // DELETE: DELETE vote/voteId
   app.delete("/vote/:voteId", (req, res) => {
+    const contentId = req.vote._id
     votes.destroy(req.vote)
       .then((vote) => {
-        res.jsonp(vote)
+        notifications.destroy(contentId)
+            .then(() => res.jsonp(vote))
+            .catch(() => res.jsonp(vote))
       }).catch((err) => {
         res.status(400).json(err)
       })

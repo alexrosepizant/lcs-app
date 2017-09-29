@@ -123,11 +123,13 @@
                 </span>
                 <span class="tag" ng-if="currentEvent.location.adress">
                   <strong>Lieu</strong>
-                  {{currentEvent.location.adress}}
+                  <a class="link" ng-href="http://maps.google.com/?q={{currentEvent.location.adress}}" target="_blank">
+                      {{currentEvent.location.adress}}
+                  </a>
                 </span>
                 <span class="tag" ng-if="currentEvent.link">
                   <strong>Lien</strong>
-                  <a ng-href="{{currentEvent.link}}" target="_blank">
+                  <a class="link" ng-href="{{currentEvent.link}}" target="_blank">
                       {{currentEvent.link}}
                   </a>
                 </span>
