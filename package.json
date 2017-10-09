@@ -102,6 +102,7 @@
     "postcss-loader": "^1.1.0",
     "postcss-url": "^5.1.2",
     "rimraf": "~2.5.2",
+    "stringify": "^5.1.0",
     "style-loader": "^0.12.4",
     "stylelint": "^7.5.0",
     "stylelint-config-standard": "^14.0.0",
