@@ -6,8 +6,8 @@
           <span class="icon-item-type">
             <i class="fa" ng-class="content.getIcon()"></i>
           </span>
-          {{content.getDateFrom()}}, <strong>{{content.user.username}} {{content.getFormattedType()}}
-          {{content.title || 'un commentaire'}}</strong>
+          {{content.getDateFrom()}}, <span class="smallUsername">{{content.user.username}}</span>{{content.getFormattedType()}}
+          <strong>{{content.title || 'un commentaire'}}</strong>
         </p>
       </a>
     </li>

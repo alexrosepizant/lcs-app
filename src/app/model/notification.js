@@ -62,7 +62,7 @@ export default function Notification($state, User) {
       },
 
       getDateFrom() {
-        return moment(this.created).fromNow()
+        return moment(this.created).format("Do MMM HH[h]mm")
       },
     }, data, {
       user: new User(data.user),

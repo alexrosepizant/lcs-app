@@ -45,11 +45,13 @@
     </h1>
     <lcs-category article="article"></lcs-category>
     <form name="demo" class="medium-editor-content">
-      <div class="button fa fa-picture-o meditor-add" ngf-select='upload(files)'
+      <div class="button meditor-add"
+           ngf-select='upload(files)'
            ng-model='file'
-           ngf-multiple='false'
-           accept='image/*,'>
+           ngf-multiple='false'>
+           <i class="fa fa-file-o"></i>
       </div>
+      
       <div id="mediumEditor"
       name="content"
       ng-model="article.content"

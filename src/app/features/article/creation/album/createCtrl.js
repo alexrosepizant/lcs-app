@@ -11,25 +11,27 @@ export default function AlbumCreationCtrl($rootScope, $scope, Upload, ArticleFac
   Upload config
   *** ***/
   $scope.upload = (files) => {
+    const existingLength = $scope.fileUploaded.length
     if (files && files.length) {
       for (let i = 0; i < files.length; i++) {
+        $scope.fileUploaded[existingLength + i] = files[i]
         Upload.upload({
           url: "/upload/photo",
           data: {
-            file: files[i],
+            file: $scope.fileUploaded[existingLength + i],
           },
         }).then((resp) => {
-          files[i].state = "success"
+          $scope.fileUploaded[existingLength + i].state = "success"
           $scope.article.photoList.push({
             filepath: resp.data.location,
             name: resp.data.name,
             id: "",
           })
         }, () => {
-          files[i].state = "error"
+          $scope.fileUploaded[existingLength + i].state = "error"
         }, (evt) => {
-          files[i].state = "progress"
-          files[i].progress = parseInt(100.0 * evt.loaded / evt.total)
+          $scope.fileUploaded[existingLength + i].state = "progress"
+          $scope.fileUploaded[existingLength + i].progress = parseInt(100.0 * evt.loaded / evt.total)
         })
       }
     }

@@ -1,4 +1,5 @@
-export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, articles, users, filter, count, page) {
+export default function ArticleListCtrl($rootScope, $scope, ArticleFactory,
+    articles, users, filter, count, page, AppConstants) {
   "ngInject"
 
     /**
@@ -12,22 +13,30 @@ export default function ArticleListCtrl($rootScope, $scope, ArticleFactory, arti
     **/
   $scope.maxSize = 5
   $scope.totalItems = count
-  $scope.currentPage = page
-  $scope.itemPerPage = 20
+  $scope.currentPage = (page + 1)
+  $scope.itemPerPage = AppConstants.aticlePerPage
 
-  $rootScope.$broadcast("articleFilterChange")
-
-  $scope.pageChanged = () => {
-    ArticleFactory.findArticles($scope.filter, $scope.currentPage - 1)
-      .then((articles) => $scope.articles = articles)
+  $scope.pageChanged = (currentPage) => {
+    ArticleFactory.findArticles($scope.filter, currentPage - 1)
+      .then((articles) => {
+        $scope.articles = articles
+        return ArticleFactory.getArticleCount($scope.filter)
+      }).then((count) => {
+        $scope.totalItems = count
+      })
   }
 
     /**
     Event listener on list update for article creation
     **/
   $scope.$on("updateArticleList", () => {
-    ArticleFactory.findArticles($scope.filter)
-      .then((articles) => $scope.articles = articles)
+    ArticleFactory.findArticles($scope.filter, 0)
+        .then((articles) => {
+          $scope.articles = articles
+          return ArticleFactory.getArticleCount($scope.filter)
+        }).then((count) => {
+          $scope.totalItems = count
+        })
   })
 
   $scope.labnolThumb = (id) => {

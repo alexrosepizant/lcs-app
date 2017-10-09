@@ -79,7 +79,7 @@ exports.handlePhotoUpload = (req, res) => {
   const params = req.files
 
   if (isInvalidImage(params.file)) {
-    return uploadFailure(res, "Wrong file type")
+    return this.handleVideoUpload(params.file, res)
   }
 
   const oldImage = params.file || params.image
@@ -107,11 +107,12 @@ exports.handlePhotoUpload = (req, res) => {
     })
 }
 
-exports.handleVideoUpload = (req, res) => {
+exports.handleVideoUpload = (file, res) => {
+  this.rename(file.path, config.root + "/server/" + config.userImgDirectory + file.path.split("/").pop())
   res.jsonp({
     err: null,
-    location: config.uploadDirectory + req.files.file.path.split("/").pop(),
-    mimeType: req.files.file.mimetype,
+    location: config.uploadDirectory + file.path.split("/").pop(),
+    mimeType: file.mimetype,
   })
 }
 

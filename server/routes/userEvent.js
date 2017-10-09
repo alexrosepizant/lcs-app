@@ -85,9 +85,12 @@ module.exports = (app) => {
 
   // DELETE: DELETE userEvent/userEventId
   app.delete("/userEvent/:userEventId", (req, res) => {
+    const contentId = req.userEvent._id
     userEvents.destroy(req.userEvent)
       .then((userEvent) => {
-        res.jsonp(userEvent)
+        notifications.destroy(contentId)
+          .then(() => res.jsonp(userEvent))
+          .catch(() => res.jsonp(userEvent))
       }).catch((err) => {
         res.status(400).json(err)
       })

@@ -45,6 +45,7 @@ module.exports = (app, passport) => {
   // Assets rendering: app/users_ressources/favicon
   app.use(serveStatic(__dirname + config.appDirectory))
   app.use(serveStatic(__dirname + config.publicDirectory))
+  app.use(serveStatic(config.publicDirectory + config.imgDirectory))
   app.use(config.publicDirectory + config.imgDirectory,
     qt.static(__dirname + config.publicDirectory + config.imgDirectory))
   app.use(favicon(__dirname + config.appDirectory + config.faviconPath))

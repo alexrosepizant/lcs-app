@@ -2,9 +2,9 @@
 
   <section>
     <a ui-sref="article.standardView({ articleId: article._id })">
-      <div class="margin-top-10">
-        <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
-      </div>
+        <div class="margin-top-20" ng-if="article.hasPreview">
+       <img alt="{{ article.title }}" ng-src="{{ article.getPreview() + '?dim=800x250' }}"/>
+       </div>
       <div class="blog-title ellipsis">
         {{article.title}}
       </div>
@@ -24,8 +24,11 @@
   <section class="media margin-top-10 articleContent">
     <div class="media-content">
       <div class="content">
-        <div class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky:'_blank'">
+        <div ng-if="!article.hasInternalFile" class="three-line-ellipsis" ng-bind-html="article.getFormattedContent() | linky:'_blank'">
           {{ article.getFormattedContent() }}
+        </div>
+
+        <div ng-if="article.hasInternalFile" class="three-line-ellipsis" ng-bind-html="article.content">
         </div>
       </div>
     </div>

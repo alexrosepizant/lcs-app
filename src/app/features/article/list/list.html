@@ -1,10 +1,4 @@
 <section class="margin-top-20">
-  <div class="container margin-top-20" ng-if="articles.length === 0">
-    <div class="notification">
-      Il n'y a aucun article.
-    </div>
-  </div>
-
   <section style="position: absolute; right: 0;">
     <a class="button is-primary pull-right" ui-sref="article.create">
       <span class="icon is-small">
@@ -30,31 +24,39 @@
     </ul>
   </div>
 
-  <section class="columns " ng-repeat="article in articles" ng-if="articles.length > 0">
-    <div class="blogUser column is-1 is-block-tablet">
-      <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+  <div class="container margin-top-20" ng-if="articles.length === 0">
+    <div class="notification">
+      Aucun article correspond à la recherche
     </div>
-    <div  class="column is-11">
-      <lcs-blog-post type="{{ article.type || 'standard' }}" class="box blog">
-      </lcs-blog-post>
-    </div>
-  </section>
+  </div>
 
-  <div class="margin-top-20">
-    <uib-pagination
-    total-items="totalItems"
-    num-pages="numPages"
-    ng-model="currentPage"
-    ng-change="pageChanged()"
-    max-size="maxSize"
-    class="pagination-sm margin-top-10 bottom-10"
-    boundary-links="true"
-    rotate="false"
-    items-per-page="itemPerPage"
-    previous-text="&lsaquo;"
-    next-text="&rsaquo;"
-    first-text="&laquo;"
-    last-text="&raquo;">
-  </uib-pagination>
+  <div ng-if="articles.length">
+      <section class="columns" ng-repeat="article in articles" ng-if="articles.length > 0">
+        <div class="blogUser column is-1 is-block-tablet">
+          <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+        </div>
+        <div  class="column is-11">
+          <lcs-blog-post type="{{ article.type || 'standard' }}" class="box blog">
+          </lcs-blog-post>
+        </div>
+      </section>
+
+      <div class="margin-top-20">
+        <uib-pagination
+        total-items="totalItems"
+        num-pages="numPages"
+        ng-model="currentPage"
+        ng-change="pageChanged(currentPage)"
+        max-size="maxSize"
+        items-per-page="itemPerPage"
+        class="pagination-sm margin-top-10 bottom-10"
+        boundary-links="true"
+        rotate="false"
+        previous-text="&lsaquo;"
+        next-text="&rsaquo;"
+        first-text="&laquo;"
+        last-text="&raquo;">
+      </uib-pagination>
+  </div>
 </div>
 </section>

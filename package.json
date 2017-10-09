@@ -7,7 +7,7 @@
     "clean": "rimraf -- dist & npm prune clean",
     "start": "webpack-dev-server --hot --port 3001 & nodemon -q server/server.js",
     "build:prod": "npm install && NODE_ENV=production webpack-dashboard -- webpack -p --progress --config webpack.config.js",
-    "server:prod": "NODE_ENV=production forever start server/server.js",
+    "server:prod": "NODE_ENV=production forever --uid lcsapp start server/server.js",
     "test": "karma start karma.conf.js --single-run; exit 0"
   },
   "keywords": [

@@ -12,9 +12,9 @@ export default function Content(User) {
       getFormattedType() {
         switch (this.type) {
         case "comment":
-          return " a laissé "
+          return ", "
         default:
-          return " a ajouté "
+          return ", "
         }
       },
 
@@ -57,7 +57,7 @@ export default function Content(User) {
       },
 
       getDateFrom() {
-        return moment(this.created).fromNow()
+        return moment(this.created).format("MMM Do YY")
       },
     }, data, {
       user: new User(data.user),

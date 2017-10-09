@@ -22,17 +22,18 @@ exports.article = (id) => {
 }
 
 /**
- * Count articles
- */
-exports.count = () => {
-  return Article.count({})
-  .then((count, err) => {
-    if (err) {
-      return Promise.reject(err)
-    } else {
-      return count
-    }
-  })
+* Count articles
+*/
+exports.count = (params) => {
+  const query = (params.type && params.type !== "all") ? {type: params.type} : {}
+  return Article.count(query)
+    .then((count, err) => {
+      if (err) {
+        return Promise.reject(err)
+      } else {
+        return count
+      }
+    })
 }
 
 /**
@@ -49,8 +50,10 @@ exports.all = (params) => {
     query.categories = params.categories
   }
 
-  if (params.search) {
-    query.word = new RegExp(params.search, "i")
+  if (params.word) {
+    query.$text = {
+      "$search": params.word,
+    }
   }
 
   const limit = (params.perPage) ? parseInt(params.perPage) : (params.limit) ? parseInt(params.limit) : 25
@@ -77,18 +80,18 @@ exports.create = (articleData) => {
   if (article.type === "video" && !article.isEmbed) {
     const oldPath = path.resolve(config.root + "/server" + config.publicDirectory + article.url)
     const newPath = path.resolve(config.root + "/server" + config.publicDirectory
-    + config.userVideoDirectory + article.url.split("/").pop())
+        + config.userVideoDirectory + article.url.split("/").pop())
     return Files.rename(oldPath, newPath)
-      .then(() => {
-        article.url = config.userVideoDirectory + article.url.split("/").pop()
-        return article.save()
-      })
-      .catch((err) => {
-        return Promise.reject(err)
-      })
+        .then(() => {
+          article.url = config.userVideoDirectory + article.url.split("/").pop()
+          return article.save()
+        })
+        .catch((err) => {
+          return Promise.reject(err)
+        })
   } else {
     return article.save()
-      .then((article) => this.article(article._id))
+        .then((article) => this.article(article._id))
   }
 }
 
