@@ -30,14 +30,9 @@
     <button class="delete pull-right" ui-sref="article.list"></button>
 
     <section>
-      <a>
-        <div class="margin-top-10">
-          <img class="margin-top-10" ng-if="article.image !== null" alt="{{ article.title }}" ng-src="{{ article.image + '?dim=800x250' }}"/>
-        </div>
         <div class="blog-title-detail">
-          {{article.title}}
+          {{article.title}} ({{article.photoList.length}} photos)
         </div>
-      </a>
       <h2 class="blog-subtitle-detail margin-top-20">
         <i class="fa fa-clock-o font-small"></i> {{ article.getDateFrom() }}
       </h2>
@@ -60,6 +55,10 @@
         </div>
       </div>
     </section>
+
+    <div class="content blogContent margin-top-20">
+      <div ng-bind-html="article.description"></div>
+    </div>
 
     <div class="blogUserDetail">
       <img ng-src="{{ article.user.getAvatar(40, 40) }}" title="{{ article.user.username }}">

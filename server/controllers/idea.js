@@ -18,6 +18,7 @@ exports.idea = (ideaId) => {
  */
 exports.all = (params) => {
   const query = (params.userId) ? {user: params.userId} : {}
+  query.status = {$ne: 3}
 
   return Idea.find(query)
     .sort("startsAt")
