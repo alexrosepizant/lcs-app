@@ -2933,7 +2933,7 @@ a.box:active {
   color: #4a4a4a;
   max-width: 100%;
   position: relative;
-  width: 300px;
+  width: 350px;
 }
 
 .card .media:not(:last-child) {

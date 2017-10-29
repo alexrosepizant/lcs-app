@@ -13,13 +13,19 @@
   <div class="tabs is-medium is-boxed bottom-20">
     <ul>
       <li ng-class="{'is-active': filter === 'all'}">
-        <a ui-sref="article.list({ filter: 'all' })">Tous</a>
+        <a ui-sref="article.list({ filter: 'all' })">
+            Tous
+        </a>
       </li>
       <li ng-class="{'is-active': filter === 'video'}">
-        <a ui-sref="article.list({ filter: 'video' })">Vidéos</a>
+        <a ui-sref="article.list({ filter: 'video' })">
+            Vidéos
+        </a>
       </li>
       <li ng-class="{'is-active': filter === 'album'}">
-        <a ui-sref="article.list({ filter: 'album' })">Photos</a>
+        <a ui-sref="article.list({ filter: 'album' })">
+            Photos
+        </a>
       </li>
     </ul>
   </div>
@@ -33,10 +39,15 @@
   <div ng-if="articles.length">
       <section class="columns" ng-repeat="article in articles" ng-if="articles.length > 0">
         <div class="blogUser column is-1 is-block-tablet">
-          <img ng-src="{{ article.user.getAvatar(80, 80) }}" title="{{ article.user.username }}">
+          <user-thumbnail
+          user="article.user"
+          dimension="80">
+          </user-thumbnail>
         </div>
         <div  class="column is-11">
-          <lcs-blog-post type="{{ article.type || 'standard' }}" class="box blog">
+          <lcs-blog-post
+          type="{{ article.type || 'standard' }}"
+          class="box blog">
           </lcs-blog-post>
         </div>
       </section>
