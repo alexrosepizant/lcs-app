@@ -2,12 +2,12 @@ export default {
   template: require("./card.html"),
   controllerAs: "$ctrl",
   bindings: {
-    userId: "@",
+    userId: "<",
   },
   controller: ($rootScope, $scope, UserFactory) => {
     "ngInject"
 
-    UserFactory.getUser("564ae6f3d4ff93480c7b7bae")
+    UserFactory.getUser($scope.$ctrl.userId)
         .then((user) => {
           $scope.user = user
         })
