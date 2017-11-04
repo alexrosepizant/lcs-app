@@ -14,9 +14,8 @@ export default function UserConfig($stateProvider) {
         userEvents: ($rootScope, AgendaFactory) => {
           return AgendaFactory.findUserEventsByUser($rootScope.currentUser._id)
         },
-        user: ($rootScope, UserFactory, User) => {
+        user: ($rootScope, UserFactory) => {
           return UserFactory.getUser($rootScope.currentUser._id)
-            .then((response) => new User(response.data))
         },
       },
     })

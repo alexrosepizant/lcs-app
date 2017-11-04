@@ -37,8 +37,8 @@ export default function UserFactory($http, $rootScope, $cookieStore, User) {
 
     getUser(userId) {
       return $http.get(`/${BASE_URL}/${userId}`)
-        .then((user) => {
-          return new User(user)
+        .then((response) => {
+          return new User(response.data)
         })
     },
 

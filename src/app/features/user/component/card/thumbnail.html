@@ -1,0 +1,13 @@
+<div
+angular-popover
+direction="bottom"
+template-url="app/features/user/component/card/cardPopover.html"
+user-id="{{ $ctrl.user._id }}"
+mode="mouseover">
+
+  <a class="ng-popover-trigger">
+      <img
+      ng-src="{{ $ctrl.user.getAvatar($ctrl.dimension, $ctrl.dimension) }}"
+      title="{{ $ctrl.user.username }}"/>
+  </a>
+</div>

@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-content" style="margin-top: 0;">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <img ng-src="{{ user.getAvatar(80,80) }}" alt="Placeholder image">
+        </figure>
+      </div>
+      <div class="media-content ellipsis">
+        <p class="title is-4">
+            {{ user.username }}
+        </p>
+        <p class="subtitle is-6" style="margin-top: 0; line-height: inherit;">
+            <b>{{ user.email }}</b>
+        </p>
+      </div>
+    </div>
+
+    <div class="content">
+        <span>
+            {{ user.presentation }}
+        </span>
+        <br>
+        <div style="margin-top: 10px;">
+            Dernière connexion <strong>{{ user.getLastConnexion() | date: "short" }}</strong>
+        </div>
+    </div>
+  </div>
+</div>

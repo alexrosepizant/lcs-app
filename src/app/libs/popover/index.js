@@ -13,6 +13,8 @@ angular.module("angular-popover", []).directive("angularPopover", ($window) => {
     "<ng-transclude></ng-transclude>",
     link(scope, element, attrs) {
 
+      scope.userId = attrs.userId
+
       const elementPositionProperty = $window.getComputedStyle(element[0]).position
       if (elementPositionProperty === "static") {
         element[0].style.position = "relative"

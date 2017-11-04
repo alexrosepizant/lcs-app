@@ -147,6 +147,6 @@ ArticleSchema.statics.load = function(id, cb) {
   }).exec(cb)
 }
 
-ArticleSchema.index({title: "text", "content": "text", "description": "text"})
+ArticleSchema.index({title: "text"})
 
 mongoose.model("Article", ArticleSchema)
