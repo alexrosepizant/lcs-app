@@ -1,8 +1,17 @@
 <nav class="nav has-shadow">
   <div class="container">
     <div class="nav-left">
-      <a class="nav-item is-tab" ui-sref-active="{'is-active': 'games.*.*'}" ui-sref="games.euro.team">
-        Paris de l'euro
+      <a
+      class="nav-item is-tab"
+      ng-class="{'is-active': competitionId === 'wc2018'}"
+      ng-click="updateCompetition('wc2018')">
+        Coupe du monde 2018
+      </a>
+      <a
+      class="nav-item is-tab"
+      ng-class="{'is-active': competitionId === 'euro2016'}"
+      ng-click="updateCompetition('euro2016')">
+        Euro 2016
       </a>
     </div>
   </div>

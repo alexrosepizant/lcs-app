@@ -63,7 +63,7 @@ export default function AboutConfig($stateProvider) {
     })
     .state("games.euro.bets", {
       parent: "games.euro.match",
-      url: "/bets?matchId",
+      url: "/bets",
       onEnter: ($state, $stateParams, $uibModal) => {
         $uibModal.open({
           template : require("./euro/match/detail/detail.html"),

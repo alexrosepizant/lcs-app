@@ -1,9 +1,12 @@
-export default function SideMenuCtrl($rootScope, $scope, $location, $uibModal) {
+export default function SideMenuCtrl($rootScope, $scope, $location, $uibModal, $stateParams) {
   "ngInject"
 
-  $scope.currentUser = $rootScope.currentUser
+  this.$onInit = () => {
+    this.currentUser = $rootScope.currentUser
+    this.competitionId = $stateParams.competitionId
+  }
 
-  $scope.showRules = () => {
+  this.showRules = () => {
     $uibModal.open({
       template : require("../rules/rules.html"),
       controller: "EuroRulesCtrl",

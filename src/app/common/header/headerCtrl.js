@@ -20,7 +20,7 @@ export default function HeaderCtrl($rootScope, $scope, $state, AuthFactory, Arti
     routePath: "vote",
   },
   {
-    name: "Les jeux",
+    name: "Les paris",
     link: "games.euro.team",
     routePath: "games.*.*",
   },

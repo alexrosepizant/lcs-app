@@ -22,6 +22,8 @@ exports.all = (params) => {
     },
   } : {}
 
+  query.competitionId = params.competitionId
+
   return Match.find(query)
     .sort("startsAt")
     .populate("bets.user", userFields)
@@ -137,10 +139,11 @@ const updateUserBet = (match) => {
 /*
   Calcul and store scores for each ended match
 */
-const updateScores = () => {
+const updateScores = (competitionId) => {
   let promises = []
 
   return Match.find({
+    competitionId: competitionId,
     startsAt: {
       "$lt": new Date(),
     },
@@ -187,8 +190,8 @@ const getNameOfCountryCode = (teams, code) => {
 /*
   Create a userEvent with match infos
 */
-const createEventFromMatch = (EuroData, match, _matchObject) => {
-  const teams = EuroData.teams
+const createEventFromMatch = (CompetitionData, match, _matchObject) => {
+  const teams = CompetitionData.teams
   const userEvent = new UserEvent({
     title: getNameOfCountryCode(teams, match.home) + " - " + getNameOfCountryCode(teams, match.away),
     content: "Match de l'euro 2016 du groupe " + match.type,
@@ -204,10 +207,10 @@ const createEventFromMatch = (EuroData, match, _matchObject) => {
 /*
   Data load
 */
-const loadMatchsFromJson = (EuroData) => {
+const loadMatchsFromJson = (CompetitionData) => {
   const promises = []
 
-  EuroData.matchs
+  CompetitionData.matchs
     .map((match) => new Match(match))
     .forEach((match) => {
       promises.push(match.save()
@@ -216,7 +219,7 @@ const loadMatchsFromJson = (EuroData) => {
             console.warn("Error when adding match: " + err)
           }
           console.warn("Successfuly add match")
-          return createEventFromMatch(EuroData, match, _matchObject)
+          return createEventFromMatch(CompetitionData, match, _matchObject)
         }))
     })
 
@@ -270,7 +273,7 @@ const reInitEuroPoints = () => {
 exports.update = (match) => {
   return match.save()
     .then((match) => {
-      updateScores()
+      updateScores(match.competitionId)
       return match
     })
     .then((match) => this.match(match._id))

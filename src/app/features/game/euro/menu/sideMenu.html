@@ -4,42 +4,53 @@
   </p>
   <ul class="menu-list">
     <li>
-      <a ui-sref-active="{'is-active': 'games.euro.team'}" ui-sref="games.euro.team">
+      <a
+      ui-sref-active="{'is-active': 'games.euro.team'}"
+      ui-sref="games.euro.team({competitionId: $ctrl.competitionId})">
         Le vainqueur final
       </a>
     </li>
     <li>
-      <a ui-sref-active="{'is-active': 'games.euro.match'}" ui-sref="games.euro.match">
+      <a
+      ui-sref-active="{'is-active': 'games.euro.match'}"
+      ui-sref="games.euro.match({competitionId: $ctrl.competitionId})">
         Les matchs
       </a>
     </li>
   </ul>
+
   <p class="menu-label">
     Les joueurs
   </p>
   <ul class="menu-list">
     <li>
-      <a ui-sref-active="{'is-active': 'games.euro.rank'}" ui-sref="games.euro.rank">
+      <a
+      ui-sref-active="{'is-active': 'games.euro.rank'}"
+      ui-sref="games.euro.rank({competitionId: $ctrl.competitionId})">
         Le classement
       </a>
     </li>
   </ul>
-  <p class="menu-label" ng-if="currentUser.isEuroAdmin">
+
+  <p class="menu-label" ng-if="$ctrl.currentUser.isEuroAdmin">
     Administration
   </p>
   <ul class="menu-list">
     <li>
-      <a ui-sref-active="{'is-active': 'games.euro.score'}" ui-sref="games.euro.score">
+      <a
+      ui-sref-active="{'is-active': 'games.euro.score'}"
+      ui-sref="games.euro.score({competitionId: $ctrl.competitionId})">
         La rentrée des scores
       </a>
     </li>
   </ul>
+
   <p class="menu-label">
     Règlement
   </p>
   <ul class="menu-list">
     <li>
-      <a ng-click="showRules()">
+      <a ng-click="$ctrl.showRules()">
         Les règles
       </a>
     </li>

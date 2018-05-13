@@ -32,6 +32,9 @@ const MatchSchema = new Schema({
   scoreAway:{
     type: Number,
   },
+  competitionId: {
+    type: String,
+  },
   bets: [new Schema({
     created: {
       type: Date,
