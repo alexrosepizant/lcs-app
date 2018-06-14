@@ -57,7 +57,7 @@ const config = {
   },
   output: {
     path: buildPath,
-    filename: "script.js",
+    filename: "script2.js",
     publicPath: (isProduction) ? buildDirectory : "/",
   },
   module: {
