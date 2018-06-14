@@ -13,13 +13,13 @@
 
       <div class="columns center margin-top-10">
         <span class="column is-half matchTeam">
-          <img ng-src="/assets/euro/flags/{{ card.home }}.png"/>
+          <img ng-src="{{ card.getHomeFlag() }}"/>
           <p class="margin-top-10 ellipsis">{{ mother.MatchFactory.getTeamName(card.home) }}</p>
           <input ng-model="card.currentBet.homeScore" class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-disabled="!card.isBetAuthorize"/>
         </span>
 
         <span class="column is-half matchTeam">
-          <img ng-src="/assets/euro/flags/{{ card.away }}.png"/>
+          <img ng-src="{{ card.getAwayFlag() }}"/>
           <p class="margin-top-10 ellipsis">{{ mother.MatchFactory.getTeamName(card.away) }}</p>
           <input ng-model="card.currentBet.awayScore" class="margin-top-20 input center" type="number" min="0" placeholder="0" ng-disabled="!card.isBetAuthorize"/>
         </span>

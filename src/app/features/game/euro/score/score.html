@@ -22,9 +22,9 @@
           {{match.startsAt | amDateFormat:"DD MMM YYYY, HH:mm"}}
         </th>
         <th>
-          <img ng-src="/assets/euro/flags/{{ match.home }}.png" class="flagScore"/>
+          <img ng-src="{{ match.getHomeFlag() }}" class="flagScore"/>
           {{MatchFactory.getTeamName(match.home) }} -
-          <img ng-src="/assets/euro/flags/{{ match.away }}.png" class="flagScore"/>
+          <img ng-src="{{ match.getAwayFlag() }}" class="flagScore"/>
           {{MatchFactory.getTeamName(match.away) }}
         </th>
         <th>

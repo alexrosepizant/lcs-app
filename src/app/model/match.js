@@ -1,5 +1,9 @@
 import moment from "moment"
 
+import euroRessources from "../../assets/euro/euroRessources.json"
+
+const teams = euroRessources.teams
+
 export default function Match($rootScope, User, Comment, Bet) {
   "ngInject"
 
@@ -32,6 +36,18 @@ export default function Match($rootScope, User, Comment, Bet) {
           bet.awayScore = this.currentBet.awayScore
           bet.created = Date.now()
         }
+      },
+
+      getHomeFlag() {
+        return this.getTeamById(this.home).flag
+      },
+
+      getAwayFlag() {
+        return this.getTeamById(this.away).flag
+      },
+
+      getTeamById(id) {
+        return teams.find((country) => country.id.toString() === id.toString())
       },
     }, data,
       {

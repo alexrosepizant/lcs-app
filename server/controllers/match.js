@@ -181,7 +181,7 @@ const updateScores = () => {
   Utils: mapping betwenn country code and name
 */
 const getNameOfCountryCode = (teams, code) => {
-  return teams.find((team) => team.code === code).name
+  return teams.find((team) => team.id == code).name
 }
 
 /*
@@ -259,11 +259,18 @@ const resetMatchScores = () => {
   })
 }
 
+const removeAllMatchs = () => {
+  return Match.remove({}).then((affectedRows, err) => {
+    if (err) {
+      return Promise.reject(err)
+    }
+    console.warn("Count of updated matchs : ", affectedRows.n)
+  })
+}
+
 const reInitEuroPoints = () => {
   return resetUserEuroPoints()
-    .then(() => {
-      return resetMatchScores()
-    })
+    .then(() => resetMatchScores())
     .catch((err) => console.error(err))
 }
 
@@ -279,3 +286,4 @@ exports.update = (match) => {
 exports.updateScores = updateScores
 exports.loadMatchsFromJson = loadMatchsFromJson
 exports.reInitEuroPoints = reInitEuroPoints
+exports.removeAllMatchs = removeAllMatchs

@@ -52,7 +52,7 @@ export default function MatchFactory($http, Match) {
       if (!code) {
         return ""
       }
-      return this.teams.find((country) => country.code === code).name
+      return this.teams.find((country) => country.id.toString() === code.toString()).name
     },
 
     getFormattedType(code) {

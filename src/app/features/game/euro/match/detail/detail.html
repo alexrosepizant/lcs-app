@@ -19,13 +19,13 @@
 
           <div class="columns center margin-top-20">
             <span class="column is-half matchTeam">
-              <img ng-src="/assets/euro/flags/{{ match.home }}.png"/>
+              <img ng-src="{{ match.getHomeFlag() }}"/>
               <p class="margin-top-10">{{ MatchFactory.getTeamName(match.home) }}</p>
               <input ng-value="match.scoreHome" class="margin-top-10 input center" type="number" min="0" placeholder="0" disabled/>
             </span>
 
             <span class="column is-half matchTeam">
-              <img ng-src="/assets/euro/flags/{{ match.away }}.png"/>
+              <img ng-src="{{ match.getAwayFlag() }}"/>
               <p class="margin-top-10">{{ MatchFactory.getTeamName(match.away) }}</p>
               <input ng-model="match.scoreAway" class="margin-top-10 input center" type="number" min="0" placeholder="0" disabled/>
             </span>

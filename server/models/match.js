@@ -32,6 +32,10 @@ const MatchSchema = new Schema({
   scoreAway:{
     type: Number,
   },
+  flag: {
+    type: String,
+  },
+  channels: [],
   bets: [new Schema({
     created: {
       type: Date,
