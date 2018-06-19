@@ -105,7 +105,7 @@ const cleanMatch = (match) => {
   const bets = []
   const users = []
 
-  match.bets.reverse().forEach((bet) => {
+  match.bets.forEach((bet) => {
     if (!users.includes(bet.user._id)) {
       bets.push(match.bets.find((_bet) => _bet.user._id === bet.user._id))
       users.push(bet.user._id)
