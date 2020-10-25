@@ -2,7 +2,7 @@
 
 Lite social network to share articles, videos, and fun between friends. Contains a calendar to organise events, a "vote" feature and different small games...
 
-Build with angular 1.5 (component), ES6 and Webpack.
+Build with angular 1.5, ES6 and Webpack.
 
 ## Prerequisites
 * Node.js - Download and Install [Node.js](http://www.nodejs.org/download/).
